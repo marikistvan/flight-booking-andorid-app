@@ -1,13 +1,15 @@
 // Import common styles
 @import 'app-common';
 
-.app{
-    font-size: 14px;
+.app {
+  font-size: 14px;
 }
+
 .page {
   background-color: #bbd5f4;
   @extend .abel;
 }
+
 .blue-btn {
   background-color: #5a9eff;
   border-radius: 8px;
@@ -15,13 +17,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white; 
-  font-size: 16px; 
-  font-weight: bold; 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s, box-shadow 0.2s;
   width: 100%;
 }
+
 .fas {
   font-size: 24;
   color: white;
@@ -29,14 +32,27 @@
   text-align: right;
   margin-right: 16;
 }
-.action-bar{
+
+.action-bar {
   background-color: #2374ee;
   text-align: center;
 }
+
 .action-bar-title {
   color: white;
   font-size: 25;
   @extend .abel;
+}
+
+.input-field {
+  margin-top: 0;
+  padding: 5;
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.256);
+  placeholder-color: rgba(0, 0, 0, 0.296);
+  width: 100%;
+  font-size: 16;
+  height: 90px;
 }
 
 // Place any CSS rules you want to apply only on Android here

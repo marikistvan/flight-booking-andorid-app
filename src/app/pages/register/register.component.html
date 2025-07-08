@@ -8,8 +8,57 @@
 
 <GridLayout>
   <Frame>
-    <Page actionBarHidden="true">
-      
+    <Page actionBarHidden="true" class="page">
+      <GridLayout [formGroup]="registerFormGroup" class="register-search-form" columns="*,5px,*"
+        rows="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto">
+
+        <Label col="0" colSpan="3" row="0" text="E-mail" class="form-first-label"></Label>
+        <TextField col="0" colspan="3" row="1" class="input-field" formControlName="email" editable="true" hint="E-mail cím">
+        </TextField>
+
+        <Label col="0" row="2" text="Vezetéknév" class="form-label"></Label>
+        <TextField col="0" row="3" class="input-field" formControlName="lastName" editable="true" hint="Vezetéknév">
+        </TextField>
+
+        <Label col="2" row="2" text="Keresztnév" class="form-label"></Label>
+        <TextField col="2" row="3" class="input-field" formControlName="firstName" editable="true" hint="Keresztnév">
+        </TextField>
+
+        <Label col="0" row="4" text="Születési dátum" class="form-label"></Label>
+        <DatePickerField class="input-field" col="0" row="5" formControlName="bornDate"
+          [pickerDefaultDate]="minBornDate" [maxDate]="minBornDate" [hint]="minBornDate"></DatePickerField>
+
+        <Label col="2" row="4" text="Neme" class="form-label"></Label>
+        <TextField class="input-field" hint="Nő,Férfi,Egyéb..." col="2" row="5" editable="false" (tap)="selectSex()"
+          formControlName="sex">
+        </TextField>
+
+        <Label col="0" colSpan="3" row="6" text="Jelszó" class="form-label"></Label>
+        <TextField col="0" colspan="3" row="7" class="input-field" formControlName="password" editable="true"
+          hint="jelszó">
+        </TextField>
+
+        <Label col="0" colSpan="3" row="8" text="Jelszó mégegyszer" class="form-label"></Label>
+        <TextField col="0" colspan="3" row="9" class="input-field" formControlName="passwordAgain" editable="true"
+          hint="jelszó megerősítése">
+        </TextField>
+
+        <GridLayout col="0" colSpan="3" row="10" columns="auto, *" (tap)="submitRegister()" class="btn-submit-grid">
+          <Image col="0" src="~/assets/icons/enter.png" class="enter-icon"></Image>
+          <Label col="1" text="Regisztráció" class="btn-submit-label"></Label>
+        </GridLayout>
+
+        <GridLayout col="0" colSpan="3" row="11" columns="*,auto,*" class="or-separate-grid" rows="auto">
+          <StackLayout col="0" class="or-separte-line"></StackLayout>
+          <Label text="Vagy" col="1" class="or-separte-text"></Label>
+          <StackLayout col="2" class="or-separte-line"></StackLayout>
+        </GridLayout>
+
+        <StackLayout col="0" colSpan="3" row="12" orientation="horizontal" (tap)="loginWithGoogle()">
+          <Image src="~/assets/icons/google.png" class="btn-google-img" />
+          <Label text="Regisztráció a Googleval" class="btn-google-label"></Label>
+        </StackLayout>
+      </GridLayout>
     </Page>
   </Frame>
 </GridLayout>
