@@ -1,15 +1,102 @@
-.page {
+.login-form {
+  margin: 100 15 40 15;
+  border-radius: 30;
+  padding: 16;
+  background-color: white;
+  box-shadow: 4 1 rgba(0, 0, 0, 0.16);
   align-items: center;
-  flex-direction: column;
 }
-.form {
-  margin-left: 30;
-  margin-right: 30;
+
+.btn-google-label {
+  font-size: 23;
+  margin-left: 0;
+  text-align: center;
   align-items: center;
-  margin-top: 30;
+  font-weight: bold;
+  vertical-align: middle;
 }
+
+.btn-google-img {
+  width: 22;
+  height: 22;
+  margin-right: 5;
+  margin-left: 19;
+}
+
+.btn-submit-grid {
+  margin-top: 20;
+  background-color: #2374ee;
+  color: white;
+  border-radius: 20;
+  height: 45;
+}
+
+.enter-icon {
+  width: 30;
+  height: 30;
+  margin-left: 10;
+}
+
+.btn-submit-label {
+  margin: 10 0 10 45;
+  font-size: 20px;
+}
+
+.or-separate-grid {
+  height: 35;
+  margin: 7 0 7 0;
+}
+
+.or-separte-line {
+  height: 5;
+  background-color: black;
+  vertical-align: center;
+  margin-right: 8;
+  margin-left: 8;
+}
+
+.or-separte-text {
+  font-size: 22;
+  color: black;
+  text-align: center;
+  margin-bottom: 10;
+}
+
+.forgot-your-password {
+  font-size: 23;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  margin: 30 0 20 0;
+}
+
+.no-account {
+  font-size: 21;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  margin-left: 20;
+}
+
+.btn-register-label {
+  font-size: 21;
+  color: #2374ee;
+  font-weight: bold;
+  text-align: center;
+  margin: 10 0 10 5;
+}
+
+.centering {}
+
+
+
+
+
+
+
+
 .input {
-  background-color: #f0f8ff; 
+  background-color: #f0f8ff;
   border: 1px;
   border-radius: 8px;
   font-size: 16px;
@@ -18,14 +105,14 @@
   margin-bottom: 30px;
   width: 250;
 }
-.drop{
+
+.drop {
   margin-top: 30;
   margin-bottom: 30;
 }
 
-.spanText{
+.spanText {
   margin-bottom: 40;
   color: black;
   font-size: 15;
 }
-

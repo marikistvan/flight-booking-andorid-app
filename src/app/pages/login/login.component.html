@@ -8,49 +8,44 @@
 
 <GridLayout>
   <Frame>
-    <Page actionBarHidden="true">
-      <FlexboxLayout class="page">
-        <StackLayout class="form">>
-          <TextField class="input" hint="Email" [(ngModel)]="email" keyboardType="email" autocorrect="false"
-            autocapitalizationType="none"></TextField>
-          @if(isLoggingIn){
-          <StackLayout class="input-field">
-            <TextField class="input" hint="Password" [(ngModel)]="password" autocorrect="false"
-              autocapitalizationType="none" secure="true"></TextField>
-          </StackLayout>
-          }@else{
-          <StackLayout class="input-field">
-            <TextField class="input" hint="first name" [(ngModel)]="firstName" autocorrect="false"
-              autocapitalizationType="none"></TextField>
-            <TextField class="input" hint="last name" [(ngModel)]="lastName" autocorrect="false"
-              autocapitalizationType="none"></TextField>
+    <Page actionBarHidden="true" class="page">
+      <GridLayout [formGroup]="loginFormGroup" class="login-form" columns="*,5px,*"
+        rows="auto,auto,auto,auto,auto,auto,auto,auto,auto">
 
-            <DatePickerField hint="born" minDate="1920-01-08" (dateChange)="onDateChange($event)"
-              pickerDefaultDate="2019/05/15">
+        <Label col="0" colSpan="3" row="0" text="E-mail" class="form-first-label"></Label>
+        <TextField col="0" colspan="3" row="1" class="input-field" formControlName="email" editable="true"
+          hint="E-mail cím">
+        </TextField>
 
-              ></DatePickerField>
-            <DropDown #dd backroundColor="reds" class="drop" itemsTextAlignment="center" [items]="genreArray"
-              [(ngModel)]="selectedIndex" (selectedIndexChanged)="onchange($event)" row="0" colSpan="2">
-            </DropDown>
-            <TextField class="input" hint="Password" [(ngModel)]="password" autocorrect="false"
-              autocapitalizationType="none" secure="true"></TextField>
-            <TextField class="input" hint="Confirm Password" [(ngModel)]="confirmPassword" autocorrect="false"
-              autocapitalizationType="none" secure="true"></TextField>
-          </StackLayout>
-          }
-          <Button class="blue-btn" role="button" [text]="isLoggingIn ? 'Bejelentkezés' : 'Regisztráció'" (tap)="onLogin()"></Button>
-          @if(isLoggingIn){
-          <Label class="spanText" text="Elfejtetted a jelszavad?" (tap)="forgotPassword()"></Label>
-          }
+        <Label col="0" colSpan="3" row="2" text="Jelszó" class="form-label"></Label>
+        <TextField col="0" colspan="3" row="3" class="input-field" formControlName="password" editable="true"
+          hint="Jelszó">
+        </TextField>
+
+        <GridLayout col="0" colSpan="3" row="4" columns="auto, *" (tap)="submitLogin()" class="btn-submit-grid">
+          <Image col="0" src="~/assets/icons/enter.png" class="enter-icon"></Image>
+          <Label col="1" text="Bejelentkezés" class="btn-submit-label"></Label>
+        </GridLayout>
+
+        <GridLayout col="0" colSpan="3" row="5" columns="*,auto,*" class="or-separate-grid" rows="auto">
+          <StackLayout col="0" class="or-separte-line"></StackLayout>
+          <Label text="Vagy" col="1" class="or-separte-text"></Label>
+          <StackLayout col="2" class="or-separte-line"></StackLayout>
+        </GridLayout>
+
+        <StackLayout col="0" colSpan="3" row="6" orientation="horizontal" (tap)="loginWithGoogle()">
+          <Image src="~/assets/icons/google.png" class="btn-google-img" />
+          <Label text="Bejelentkezés a Googleval" class="btn-google-label"></Label>
         </StackLayout>
 
-        <Label (tap)="ControlisLoginIn()">
-          <FormattedString class="spanText-field">
-            <Span class="spanText" [text]="isLoggingIn ? 'Nincs még fiókod? ' : 'vissza a bejelentkezésre'"></Span>
-            <Span [text]="isLoggingIn ? 'Regisztráció' : ''" class="bold"></Span>
-          </FormattedString>
-        </Label>
-      </FlexboxLayout>
+        <Label col="0" colSpan="3" row="7" textWrap="true" class="forgot-your-password"
+          text="Elfelejtetted a jelszavad?"></Label>
+
+        <StackLayout col="0" colSpan="3" row="8" orientation="horizontal" (tap)="register()">
+          <Label class="no-account" text="Nincs még fiókod?"></Label>
+          <Label text="Regisztráció" class="btn-register-label"></Label>
+        </StackLayout>
+      </GridLayout>
     </Page>
   </Frame>
 </GridLayout>

@@ -9,6 +9,7 @@ import { Application } from '@nativescript/core'
 import { AppComponent } from "../../app.component"
 import { firebase } from "@nativescript/firebase-core";
 import { HomeComponent } from "../home/home.component";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: "ns-login",
@@ -17,6 +18,11 @@ import { HomeComponent } from "../home/home.component";
 })
 
 export class LoginComponent {
+    loginFormGroup = new FormGroup({
+      email: new FormControl<string | null>('', Validators.required),
+      password: new FormControl<string | null>('', Validators.required),
+    })
+
   public selectedIndex = 0;
   public genreArray: Array<string>;
   selectedDate: Date;
@@ -46,6 +52,23 @@ export class LoginComponent {
     this.genreArray.push("Egyéb");
 
   }
+
+
+
+
+loginWithGoogle(){}
+
+submitLogin(){}
+
+register(){
+  this.routerExtensions.navigate(['register']);
+}
+
+
+
+
+
+
   public onchange(args: SelectedIndexChangedEventData) {
     if (args.newIndex == 0) {
       this.isGengreOk = false;

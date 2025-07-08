@@ -9,7 +9,7 @@
 <GridLayout>
   <Frame>
     <Page actionBarHidden="true" class="page">
-      <GridLayout [formGroup]="registerFormGroup" class="register-search-form" columns="*,5px,*"
+      <GridLayout [formGroup]="registerFormGroup" class="register-form" columns="*,5px,*"
         rows="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto">
 
         <Label col="0" colSpan="3" row="0" text="E-mail" class="form-first-label"></Label>
@@ -35,12 +35,12 @@
 
         <Label col="0" colSpan="3" row="6" text="Jelszó" class="form-label"></Label>
         <TextField col="0" colspan="3" row="7" class="input-field" formControlName="password" editable="true"
-          hint="jelszó">
+          hint="Jelszó">
         </TextField>
 
         <Label col="0" colSpan="3" row="8" text="Jelszó mégegyszer" class="form-label"></Label>
         <TextField col="0" colspan="3" row="9" class="input-field" formControlName="passwordAgain" editable="true"
-          hint="jelszó megerősítése">
+          hint="Jelszó megerősítése">
         </TextField>
 
         <GridLayout col="0" colSpan="3" row="10" columns="auto, *" (tap)="submitRegister()" class="btn-submit-grid">
