@@ -1,0 +1,42 @@
+// Import common styles
+@import 'app-common';
+
+.app{
+    font-size: 14px;
+}
+.page {
+  background-color: #bbd5f4;
+  @extend .abel;
+}
+.blue-btn {
+  background-color: #5a9eff;
+  border-radius: 8px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white; 
+  font-size: 16px; 
+  font-weight: bold; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  transition: transform 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+.fas {
+  font-size: 24;
+  color: white;
+  vertical-align: center;
+  text-align: right;
+  margin-right: 16;
+}
+.action-bar{
+  background-color: #2374ee;
+  text-align: center;
+}
+.action-bar-title {
+  color: white;
+  font-size: 25;
+  @extend .abel;
+}
+
+// Place any CSS rules you want to apply only on Android here

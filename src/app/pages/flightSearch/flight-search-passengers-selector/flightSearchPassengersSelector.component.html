@@ -1,0 +1,27 @@
+<StackLayout class="page">
+  <GridLayout columns="auto, *" class="action-bar">
+    <Label text="Utasok kiválasztása" colspan="2" class="action-bar-title"></Label>
+    <Image src="~/assets/icons/right-arrow.png" (tap)="onCancel()" class="fas btn-back-rotate-black"></Image>
+  </GridLayout>
+  <StackLayout class="promo-title-container">
+    <Label textWrap="true" class="promo-title"
+      text="Adja meg, hogy&#10;hányan szeretnének utazni,&#10;többit intézzük mi."></Label>
+
+  </StackLayout>
+  <GridLayout [formGroup]="passengersFormGroup" class="flight-passengers-form" columns="*,50px,30px,50px"
+    rows="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto">
+    @for (category of passengerCategories; track category.id; let i = $index) {
+    <StackLayout col="0" [row]="i" class="fs-15">
+      <Label text="{{ category.ageCategory }}" class="ageCategory"></Label>
+      <Label text="{{ category.description }}" class="ageCategory-description"></Label>
+    </StackLayout>
+    <Button col="1" [row]="i" text="-" class="btn-sm" [isEnabled]="category.count > 0" (tap)="decrement(i)"></Button>
+    <Label col="2" [row]="i" [text]="category.count" class="passengers-counter"></Label>
+    <Button col="3" [row]="i" text="+" class="btn-sm" [isEnabled]="category.count < 8" (tap)="increment(i)"></Button>
+    }
+    @if(isPassengerNumberZero){
+      <Label colspan="4" row="8" text="1 fő kiválasztása kötelező" class="fs-15 text-danger"></Label>
+    }
+    <Button colspan="4" row="9" text="Alkalmaz" class="btn-primary" (tap)="submit()"></Button>
+  </GridLayout>
+</StackLayout>

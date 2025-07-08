@@ -1,0 +1,34 @@
+<ActionBar class="action-bar">
+  <NavigationButton visibility="hidden"></NavigationButton>
+  <GridLayout columns="50, *">
+    <Label class="action-bar-title" text="Basket" colSpan="2"></Label>
+    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+  </GridLayout>
+</ActionBar>
+
+<GridLayout class="main-container" tkExampleTitle tkToggleNavButton>
+  @if(basicFlightInformations.length!=0){
+  <RadListView [items]="basicFlightInformations">
+    <ng-template tkListItemTemplate let-item="item">
+      <StackLayout class="card">
+        <StackLayout class="info-container">
+          <Label [text]="'Indulás: ' + item.data_itineraries_segments_departure_at" class="info-label"></Label>
+          <Label [text]="'Érkezés: ' + item.data_itineraries_segments_arrival_at" class="info-label"></Label>
+          <Label [text]="'Indulási IATA kód: ' + item.data_itineraries_segments_departure_iataCode" class="info-label"></Label>
+          <Label [text]="'Érkezési IATA kód: ' + item.data_itineraries_segments_arrival_iataCode" class="info-label"></Label>
+          <Label [text]="'Teljes ár: ' + item.data_itineraries_price_total + ' USD'" class="info-label"></Label>
+          <Label [text]="'Időtartam: ' + item.data_itineraries_duration" class="info-label"></Label>
+        </StackLayout>
+        <GridLayout columns="auto, auto" class="button-container">
+          <Button text="Vásárlás" col="0" (tap)="Buy(item.data_id)" class="action-button"></Button>
+          <Button text="Törlés" col="1" (tap)="Delete(item.data_id)" class="action-button right"></Button>
+        </GridLayout>
+      </StackLayout>
+    </ng-template>
+  </RadListView>
+}
+<Label text="A kosár tartalma jelenleg üres." class="empty-cart-message" textWrap="true">
+  
+</Label>
+</GridLayout>
+

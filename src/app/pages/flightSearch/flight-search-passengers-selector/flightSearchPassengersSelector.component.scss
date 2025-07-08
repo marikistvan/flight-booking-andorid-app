@@ -1,0 +1,67 @@
+.action-bar {
+    background-color: #bbd5f4;
+    margin: 20px 0 0 20px;
+    padding: 0;
+    height: 100px;
+}
+
+.action-bar-title {
+    color: black;
+}
+
+.btn-back-rotate-black {
+    width: 20;
+    height: 20;
+    rotate: 180;
+}
+
+.promo-title-container {
+    padding: 15;
+}
+
+.promo-title {
+    font-size: 25px;
+    color: #222;
+    text-align: center;
+}
+
+.flight-passengers-form {
+    margin: 30px 30px 100px 30px;
+    border-radius: 70px;
+    padding: 16;
+    background-color: white;
+    box-shadow: 10px 5px rgba(0, 0, 0, 0.16);
+}
+
+.btn-sm {
+    font-size: 20px;
+    width: 40;
+    height: 40;
+    border-radius: 100;
+    color: black;
+    background-color: rgb(207, 202, 202);
+    margin-bottom: 50px;
+}
+
+.passengers-counter {
+    text-align: center;
+    font-size: 17px;
+    margin-bottom: 50px;
+}
+
+.fs-15 {
+    font-size: 15px;
+}
+
+.ageCategory-description {
+    color: rgba(0, 0, 0, 0.5);
+    margin-bottom: 50px;
+}
+
+.btn-primary {
+    background-color: #2374ee;
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+    width: 100%;
+}

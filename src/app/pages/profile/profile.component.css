@@ -1,0 +1,90 @@
+.action-bar{
+  background-color: #064789;
+}
+.action-bar-title {
+  color: white;
+  font-size: 20;
+  font-weight: bold;
+}
+.fas {
+  font-size: 24;
+  color: white;
+  vertical-align: center;
+  text-align: right;
+  margin-right: 16;
+}
+.--main-bg{
+  background-color: #ebf2fa;
+}
+.page {
+  margin-top: 30;
+  margin-left: 20;
+  background-color: #ffffff;
+  border: 1px ;
+  border-radius: 12px;
+  margin-right: 20;
+  margin-bottom:300;
+  align-items: center;
+}
+.blogText{
+  font-size: 20px;
+  color:#26302b;
+  font-style: italic;
+  text-decoration: underline;
+}
+.details-label{
+  font-weight: bold;
+  margin-left: 20px;
+}
+.blog-card {
+  background-color: #fff;
+  border-radius: 10;
+  margin: 4;
+}
+
+.title {
+  margin-bottom: 4;
+}
+
+.desc {
+  margin-top: 2;
+}
+.list-view{
+  margin-top: 700px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.details-background {
+  background-color: #ffffff;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu{
+  width: 100%;
+  background-color: rgb(240, 240, 240);
+  border-radius: 20px;
+}
+.updateTitle{
+  font-size: 16px;
+  background-color: rgb(226, 222, 216);
+  border-radius: 50px;
+}
+.longText{
+  font-size: 16px;
+  background-color: blanchedalmond;
+  border-radius: 50px;
+  margin: 30px;
+  background-color: rgb(226, 222, 216);
+
+}
+.actionButton{
+  background-color: #064789;
+  color: white;
+  border-radius: 8;
+  padding: 12 16;
+  font-weight: bold;
+  margin-top: 16;
+  margin-left: 8;
+  margin-right: 8;
+}

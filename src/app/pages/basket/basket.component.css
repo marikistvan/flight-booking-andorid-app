@@ -1,0 +1,47 @@
+.main-container {
+  padding: 16;
+  justify-content: center;
+  align-items: center;
+  background-color: #f7f9fc;
+}
+
+.card {
+  margin: 8;
+  padding: 16;
+  border-radius: 8;
+  background-color: #ffffff;
+}
+
+.info-container {
+  margin-bottom: 8;
+}
+
+.info-label {
+  font-size: 10;
+  color: #333333;
+  margin-bottom: 4;
+}
+
+.button-container {
+  margin-top: 2;
+  justify-content: space-between;
+}
+
+.action-button {
+  font-size: 10;
+  color: #ffffff;
+  background-color: #007aff;
+  border-radius: 4;
+  margin-left: 8;
+}
+.right{
+  margin-left: 60;
+}
+.empty-cart-message {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  line-break: auto;
+  font-size: 30px;
+  font-weight: bold;
+}

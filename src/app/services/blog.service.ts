@@ -1,0 +1,98 @@
+import { Injectable, OnInit } from "@angular/core";
+import { firebase } from "@nativescript/firebase-core";
+import { ObservableArray } from "@nativescript/core";
+import "@nativescript/firebase-auth";
+import "@nativescript/firebase-firestore";
+import { FieldValue } from "@nativescript/firebase-firestore";
+
+export interface Blog {
+  id?:string;
+  title: string;
+  content: string;
+  createdAt: Date;
+  author_id:string;
+}
+@Injectable({ providedIn: "root" })
+export class BlogService{
+  blogs=[];
+  user= firebase().auth().currentUser;
+  auth= firebase().auth();
+  
+  constructor() {}
+  
+  createBlog(blog: Blog) {
+    if (this.user) {
+      firebase().firestore().collection("blog").add({
+        title: blog.title,
+        content: blog.content,
+        created_at: FieldValue.serverTimestamp(),
+        author_id: this.user.uid,
+      });
+      console.log("blogBejegyzés fent van");
+    }else{
+      console.log("blogbejegyzés nem sikerült, mert nincs user bejelentkezve");
+    }
+
+  }
+  getBlogs(): Promise<Blog[]> {
+    return firebase()
+      .firestore()
+      .collection("blog")
+      .orderBy("created_at", "desc")
+      .get()
+      .then((querySnapshot) => {
+        const blogs: Blog[] = [];
+  
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          blogs.push({
+            id:doc.id,
+            title: data.title,
+            content: data.content,
+            createdAt: data.created_at?.toDate(),
+            author_id: data.author_id
+          });
+        });
+        return blogs;
+      })
+      .catch((error) => {
+        console.error("Hiba a blogok lekérdezésekor: ", error);
+        return [];
+      });
+  }
+  async getBlog(blogId:string):Promise<Blog>{
+    const blogDoc = await firebase().firestore().collection("blog").doc(blogId).get();
+    
+    if (blogDoc.exists) {
+      return blogDoc.data();
+
+    } else {
+      console.log('Blog not found');
+      return null;
+    }
+  }
+  async getUserBlogs(userid: string): Promise<Blog[]> {
+    this.blogs = await this.getBlogs();
+    return this.blogs.filter(blog => blog.author_id === userid);
+  }
+  
+  updateBlog(blogId: string, updatedBlog: Blog) {
+    if (this.user != null) {
+      firebase().firestore().collection("blog").doc(blogId).update({
+        title: updatedBlog.title,
+        content: updatedBlog.content,
+        updated_at: FieldValue.serverTimestamp(),
+      })
+      .then(() => {
+        console.log("Blogbejegyzés frissítve");
+      })
+      .catch((error) => {
+        console.error("Hiba a blog frissítése közben:", error);
+      });
+    } else {
+      console.log("Nem sikerült frissíteni, mert nincs bejelentkezett user.");
+    }
+  }
+  
+  
+}

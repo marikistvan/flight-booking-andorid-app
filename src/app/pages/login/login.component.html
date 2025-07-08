@@ -1,0 +1,56 @@
+<ActionBar class="action-bar">
+  <NavigationButton visibility="hidden"></NavigationButton>
+  <GridLayout columns="50, *">
+    <Label class="action-bar-title" [text]="isLoggingIn ? 'Bejelentkezés' : 'Regisztráció'" colSpan="2"></Label>
+    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+  </GridLayout>
+</ActionBar>
+
+<GridLayout>
+  <Frame>
+    <Page actionBarHidden="true">
+      <FlexboxLayout class="page">
+        <StackLayout class="form">>
+          <TextField class="input" hint="Email" [(ngModel)]="email" keyboardType="email" autocorrect="false"
+            autocapitalizationType="none"></TextField>
+          @if(isLoggingIn){
+          <StackLayout class="input-field">
+            <TextField class="input" hint="Password" [(ngModel)]="password" autocorrect="false"
+              autocapitalizationType="none" secure="true"></TextField>
+          </StackLayout>
+          }@else{
+          <StackLayout class="input-field">
+            <TextField class="input" hint="first name" [(ngModel)]="firstName" autocorrect="false"
+              autocapitalizationType="none"></TextField>
+            <TextField class="input" hint="last name" [(ngModel)]="lastName" autocorrect="false"
+              autocapitalizationType="none"></TextField>
+
+            <DatePickerField hint="born" minDate="1920-01-08" (dateChange)="onDateChange($event)"
+              pickerDefaultDate="2019/05/15">
+
+              ></DatePickerField>
+            <DropDown #dd backroundColor="reds" class="drop" itemsTextAlignment="center" [items]="genreArray"
+              [(ngModel)]="selectedIndex" (selectedIndexChanged)="onchange($event)" row="0" colSpan="2">
+            </DropDown>
+            <TextField class="input" hint="Password" [(ngModel)]="password" autocorrect="false"
+              autocapitalizationType="none" secure="true"></TextField>
+            <TextField class="input" hint="Confirm Password" [(ngModel)]="confirmPassword" autocorrect="false"
+              autocapitalizationType="none" secure="true"></TextField>
+          </StackLayout>
+          }
+          <Button class="blue-btn" role="button" [text]="isLoggingIn ? 'Bejelentkezés' : 'Regisztráció'" (tap)="onLogin()"></Button>
+          @if(isLoggingIn){
+          <Label class="spanText" text="Elfejtetted a jelszavad?" (tap)="forgotPassword()"></Label>
+          }
+        </StackLayout>
+
+        <Label (tap)="ControlisLoginIn()">
+          <FormattedString class="spanText-field">
+            <Span class="spanText" [text]="isLoggingIn ? 'Nincs még fiókod? ' : 'vissza a bejelentkezésre'"></Span>
+            <Span [text]="isLoggingIn ? 'Regisztráció' : ''" class="bold"></Span>
+          </FormattedString>
+        </Label>
+      </FlexboxLayout>
+    </Page>
+  </Frame>
+</GridLayout>

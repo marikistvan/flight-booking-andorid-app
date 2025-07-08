@@ -1,0 +1,61 @@
+.action-bar {
+    background-color: #bbd5f4;
+    margin: 20px 0 0 20px;
+    padding: 0;
+    height: 100px;
+}
+
+.action-bar-title {
+    color: black;
+}
+
+.btn-back-rotate-black {
+    width: 20;
+    height: 20;
+    rotate: 180;
+}
+
+.search-container {
+    margin: 50px 40px 50px 40px;
+    background-color: #0000001a;
+    border-radius: 20;
+}
+
+.label {
+    font-size: 20px;
+    margin-left: 30px;
+}
+
+.search-bar {
+    border-width: 0;
+    background-color: transparent;
+    font-size: 20px;
+}
+
+.btn-exit-sm {
+    width: 20;
+    height: 20;
+    margin-right: 50px;
+}
+
+.list-view {
+ border-width: 5px 0 0 0;
+ font-size: 20px;
+ height: 100%; 
+}
+.list-item{
+    margin: 0 0 0 40px;
+    padding: 0;
+}
+.list-item-img{
+   width:30;
+   height:30;
+   margin-left: 30px;
+}
+.airport-country{
+    padding: 0;
+    color:rgba(0, 0, 0, 0.5);
+}
+.airport-name{
+    padding: 0;
+}

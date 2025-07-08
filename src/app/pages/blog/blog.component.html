@@ -1,0 +1,55 @@
+<ActionBar class="action-bar">
+  <NavigationButton visibility="hidden"></NavigationButton>
+  <ActionItem
+  position="right"
+  icon="res://add"
+  class="fas"
+  (tap)="CreateBlog()"
+/>
+  <GridLayout columns="50, *">
+    <Label class="action-bar-title" text="Blog" colSpan="2"></Label>
+
+    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+  </GridLayout>
+</ActionBar>
+
+<GridLayout class="page__content">
+  <StackLayout>
+    <TextField hint="keresés: Anglia" fontStyle="italic">
+
+    </TextField>
+    <lv:RadListView [items]="blogs" (itemTap)="onBlogTap($event)">
+      <ng-template let-item="item">
+        <StackLayout class="blog-card" padding="10" borderBottomWidth="1" borderColor="#ccc">
+      
+          <Label [text]="item.title" class="title" fontWeight="bold" fontSize="18" />
+          <Label [text]="item.content" class="desc" fontSize="14" color="#666" />
+          
+          <Button text="like"></Button>
+          <Button text="dislike"></Button>
+        </StackLayout>
+      </ng-template>
+    </lv:RadListView>
+  </StackLayout>
+  <AbsoluteLayout *ngIf="isBlogDetailOn" class="details-background">
+    <Label
+      class="close-button"
+      text="✕"
+      (tap)="ExitDetails()"
+    ></Label>
+  
+    <ScrollView class="scroll-container">
+      <StackLayout class="blog-content">
+        <Label [text]="blogName" class="blog-title" textWrap="true"></Label>
+       <!-- Hely képnek -->
+       <!-- <Image src="kep" class="blog-image"></Image>-->
+  
+        <Label [text]="blogDescription" class="blog-description" textWrap="true"></Label>
+        <Label [text]="blogDate" class="blog-date"></Label>
+        <Label text="blogszerző helye line49" class="blog-author" textWrap="true"></Label>
+      </StackLayout>
+    </ScrollView>
+  </AbsoluteLayout>
+  
+  
+</GridLayout>

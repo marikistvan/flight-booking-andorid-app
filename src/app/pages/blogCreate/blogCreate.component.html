@@ -1,0 +1,21 @@
+<ActionBar class="action-bar">
+  <NavigationButton visibility="hidden"></NavigationButton>
+  <GridLayout columns="50, *">
+    <Label class="action-bar-title" text="Create Blog" colSpan="2"></Label>
+
+    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+  </GridLayout>
+</ActionBar>
+<StackLayout class="menu">
+  <TextField hint="Cím" [(ngModel)]="blogTitle" fontStyle="italic">
+  </TextField>
+  <TextView
+  [(ngModel)]="blogDescription"
+  hint="tartalom"
+  >
+  
+  </TextView>
+  <button text="Create" (tap)="createAction()" class="actionButton"></button>
+</StackLayout>
+<GridLayout class="page__content">
+</GridLayout>

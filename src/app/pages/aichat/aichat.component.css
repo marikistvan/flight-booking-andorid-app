@@ -1,0 +1,53 @@
+.action-bar{
+  background-color: #064789;
+}
+.action-bar-title {
+  color: white;
+  font-size: 20;
+  font-weight: bold;
+}
+.fas {
+  font-size: 24;
+  color: white;
+  vertical-align: center;
+  text-align: right;
+  margin-right: 16;
+}
+.chat-list {
+  background-color: #ebf2fa;
+}
+.input-bar {
+  background-color: rgb(205, 232, 243);
+  align-items: center;
+}
+.send-btn {
+  background-color: #064789;
+  color: white;
+  border-radius: 8;
+  padding: 12 16;
+  font-weight: bold;
+  margin-top: 16;
+  margin-left: 8;
+  margin-right: 8;
+}
+.input {
+  background-color: #f0f8ff; 
+  font-size: 10;
+  border: 1px solid #5a9eff;
+  border-radius: 8px;
+}
+.time{
+  font-size: 8;
+  text-align: right;
+  vertical-align: bottom;
+}
+.message {
+  border-radius: 10;
+  width: 250;
+}
+.message.me {
+  background-color: rgb(112, 136, 182);
+}
+.message.other {
+  background-color: #4098d3ab;
+}

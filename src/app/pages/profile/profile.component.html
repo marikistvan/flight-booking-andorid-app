@@ -1,0 +1,54 @@
+<ActionBar class="action-bar">
+  <NavigationButton visibility="hidden"></NavigationButton>
+  <ActionItem
+  position="right"
+  icon="res://add"
+  class="fas"
+  (tap)="SetProfil()"
+/>
+  <GridLayout columns="50, *">
+    <Label class="action-bar-title" text="Profil" colSpan="2"></Label>
+
+    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+  </GridLayout>
+</ActionBar>
+<GridLayout class="--main-bg">
+<GridLayout class="page" columns="auto,auto" rows="auto,auto,auto,auto,auto,auto">
+  <Image class="nt-drawer__header-image fas t-36" col="0" row="0" src="font://&#xf2bd;"></Image>
+  <Label class="details-label" col="0" row="1" [text]="'Teljes név: ' +fullName "></Label>
+  <Label class="details-label" col="0" row="2" [text]="'Email cím: ' + user.email"></Label>
+  <Label class="details-label" col="0" row="3" [text]="'születési dátum : ' + born"></Label>
+  <Label class="details-label" col="0" row="4" [text]="'nem : ' + genre"></Label>
+  <Button class="details-label" (tap)="userDataModify()" col="0" row="5" text="Szerkesztés"  class="actionButton"></Button>
+</GridLayout>
+<StackLayout class="list-view">
+  <Label text="Blogjaim" class="blogText"></Label>
+  <lv:RadListView [items]="myBlogs" (itemTap)="onBlogTap($event)">
+    <ng-template let-item="item">
+      <StackLayout class="blog-card" padding="10" borderBottomWidth="1" borderColor="#ccc">
+        <Label [text]="item.title" class="title" fontWeight="bold" fontSize="18" />
+        <Label [text]="item.content" class="desc" fontSize="14" color="#666" />
+        <Button (tap)="modify(item.id)" text="szerkesztés" class="actionButton"></Button>
+      </StackLayout>
+    </ng-template>
+  </lv:RadListView>
+</StackLayout>
+<AbsoluteLayout *ngIf="isBlogDetailOn" class="details-background">
+  <StackLayout class="menu" >
+    <TextField hint="Cím" [(ngModel)]="blogTitle" class="updateTitle" textWrap="true" fontStyle="italic">
+    </TextField>
+    <ScrollView height="150" class="longText">
+      <TextView
+        [(ngModel)]="blogDescription"
+        hint="tartalom"
+        textWrap="true"
+      ></TextView>
+    </ScrollView>
+
+  <GridLayout columns="*,*">
+    <Button text="Modify" col="0" class="actionButton" (tap)="modifyAction()"></Button>
+    <Button text="Mégsem" col="1" class="actionButton" (tap)="backAction()"></Button>
+  </GridLayout>
+  </StackLayout>
+</AbsoluteLayout>
+</GridLayout>
