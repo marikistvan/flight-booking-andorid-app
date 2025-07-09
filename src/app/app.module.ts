@@ -23,6 +23,7 @@ import { FlightSearchPassengersSelectorComponent } from './pages/flightSearch/fl
 import { CommonModule } from '@angular/common'
 import { HomeComponent } from './pages/home/home.component'
 import { RegisterComponent } from './pages/register/register.component'
+import { ProfileComponent } from './pages/profile/profile.component'
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -33,7 +34,7 @@ import { RegisterComponent } from './pages/register/register.component'
   declarations: [AppComponent, HeaderComponent, FlightSearchComponent,
     SettingsComponent, MenusComponent, LoginComponent,
     FlightListComponent, FlightSearchDestinationSelectorComponent, FlightSearchPassengersSelectorComponent,
-    HomeComponent,RegisterComponent],
+    HomeComponent,RegisterComponent,ProfileComponent],
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class AppModule {

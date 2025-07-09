@@ -8,9 +8,10 @@ import { FlightSearchDestinationSelectorComponent } from './pages/flightSearch/f
 import { FlightSearchPassengersSelectorComponent } from './pages/flightSearch/flight-search-passengers-selector/flightSearchPassengersSelector.component'
 import { HomeComponent } from './pages/home/home.component'
 import { RegisterComponent } from './pages/register/register.component'
+import {ProfileComponent} from './pages/profile/profile.component'
 
 const routes: Routes = [
-  { path: '', redirectTo: '/register', pathMatch: 'full' },
+  { path: '', redirectTo: '/profile', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,
@@ -35,9 +36,9 @@ const routes: Routes = [
     path: 'flightSearchPassengersSelectorComponent',
     component: FlightSearchPassengersSelectorComponent,
   },
-  {
-    path: 'search',
-    loadChildren: () => import('~/app/pages/search/search.module').then((m) => m.SearchModule),
+    {
+    path: 'profile',
+    component: ProfileComponent,
   },
   {
     path: 'blog',
@@ -58,10 +59,6 @@ const routes: Routes = [
   {
     path: 'basket',
     loadChildren: () => import('~/app/pages/basket/basket.module').then((m) => m.BasketModule),
-  },
-  {
-    path: 'profile',
-    loadChildren: () => import('~/app/pages/profile/profile.module').then((m) => m.ProfileModule),
   },
   {
     path: 'profile-edit',

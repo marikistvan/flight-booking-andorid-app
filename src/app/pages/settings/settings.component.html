@@ -7,8 +7,13 @@
   </GridLayout>
 </ActionBar>
 
-<GridLayout class="page__content">
-  @if(authService.currentUser){
+<Frame>
+  <Page actionBarHidden="true" class="page">
+    <StackLayout class="main-container">
+
+      @if(authService.currentUser){
       <Button text="Kijelentkezés" (tap)="signOut()" class="blue-btn"></Button>
-  }
-</GridLayout>
+      }
+    </StackLayout>
+  </Page>
+</Frame>
