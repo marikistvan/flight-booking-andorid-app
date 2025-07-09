@@ -18,11 +18,11 @@
         </TextField>
 
         <Label col="0" colSpan="3" row="2" text="Jelszó" class="form-label"></Label>
-        <TextField col="0" colspan="3" row="3" class="input-field" formControlName="password" editable="true"
+        <TextField col="0" secure="true" colspan="3" row="3" class="input-field" formControlName="password" editable="true"
           hint="Jelszó">
         </TextField>
 
-        <GridLayout col="0" colSpan="3" row="4" columns="auto, *" (tap)="submitLogin()" class="btn-submit-grid">
+        <GridLayout col="0" colSpan="3" row="4" columns="auto, *" (tap)="onLogin()" class="btn-submit-grid">
           <Image col="0" src="~/assets/icons/enter.png" class="enter-icon"></Image>
           <Label col="1" text="Bejelentkezés" class="btn-submit-label"></Label>
         </GridLayout>

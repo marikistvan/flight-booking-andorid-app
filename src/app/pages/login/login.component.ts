@@ -10,6 +10,7 @@ import { AppComponent } from "../../app.component"
 import { firebase } from "@nativescript/firebase-core";
 import { HomeComponent } from "../home/home.component";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { AuthService } from "~/app/services/auth.service";
 
 @Component({
   selector: "ns-login",
@@ -18,10 +19,10 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 })
 
 export class LoginComponent {
-    loginFormGroup = new FormGroup({
-      email: new FormControl<string | null>('', Validators.required),
-      password: new FormControl<string | null>('', Validators.required),
-    })
+  loginFormGroup = new FormGroup({
+    email: new FormControl<string | null>('', Validators.required),
+    password: new FormControl<string | null>('', Validators.required),
+  })
 
   public selectedIndex = 0;
   public genreArray: Array<string>;
@@ -41,8 +42,10 @@ export class LoginComponent {
   errorOsszefuzz = "";
   szuletesiEv: string;
 
-  constructor(private routerExtensions: RouterExtensions,
+  constructor(
+    private routerExtensions: RouterExtensions,
     private app: AppComponent,
+    private authService: AuthService
   ) {
     this.genreArray = [];
     this.errorok = [];
@@ -56,13 +59,12 @@ export class LoginComponent {
 
 
 
-loginWithGoogle(){}
+  loginWithGoogle() { }
 
-submitLogin(){}
 
-register(){
-  this.routerExtensions.navigate(['register']);
-}
+  register() {
+    this.routerExtensions.navigate(['register']);
+  }
 
 
 
@@ -112,39 +114,16 @@ register(){
   }
   onLogin(): void {
     if (this.isLoggingIn) {
-      firebase()
-        .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then((cred) => {
-          const user = cred.user;
-          if (user && !user.emailVerified) {
-            Dialogs.alert({
-              title: "Email megerősítés szükséges",
-              message:
-                "Kérlek, ellenőrizd az email fiókod és erősítsd meg az email címedet!",
-              okButtonText: "Ok!",
-            });
-            return firebase().auth().signOut();
-          }
-          console.log("Bejelentkezés sikeres!");
-          Dialogs.alert({
-            title: "Siker!",
-            message: "Be vagy jelentkezve!",
-            okButtonText: "Ok!",
-            cancelable: true,
-          });
-          this.routerExtensions.navigate(['home']);
-        })
-        .catch((error) => {
-          console.error("Hiba történt a bejelentkezés során:", error.message);
-          Dialogs.alert({
-            title: "Hiba!",
-            message: "Hibás email cím, vagy jelszó!",
-            okButtonText: "Ok!",
-            cancelable: true,
-          });
-        });
-    } else {
+      console.log(this.loginFormGroup.get('email').value + 'test' + this.loginFormGroup.get('password').value.trim());
+      const res = this.authService.login(this.loginFormGroup.get('email').value.trim(), this.loginFormGroup.get('password').value);
+      if (res === 'need email validate') {
+        console.log("need email validate");
+      }
+      else if (res === 'error during logging') {
+        console.log('error during logging');
+      }
+    }
+    else {
       if (!this.isValidEmail(this.email)) {
         this.errorok.push("Az email cím nem helyes!");
       }
