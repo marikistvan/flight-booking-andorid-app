@@ -1,22 +1,15 @@
 import { Component, OnInit } from '@angular/core'
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
 import { Application } from '@nativescript/core'
-import { RouterExtensions } from "@nativescript/angular";
-import { BlogService } from "../../services/blog.service";
+import { RouterExtensions } from "@nativescript/angular"
+import { BlogService } from "../../services/blog.service"
 import { AuthService } from "../../services/auth.service"
-
-
-export interface Blog {
-  title: string;
-  content: string;
-  createdAt: Date;
-  author_id:string;
-}
+import { Blog } from '../../models/blog'
 
 @Component({
   selector: 'Blog',
   templateUrl: './blog.component.html',
-  styleUrls: ["./blog.component.css"],
+  styleUrls: ["./blog.component.scss"],
 })
 export class BlogComponent implements OnInit {
   blogName: string;

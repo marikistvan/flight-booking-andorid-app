@@ -15,9 +15,9 @@ interface BasicFlightInformation {
  }
 
 @Component({
-  selector: 'Basket',
+  selector: 'ns-basket',
   templateUrl: './basket.component.html',
-  styleUrls: ["./basket.component.css"],
+  styleUrls: ["./basket.component.scss"],
 })
 export class BasketComponent implements OnInit {
   user=firebase().auth().currentUser;

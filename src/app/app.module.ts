@@ -24,17 +24,47 @@ import { CommonModule } from '@angular/common'
 import { HomeComponent } from './pages/home/home.component'
 import { RegisterComponent } from './pages/register/register.component'
 import { ProfileComponent } from './pages/profile/profile.component'
+import { BlogComponent } from './pages/blog/blog.component'
+import { BlogCreateComponent } from './pages/blog/blogCreate/blogCreate.component'
+import { BasketComponent } from './pages/basket/basket.component'
+import { AiChatComponent } from './pages/aichat/aichat.component'
 
 @NgModule({
   bootstrap: [AppComponent],
-  imports: [AppRoutingModule, NativeScriptModule, ReactiveFormsModule, CommonModule,
-    NativeScriptUISideDrawerModule, DropDownModule, FormsModule, HttpClientModule, NativeScriptUISideDrawerModule, NativeScriptModule,
-    NativeScriptDateTimePickerModule, NativeScriptPickerModule, NativeScriptFormsModule, NativeScriptUIListViewModule],
+  imports: [
+    AppRoutingModule,
+    NativeScriptModule,
+    ReactiveFormsModule,
+    CommonModule,
+    NativeScriptUISideDrawerModule,
+    DropDownModule,
+    FormsModule,
+    HttpClientModule,
+    NativeScriptUISideDrawerModule,
+    NativeScriptModule,
+    NativeScriptDateTimePickerModule,
+    NativeScriptPickerModule,
+    NativeScriptFormsModule,
+    NativeScriptUIListViewModule],
 
-  declarations: [AppComponent, HeaderComponent, FlightSearchComponent,
-    SettingsComponent, MenusComponent, LoginComponent,
-    FlightListComponent, FlightSearchDestinationSelectorComponent, FlightSearchPassengersSelectorComponent,
-    HomeComponent,RegisterComponent,ProfileComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    FlightSearchComponent,
+    SettingsComponent,
+    MenusComponent,
+    LoginComponent,
+    FlightListComponent,
+    FlightSearchDestinationSelectorComponent,
+    FlightSearchPassengersSelectorComponent,
+    HomeComponent,
+    RegisterComponent,
+    ProfileComponent,
+    BlogComponent,
+    BlogCreateComponent,
+    BasketComponent,
+    AiChatComponent
+  ],
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class AppModule {

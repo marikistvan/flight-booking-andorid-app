@@ -1,24 +1,16 @@
 import { Component, ViewChild, OnInit, ElementRef } from "@angular/core";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { Application, TextView } from "@nativescript/core";
-import { FirebaseAuth } from "@nativescript/firebase-auth";
 import { firstValueFrom } from "rxjs";
 import { ChatService } from "~/app/services/chat.service";
 import { HttpClient } from "@angular/common/http";
-import { text } from "stream/consumers";
 import { environment } from "~/environments/environment";
-export interface Chat {
-  userDate?: Date;
-  userid: string;
-  userMessage: string;
-  aiDate?: Date;
-  ai?: string;
-  aiMessage?: string;
-}
+import { Chat } from "../../models/chat";
+
 @Component({
-  selector: "AiChat",
+  selector: "ns-aichat",
   templateUrl: "./aichat.component.html",
-  styleUrls: ["./aichat.component.css"],
+  styleUrls: ["./aichat.component.scss"],
 })
 export class AiChatComponent implements OnInit {
   userMessage = "";

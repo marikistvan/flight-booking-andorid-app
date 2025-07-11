@@ -8,10 +8,13 @@ import { FlightSearchDestinationSelectorComponent } from './pages/flightSearch/f
 import { FlightSearchPassengersSelectorComponent } from './pages/flightSearch/flight-search-passengers-selector/flightSearchPassengersSelector.component'
 import { HomeComponent } from './pages/home/home.component'
 import { RegisterComponent } from './pages/register/register.component'
-import {ProfileComponent} from './pages/profile/profile.component'
-
+import { ProfileComponent } from './pages/profile/profile.component'
+import { BlogComponent } from './pages/blog/blog.component'
+import { BlogCreateComponent } from './pages/blog/blogCreate/blogCreate.component'
+import { BasketComponent } from './pages/basket/basket.component'
+import { AiChatComponent } from './pages/aichat/aichat.component'
 const routes: Routes = [
-  { path: '', redirectTo: '/profile', pathMatch: 'full' },
+  { path: '', redirectTo: '/blog', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,
@@ -42,11 +45,11 @@ const routes: Routes = [
   },
   {
     path: 'blog',
-    loadChildren: () => import('~/app/pages/blog/blog.module').then((m) => m.BlogModule),
+    component: BlogComponent,
   },
   {
     path: 'blogCreate',
-    loadChildren: () => import('~/app/pages/blogCreate/blogCreate.module').then((m) => m.BlogCreateModule),
+    component: BlogCreateComponent,
   },
   {
     path: 'settings',
@@ -54,11 +57,11 @@ const routes: Routes = [
   },
   {
     path: 'aichat',
-    loadChildren: () => import('~/app/pages/aichat/aichat.module').then((m) => m.AiChatModule),
+    component:AiChatComponent,
   },
   {
     path: 'basket',
-    loadChildren: () => import('~/app/pages/basket/basket.module').then((m) => m.BasketModule),
+   component: BasketComponent,
   },
   {
     path: 'profile-edit',
