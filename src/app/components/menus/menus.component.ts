@@ -1,23 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from '@nativescript/angular';
-import { Application, GridLayout, StackLayout } from '@nativescript/core';
+import { Application } from '@nativescript/core';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'ns-menus',
   templateUrl: 'menus.component.html',
- styleUrls: ["menus.component.css"],
- 
+  styleUrls: ["menus.component.scss"],
+
 })
 
-export class MenusComponent implements OnInit {
-  constructor(private routerExtensions : RouterExtensions,public authService : AuthService){}
-  ngOnInit(): void {
+export class MenusComponent {
+  constructor(private routerExtensions: RouterExtensions, public authService: AuthService) { }
 
-  }
-  
-    isComponentSelected(url: string): boolean {
+  isComponentSelected(url: string): boolean {
     return this.routerExtensions.router.url === url;
   }
 

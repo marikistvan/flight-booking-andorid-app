@@ -1,5 +1,5 @@
-export interface Flight{
-    data: {
+export interface Flight {
+  data: {
     type: string;
     id: string;
     source: string;
