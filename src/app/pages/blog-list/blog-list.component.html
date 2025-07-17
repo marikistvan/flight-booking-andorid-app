@@ -1,0 +1,23 @@
+<ActionBar class="action-bar">
+  <NavigationButton visibility="hidden"></NavigationButton>
+  <ActionItem position="right" icon="res://addblog" class="fas" (tap)="createBlog()" />
+  <GridLayout columns="50, *">
+    <Label class="action-bar-title" text="Blog" colSpan="2"></Label>
+    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+  </GridLayout>
+</ActionBar>
+
+<GridLayout rows="auto, *" class="page">
+  <GridLayout row="0" rows="auto" columns="auto,*,auto" class="search-container">
+    <Image src="~/assets/icons/search-v3.png" row="0" col="0" class="btn-search-sm"></Image>
+    <TextField row="0" col="1" [(ngModel)]="searchTerm" hint="Keresés..." (textChange)="onSearchTextChanged($event)"
+      class="search-bar" autocorrect="false"></TextField>
+    <Image src="~/assets/icons/exit.png" row="0" col="2" class="btn-exit-sm" (tap)="onDelete()"></Image>
+  </GridLayout>
+
+  <RadListView row="1" [items]="blogService.getBlogs() | async">
+    <ng-template let-blog="item">
+      <ns-blog [blog]="blog"></ns-blog>
+    </ng-template>
+  </RadListView>
+</GridLayout>

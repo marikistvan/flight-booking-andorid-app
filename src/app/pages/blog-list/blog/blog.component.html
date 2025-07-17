@@ -1,0 +1,17 @@
+<GridLayout columns="*,auto" rows="138,auto,auto" class="blog-card">
+  <Image col="0" colSpan="2" row="0" src="~/assets/test-photos/lefkada.JPG" class="blog-photo"></Image>
+  @if(authService.currentUser.uid === blog.authorId){
+  <StackLayout row="0" col="0" colSpan="2"
+               orientation="horizontal"
+               horizontalAlignment="right"
+               verticalAlignment="top"
+               padding="8"
+               class="overlay-icons-stack">
+    <Image src="~/assets/icons/edit.png" class="overlay-icon edit-icon"/>
+    <Image src="~/assets/icons/delete.png" class="overlay-icon delete-icon"/>
+  </StackLayout>
+}
+  <Label [text]="blog.title" class="blog-title" row="1" col="0"></Label>
+  <Label [text]="blog.createdAt | date:'short'" class="blog-date" row="1" col="1"></Label>
+  <Label textWrap="true" [text]="blog.content" class="blog-content" row="2" col="0" colSpan="2"></Label>
+</GridLayout>

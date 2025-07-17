@@ -4,22 +4,18 @@ import { ObservableArray } from "@nativescript/core";
 import "@nativescript/firebase-auth";
 import "@nativescript/firebase-firestore";
 import { FieldValue } from "@nativescript/firebase-firestore";
+import { Blog } from "../models/blog";
+import { catchError, from, map, Observable, shareReplay } from "rxjs";
 
-export interface Blog {
-  id?:string;
-  title: string;
-  content: string;
-  createdAt: Date;
-  author_id:string;
-}
 @Injectable({ providedIn: "root" })
-export class BlogService{
-  blogs=[];
-  user= firebase().auth().currentUser;
-  auth= firebase().auth();
-  
-  constructor() {}
-  
+export class BlogService {
+  blogs = [];
+  userBlogs = [];
+  user = firebase().auth().currentUser;
+  auth = firebase().auth();
+
+  constructor() { }
+
   createBlog(blog: Blog) {
     if (this.user) {
       firebase().firestore().collection("blog").add({
@@ -29,40 +25,50 @@ export class BlogService{
         author_id: this.user.uid,
       });
       console.log("blogBejegyzés fent van");
-    }else{
+    } else {
       console.log("blogbejegyzés nem sikerült, mert nincs user bejelentkezve");
     }
 
   }
-  getBlogs(): Promise<Blog[]> {
-    return firebase()
-      .firestore()
-      .collection("blog")
-      .orderBy("created_at", "desc")
-      .get()
-      .then((querySnapshot) => {
-        const blogs: Blog[] = [];
-  
-        querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          blogs.push({
-            id:doc.id,
-            title: data.title,
-            content: data.content,
-            createdAt: data.created_at?.toDate(),
-            author_id: data.author_id
+  private blogs$?: Observable<Blog[]>;
+
+  getBlogs(): Observable<Blog[]> {
+    if (!this.blogs$) {
+      const blogQuery = firebase()
+        .firestore()
+        .collection("blog")
+        .orderBy("created_at", "desc")
+        .get();
+
+      this.blogs$ = from(blogQuery).pipe(
+        map(querySnapshot => {
+          const blogs: Blog[] = [];
+          querySnapshot.forEach(doc => {
+            const data = doc.data();
+            blogs.push({
+              id: doc.id,
+              title: data.title,
+              content: data.content,
+              createdAt: data.created_at?.toDate(),
+              authorId: data.author_id
+            });
           });
-        });
-        return blogs;
-      })
-      .catch((error) => {
-        console.error("Hiba a blogok lekérdezésekor: ", error);
-        return [];
-      });
+          return blogs;
+        }),
+        catchError(error => {
+          console.error("Hiba a blogok lekérdezésekor:", error);
+          return [[]];
+        }),
+        shareReplay(1)
+      );
+    }
+
+    return this.blogs$;
   }
-  async getBlog(blogId:string):Promise<Blog>{
+
+  async getBlog(blogId: string): Promise<Blog> {
     const blogDoc = await firebase().firestore().collection("blog").doc(blogId).get();
-    
+
     if (blogDoc.exists) {
       return blogDoc.data();
 
@@ -71,11 +77,14 @@ export class BlogService{
       return null;
     }
   }
-  async getUserBlogs(userid: string): Promise<Blog[]> {
-    this.blogs = await this.getBlogs();
-    return this.blogs.filter(blog => blog.author_id === userid);
+  async getUserBlogs(userid: string) {
+    this.getBlogs().subscribe({
+      next(res) {
+        this.userBlogs.push(res.filter(blog => blog.authorId === userid));
+      }
+    })
   }
-  
+
   updateBlog(blogId: string, updatedBlog: Blog) {
     if (this.user != null) {
       firebase().firestore().collection("blog").doc(blogId).update({
@@ -83,16 +92,16 @@ export class BlogService{
         content: updatedBlog.content,
         updated_at: FieldValue.serverTimestamp(),
       })
-      .then(() => {
-        console.log("Blogbejegyzés frissítve");
-      })
-      .catch((error) => {
-        console.error("Hiba a blog frissítése közben:", error);
-      });
+        .then(() => {
+          console.log("Blogbejegyzés frissítve");
+        })
+        .catch((error) => {
+          console.error("Hiba a blog frissítése közben:", error);
+        });
     } else {
       console.log("Nem sikerült frissíteni, mert nincs bejelentkezett user.");
     }
   }
-  
-  
+
+
 }
