@@ -4,7 +4,8 @@ import { Application } from '@nativescript/core'
 import { ModalDialogOptions, ModalDialogService } from "@nativescript/angular"
 import { BlogService } from "../../services/blog.service"
 import { Blog } from '../../models/blog'
-import { BlogCreateComponent } from './blogCreate/blogCreate.component'
+import { CreateBlogComponent } from './create-blog/create-blog.component'
+import { AuthService } from '~/app/services/auth.service'
 
 @Component({
   selector: 'ns-blog-list',
@@ -20,7 +21,8 @@ export class BlogListComponent {
   constructor(
     public blogService: BlogService,
     private modalDialogService: ModalDialogService,
-    private viewContainerRef: ViewContainerRef
+    private viewContainerRef: ViewContainerRef,
+    public authService: AuthService
   ) {}
 
   onSearchTextChanged(event: any) {
@@ -38,7 +40,7 @@ export class BlogListComponent {
       viewContainerRef: this.viewContainerRef
     };
     const result = await this.modalDialogService
-      .showModal(BlogCreateComponent, options);
+      .showModal(CreateBlogComponent, options);
 
     if (result as Blog) {
     }

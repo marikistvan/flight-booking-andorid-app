@@ -1,15 +1,13 @@
 <ActionBar class="action-bar">
-  <activity android:windowSoftInputMode="adjustResize"></activity>
   <NavigationButton visibility="hidden"></NavigationButton>
   <GridLayout columns="50, *">
     <Label class="action-bar-title" text="Anna AI chat" colSpan="2"></Label>
-
     <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
   </GridLayout>
 </ActionBar>
 
 <GridLayout rows="7*, *">
-  <ListView row="0" [items]="messageHistory" class="chat-list">
+  <ListView row="0" [items]="messageHistory" class="page">
 <ng-template let-item="item">
   <GridLayout rows="auto">
     <StackLayout

@@ -31,21 +31,30 @@
 }
 
 .overlay-icons-stack {
-  z-index: 10;
   border-top-right-radius: 25;
-  width: 126;
+  width: 130;
+  height: 55;
   background-color: rgba(177, 178, 181, 0.7278);
 }
 
-.overlay-icon {
+.delete-icon {
   width: 24;
   height: 24;
 }
 
-.delete-icon {
-  margin-right: 5;
+.align-to-left {
+  margin-right: 10;
+}
+
+.icon-tap-area {
+  background-color:transparent;
+  justify-content: center;
+  align-items: center;
+  width: 50;
+  height: 50;
 }
 
 .edit-icon {
-  margin-right: 55;
+  width: 24;
+  height: 24;
 }

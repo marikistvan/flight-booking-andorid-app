@@ -1,6 +1,11 @@
 <ActionBar class="action-bar">
   <NavigationButton visibility="hidden"></NavigationButton>
+  @if(authService.currentUser){
   <ActionItem position="right" icon="res://addblog" class="fas" (tap)="createBlog()" />
+  }
+  @else {
+    <ActionItem position="right" /> <!--for space filling-->
+  }
   <GridLayout columns="50, *">
     <Label class="action-bar-title" text="Blog" colSpan="2"></Label>
     <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
@@ -17,7 +22,7 @@
 
   <RadListView row="1" [items]="blogService.getBlogs() | async">
     <ng-template let-blog="item">
-      <ns-blog [blog]="blog"></ns-blog>
+      <ns-blog-item [blog]="blog"></ns-blog-item>
     </ng-template>
   </RadListView>
 </GridLayout>

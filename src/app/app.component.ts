@@ -21,14 +21,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this._sideDrawerTransition = new SlideInOnTopTransition();
-   /* if (!this.authService.currentUser) {
+   if (!this.authService.currentUser) {
       this.natigateToHome();
-    }*/
-  }
-  login() {
-    this.routerExtensions.navigate(["login"]);
-    const sideDrawer = <RadSideDrawer>Application.getRootView();
-    sideDrawer.closeDrawer();
+    }
   }
   async natigateToHome() {
     const options: ModalDialogOptions = {

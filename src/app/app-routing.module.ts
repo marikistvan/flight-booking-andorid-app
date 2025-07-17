@@ -10,11 +10,14 @@ import { HomeComponent } from './pages/home/home.component'
 import { RegisterComponent } from './pages/register/register.component'
 import { ProfileComponent } from './pages/profile/profile.component'
 import { BlogListComponent } from './pages/blog-list/blog-list.component'
-import { BlogCreateComponent } from './pages/blog-list/blogCreate/blogCreate.component'
+import { CreateBlogComponent } from './pages/blog-list/create-blog/create-blog.component'
 import { BasketComponent } from './pages/basket/basket.component'
 import { AiChatComponent } from './pages/aichat/aichat.component'
+import { ReadBlogComponent } from './pages/blog-list/read-blog/read-blog.component'
+
+
 const routes: Routes = [
-  { path: '', redirectTo: '/blogList', pathMatch: 'full' },
+  { path: '', redirectTo: '/aichat', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,
@@ -49,7 +52,7 @@ const routes: Routes = [
   },
   {
     path: 'blogCreate',
-    component: BlogCreateComponent,
+    component: CreateBlogComponent,
   },
   {
     path: 'settings',

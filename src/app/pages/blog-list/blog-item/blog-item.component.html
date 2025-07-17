@@ -1,0 +1,25 @@
+<GridLayout columns="*,auto" rows="138,auto,auto" class="blog-card">
+  <Image col="0" colSpan="2" row="0" src="~/assets/test-photos/lefkada.JPG" class="blog-photo" (tap)="openBlog()"></Image>
+  @if(authService.currentUser && authService.currentUser.uid ===blog.authorId){
+ <StackLayout row="0" col="0" colSpan="2"
+             orientation="horizontal"
+             horizontalAlignment="right"
+             verticalAlignment="top"
+             padding="8"
+             class="overlay-icons-stack">
+
+  <StackLayout (tap)="testEdit()" class="icon-tap-area align-to-left">
+    <Image src="~/assets/icons/edit.png" class="edit-icon" />
+  </StackLayout>
+
+  <StackLayout (tap)="testDelete()" class="icon-tap-area">
+    <Image src="~/assets/icons/delete.png" class="delete-icon" />
+  </StackLayout>
+
+</StackLayout>
+
+  }
+  <Label [text]="blog.title" class="blog-title" row="1" col="0" (tap)="openBlog()"></Label>
+  <Label [text]="blog.createdAt | date:'short'" class="blog-date" row="1" col="1" (tap)="openBlog()"></Label>
+  <Label textWrap="true" [text]="blog.content" class="blog-content" row="2" col="0" colSpan="2" (tap)="openBlog()"></Label>
+</GridLayout>

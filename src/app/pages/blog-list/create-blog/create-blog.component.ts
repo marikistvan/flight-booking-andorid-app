@@ -6,10 +6,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'ns-blog-create',
-  templateUrl: './blogCreate.component.html',
-  styleUrls: ["./blogCreate.component.scss"],
+  templateUrl: './create-blog.component.html',
+  styleUrls: ['./create-blog.component.scss'],
 })
-export class BlogCreateComponent implements OnInit {
+export class CreateBlogComponent implements OnInit {
   blogTitle: string;
   blogDescription: string;
   blogFormGroup = new FormGroup({

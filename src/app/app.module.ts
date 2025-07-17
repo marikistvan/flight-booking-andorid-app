@@ -24,11 +24,12 @@ import { CommonModule } from '@angular/common'
 import { HomeComponent } from './pages/home/home.component'
 import { RegisterComponent } from './pages/register/register.component'
 import { ProfileComponent } from './pages/profile/profile.component'
-import { BlogComponent } from './pages/blog-list/blog/blog.component'
+import { BlogItemComponent } from './pages/blog-list/blog-item/blog-item.component'
 import { BlogListComponent } from './pages/blog-list/blog-list.component'
-import { BlogCreateComponent } from './pages/blog-list/blogCreate/blogCreate.component'
+import { CreateBlogComponent } from './pages/blog-list/create-blog/create-blog.component'
 import { BasketComponent } from './pages/basket/basket.component'
 import { AiChatComponent } from './pages/aichat/aichat.component'
+import { ReadBlogComponent } from './pages/blog-list/read-blog/read-blog.component'
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -62,10 +63,11 @@ import { AiChatComponent } from './pages/aichat/aichat.component'
     RegisterComponent,
     ProfileComponent,
     BlogListComponent,
-    BlogCreateComponent,
+    CreateBlogComponent,
     BasketComponent,
     AiChatComponent,
-    BlogComponent
+    BlogItemComponent,
+    ReadBlogComponent
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })
