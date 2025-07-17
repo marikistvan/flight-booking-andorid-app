@@ -1,0 +1,17 @@
+<StackLayout class="page">
+  <GridLayout columns="auto, *" class="action-bar">
+    <Label [text]="blog.title" colspan="2" class="action-bar-title"></Label>
+    <Image src="~/assets/icons/right-arrow.png" (tap)="onCancel()" class="fas btn-back-rotate-black"></Image>
+  </GridLayout>
+
+  <StackLayout class="main-container">
+    <ScrollView>
+      <StackLayout>
+        <Image col="0" colSpan="2" row="0" src="~/assets/test-photos/lefkada.JPG" class="blog-photo"></Image>
+        <Label textWrap="true" class="blog-content" [text]="blog.content"></Label>
+      </StackLayout>
+    </ScrollView>
+
+
+  </StackLayout>
+</StackLayout>

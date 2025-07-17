@@ -1,0 +1,36 @@
+.action-bar {
+    background-color: #bbd5f4;
+    margin: 20px 0 0 20px;
+    padding: 0;
+    height: 100px;
+}
+
+.action-bar-title {
+    color: black;
+}
+
+.btn-back-rotate-black {
+    width: 20;
+    height: 20;
+    rotate: 180;
+}
+
+.main-container {
+    border-radius: 30;
+    background-color: #bbd5f4;
+    height: 100%;
+}
+
+.blog-photo {
+    width: 100%;
+    background-color: black;
+    border-top-left-radius: 25;
+    border-top-right-radius: 25;
+}
+
+.blog-content {
+    background-color: white;
+    font-size: 20;
+    border-bottom-left-radius: 25;
+    border-bottom-right-radius: 25;
+}
