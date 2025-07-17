@@ -24,8 +24,9 @@ import { CommonModule } from '@angular/common'
 import { HomeComponent } from './pages/home/home.component'
 import { RegisterComponent } from './pages/register/register.component'
 import { ProfileComponent } from './pages/profile/profile.component'
-import { BlogComponent } from './pages/blog/blog.component'
-import { BlogCreateComponent } from './pages/blog/blogCreate/blogCreate.component'
+import { BlogComponent } from './pages/blog-list/blog/blog.component'
+import { BlogListComponent } from './pages/blog-list/blog-list.component'
+import { BlogCreateComponent } from './pages/blog-list/blogCreate/blogCreate.component'
 import { BasketComponent } from './pages/basket/basket.component'
 import { AiChatComponent } from './pages/aichat/aichat.component'
 
@@ -60,10 +61,11 @@ import { AiChatComponent } from './pages/aichat/aichat.component'
     HomeComponent,
     RegisterComponent,
     ProfileComponent,
-    BlogComponent,
+    BlogListComponent,
     BlogCreateComponent,
     BasketComponent,
-    AiChatComponent
+    AiChatComponent,
+    BlogComponent
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

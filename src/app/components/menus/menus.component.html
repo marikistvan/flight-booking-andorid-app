@@ -1,79 +1,47 @@
 <StackLayout>
   @if(!authService.currentUser){
-    <GridLayout
-    columns="auto, *"
-    class="drawer-title"
-  >
+  <GridLayout columns="auto, *" class="drawer-title">
     <Label col="0" colSpan="2" text="Navigációs Menü" horizontalAlignment="center"></Label>
   </GridLayout>
-    <GridLayout
-    columns="auto, *"
-    class="nt-drawer__list-item"
-    [class.-selected]="isComponentSelected('/login')"
-    (tap)="onNavItemTap('/login')"
-  >
+  <GridLayout columns="auto, *" class="nt-drawer__list-item" [class.-selected]="isComponentSelected('/login')"
+    (tap)="onNavItemTap('/login')">
     <Image col="0" src="res://enter" width="12" height="12" class="icon-distance"></Image>
     <Label col="1" text="Bejelentkezés" class="p-r-10"></Label>
   </GridLayout>
   }
-  <GridLayout
-    columns="auto, *"
-    class="nt-drawer__list-item"
-    [class.-selected]="isComponentSelected('/flightSearch')"
-    (tap)="onNavItemTap('/flightSearch')"
-  >
+  <GridLayout columns="auto, *" class="nt-drawer__list-item" [class.-selected]="isComponentSelected('/flightSearch')"
+    (tap)="onNavItemTap('/flightSearch')">
     <Image col="0" src="res://loupe" width="12" height="12" class="icon-distance"></Image>
     <Label col="1" text="Járat keresés" class="p-r-10"></Label>
   </GridLayout>
-  <GridLayout
-    columns="auto, *"
-    class="nt-drawer__list-item"
-    [class.-selected]="isComponentSelected('/blog')"
-    (tap)="onNavItemTap('/blog')"
-  >
+  <GridLayout columns="auto, *" class="nt-drawer__list-item" [class.-selected]="isComponentSelected('/blogList')"
+    (tap)="onNavItemTap('/blogList')">
     <Image col="0" src="res://blog" width="12" height="12" class="icon-distance"></Image>
     <Label col="1" text="Blog" class="p-r-10"></Label>
   </GridLayout>
   @if(authService.currentUser){
-  <GridLayout
-    columns="auto, *"
-    class="nt-drawer__list-item"
-    [class.-selected]="isComponentSelected('/profile')"
-    (tap)="onNavItemTap('/profile')"
-  >
- <Image col="0" src="res://user" width="12" height="12" class="icon-distance"></Image>
+  <GridLayout columns="auto, *" class="nt-drawer__list-item" [class.-selected]="isComponentSelected('/profile')"
+    (tap)="onNavItemTap('/profile')">
+    <Image col="0" src="res://user" width="12" height="12" class="icon-distance"></Image>
     <Label col="1" text="Fiók" class="p-r-10"></Label>
   </GridLayout>
-  <GridLayout
-    columns="auto, *"
-    class="nt-drawer__list-item"
-    [class.-selected]="isComponentSelected('/aichat')"
-    (tap)="onNavItemTap('/aichat')"
-  >
-     <Image col="0" src="res://chat" width="12" height="12" class="icon-distance"></Image>
+  <GridLayout columns="auto, *" class="nt-drawer__list-item" [class.-selected]="isComponentSelected('/aichat')"
+    (tap)="onNavItemTap('/aichat')">
+    <Image col="0" src="res://chat" width="12" height="12" class="icon-distance"></Image>
     <Label col="1" text=" Ai csevegés" class="p-r-10"></Label>
   </GridLayout>
 
-  <GridLayout
-    columns="auto, *"
-    class="nt-drawer__list-item"
-    [class.-selected]="isComponentSelected('/basket')"
-    (tap)="onNavItemTap('/basket')"
-  >
+  <GridLayout columns="auto, *" class="nt-drawer__list-item" [class.-selected]="isComponentSelected('/basket')"
+    (tap)="onNavItemTap('/basket')">
     <Image col="0" src="res://cart" width="12" height="12" class="icon-distance"></Image>
     <Label col="1" text="Kosár" class="p-r-10"></Label>
   </GridLayout>
-
-}
+  }
 
   <StackLayout class="hr"></StackLayout>
-  <GridLayout
-    columns="auto, *"
-    class="nt-drawer__list-item"
-    [class.-selected]="isComponentSelected('/settings')"
-    (tap)="onNavItemTap('/settings')"
-  >
- <Image col="0" src="res://settings" width="12" height="12" class="icon-distance"></Image>
+  <GridLayout columns="auto, *" class="nt-drawer__list-item" [class.-selected]="isComponentSelected('/settings')"
+    (tap)="onNavItemTap('/settings')">
+    <Image col="0" src="res://settings" width="12" height="12" class="icon-distance"></Image>
     <Label col="1" text="Beállítások" class="p-r-10"></Label>
   </GridLayout>
 </StackLayout>

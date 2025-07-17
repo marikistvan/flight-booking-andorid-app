@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
-import { action, Application, Dialogs, ObservableArray } from "@nativescript/core";
+import { action, Application } from "@nativescript/core";
 import { ModalDialogOptions, RouterExtensions } from "@nativescript/angular";
 import { AmadeusService } from "../../services/amadeus.service";
 import { ModalDialogService } from "@nativescript/angular";
 import { AuthService } from "~/app/services/auth.service";
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ViewContainerRef } from "@angular/core";
 import { FlightSearchDestinationSelectorComponent } from "./flight-search-destination-selector/flightSearchDestinationSelector.component";
 import { FlightSearchPassengersSelectorComponent } from "./flight-search-passengers-selector/flightSearchPassengersSelector.component";
@@ -18,7 +18,7 @@ import { PassengerCategory } from '../../models/passenger-category';
 
 export class FlightSearchComponent implements OnInit {
   tripTypes: Array<string> = ['Egyirányú', 'Oda-Vissza'];
-  passangerCategoryArray:PassengerCategory[] = [
+  passangerCategoryArray: PassengerCategory[] = [
     { id: 'adult', ageCategory: 'Felnőtt', description: '18 év felett', count: 1 },
     { id: 'youth', ageCategory: 'Fiatal', description: '12–17 év között', count: 0 },
     { id: 'child', ageCategory: 'Gyerek', description: '2–12 év között', count: 0 },
@@ -36,9 +36,6 @@ export class FlightSearchComponent implements OnInit {
   constructor(
     private modalDialogService: ModalDialogService,
     private viewContainerRef: ViewContainerRef,
-    private routerExtensions: RouterExtensions,
-    private amadeusService: AmadeusService,
-    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -52,12 +49,12 @@ export class FlightSearchComponent implements OnInit {
     return yyyy + "-" + mm + "-" + dd;
   }
   submitFlightSearch() {
-    if(this.searchFormGroup.get('fromDate').value > this.searchFormGroup.get('returnDate').value){
+    if (this.searchFormGroup.get('fromDate').value > this.searchFormGroup.get('returnDate').value) {
       console.log("Nem megfelelő a dátum kiválasztása");
     }
     if (!this.searchFormGroup.invalid) {
 
-    }else{
+    } else {
       console.log("invalid a form");
     }
   }
@@ -72,9 +69,9 @@ export class FlightSearchComponent implements OnInit {
       }
     });
   }
-  async selectPassengers(){
+  async selectPassengers() {
     const options: ModalDialogOptions = {
-      context:this.passangerCategoryArray,
+      context: this.passangerCategoryArray,
       fullscreen: true,
       viewContainerRef: this.viewContainerRef
     };
@@ -82,7 +79,7 @@ export class FlightSearchComponent implements OnInit {
       .showModal(FlightSearchPassengersSelectorComponent, options);
 
     if (result as PassengerCategory[]) {
-      this.passangerCategoryArray=result;
+      this.passangerCategoryArray = result;
       let sum = 0;
       this.passangerCategoryArray.forEach(element => {
         sum += element.count;
@@ -90,6 +87,7 @@ export class FlightSearchComponent implements OnInit {
       this.searchFormGroup.get('passengers')?.setValue(sum);
     }
   }
+
   async chooseDestination(type: 'from' | 'to'): Promise<void> {
 
     const controlName = type === 'from' ? 'fromPlace' : 'toPlace';
@@ -103,8 +101,8 @@ export class FlightSearchComponent implements OnInit {
       .showModal(FlightSearchDestinationSelectorComponent, options);
 
     if (result as PassengerCategory[]) {
-      console.log("result: "+result);
-      
+      console.log("result: " + result);
+
       this.searchFormGroup.get(controlName)?.setValue(result);
     }
   }

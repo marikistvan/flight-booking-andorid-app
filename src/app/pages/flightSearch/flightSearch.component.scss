@@ -48,6 +48,11 @@
   height: 90px;
 }
 
+.passengers-field-grid {
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.256);
+}
+
 .select-passegers-field {
   border-width: 0;
   padding-right: 10px;
@@ -79,9 +84,4 @@
 
 .search-label {
   background-color: rgba(0, 0, 0, 0.077);
-}
-
-.passengers-field-grid {
-  border-width: 1px;
-  border-color: rgba(0, 0, 0, 0.256);
 }

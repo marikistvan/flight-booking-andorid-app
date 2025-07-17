@@ -36,11 +36,11 @@
         <DatePickerField class="input-field" col="0" row="7" formControlName="fromDate"
           [pickerDefaultDate]="todayDate" [minDate]="todayDate" [hint]="todayDate"></DatePickerField>
 
-        <Label col="2" row="6" text="Vissza" class=" form-label"></Label>
+        <Label col="2" row="6" text="Vissza" class="form-label"></Label>
         <DatePickerField class="input-field" col="3" row="7" formControlName="returnDate"
         [pickerDefaultDate]="todayDate" [minDate]="todayDate" [hint]="todayDate"></DatePickerField>
 
-        <Label col="0" row="8" text="Utasok" class=" form-label"></Label>
+        <Label col="0" row="8" text="Utasok" class="form-label"></Label>
         <GridLayout col="0" row="9" columns="30, auto" class="passengers-field-grid">
           <Image col="0" src="~/assets/icons/user.png" width="20" height="20"></Image>
           <TextField class=" select-passegers-field" col="1" editable="false" (tap)="selectPassengers()"

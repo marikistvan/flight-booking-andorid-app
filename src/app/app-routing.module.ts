@@ -9,12 +9,12 @@ import { FlightSearchPassengersSelectorComponent } from './pages/flightSearch/fl
 import { HomeComponent } from './pages/home/home.component'
 import { RegisterComponent } from './pages/register/register.component'
 import { ProfileComponent } from './pages/profile/profile.component'
-import { BlogComponent } from './pages/blog/blog.component'
-import { BlogCreateComponent } from './pages/blog/blogCreate/blogCreate.component'
+import { BlogListComponent } from './pages/blog-list/blog-list.component'
+import { BlogCreateComponent } from './pages/blog-list/blogCreate/blogCreate.component'
 import { BasketComponent } from './pages/basket/basket.component'
 import { AiChatComponent } from './pages/aichat/aichat.component'
 const routes: Routes = [
-  { path: '', redirectTo: '/blog', pathMatch: 'full' },
+  { path: '', redirectTo: '/blogList', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,
@@ -44,8 +44,8 @@ const routes: Routes = [
     component: ProfileComponent,
   },
   {
-    path: 'blog',
-    component: BlogComponent,
+    path: 'blogList',
+    component: BlogListComponent,
   },
   {
     path: 'blogCreate',
@@ -66,11 +66,7 @@ const routes: Routes = [
   {
     path: 'profile-edit',
     loadChildren: () => import('~/app/pages/profile_edit/profile-edit.module').then((m) => m.ProfileEditModule),
-  },
-  {
-    path: 'flight-detail',
-    loadChildren: () => import('~/app/pages/flightDetail/flightDetail.module').then((m) => m.FlightDetailModule),
-  },
+  }
 ]
 
 @NgModule({
