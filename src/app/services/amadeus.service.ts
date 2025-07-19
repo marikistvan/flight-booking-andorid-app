@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { HttpClientModule } from '@angular/common/http'
-import { Observable } from 'rxjs'
+import { Observable, switchMap } from 'rxjs'
 import { environment } from '../../environments/environment'
+import { LocationResponse } from '../models/location-response'
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AmadeusService {
   private clientSecret = environment.amadeusClientSecret;
   private accessToken: string | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getToken(): Observable<any> {
     const body = new URLSearchParams();
@@ -36,29 +37,57 @@ export class AmadeusService {
     return this.accessToken;
   }
 
-  searchFlights(origin: String, destination: String, departureDate: String,returnDate: String,adults:String,childrens:String, max:string): Observable<any> {
+  searchFlights(origin: String, destination: String, departureDate: String, returnDate: String, adults: String, childrens: String, max: string): Observable<any> {
+    if (this.accessToken) {
+      return this.makesearchFlightsRequest(origin, destination, departureDate, returnDate, adults, childrens, max);
+    } else {
+      return this.getToken().pipe(
+        switchMap(tokenResponse => {
+          const token = tokenResponse.access_token;
+          this.setAccessToken(token);
+          return this.makesearchFlightsRequest(origin, destination, departureDate, returnDate, adults, childrens, max);
+        })
+      );
+    }
+  }
+
+  makesearchFlightsRequest(origin: String, destination: String, departureDate: String, returnDate: String, adults: String, childrens: String, max: string): Observable<any> {
     let url;
-    if((childrens==undefined || childrens=="") && (returnDate==undefined || returnDate=="")){
+    if ((childrens === undefined || childrens === "") && (returnDate == undefined || returnDate == "")) {
       url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destination}&departureDate=${departureDate}&adults=${adults}&nonStop=false`;
     }
-    else if(childrens==undefined || childrens==""){
+    else if (childrens === undefined || childrens == "") {
       url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destination}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}&nonStop=false`;
-    }else if(returnDate==undefined || returnDate==""){
+    } else if (returnDate === undefined || returnDate == "") {
       url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destination}&departureDate=${departureDate}&adults=${adults}&children=${childrens}&nonStop=false`;
     }
-      else{
+    else {
       url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destination}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}&children=${childrens}&nonStop=false`;
     }
-        return this.http.get(url, {
+    return this.http.get(url, {
       headers: {
         'Authorization': `Bearer ${this.accessToken}`,
       },
     });
   }
-  
-  searchAirports(keywords: string): Observable<any> {
+
+  getLocations(keywords: string): Observable<LocationResponse> {
+    if (this.accessToken) {
+      return this.makeLocationRequest(keywords);
+    } else {
+      return this.getToken().pipe(
+        switchMap(tokenResponse => {
+          const token = tokenResponse.access_token;
+          this.setAccessToken(token);
+          return this.makeLocationRequest(keywords);
+        })
+      );
+    }
+  }
+
+  private makeLocationRequest(keywords: string): Observable<LocationResponse> {
     const url = `https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT&keyword=${keywords}&page%5Blimit%5D=10&page%5Boffset%5D=0&sort=analytics.travelers.score&view=LIGHT`;
-    return this.http.get(url, {
+    return this.http.get<LocationResponse>(url, {
       headers: {
         'Authorization': `Bearer ${this.accessToken}`,
       },

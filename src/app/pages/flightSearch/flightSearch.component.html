@@ -10,8 +10,7 @@
     <StackLayout class="main-container">
 
       <StackLayout class="promo-title-container">
-        <Label textWrap="true" class="promo-title"
-          text="Szuper árak - Gyors -&#10;Utazz ahova csak szeretnél"></Label>
+        <Label textWrap="true" class="promo-title" text="Szuper árak - Gyors -&#10;Utazz ahova csak szeretnél"></Label>
       </StackLayout>
 
       <GridLayout [formGroup]="searchFormGroup" class="flight-search-form" columns="*,5px,*"
@@ -19,26 +18,30 @@
 
         <Label col="0" colSpan="3" row="0" text="Utazás típusa" class="form-label"></Label>
         <GridLayout col="0" colspan="3" row="1" columns="*, auto" class="input-flight-type-grid">
-          <Image col="1" src="~/assets/icons/down-arrow.png" class="icon-flight-type" (tap)="openTripTypePicker()"></Image>
-          <TextField col="0" class="input-to-all-text-field" formControlName="tripType" [text]="searchFormGroup.get('tripType').value"
-            editable="false" hint="Egyirányú, Oda-vissza" (tap)="openTripTypePicker()"></TextField>
+          <Image col="1" src="~/assets/icons/down-arrow.png" class="icon-flight-type" (tap)="openTripTypePicker()">
+          </Image>
+          <TextField col="0" class="input-to-all-text-field" formControlName="tripType"
+            [text]="searchFormGroup.get('tripType').value" editable="false" hint="Egyirányú, Oda-vissza"
+            (tap)="openTripTypePicker()"></TextField>
         </GridLayout>
 
         <Label col="0" colSpan="3" row="2" text="Honnan" class="form-label"></Label>
-        <TextField col="0" colspan="3" row="3" class="input-field" formControlName="fromPlace" editable="false" (tap)="chooseDestination('from')"
-          hint="Honnan"></TextField>
+        <TextField col="0" colspan="3" row="3" class="input-field" formControlName="fromPlace" editable="false"
+          (tap)="chooseDestination('from')" hint="Honnan"></TextField>
 
         <Label col="0" colSpan="3" row="4" text="Hova" class="form-label"></Label>
-        <TextField col="0" colspan="3" row="5" class="input-field" formControlName="toPlace" editable="false" (tap)="chooseDestination('to')"
-          hint="Hova"></TextField>
+        <TextField col="0" colspan="3" row="5" class="input-field" formControlName="toPlace" editable="false"
+          (tap)="chooseDestination('to')" hint="Hova"></TextField>
 
         <Label col="0" colspan="2" row="6" text="Indulás" class=" form-label"></Label>
-        <DatePickerField class="input-field" col="0" row="7" formControlName="fromDate"
-          [pickerDefaultDate]="todayDate" [minDate]="todayDate" [hint]="todayDate"></DatePickerField>
+        <DatePickerField class="input-field" col="0" row="7" formControlName="fromDate" [pickerDefaultDate]="todayDate"
+          [minDate]="todayDate" [hint]="todayDate"></DatePickerField>
 
+        @if(tripType!==null && tripType==='Oda-Vissza'){
         <Label col="2" row="6" text="Vissza" class="form-label"></Label>
         <DatePickerField class="input-field" col="3" row="7" formControlName="returnDate"
-        [pickerDefaultDate]="todayDate" [minDate]="todayDate" [hint]="todayDate"></DatePickerField>
+          [pickerDefaultDate]="todayDate" [minDate]="todayDate" [hint]="todayDate"></DatePickerField>
+        }
 
         <Label col="0" row="8" text="Utasok" class="form-label"></Label>
         <GridLayout col="0" row="9" columns="30, auto" class="passengers-field-grid">

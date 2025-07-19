@@ -1,11 +1,13 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, signal } from "@angular/core";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
-import { action, Application, Dialogs, ObservableArray } from "@nativescript/core";
+import { action, Application, Dialogs, ItemEventData, ObservableArray, TextField } from "@nativescript/core";
 import { ModalDialogOptions, ModalDialogParams, RouterExtensions } from "@nativescript/angular";
 import { ModalDialogService } from "@nativescript/angular";
 import { AuthService } from "~/app/services/auth.service";
-import { FormControl, FormGroup,ReactiveFormsModule, Validators } from "@angular/forms";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ViewContainerRef } from "@angular/core";
+import { AmadeusService } from "~/app/services/amadeus.service";
+import { Location } from '../../../models/location-response'
 
 @Component({
   selector: "ns-flightSearchDestinationSelectorComponent",
@@ -14,45 +16,56 @@ import { ViewContainerRef } from "@angular/core";
 })
 
 export class FlightSearchDestinationSelectorComponent implements OnInit {
-  searchTerm = '';
-  context:string="";
+  searchTerm = signal<string>('');
+  context: string = "";
+  locations = signal<Location[]>([]);
   airports = [
-  {
-    name: 'New York, NY (JFK)',
-    country: 'Egyesült Államok',
-  },
-  {
-    name: 'New York Newark Liberty Intl (EWR)',
-    country: 'Egyesült Államok',
-  },
-];
-filteredAirports = [...this.airports];
-  constructor(private modalDialogParams: ModalDialogParams) {
-    this.context=modalDialogParams.context.type;
+    {
+      name: 'New York, NY (JFK)',
+      country: 'Egyesült Államok',
+    },
+    {
+      name: 'New York Newark Liberty Intl (EWR)',
+      country: 'Egyesült Államok',
+    },
+  ];
+  filteredAirports = [...this.airports];
+  constructor(private modalDialogParams: ModalDialogParams, private amadeusService: AmadeusService) {
+    this.context = modalDialogParams.context.type;
   }
 
   ngOnInit(): void {
   }
-  onSearchTextChanged(event:any){
-    const query = event.value.toLowerCase();
-    this.filteredAirports = this.airports.filter(a =>
-      a.name.toLowerCase().includes(query) ||
-      a.country.toLowerCase().includes(query) ||
-      a.country.toLowerCase().includes(query)
-    );
+  get locationItems(): Location[] {
+    return this.locations();
   }
-  onDelete(){
-    this.searchTerm="";
+
+  onSearchTextChanged(event: any) {
+    this.searchTerm.set((event.object as TextField).text || '');
+    if (this.searchTerm().trim().length > 2) {
+      this.amadeusService.getLocations(this.searchTerm().trim()).subscribe((response) => {
+        this.locations.set(response.data);
+      });
+
+    }
+
+  }
+
+  formatName(detailedName: string, iataCode: string): string {
+    const parts = detailedName.split('/');
+    return parts.join(', ') + ` (${iataCode})`;
+  }
+
+  onDelete() {
+    this.searchTerm.set('');
   }
   onCancel() {
     this.modalDialogParams.closeCallback(null);
   }
-  selectAirport(event:any){
-    const selected = this.filteredAirports[event.index];
-    this.modalDialogParams.closeCallback(selected.name);
-  }
-  onDrawerButtonTap(): void {
-    const sideDrawer = <RadSideDrawer>Application.getRootView()
-    sideDrawer.showDrawer()
+  selectAirport(event:  ItemEventData) {
+    const index = event.index;
+    const selected = this.locationItems[index];
+
+    this.modalDialogParams.closeCallback(selected);
   }
 }

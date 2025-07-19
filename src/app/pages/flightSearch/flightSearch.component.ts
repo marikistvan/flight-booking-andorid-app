@@ -10,6 +10,7 @@ import { ViewContainerRef } from "@angular/core";
 import { FlightSearchDestinationSelectorComponent } from "./flight-search-destination-selector/flightSearchDestinationSelector.component";
 import { FlightSearchPassengersSelectorComponent } from "./flight-search-passengers-selector/flightSearchPassengersSelector.component";
 import { PassengerCategory } from '../../models/passenger-category';
+import { LocationResponse } from "~/app/models/location-response";
 @Component({
   selector: "ns-flightSearch",
   templateUrl: "./flightSearch.component.html",
@@ -25,11 +26,13 @@ export class FlightSearchComponent implements OnInit {
     { id: 'infant', ageCategory: 'Csecsemő', description: '0–2 év között', count: 0 },
   ];
   searchFormGroup = new FormGroup({
-    tripType: new FormControl<string | null>('', Validators.required),
-    fromPlace: new FormControl<string | null>('', Validators.required),
-    toPlace: new FormControl<string | null>('', Validators.required),
-    fromDate: new FormControl<Date | null>(new Date(), Validators.required),
-    returnDate: new FormControl<Date | null>(new Date()),
+    tripType: new FormControl<string | null>(null, Validators.required),
+    fromIATACode: new FormControl<string | null>(null, Validators.required),
+    fromPlace: new FormControl<string | null>(null, Validators.required),
+    toPlaceIATACode: new FormControl<string | null>(null, Validators.required),
+    toPlace: new FormControl<string | null>(null, Validators.required),
+    fromDate: new FormControl<Date | null>(null, Validators.required),
+    returnDate: new FormControl<Date | null>(null),
     passengers: new FormControl<number | null>(1, Validators.required)
   })
   todayDate: string;
@@ -41,6 +44,11 @@ export class FlightSearchComponent implements OnInit {
   ngOnInit(): void {
     this.todayDate = this.getTodayDate();
   }
+
+  get tripType() {
+    return this.searchFormGroup.get('tripType').value;
+  }
+
   getTodayDate() {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, "0");
@@ -53,7 +61,12 @@ export class FlightSearchComponent implements OnInit {
       console.log("Nem megfelelő a dátum kiválasztása");
     }
     if (!this.searchFormGroup.invalid) {
-
+      console.log(this.searchFormGroup.get('tripType').value);
+      console.log(this.searchFormGroup.get('fromIATACode').value);
+      console.log(this.searchFormGroup.get('toPlaceIATACode').value);
+      console.log(this.searchFormGroup.get('fromDate').value);
+      console.log(this.searchFormGroup.get('returnDate').value);
+      console.log(this.searchFormGroup.get('passengers').value);
     } else {
       console.log("invalid a form");
     }
@@ -66,6 +79,9 @@ export class FlightSearchComponent implements OnInit {
     }).then(result => {
       if (result !== 'Mégse') {
         this.searchFormGroup.get('tripType').setValue(result);
+        if(result==='Egyirányú'){
+          this.searchFormGroup.get('returnDate')?.setValue(null);
+        }
       }
     });
   }
@@ -100,11 +116,19 @@ export class FlightSearchComponent implements OnInit {
     const result = await this.modalDialogService
       .showModal(FlightSearchDestinationSelectorComponent, options);
 
-    if (result as PassengerCategory[]) {
-      console.log("result: " + result);
-
-      this.searchFormGroup.get(controlName)?.setValue(result);
+    if (result as LocationResponse) {
+      if (controlName === 'fromPlace') {
+        this.searchFormGroup.get('fromIATACode').setValue(result.iataCode);
+      } else {
+        this.searchFormGroup.get('toPlaceIATACode').setValue(result.iataCode);
+      }
+      this.searchFormGroup.get(controlName)?.setValue(this.formatName(result.detailedName, result.iataCode));
     }
+  }
+
+  formatName(detailedName: string, iataCode: string): string {
+    const parts = detailedName.split('/');
+    return parts.join(', ') + ` (${iataCode})`;
   }
 
   onDrawerButtonTap(): void {

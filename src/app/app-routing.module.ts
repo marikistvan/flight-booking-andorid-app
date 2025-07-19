@@ -17,7 +17,7 @@ import { ReadBlogComponent } from './pages/blog-list/read-blog/read-blog.compone
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/aichat', pathMatch: 'full' },
+  { path: '', redirectTo: '/flightSearch', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,
