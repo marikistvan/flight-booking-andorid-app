@@ -4,6 +4,8 @@ import { HttpClientModule } from '@angular/common/http'
 import { Observable, switchMap } from 'rxjs'
 import { environment } from '../../environments/environment'
 import { LocationResponse } from '../models/location-response'
+import { FlightOffersResponse } from '../models/flight-offers-response'
+import data from '../../assets/flight-offer-sample.json'
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +39,7 @@ export class AmadeusService {
     return this.accessToken;
   }
 
-  searchFlights(origin: String, destination: String, departureDate: String, returnDate: String, adults: String, childrens: String, max: string): Observable<any> {
+  searchFlights(origin: String, destination: String, departureDate: String, returnDate: String, adults: String, childrens: String, max: string): Observable<FlightOffersResponse> {
     if (this.accessToken) {
       return this.makesearchFlightsRequest(origin, destination, departureDate, returnDate, adults, childrens, max);
     } else {
@@ -51,7 +53,7 @@ export class AmadeusService {
     }
   }
 
-  makesearchFlightsRequest(origin: String, destination: String, departureDate: String, returnDate: String, adults: String, childrens: String, max: string): Observable<any> {
+  makesearchFlightsRequest(origin: String, destination: String, departureDate: String, returnDate: String, adults: String, childrens: String, max: string): Observable<FlightOffersResponse> {
     let url;
     if ((childrens === undefined || childrens === "") && (returnDate == undefined || returnDate == "")) {
       url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destination}&departureDate=${departureDate}&adults=${adults}&nonStop=false`;
@@ -64,7 +66,7 @@ export class AmadeusService {
     else {
       url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destination}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}&children=${childrens}&nonStop=false`;
     }
-    return this.http.get(url, {
+    return this.http.get<FlightOffersResponse>(url, {
       headers: {
         'Authorization': `Bearer ${this.accessToken}`,
       },
@@ -93,4 +95,7 @@ export class AmadeusService {
       },
     });
   }
+  getMockFlightOffers() : FlightOffersResponse {
+    return data;
+   }
 }
