@@ -1,4 +1,4 @@
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core'
+import {LOCALE_ID, NgModule, NO_ERRORS_SCHEMA } from '@angular/core'
 import { NativeScriptFormsModule, NativeScriptModule } from '@nativescript/angular'
 import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular'
 import { FormControl, FormsModule } from '@angular/forms'
@@ -30,8 +30,15 @@ import { CreateBlogComponent } from './pages/blog-list/create-blog/create-blog.c
 import { BasketComponent } from './pages/basket/basket.component'
 import { AiChatComponent } from './pages/aichat/aichat.component'
 import { ReadBlogComponent } from './pages/blog-list/read-blog/read-blog.component'
+import { FlightListRowComponent } from './pages/flightSearch/fligthList/flightList-row/flightList-row.component'
+import { FlightDetailsComponent } from './pages/flightSearch/fligthList/flightList-row/flight-details/flight-details.component'
+import { registerLocaleData } from '@angular/common';
+import localeHu from '@angular/common/locales/hu';
+
+registerLocaleData(localeHu);
 
 @NgModule({
+  providers: [{ provide: LOCALE_ID, useValue: 'hu' }],
   bootstrap: [AppComponent],
   imports: [
     AppRoutingModule,
@@ -67,7 +74,9 @@ import { ReadBlogComponent } from './pages/blog-list/read-blog/read-blog.compone
     BasketComponent,
     AiChatComponent,
     BlogItemComponent,
-    ReadBlogComponent
+    ReadBlogComponent,
+    FlightListRowComponent,
+    FlightDetailsComponent
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

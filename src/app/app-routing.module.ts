@@ -14,10 +14,12 @@ import { CreateBlogComponent } from './pages/blog-list/create-blog/create-blog.c
 import { BasketComponent } from './pages/basket/basket.component'
 import { AiChatComponent } from './pages/aichat/aichat.component'
 import { ReadBlogComponent } from './pages/blog-list/read-blog/read-blog.component'
+import { FlightDetailsComponent } from './pages/flightSearch/fligthList/flightList-row/flight-details/flight-details.component'
+import { FlightListRowComponent } from './pages/flightSearch/fligthList/flightList-row/flightList-row.component'
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/flightSearch', pathMatch: 'full' },
+  { path: '', redirectTo: '/flightDetails', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,
@@ -42,7 +44,15 @@ const routes: Routes = [
     path: 'flightSearchPassengersSelectorComponent',
     component: FlightSearchPassengersSelectorComponent,
   },
-    {
+  {
+    path: 'flightListRow',
+    component: FlightListRowComponent,
+  },
+  {
+    path: 'flightDetails',
+    component: FlightDetailsComponent,
+  },
+  {
     path: 'profile',
     component: ProfileComponent,
   },
@@ -60,11 +70,11 @@ const routes: Routes = [
   },
   {
     path: 'aichat',
-    component:AiChatComponent,
+    component: AiChatComponent,
   },
   {
     path: 'basket',
-   component: BasketComponent,
+    component: BasketComponent,
   },
   {
     path: 'profile-edit',

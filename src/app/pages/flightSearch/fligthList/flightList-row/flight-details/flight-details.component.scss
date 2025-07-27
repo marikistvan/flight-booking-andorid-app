@@ -1,0 +1,187 @@
+.action-bar {
+    background-color: #bbd5f4;
+    margin: 20px 0 0 20px;
+    padding: 0;
+    height: 100px;
+}
+
+.action-bar-title {
+    color: black;
+}
+
+.btn-back-rotate-black {
+    width: 20;
+    height: 20;
+    rotate: 180;
+}
+
+.travel-date-layout {
+    margin: 10 0 10 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    font-size: 14;
+}
+
+.travel-info {
+    color: white;
+    text-align: center;
+}
+
+.date-info {
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    margin-left: 8;
+}
+
+.card {
+    margin: 0 20 10 20;
+    border-radius: 25;
+    background-color: white;
+    box-shadow: 10px 5px rgba(0, 0, 0, 0.16);
+    text-align: center;
+}
+
+.t-date {
+    padding: 5;
+    font-size: 14;
+    font-weight: bold;
+}
+
+.t-duration {
+    padding: 5;
+    font-size: 14;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.t-transfer {
+    font-size: 14;
+    color: red;
+    text-align: center;
+}
+
+.black-line {
+    height: 1;
+    background-color: black;
+}
+
+.btn-details-down {
+    width: 15;
+    height: 15;
+    rotate: 90;
+}
+
+.btn-details-up {
+    width: 15;
+    height: 15;
+    rotate: 270;
+}
+
+.airline-icon {
+    width: 24;
+    height: 24;
+    margin-left: 5;
+}
+
+.clock-icon {
+    width: 24;
+    height: 24;
+    margin: 0;
+}
+
+.details-header {
+    align-items: center;
+    margin-top: 10;
+}
+
+.buttons-layout {
+    height: 100;
+    margin: 0 20 0 20;
+}
+
+.airlines {
+    background-color: #2374ee;
+    border-radius: 30;
+    margin-right: 5;
+    margin-left: 10;
+    width: 45%;
+    height: 34;
+
+}
+
+.details-date {
+    width: 45%;
+    margin-left: 5;
+    background-color: rgba(0, 61, 244, 0.5);
+    border-radius: 30;
+    margin-right: 10;
+}
+
+.testWTF {
+    background-color: rgba(0, 64, 255, 0.1833);
+    border-radius: 20;
+    margin: 5;
+}
+
+.details-hour-line {
+    background-color: black;
+    width: 2;
+    margin-left: 20;
+    height: 50;
+}
+
+.third-col-data {
+    text-align: left;
+    margin-left: 5;
+}
+
+.scroll-view-height {
+    height: 200;
+}
+
+.price-grid {
+    margin-top: 50;
+    height: 50;
+    width: 100%;
+    background-color: white;
+    padding-top: 5;
+    box-shadow: 10px 5px rgba(0, 0, 0, 0.16);
+}
+
+.icon-cost {
+    margin: 5 15 5 5;
+    width: 28;
+    height: 28;
+    padding: 5;
+}
+
+.big-price-label {
+    font-size: 23;
+    margin: 0;
+}
+
+.price-detail {
+    font-size: 13;
+    text-align: center;
+}
+
+.btn-transparent-label {
+    background-color: transparent;
+    border-width: 2;
+    border-color: #2374ee;
+    border-radius: 25;
+    width: 130;
+    height: 50;
+    font-size: 20;
+    text-align: center;
+}
+
+.btn-buy-blue {
+    background-color: #2374ee;
+    border-width: 2;
+    border-radius: 25;
+    width: 130;
+    height: 50;
+    font-size: 20;
+    text-align: center;
+    color: white;
+}

@@ -55,4 +55,117 @@
   height: 90px;
 }
 
+//FlightDetailsComponent
+
+.flight-details-component-card {
+  margin: 0 20 10 20;
+  border-radius: 25;
+  background-color: white;
+  box-shadow: 10px 5px rgba(0, 0, 0, 0.16);
+  text-align: center;
+}
+
+.flight-details-component-t-date {
+  padding: 5;
+  font-size: 14;
+  font-weight: bold;
+}
+
+.flight-details-component-t-duration {
+  padding: 5;
+  font-size: 14;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.flight-details-component-black-line {
+  height: 1;
+  background-color: black;
+}
+
+.flight-details-component-t-transfer {
+  font-size: 14;
+  color: red;
+  text-align: center;
+}
+
+.flight-details-component-btn-details-up {
+  width: 20;
+  height: 20;
+  rotate: 270;
+}
+
+.flight-details-component-btn-details-down {
+  width: 20;
+  height: 20;
+  rotate: 90;
+}
+
+.flight-details-component-details-header {
+  align-items: center;
+  margin-top: 10;
+}
+
+.flight-details-component-airline-icon {
+  width: 24;
+  height: 24;
+  margin-left: 5;
+}
+
+.flight-details-component-airlines {
+  background-color: #2374ee;
+  border-radius: 30;
+  margin-right: 5;
+  margin-left: 10;
+  width: 45%;
+  height: 34;
+  font-size: 13;
+  padding: 5;
+}
+
+.flight-details-component-details-date {
+  width: 45%;
+  font-weight: bold;
+  margin-left: 5;
+  background-color: rgba(0, 61, 244, 0.5);
+  border-radius: 30;
+  margin-right: 10;
+}
+
+.flight-details-component-segment-departure-and-arrival-with-time-grid {
+  background-color: rgba(0, 64, 255, 0.1833);
+  border-radius: 20;
+  margin: 5;
+}
+
+.flight-details-component-left-vertival-line {
+  background-color: black;
+  width: 2;
+  margin-left: 20;
+  height: 50;
+}
+
+.flight-details-component-clock-icon {
+  width: 24;
+  height: 24;
+  margin-left: 5;
+  width: 100%;
+}
+
+.flight-details-component-secound.cols {
+  text-align: left;
+  margin-left: 5;
+  width: 100%;
+  
+}
+
+.flight-details-component-third-col {
+  text-align: left;
+  margin-left: 5;
+}
+
+.testScroolClass {
+  height: 600;
+}
+
+
 // Place any CSS rules you want to apply only on Android here
