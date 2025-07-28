@@ -11,10 +11,13 @@ import { FlightSearchDestinationSelectorComponent } from "./flight-search-destin
 import { FlightSearchPassengersSelectorComponent } from "./flight-search-passengers-selector/flightSearchPassengersSelector.component";
 import { PassengerCategory } from '../../models/passenger-category';
 import { LocationResponse } from "~/app/models/location-response";
-import { FlightOffersResponse } from "~/app/models/flight-offers-response";
+import { Dictionaries, FlightOffersResponse } from "~/app/models/flight-offers-response";
 import { FlightListComponent } from "./fligthList/flightList.component";
+import { DatePipe } from "@angular/common";
+import { firstValueFrom } from 'rxjs';
 
 @Component({
+  providers: [DatePipe],
   selector: "ns-flightSearch",
   templateUrl: "./flightSearch.component.html",
   styleUrls: ["./flightSearch.component.scss"],
@@ -44,8 +47,10 @@ export class FlightSearchComponent implements OnInit {
   constructor(
     private modalDialogService: ModalDialogService,
     private viewContainerRef: ViewContainerRef,
-    private amadeusService: AmadeusService
-  ) { }
+    private amadeusService: AmadeusService,
+    private datePipe: DatePipe
+  ) {
+  }
 
   ngOnInit(): void {
     this.todayDate = this.getTodayDate();
@@ -62,45 +67,69 @@ export class FlightSearchComponent implements OnInit {
     var yyyy = today.getFullYear();
     return yyyy + "-" + mm + "-" + dd;
   }
-  async submitFlightSearch() {
-    this.isSearchStarted.set(true);
-    this.flightOffers = this.amadeusService.getMockFlightOffers();
-    const options: ModalDialogOptions = {
-      context: this.flightOffers.data,
-      fullscreen: true,
-      viewContainerRef: this.viewContainerRef
-    };
-    const result = await this.modalDialogService
-      .showModal(FlightListComponent, options);
 
-    if (result) {
+
+  async submitFlightSearch() {
+    try {
+      this.isSearchStarted.set(true);
+
+      const response = await firstValueFrom(
+        this.amadeusService.searchFlights(
+          this.searchFormGroup.get('fromIATACode').value,
+          this.searchFormGroup.get('toPlaceIATACode').value,
+          this.datePipe.transform(this.searchFormGroup.get('fromDate').value, 'yyyy-MM-dd'),
+          this.datePipe.transform(this.searchFormGroup.get('returnDate').value, 'yyyy-MM-dd'),
+          '1',
+          '1',
+          '20'
+        )
+      );
+
+      this.flightOffers = response;
+      const options: ModalDialogOptions = {
+        context: {
+          flightOffers: response.data,
+          dictionary:response.dictionaries,
+          toPlace: this.searchFormGroup.get('toPlace').value.split(',')[0],
+        },
+        fullscreen: true,
+        viewContainerRef: this.viewContainerRef
+      };
+
+      const result = await this.modalDialogService.showModal(FlightListComponent, options);
+
       this.isSearchStarted.set(false);
-    } else {
+
+    } catch (error) {
+      console.error("Hiba a keresés során:", error);
       this.isSearchStarted.set(false);
     }
-    /* if (this.searchFormGroup.get('formDate').value!==undefined&&
-     this.searchFormGroup.get('returnDate').value!==undefined &&
-     this.searchFormGroup.get('fromDate').value > this.searchFormGroup.get('returnDate').value) {
-       console.log("Nem megfelelő a dátum kiválasztása");
-     }
-     else if (!this.searchFormGroup.invalid) {
-       this.flightOffers = this.amadeusService.getMockFlightOffers();
- 
-       const options: ModalDialogOptions = {
-         context:this.flightOffers.data,
-         fullscreen: true,
-         viewContainerRef: this.viewContainerRef
-       };
-       const result = await this.modalDialogService
-         .showModal(FlightListComponent, options);
- 
-       if (result) {
-       }
- 
-     } else {
-       console.log("invalid a form");
-     }*/
   }
+
+
+  /* if (this.searchFormGroup.get('formDate').value!==undefined&&
+   this.searchFormGroup.get('returnDate').value!==undefined &&
+   this.searchFormGroup.get('fromDate').value > this.searchFormGroup.get('returnDate').value) {
+     console.log("Nem megfelelő a dátum kiválasztása");
+   }
+   else if (!this.searchFormGroup.invalid) {
+     this.flightOffers = this.amadeusService.getMockFlightOffers();
+   
+     const options: ModalDialogOptions = {
+       context:this.flightOffers.data,
+       fullscreen: true,
+       viewContainerRef: this.viewContainerRef
+     };
+     const result = await this.modalDialogService
+       .showModal(FlightListComponent, options);
+   
+     if (result) {
+     }
+   
+   } else {
+     console.log("invalid a form");
+   }
+  }*/
   openTripTypePicker() {
     action({
       message: 'Válassz utazási típust',

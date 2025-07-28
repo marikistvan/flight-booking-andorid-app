@@ -1,7 +1,7 @@
 import { DatePipe } from "@angular/common";
 import { Component, Input, OnInit, ViewContainerRef } from "@angular/core";
 import { ModalDialogOptions, ModalDialogService } from "@nativescript/angular";
-import { FlightOffer } from "~/app/models/flight-offers-response";
+import { Dictionaries, FlightOffer, FlightOffersResponse } from "~/app/models/flight-offers-response";
 import { FlightDetailsComponent } from "./flight-details/flight-details.component";
 
 @Component({
@@ -12,6 +12,7 @@ import { FlightDetailsComponent } from "./flight-details/flight-details.componen
 })
 export class FlightListRowComponent implements OnInit {
   @Input({ required: true }) flight!: FlightOffer;
+  @Input({ required: true }) dictionary!: Dictionaries;
   halfPrice: number;
   constructor(
     public datePipe: DatePipe,
@@ -31,7 +32,9 @@ export class FlightListRowComponent implements OnInit {
   }
   async select() {
     const options: ModalDialogOptions = {
-      context: this.flight,
+      context: {
+        flight:this.flight,
+        dictionary:this.dictionary},
       fullscreen: true,
       viewContainerRef: this.viewContainerRef
     };

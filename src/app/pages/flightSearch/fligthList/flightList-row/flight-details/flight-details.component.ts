@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild, signal } from '@angular/core';
 import { GridLayout, ItemSpec, Label, StackLayout, Image } from '@nativescript/core';
-import { FlightOffersResponse } from '~/app/models/flight-offers-response';
+import { Dictionaries, FlightOffersResponse } from '~/app/models/flight-offers-response';
 import { FlightOffer } from '~/app/models/flight-offers-response';
 import { AmadeusService } from '~/app/services/amadeus.service';
 import { DatePipe } from '@angular/common';
@@ -22,7 +22,7 @@ export class FlightDetailsComponent implements AfterViewInit {
   private segmentArrivalDetails: GridLayout[] = [];
   private expandedStates: { [key: string]: boolean } = {};
   locations = signal<LocationResponseForOneLocation[]>([]);
-  flightOffers: FlightOffersResponse;
+  dictionary: Dictionaries;
   flightOffer: FlightOffer;
   halfPrice: number;
   DepartureMainGrid = new GridLayout();
@@ -35,8 +35,8 @@ export class FlightDetailsComponent implements AfterViewInit {
     private datePipe: DatePipe,
     private modalDialogParams: ModalDialogParams
   ) {
-    this.flightOffers = amadeusService.getMockFlightOffers();
-    this.flightOffer = modalDialogParams.context;
+    this.dictionary = modalDialogParams.context.dictionary;
+    this.flightOffer = modalDialogParams.context.flight;
     this.halfPrice = Number(this.flightOffer.price.total) / 2;
   }
 
@@ -154,7 +154,7 @@ export class FlightDetailsComponent implements AfterViewInit {
     const logo = new Image();
     logo.className = 'flight-details-component-airline-icon';
     logo.src = '~/assets/icons/workplace.png';
-    const name = this.flightOffers.dictionaries.carriers[segment.operating.carrierCode];
+    const name = this.dictionary.carriers[segment.operating.carrierCode];
     const label = new Label();
     label.text = name;
     stack.addChild(logo);

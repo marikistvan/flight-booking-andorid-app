@@ -1,6 +1,6 @@
 <StackLayout class="page">
   <GridLayout columns="auto, *" class="action-bar">
-    <Label text="Cél város" colspan="2" class="action-bar-title"></Label>
+    <Label [text]="mainArrivalCity" colspan="2" class="action-bar-title"></Label>
     <Image src="~/assets/icons/right-arrow.png" (tap)="onCancel()" class="fas btn-back-rotate-black"></Image>
   </GridLayout>
 
@@ -9,7 +9,7 @@
     @if(flightOffers){
     @for(flight of flightOffers; track flight.id){
 
-      <ns-flight-list-row [flight]="flight"></ns-flight-list-row>
+      <ns-flight-list-row [flight]="flight" [dictionary]="dictionary"></ns-flight-list-row>
     }
     }@else {
     <Label text="töltés"></Label>
