@@ -1,39 +1,39 @@
 <StackLayout class="bg-test">
 <Gridlayout columns="*,auto,110,*,*" rows="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto" class="card">
 
-    <Label col="1" row="0" text="6:35" class="t-date"></Label>
-    <Label col="2" row="0" text="12 óra 35 perc" class="t-duration"></Label>
-    <Label col="3" row="0" text="16:30" class="t-date"></Label>
+    <Label col="1" row="0" [text]="this.datePipe.transform(flight.itineraries[0].segments[0].departure.at, 'HH:mm')" class="t-date"></Label>
+    <Label col="2" row="0" [text]="this.formatDuration(flight.itineraries[0].duration)" class="t-duration"></Label>
+    <Label col="3" row="0" [text]="this.datePipe.transform(flight.itineraries[0].segments[flight.itineraries[0].segments.length-1].arrival.at, 'HH:mm')" class="t-date"></Label>
 
     <StackLayout col="2" row="1" class="black-line">
     </StackLayout>
 
-    <Label col="1" row="2" text="BUD" class="t-iataCode"></Label>
-    <Label col="2" row="2" text="1 átszállás" class="t-transfer"></Label>
-    <Label col="3" row="2" text="EWR" class="t-iataCode"></Label>
+    <Label col="1" row="2" [text]="flight.itineraries[0].segments[0].departure.iataCode" class="t-iataCode"></Label>
+    <Label col="2" row="2" [text]="flight.itineraries[0].segments.length-1 + ' átszállás'" class="t-transfer"></Label>
+    <Label col="3" row="2" [text]="flight.itineraries[0].segments[flight.itineraries[0].segments.length-1].arrival.iataCode" class="t-iataCode"></Label>
 
     <StackLayout col="1" colSpan="3" row="3" class="blue-line">
     </StackLayout>
 
-    <Label col="1" row="4" text="6:35" class="t-date"></Label>
-    <Label col="2" row="4" text="12 óra 35 perc" class="t-duration"></Label>
-    <Label col="3" row="4" text="16:30" class="t-date"></Label>
+    <Label col="1" row="4" [text]="this.datePipe.transform(flight.itineraries[1].segments[0].departure.at, 'HH:mm')" class="t-date"></Label>
+    <Label col="2" row="4" [text]="this.formatDuration(flight.itineraries[1].duration)" class="t-duration"></Label>
+    <Label col="3" row="4" [text]="this.datePipe.transform(flight.itineraries[1].segments[flight.itineraries[1].segments.length-1].arrival.at, 'HH:mm')" class="t-date"></Label>
 
     <StackLayout col="2" row="5" class="black-line">
     </StackLayout>
 
-    <Label col="1" row="6" text="BUD" class="t-iataCode"></Label>
-    <Label col="2" row="6" text="1 átszállás" class="t-transfer"></Label>
-    <Label col="3" row="6" text="EWR" class="t-iataCode"></Label>
+    <Label col="1" row="6" [text]="flight.itineraries[1].segments[0].departure.iataCode" class="t-iataCode"></Label>
+    <Label col="2" row="6" [text]="flight.itineraries[1].segments.length-1 + ' átszállás'" class="t-transfer"></Label>
+    <Label col="3" row="6" [text]="flight.itineraries[1].segments[flight.itineraries[0].segments.length-1].arrival.iataCode" class="t-iataCode"></Label>
 
     <StackLayout col="0" colSpan="5" row="7" class="long-black-line">
     </StackLayout>
 
 <Gridlayout col="1" colSpan="3" row="9" columns="auto,auto" rows="26,20">
-     <Label col="0"  row="0" text="227 623Ft" class="flight-price"></Label>
-    <Label col="0" row="1" text="Összesen: 682 868Ft" class="full-price"></Label>
+     <Label col="0"  row="0" [text]="halfPrice + ' ' +flight.price.currency" class="flight-price"></Label>
+    <Label col="0" row="1" [text]="'Összesen:'+flight.price.total+' '+flight.price.currency" class="full-price"></Label>
 
-    <Button col="1" row="0" rowSpan="2" text="Kiválasztás" class="btn-submit"></Button>
+    <Button col="1" row="0" rowSpan="2" text="Kiválasztás" class="btn-submit" (tap)="select()"></Button>
 </Gridlayout>
 
 </Gridlayout>

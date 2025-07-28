@@ -4,8 +4,9 @@ import { FlightOffersResponse } from '~/app/models/flight-offers-response';
 import { FlightOffer } from '~/app/models/flight-offers-response';
 import { AmadeusService } from '~/app/services/amadeus.service';
 import { DatePipe } from '@angular/common';
-import { Location } from '~/app/models/location-response';
-import data from '~/assets/iata-code-cityName.json';
+import { LocationResponseForOneLocation } from '~/app/models/location-response-for-one-location';
+import data from '~/assets/iata_data.json';
+import { ModalDialogParams, ModalDialogService } from '@nativescript/angular';
 
 @Component({
   providers: [DatePipe],
@@ -20,22 +21,26 @@ export class FlightDetailsComponent implements AfterViewInit {
   private segmentDepartureDetails: GridLayout[] = [];
   private segmentArrivalDetails: GridLayout[] = [];
   private expandedStates: { [key: string]: boolean } = {};
-  locations = signal<Location[]>([]);
+  locations = signal<LocationResponseForOneLocation[]>([]);
   flightOffers: FlightOffersResponse;
   flightOffer: FlightOffer;
-  halfPrice:number;
+  halfPrice: number;
   DepartureMainGrid = new GridLayout();
   ArrivalMainGrid = new GridLayout();
   @ViewChild('departureContainer', { static: false }) departureContainerRef!: ElementRef;
   @ViewChild('arrivalContainer', { static: false }) arrivalContainerRef!: ElementRef;
 
-  constructor(private amadeusService: AmadeusService, private datePipe: DatePipe) {
+  constructor(
+    private amadeusService: AmadeusService,
+    private datePipe: DatePipe,
+    private modalDialogParams: ModalDialogParams
+  ) {
     this.flightOffers = amadeusService.getMockFlightOffers();
-    this.flightOffer = this.flightOffers.data[0];
-    this.halfPrice=Number(this.flightOffer.price.total)/2;
+    this.flightOffer = modalDialogParams.context;
+    this.halfPrice = Number(this.flightOffer.price.total) / 2;
   }
 
-  async ngAfterViewInit(): Promise<void> {
+  ngAfterViewInit() {
     this.setupMainGrid(this.DepartureMainGrid, 0);
     this.setupMainGrid(this.ArrivalMainGrid, 1);
     this.addMainFlightInfo(this.DepartureMainGrid, 0);
@@ -44,7 +49,7 @@ export class FlightDetailsComponent implements AfterViewInit {
     this.addOpeningTabButton(this.ArrivalMainGrid, 'arrival', 1);
     for (let i = 0; i < this.flightOffer.itineraries[0].segments.length; i++) {
       this.addSegmentHeader(this.DepartureMainGrid, 'departure', i, 0);
-      await this.addSegmentDetails(this.DepartureMainGrid, 'departure', i, 0);
+      this.addSegmentDetails(this.DepartureMainGrid, 'departure', i, 0);
     }
     /*
             const connectionTime = new StackLayout();
@@ -67,14 +72,14 @@ export class FlightDetailsComponent implements AfterViewInit {
     */
     for (let i = 0; i < this.flightOffer.itineraries[1].segments.length; i++) {
       this.addSegmentHeader(this.ArrivalMainGrid, 'arrival', i, 1);
-      await this.addSegmentDetails(this.ArrivalMainGrid, 'arrival', i, 1);
+      this.addSegmentDetails(this.ArrivalMainGrid, 'arrival', i, 1);
     }
     const departureContainer = this.departureContainerRef.nativeElement;
     departureContainer.addChild(this.DepartureMainGrid);
     const arrivalContainer = this.arrivalContainerRef.nativeElement;
     arrivalContainer.addChild(this.ArrivalMainGrid);
-    this.expandedStates['departure']=true;
-    this.expandedStates['arrival']=true;
+    this.expandedStates['departure'] = true;
+    this.expandedStates['arrival'] = true;
   }
 
   private setupMainGrid(grid: GridLayout, iteratiesNumber: number): void {
@@ -115,7 +120,7 @@ export class FlightDetailsComponent implements AfterViewInit {
       const newExpanded = !currentlyExpanded;
       this.expandedStates[flightInfo] = newExpanded;
 
-      this.switchExpanded(flightInfo); 
+      this.switchExpanded(flightInfo);
 
       openingTabImg.className = newExpanded
         ? 'flight-details-component-btn-details-up'
@@ -165,7 +170,7 @@ export class FlightDetailsComponent implements AfterViewInit {
     grid.addChild(headerGrid);
   }
 
-  private async addSegmentDetails(grid: GridLayout, flightInfo: string, i: number, iteratiesNumber: number): Promise<void> {
+  private addSegmentDetails(grid: GridLayout, flightInfo: string, i: number, iteratiesNumber: number) {
     const segment = this.flightOffer.itineraries[iteratiesNumber].segments[i];
     const departureAndArrivalWithTimeGrid = new GridLayout();
     GridLayout.setColumn(departureAndArrivalWithTimeGrid, 0);
@@ -182,7 +187,7 @@ export class FlightDetailsComponent implements AfterViewInit {
     GridLayout.setRowSpan(line, 3);
     departureAndArrivalWithTimeGrid.addChild(line);
     departureAndArrivalWithTimeGrid.addChild(this.label(this.datePipe.transform(segment.departure.at, 'HH:mm'), 'flight-details-component-secound.cols', 1, 0));
-    departureAndArrivalWithTimeGrid.addChild(this.label(await this.getCityName(segment.departure.iataCode), 'flight-details-component-third-col', 2, 0));
+    departureAndArrivalWithTimeGrid.addChild(this.label(this.getCityName(segment.departure.iataCode), 'flight-details-component-third-col', 2, 0));
 
     const clock = new Image();
     clock.src = '~/assets/icons/clock.png';
@@ -192,7 +197,7 @@ export class FlightDetailsComponent implements AfterViewInit {
     departureAndArrivalWithTimeGrid.addChild(clock);
     departureAndArrivalWithTimeGrid.addChild(this.label(this.formatDuration(segment.duration), 'flight-details-component-third-col', 2, 1));
     departureAndArrivalWithTimeGrid.addChild(this.label(this.datePipe.transform(segment.arrival.at, 'HH:mm'), 'flight-details-component-secound.cols', 1, 2));
-    departureAndArrivalWithTimeGrid.addChild(this.label(await this.getCityName(segment.arrival.iataCode), 'flight-details-component-third-col', 2, 2));
+    departureAndArrivalWithTimeGrid.addChild(this.label(this.getCityName(segment.arrival.iataCode), 'flight-details-component-third-col', 2, 2));
     if (flightInfo === 'departure') {
       this.segmentDepartureDetails.push(departureAndArrivalWithTimeGrid);
     } else {
@@ -212,16 +217,14 @@ export class FlightDetailsComponent implements AfterViewInit {
       this.segmentArrivalDetails.forEach(detail => detail.visibility = this.expandedStates[flightInfo] ? 'visible' : 'collapse');
     }
   }
-  getCityName(iataCode: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const cityNameFromJson = data.find((element) => element.iata === iataCode).city;
-      if (cityNameFromJson) {
-        resolve(cityNameFromJson);
-      } else {
-        resolve('');
-      }
-    });
+
+  getCityName(iataCode: string): string {
+    const cityNameFromJson = data[iataCode]?.city;
+    if (cityNameFromJson !== null) {
+      return cityNameFromJson;
+    }
   }
+
 
   formatGridColumnsOrRows(
     layoutDirection: ('col' | 'row'),

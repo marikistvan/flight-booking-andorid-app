@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { Observable, switchMap } from 'rxjs'
 import { environment } from '../../environments/environment'
 import { LocationResponse } from '../models/location-response'
+import { LocationResponseForOneLocation } from '../models/location-response-for-one-location'
 import { FlightOffersResponse } from '../models/flight-offers-response'
 import data from '../../assets/flight-offer-sample.json'
 
@@ -72,8 +73,30 @@ export class AmadeusService {
       },
     });
   }
+    getLocations(keywords: string): Observable<LocationResponse> {
+      if (this.accessToken) {
+        return this.makeLocationsRequest(keywords);
+      } else {
+        return this.getToken().pipe(
+          switchMap(tokenResponse => {
+            const token = tokenResponse.access_token;
+            this.setAccessToken(token);
+            return this.makeLocationsRequest(keywords);
+          })
+        );
+      }
+    }
 
-  getLocations(keywords: string): Observable<LocationResponse> {
+  private makeLocationsRequest(keywords: string): Observable<LocationResponse> {
+    const url = `https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT&keyword=${keywords}&page%5Blimit%5D=10&page%5Boffset%5D=0&sort=analytics.travelers.score&view=LIGHT`;
+    return this.http.get<LocationResponse>(url, {
+      headers: {
+        'Authorization': `Bearer ${this.accessToken}`,
+      },
+    });
+  }
+
+  getLocation(keywords: string): Observable<LocationResponseForOneLocation> {
     if (this.accessToken) {
       return this.makeLocationRequest(keywords);
     } else {
@@ -87,15 +110,15 @@ export class AmadeusService {
     }
   }
 
-  private makeLocationRequest(keywords: string): Observable<LocationResponse> {
-    const url = `https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT&keyword=${keywords}&page%5Blimit%5D=10&page%5Boffset%5D=0&sort=analytics.travelers.score&view=LIGHT`;
-    return this.http.get<LocationResponse>(url, {
-      headers: {
-        'Authorization': `Bearer ${this.accessToken}`,
-      },
-    });
-  }
-  getMockFlightOffers() : FlightOffersResponse {
+  private makeLocationRequest(keywords: string): Observable<LocationResponseForOneLocation> {
+  const url = `https://test.api.amadeus.com/v1/reference-data/locations/${keywords}`;
+  return this.http.get<LocationResponseForOneLocation>(url, {
+    headers: {
+      'Authorization': `Bearer ${this.accessToken}`,
+    },
+  });
+}
+  getMockFlightOffers(): FlightOffersResponse {
     return data;
-   }
+  }
 }
