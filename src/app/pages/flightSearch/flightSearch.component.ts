@@ -11,6 +11,8 @@ import { FlightSearchDestinationSelectorComponent } from "./flight-search-destin
 import { FlightSearchPassengersSelectorComponent } from "./flight-search-passengers-selector/flightSearchPassengersSelector.component";
 import { PassengerCategory } from '../../models/passenger-category';
 import { LocationResponse } from "~/app/models/location-response";
+import { FlightOffersResponse } from "~/app/models/flight-offers-response";
+
 @Component({
   selector: "ns-flightSearch",
   templateUrl: "./flightSearch.component.html",
@@ -19,6 +21,7 @@ import { LocationResponse } from "~/app/models/location-response";
 
 export class FlightSearchComponent implements OnInit {
   tripTypes: Array<string> = ['Egyirányú', 'Oda-Vissza'];
+  flightOffers: FlightOffersResponse;
   passangerCategoryArray: PassengerCategory[] = [
     { id: 'adult', ageCategory: 'Felnőtt', description: '18 év felett', count: 1 },
     { id: 'youth', ageCategory: 'Fiatal', description: '12–17 év között', count: 0 },
@@ -39,6 +42,7 @@ export class FlightSearchComponent implements OnInit {
   constructor(
     private modalDialogService: ModalDialogService,
     private viewContainerRef: ViewContainerRef,
+    private amadeusService: AmadeusService
   ) { }
 
   ngOnInit(): void {
@@ -57,19 +61,27 @@ export class FlightSearchComponent implements OnInit {
     return yyyy + "-" + mm + "-" + dd;
   }
   submitFlightSearch() {
-    if (this.searchFormGroup.get('fromDate').value > this.searchFormGroup.get('returnDate').value) {
-      console.log("Nem megfelelő a dátum kiválasztása");
-    }
-    if (!this.searchFormGroup.invalid) {
-      console.log(this.searchFormGroup.get('tripType').value);
-      console.log(this.searchFormGroup.get('fromIATACode').value);
-      console.log(this.searchFormGroup.get('toPlaceIATACode').value);
-      console.log(this.searchFormGroup.get('fromDate').value);
-      console.log(this.searchFormGroup.get('returnDate').value);
-      console.log(this.searchFormGroup.get('passengers').value);
-    } else {
-      console.log("invalid a form");
-    }
+    /*   if (this.searchFormGroup.get('fromDate').value > this.searchFormGroup.get('returnDate').value) {
+         console.log("Nem megfelelő a dátum kiválasztása");
+       }
+       if (!this.searchFormGroup.invalid) {
+         console.log(this.searchFormGroup.get('tripType').value);
+         console.log(this.searchFormGroup.get('fromIATACode').value);
+         console.log(this.searchFormGroup.get('toPlaceIATACode').value);
+         console.log(this.searchFormGroup.get('fromDate').value);
+         console.log(this.searchFormGroup.get('returnDate').value);
+         console.log(this.searchFormGroup.get('passengers').value);
+       } else {
+         console.log("invalid a form");
+       }*/
+    this.flightOffers = this.amadeusService.getMockFlightOffers();
+    const firstSegment = this.flightOffers.data[0].itineraries[0].segments[0];
+    const lastSegment = this.flightOffers.data[0].itineraries[1].segments.slice(-1)[0];
+
+    console.log(`Indulás: ${firstSegment.departure.iataCode} - ${firstSegment.departure.at}`);
+    console.log(`Érkezés: ${lastSegment.arrival.iataCode} - ${lastSegment.arrival.at}`);
+    console.log(`Teljes ár: ${this.flightOffers.data[0].price.total} ${this.flightOffers.data[0].price.currency}`);
+
   }
   openTripTypePicker() {
     action({
@@ -79,7 +91,7 @@ export class FlightSearchComponent implements OnInit {
     }).then(result => {
       if (result !== 'Mégse') {
         this.searchFormGroup.get('tripType').setValue(result);
-        if(result==='Egyirányú'){
+        if (result === 'Egyirányú') {
           this.searchFormGroup.get('returnDate')?.setValue(null);
         }
       }

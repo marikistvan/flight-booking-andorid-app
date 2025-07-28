@@ -12,4 +12,7 @@ export class FlightListComponent {
   constructor(){
     
   }
+      onCancel() {
+    //this.modalDialogParams.closeCallback(null);
+  }
 }

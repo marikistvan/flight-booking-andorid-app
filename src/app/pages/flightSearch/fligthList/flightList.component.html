@@ -1,33 +1,7 @@
-<RadListView [items]="flightInfoArray" class="flight-list">
-        <ng-template tkListItemTemplate let-item="item" let-i="index">
-          <GridLayout (tap)="Details(i)" horizontalAlignment="center" verticalAlignment="center" class="flight-details"
-            columns="auto, 60, 60, 60, 50" rows="auto, auto, auto, auto, auto">
-            <Label row="0" column="0" text="Társaság" class="flight-label airline"></Label>
-            <Label row="0" column="4" text="&#9829;" class="flight-label airline-save"></Label>
+<StackLayout class="page">
+  <GridLayout columns="auto, *" class="action-bar">
+    <Label text="Cél város" colspan="2" class="action-bar-title"></Label>
+    <Image src="~/assets/icons/right-arrow.png" (tap)="onCancel()" class="fas btn-back-rotate-black"></Image>
+  </GridLayout>
 
-            <Label column="1" row="1" [text]="item.data[0]?.itineraries?.[0]?.segments?.[0]?.departure?.at || 'N/A'"
-              class="flight-label departure-time"></Label>
-            <Label row="1" column="2" [text]="item.data[0]?.itineraries?.[0]?.duration || 'N/A'"
-              verticalAlignment="bottom" class="flight-label duration"></Label>
-
-            <Label row="2" column="2" text="-----------------------" class="flight-label line"></Label>
-
-            <Label row="1" column="3"
-              [text]="item.data[0]?.itineraries?.[item.data[0].itineraries.length - 1]?.segments?.[item.data[0].itineraries[item.data[0].itineraries.length - 1]?.segments.length - 1]?.arrival?.at || 'N/A'"
-              class="flight-label arrival-time"></Label>
-
-            <Label row="3" column="1"
-              [text]="item.data[0]?.itineraries?.[0]?.segments?.[0]?.departure?.iataCode || 'N/A'"
-              class="flight-label departure-code"></Label>
-
-            <Label row="3" column="2" text="Közvetlen" class="flight-label direct-flight"></Label>
-
-            <Label row="3" column="3"
-              [text]="item.data[0]?.itineraries?.[item.data[0].itineraries.length - 1]?.segments?.[item.data[0].itineraries[item.data[0].itineraries.length - 1]?.segments.length - 1]?.arrival?.iataCode || 'N/A'"
-              class="flight-label arrival-code"></Label>
-
-            <Label row="4" column="2" [text]="item.data[0]?.price?.total + '$' || 'N/A'"
-              class="flight-label price"></Label>
-          </GridLayout>
-        </ng-template>
-      </RadListView>
+</StackLayout>
