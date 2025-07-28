@@ -19,7 +19,7 @@ import { FlightListRowComponent } from './pages/flightSearch/fligthList/flightLi
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/flightDetails', pathMatch: 'full' },
+  { path: '', redirectTo: '/flightSearch', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,

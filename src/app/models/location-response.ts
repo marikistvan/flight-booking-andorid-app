@@ -39,9 +39,9 @@ export interface GeoCode {
 export interface Address {
   cityName: string;
   cityCode: string;
-  countryName: string;
-  countryCode: string;
-  regionCode: string;
+  countryName?: string;
+  countryCode?: string;
+  regionCode?: string;
 }
 
 export interface Analytics {

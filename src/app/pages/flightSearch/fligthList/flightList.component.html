@@ -4,4 +4,16 @@
     <Image src="~/assets/icons/right-arrow.png" (tap)="onCancel()" class="fas btn-back-rotate-black"></Image>
   </GridLayout>
 
+  <ScrollView class="scroll-height">
+        <StackLayout>
+    @if(flightOffers){
+    @for(flight of flightOffers; track flight.id){
+
+      <ns-flight-list-row [flight]="flight"></ns-flight-list-row>
+    }
+    }@else {
+    <Label text="töltés"></Label>
+    }
+    </StackLayout>
+  </ScrollView>
 </StackLayout>

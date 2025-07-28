@@ -1,5 +1,7 @@
-import { Component, Input } from "@angular/core";
-import { BasicFlightInformation } from "~/app/models/basicFlightInformation";
+import { Component, Input, Signal, signal, WritableSignal } from "@angular/core";
+import { ModalDialogParams } from "@nativescript/angular";
+import { FlightOffer } from "~/app/models/flight-offers-response";
+
 
 @Component({
   selector: "ns-flight-list",
@@ -7,12 +9,11 @@ import { BasicFlightInformation } from "~/app/models/basicFlightInformation";
   styleUrls: ["./flightList.component.scss"],
 })
 export class FlightListComponent {
-  @Input({ required: true }) flightInfoArray!: Array<BasicFlightInformation>;
-
-  constructor(){
-    
+  public flightOffers: FlightOffer[];
+  constructor(private modalDialogParams: ModalDialogParams) {
+    this.flightOffers = modalDialogParams.context;
   }
-      onCancel() {
+  onCancel() {
     //this.modalDialogParams.closeCallback(null);
   }
 }
