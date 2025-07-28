@@ -1,14 +1,8 @@
-import { AfterViewInit, Component, OnInit, ViewContainerRef } from "@angular/core";
-import { Dialogs, prompt } from "@nativescript/core";
-import { ModalDialogOptions, ModalDialogService, RouterExtensions } from "@nativescript/angular";
-import { SelectedIndexChangedEventData } from "nativescript-drop-down";
+import { Component, OnInit } from "@angular/core";
 import "@nativescript/firebase-auth";
 import "@nativescript/firebase-firestore";
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
 import { Application } from '@nativescript/core'
-import { AppComponent } from "../../app.component"
-import { firebase } from "@nativescript/firebase-core";
-import { HomeComponent } from "../home/home.component";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
