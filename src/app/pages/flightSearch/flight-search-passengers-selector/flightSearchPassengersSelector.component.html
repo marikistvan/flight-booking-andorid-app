@@ -19,9 +19,23 @@
     <Label col="2" [row]="i" [text]="category.count" class="passengers-counter"></Label>
     <Button col="3" [row]="i" text="+" class="btn-sm" [isEnabled]="category.count < 8" (tap)="increment(i)"></Button>
     }
-    @if(isPassengerNumberZero){
-      <Label colspan="4" row="8" text="1 fő kiválasztása kötelező" class="fs-15 text-danger"></Label>
+    @if(isInfantsNumberMoreThenAdults){
+    <Label textWrap="true" colspan="4" row="8"
+      text="A csecsők csak a felnőttek ölében utazhatnak, így legalább annyi felnőtt szükséges, mint csecsemő."
+      class="fs-15 text-danger"></Label>
     }
-    <Button colspan="4" row="9" text="Alkalmaz" class="btn-primary" (tap)="submit()"></Button>
+    @if(isPassengerNumberZero){
+    <Label colspan="4" row="8" text="1 felnőtt kiválasztása kötelező" class="fs-15 text-danger"></Label>
+    }
+    @if(isOnlyChild){
+    <Label textWrap="true" colspan="4" row="8" text="A gyerekek nem utazhatnak egyedül."
+      class="fs-15 text-danger"></Label>
+    }
+    @if(isTotalNumberOfSeatedTravelersMoreThenNine){
+    <Label textWrap="true" colspan="4" row="9"
+      text="Az ülő utasok (felnőttek és gyermekek) teljes száma nem haladhatja meg a 9-et."
+      class="fs-15 text-danger"></Label>
+    }
+    <Button colspan="4" row="10" text="Alkalmaz" class="btn-primary" (tap)="submit()"></Button>
   </GridLayout>
 </StackLayout>
