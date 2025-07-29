@@ -7,19 +7,20 @@
 </ActionBar>
 <Frame>
   <Page actionBarHidden="true" class="page">
-          @if(isSearchStarted()){
-         <ActivityIndicator busy="true" />
-      }@else{
+    @if(isSearchStarted()){
+    <ActivityIndicator busy="true" />
+    }@else{
     <StackLayout class="main-container">
       <StackLayout class="promo-title-container">
         <Label textWrap="true" class="promo-title" text="Szuper árak - Gyors -&#10;Utazz ahova csak szeretnél"></Label>
       </StackLayout>
 
       <GridLayout [formGroup]="searchFormGroup" class="flight-search-form" columns="*,5px,*"
-        rows="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,*">
+        rows="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,*">
 
         <Label col="0" colSpan="3" row="0" text="Utazás típusa" class="form-label"></Label>
-        <GridLayout col="0" colspan="3" row="1" columns="*, auto" class="input-flight-type-grid">
+        <GridLayout col="0" colspan="3" row="1" columns="*, auto" class="input-flight-type-grid"
+          [ngClass]="{ 'input-error': isInvalid('tripType') }">
           <Image col="1" src="~/assets/icons/down-arrow.png" class="icon-flight-type" (tap)="openTripTypePicker()">
           </Image>
           <TextField col="0" class="input-to-all-text-field" formControlName="tripType"
@@ -29,30 +30,36 @@
 
         <Label col="0" colSpan="3" row="2" text="Honnan" class="form-label"></Label>
         <TextField col="0" colspan="3" row="3" class="input-field" formControlName="fromPlace" editable="false"
-          (tap)="chooseDestination('from')" hint="Honnan"></TextField>
+          (tap)="chooseDestination('from')" hint="Honnan" [ngClass]="{ 'input-error': isInvalid('fromPlace') }">
+        </TextField>
 
         <Label col="0" colSpan="3" row="4" text="Hova" class="form-label"></Label>
         <TextField col="0" colspan="3" row="5" class="input-field" formControlName="toPlace" editable="false"
-          (tap)="chooseDestination('to')" hint="Hova"></TextField>
+          (tap)="chooseDestination('to')" hint="Hova" [ngClass]="{ 'input-error': isInvalid('toPlace') }"></TextField>
 
         <Label col="0" colspan="2" row="6" text="Indulás" class=" form-label"></Label>
         <DatePickerField class="input-field" col="0" row="7" formControlName="fromDate" [pickerDefaultDate]="todayDate"
-          [minDate]="todayDate" [hint]="todayDate"></DatePickerField>
+          [minDate]="todayDate" [hint]="todayDate" [ngClass]="{ 'input-error': isInvalid('fromDate') }">
+        </DatePickerField>
 
         @if(tripType!==null && tripType==='Oda-Vissza'){
         <Label col="2" row="6" text="Vissza" class="form-label"></Label>
         <DatePickerField class="input-field" col="3" row="7" formControlName="returnDate"
-          [pickerDefaultDate]="todayDate" [minDate]="todayDate" [hint]="todayDate"></DatePickerField>
+          [pickerDefaultDate]="todayDate" [minDate]="todayDate" [hint]="todayDate"
+          [ngClass]="{ 'input-error': isInvalid('returnDate') }"></DatePickerField>
+        }
+        @if(isDateWrong()){
+        <Label col="0" colSpan="3" row="8" text="Kezdeti dátum nem lehet később, mint a végdátum" class="text-danger"></Label>
         }
 
-        <Label col="0" row="8" text="Utasok" class="form-label"></Label>
-        <GridLayout col="0" row="9" columns="30, auto" class="passengers-field-grid">
+        <Label col="0" row="9" text="Utasok" class="form-label"></Label>
+        <GridLayout col="0" row="10" columns="30, auto" class="passengers-field-grid">
           <Image col="0" src="~/assets/icons/user.png" width="20" height="20"></Image>
           <TextField class=" select-passegers-field" col="1" editable="false" (tap)="selectPassengers()"
             formControlName="passengers"></TextField>
         </GridLayout>
 
-        <GridLayout col="2" row="9" columns="30, auto" (tap)="submitFlightSearch()" class="btn-submit-grid">
+        <GridLayout col="2" row="10" columns="30, auto" (tap)="submitFlightSearch()" class="btn-submit-grid">
           <Image col="0" src="~/assets/icons/search-v3.png" class="search-icon"></Image>
           <Label col="1" text="Keresés" class="btn-submit-label"></Label>
         </GridLayout>

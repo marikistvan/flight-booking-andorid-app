@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from "@angular/core";
+import { Component, computed, OnInit, signal } from "@angular/core";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { action, Application } from "@nativescript/core";
 import { ModalDialogOptions, RouterExtensions } from "@nativescript/angular";
@@ -26,24 +26,25 @@ import { firstValueFrom } from 'rxjs';
 export class FlightSearchComponent implements OnInit {
   tripTypes: Array<string> = ['Egyirányú', 'Oda-Vissza'];
   flightOffers: FlightOffersResponse;
+  maxSearchNumber:string='20';
   isSearchStarted = signal(false);
   passangerCategoryArray: PassengerCategory[] = [
     { id: 'adult', ageCategory: 'Felnőtt', description: '18 év felett', count: 1 },
-    { id: 'youth', ageCategory: 'Fiatal', description: '12–17 év között', count: 0 },
     { id: 'child', ageCategory: 'Gyerek', description: '2–12 év között', count: 0 },
     { id: 'infant', ageCategory: 'Csecsemő', description: '0–2 év között', count: 0 },
   ];
   searchFormGroup = new FormGroup({
-    tripType: new FormControl<string | null>(null, Validators.required),
+    tripType: new FormControl(null, Validators.required),
     fromIATACode: new FormControl<string | null>(null, Validators.required),
-    fromPlace: new FormControl<string | null>(null, Validators.required),
-    toPlaceIATACode: new FormControl<string | null>(null, Validators.required),
-    toPlace: new FormControl<string | null>(null, Validators.required),
+    fromPlace: new FormControl(null, [Validators.required, Validators.minLength(5)]),
+    toPlaceIATACode: new FormControl(null, Validators.required),
+    toPlace: new FormControl(null, [Validators.required, Validators.minLength(5)]),
     fromDate: new FormControl<Date | null>(null, Validators.required),
     returnDate: new FormControl<Date | null>(null),
     passengers: new FormControl<number | null>(1, Validators.required)
   })
   todayDate: string;
+  isDateWrong = signal(false);
   constructor(
     private modalDialogService: ModalDialogService,
     private viewContainerRef: ViewContainerRef,
@@ -54,8 +55,16 @@ export class FlightSearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.todayDate = this.getTodayDate();
+    this.searchFormGroup.get('fromDate')?.valueChanges.subscribe(() => this.validateDates());
+    this.searchFormGroup.get('returnDate')?.valueChanges.subscribe(() => this.validateDates());
   }
+  validateDates() {
+    const fromDate = this.searchFormGroup.get('fromDate')?.value;
+    const returnDate = this.searchFormGroup.get('returnDate')?.value;
 
+    const wrong = fromDate !== null && returnDate !== null && fromDate > returnDate;
+    this.isDateWrong.set(wrong);
+  }
   get tripType() {
     return this.searchFormGroup.get('tripType').value;
   }
@@ -67,9 +76,17 @@ export class FlightSearchComponent implements OnInit {
     var yyyy = today.getFullYear();
     return yyyy + "-" + mm + "-" + dd;
   }
-
+  isInvalid(controlName: string): boolean {
+    const control = this.searchFormGroup.get(controlName);
+    return control && control.invalid && (control.dirty || control.touched);
+  }
 
   async submitFlightSearch() {
+    if (this.searchFormGroup.invalid) {
+      this.searchFormGroup.markAllAsTouched();
+      return;
+    }
+    if (this.isDateWrong()) { return; }
     try {
       this.isSearchStarted.set(true);
 
@@ -78,10 +95,11 @@ export class FlightSearchComponent implements OnInit {
           this.searchFormGroup.get('fromIATACode').value,
           this.searchFormGroup.get('toPlaceIATACode').value,
           this.datePipe.transform(this.searchFormGroup.get('fromDate').value, 'yyyy-MM-dd'),
-          this.datePipe.transform(this.searchFormGroup.get('returnDate').value, 'yyyy-MM-dd'),
-          '1',
-          '1',
-          '20'
+          this.passangerCategoryArray[0].count.toString(),
+          this.maxSearchNumber,
+          this.searchFormGroup.get('returnDate').value !== undefined ? this.datePipe.transform(this.searchFormGroup.get('returnDate').value, 'yyyy-MM-dd') : undefined,
+          this.passangerCategoryArray[1].count.toString(),
+          this.passangerCategoryArray[2].count.toString()
         )
       );
 
@@ -89,7 +107,7 @@ export class FlightSearchComponent implements OnInit {
       const options: ModalDialogOptions = {
         context: {
           flightOffers: response.data,
-          dictionary:response.dictionaries,
+          dictionary: response.dictionaries,
           toPlace: this.searchFormGroup.get('toPlace').value.split(',')[0],
         },
         fullscreen: true,
@@ -106,30 +124,6 @@ export class FlightSearchComponent implements OnInit {
     }
   }
 
-
-  /* if (this.searchFormGroup.get('formDate').value!==undefined&&
-   this.searchFormGroup.get('returnDate').value!==undefined &&
-   this.searchFormGroup.get('fromDate').value > this.searchFormGroup.get('returnDate').value) {
-     console.log("Nem megfelelő a dátum kiválasztása");
-   }
-   else if (!this.searchFormGroup.invalid) {
-     this.flightOffers = this.amadeusService.getMockFlightOffers();
-   
-     const options: ModalDialogOptions = {
-       context:this.flightOffers.data,
-       fullscreen: true,
-       viewContainerRef: this.viewContainerRef
-     };
-     const result = await this.modalDialogService
-       .showModal(FlightListComponent, options);
-   
-     if (result) {
-     }
-   
-   } else {
-     console.log("invalid a form");
-   }
-  }*/
   openTripTypePicker() {
     action({
       message: 'Válassz utazási típust',
@@ -183,6 +177,7 @@ export class FlightSearchComponent implements OnInit {
       }
       this.searchFormGroup.get(controlName)?.setValue(this.formatName(result.detailedName, result.iataCode));
     }
+
   }
 
   formatName(detailedName: string, iataCode: string): string {

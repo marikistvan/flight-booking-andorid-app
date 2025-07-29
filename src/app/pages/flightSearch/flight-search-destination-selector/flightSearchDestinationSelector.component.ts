@@ -60,7 +60,7 @@ export class FlightSearchDestinationSelectorComponent implements OnInit {
     this.searchTerm.set('');
   }
   onCancel() {
-    this.modalDialogParams.closeCallback(null);
+    this.modalDialogParams.closeCallback("");
   }
   selectAirport(event:  ItemEventData) {
     const index = event.index;
