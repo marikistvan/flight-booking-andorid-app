@@ -18,6 +18,6 @@ export class FlightListComponent {
      this.dictionary=this.modalDialogParams.context.dictionary;
   }
   onCancel() {
-    //this.modalDialogParams.closeCallback(null);
+    this.modalDialogParams.closeCallback(null);
   }
 }

@@ -13,10 +13,8 @@ import { BlogListComponent } from './pages/blog-list/blog-list.component'
 import { CreateBlogComponent } from './pages/blog-list/create-blog/create-blog.component'
 import { BasketComponent } from './pages/basket/basket.component'
 import { AiChatComponent } from './pages/aichat/aichat.component'
-import { ReadBlogComponent } from './pages/blog-list/read-blog/read-blog.component'
 import { FlightDetailsComponent } from './pages/flightSearch/fligthList/flightList-row/flight-details/flight-details.component'
 import { FlightListRowComponent } from './pages/flightSearch/fligthList/flightList-row/flightList-row.component'
-
 
 const routes: Routes = [
   { path: '', redirectTo: '/flightSearch', pathMatch: 'full' },

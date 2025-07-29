@@ -37,19 +37,31 @@ export class FlightDetailsComponent implements AfterViewInit {
   ) {
     this.dictionary = modalDialogParams.context.dictionary;
     this.flightOffer = modalDialogParams.context.flight;
+   // this.dictionary = amadeusService.getMockFlightOffers().dictionaries;
+   // this.flightOffer = amadeusService.getMockFlightOffers().data[0];
     this.halfPrice = Number(this.flightOffer.price.total) / 2;
   }
 
   ngAfterViewInit() {
     this.setupMainGrid(this.DepartureMainGrid, 0);
-    this.setupMainGrid(this.ArrivalMainGrid, 1);
+
+
     this.addMainFlightInfo(this.DepartureMainGrid, 0);
-    this.addMainFlightInfo(this.ArrivalMainGrid, 1);
+
     this.addOpeningTabButton(this.DepartureMainGrid, 'departure', 0);
-    this.addOpeningTabButton(this.ArrivalMainGrid, 'arrival', 1);
+
     for (let i = 0; i < this.flightOffer.itineraries[0].segments.length; i++) {
       this.addSegmentHeader(this.DepartureMainGrid, 'departure', i, 0);
       this.addSegmentDetails(this.DepartureMainGrid, 'departure', i, 0);
+    }
+    if (this.flightOffer.itineraries.length === 2) {
+      this.setupMainGrid(this.ArrivalMainGrid, 1);
+      this.addMainFlightInfo(this.ArrivalMainGrid, 1);
+      this.addOpeningTabButton(this.ArrivalMainGrid, 'arrival', 1);
+      for (let i = 0; i < this.flightOffer.itineraries[1].segments.length; i++) {
+        this.addSegmentHeader(this.ArrivalMainGrid, 'arrival', i, 1);
+        this.addSegmentDetails(this.ArrivalMainGrid, 'arrival', i, 1);
+      }
     }
     /*
             const connectionTime = new StackLayout();
@@ -70,10 +82,8 @@ export class FlightDetailsComponent implements AfterViewInit {
           </StackLayout>
       
     */
-    for (let i = 0; i < this.flightOffer.itineraries[1].segments.length; i++) {
-      this.addSegmentHeader(this.ArrivalMainGrid, 'arrival', i, 1);
-      this.addSegmentDetails(this.ArrivalMainGrid, 'arrival', i, 1);
-    }
+
+
     const departureContainer = this.departureContainerRef.nativeElement;
     departureContainer.addChild(this.DepartureMainGrid);
     const arrivalContainer = this.arrivalContainerRef.nativeElement;
