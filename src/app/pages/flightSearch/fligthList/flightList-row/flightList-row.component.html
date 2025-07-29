@@ -53,7 +53,11 @@
             <Label col="0" row="0" rowSpan="2" [text]="flight.price.total+' '+flight.price.currency"
                 class="flight-price"></Label>
             }
+            @if(isSearchStarted()){
+            <ActivityIndicator col="1" row="0" rowSpan="2" busy="true" class="search-activity" />
+            }@else{
             <Button col="1" row="0" rowSpan="2" text="Kiválasztás" class="btn-submit" (tap)="select()"></Button>
+            }
         </Gridlayout>
 
     </Gridlayout>

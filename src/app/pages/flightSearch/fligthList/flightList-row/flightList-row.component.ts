@@ -1,5 +1,5 @@
 import { DatePipe } from "@angular/common";
-import { Component, Input, OnInit, ViewContainerRef } from "@angular/core";
+import { Component, Input, OnInit, signal, ViewContainerRef } from "@angular/core";
 import { ModalDialogOptions, ModalDialogService } from "@nativescript/angular";
 import { Dictionaries, FlightOffer, FlightOffersResponse } from "~/app/models/flight-offers-response";
 import { FlightDetailsComponent } from "./flight-details/flight-details.component";
@@ -14,10 +14,11 @@ export class FlightListRowComponent implements OnInit {
   @Input({ required: true }) flight!: FlightOffer;
   @Input({ required: true }) dictionary!: Dictionaries;
   halfPrice: number;
+  isSearchStarted = signal(false);
   constructor(
     public datePipe: DatePipe,
     private modalDialogService: ModalDialogService,
-    private viewContainerRef: ViewContainerRef) {}
+    private viewContainerRef: ViewContainerRef) { }
   ngOnInit(): void {
     this.halfPrice = Number(this.flight.price.total) / 2;
   }
@@ -31,10 +32,12 @@ export class FlightListRowComponent implements OnInit {
     return [hours, minutes].filter(Boolean).join(' ');
   }
   async select() {
+    this.isSearchStarted.set(true);
     const options: ModalDialogOptions = {
       context: {
-        flight:this.flight,
-        dictionary:this.dictionary},
+        flight: this.flight,
+        dictionary: this.dictionary
+      },
       fullscreen: true,
       viewContainerRef: this.viewContainerRef
     };
@@ -42,9 +45,9 @@ export class FlightListRowComponent implements OnInit {
       .showModal(FlightDetailsComponent, options);
 
     if (result) {
-      
+      this.isSearchStarted.set(false);
     } else {
-
+      this.isSearchStarted.set(false);
     }
   }
 }
