@@ -15,9 +15,10 @@ import { BasketComponent } from './pages/basket/basket.component'
 import { AiChatComponent } from './pages/aichat/aichat.component'
 import { FlightDetailsComponent } from './pages/flightSearch/fligthList/flightList-row/flight-details/flight-details.component'
 import { FlightListRowComponent } from './pages/flightSearch/fligthList/flightList-row/flightList-row.component'
+import { PassengerInfoComponent } from './pages/flight-booking/passenger-info.component'
 
 const routes: Routes = [
-  { path: '', redirectTo: '/flightSearch', pathMatch: 'full' },
+  { path: '', redirectTo: '/passengerInfo', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: 'passengerInfo',
+    component: PassengerInfoComponent,
   },
   {
     path: 'flightSearch',
