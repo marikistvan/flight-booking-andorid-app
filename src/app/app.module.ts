@@ -33,7 +33,8 @@ import { ReadBlogComponent } from './pages/blog-list/read-blog/read-blog.compone
 import { FlightListRowComponent } from './pages/flightSearch/fligthList/flightList-row/flightList-row.component'
 import { FlightDetailsComponent } from './pages/flightSearch/fligthList/flightList-row/flight-details/flight-details.component'
 import { PassengerInfoComponent } from './pages/flight-booking/passenger-info.component'
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData } from '@angular/common'
+import { SetpassengerComponent } from './pages/flight-booking/set-passenger/set-passenger.component'
 import localeHu from '@angular/common/locales/hu';
 
 registerLocaleData(localeHu);
@@ -78,7 +79,8 @@ registerLocaleData(localeHu);
     ReadBlogComponent,
     FlightListRowComponent,
     FlightDetailsComponent,
-    PassengerInfoComponent
+    PassengerInfoComponent,
+    SetpassengerComponent
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

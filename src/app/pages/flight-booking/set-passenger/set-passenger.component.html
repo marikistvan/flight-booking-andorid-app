@@ -1,0 +1,43 @@
+<StackLayout class="page">
+  <GridLayout columns="auto, *" class="action-bar">
+    <Label text="Add meg az utas adatait" colspan="2" class="action-bar-title"></Label>
+    <Image src="~/assets/icons/right-arrow.png" (tap)="onCancel()" class="fas btn-back-rotate-black"></Image>
+  </GridLayout>
+
+  <GridLayout [formGroup]="passengerForm" columns="*,5px,*" rows="auto,auto,auto,auto,auto,auto,auto,auto"
+    class="passenger-info-form">
+    <Label col="0" colSpan="3" row="0" text="1. felnőtt adatai" class="text-center f-16"></Label>
+
+    <Label col="0" row="1" text="Vezetéknév" class="form-label"></Label>
+    <TextField col="0" row="2" class="input-field" formControlName="lastName" editable="true" hint="Vezetéknév">
+    </TextField>
+
+    <Label col="2" row="1" text="Keresztnév" class="form-label"></Label>
+    <TextField col="2" row="2" class="input-field" formControlName="firstName" editable="true" hint="Keresztnév">
+    </TextField>
+
+    <Label col="0" row="3" text="Születési dátum" class="form-label"></Label>
+    <DatePickerField class="input-field" col="0" row="4" formControlName="bornDate" hint="1999. jan. 4.">
+    </DatePickerField>
+
+    <Label col="2" row="3" text="Neme" class="form-label"></Label>
+    <TextField class="input-field" hint="Nő,Férfi,Egyéb..." col="2" row="4" [text]="passengerForm.get('sexType').value"
+      formControlName="sexType" editable="false" (tap)="openSexTypePicker()" formControlName="sexType">
+    </TextField>
+
+    <Label col="0" colSpan="3" row="5" text="Utazás típusa" class="form-label"></Label>
+    <GridLayout col="0" colspan="3" row="6" columns="*, auto" class="input-baggage-type-grid">
+      <Image col="1" src="~/assets/icons/down-arrow.png" class="icon-baggage-type" (tap)="openBaggagePicker()">
+      </Image>
+      <TextField col="0" class="triptype-textfield" formControlName="baggageType"
+        [text]="passengerForm.get('baggageType').value" editable="false" hint="Egyirányú, Oda-vissza"
+        (tap)="openBaggagePicker()"></TextField>
+    </GridLayout>
+
+    <GridLayout col="0" colSpan="3" row="7" columns="auto, *" (tap)="submit()"
+      class="btn-submit-grid">
+      <Image col="0" src="~/assets/icons/right-arrow.png" class="right-arrow-icon"></Image>
+      <Label col="1" text="Következő" class="btn-submit-label"></Label>
+    </GridLayout>
+  </GridLayout>
+</StackLayout>

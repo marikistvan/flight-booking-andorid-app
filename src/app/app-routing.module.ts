@@ -16,12 +16,17 @@ import { AiChatComponent } from './pages/aichat/aichat.component'
 import { FlightDetailsComponent } from './pages/flightSearch/fligthList/flightList-row/flight-details/flight-details.component'
 import { FlightListRowComponent } from './pages/flightSearch/fligthList/flightList-row/flightList-row.component'
 import { PassengerInfoComponent } from './pages/flight-booking/passenger-info.component'
+import { SetpassengerComponent } from './pages/flight-booking/set-passenger/set-passenger.component'
 
 const routes: Routes = [
-  { path: '', redirectTo: '/passengerInfo', pathMatch: 'full' },
+  { path: '', redirectTo: '/setPassenger', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,
+  },
+  {
+    path: 'setPassenger',
+    component:SetpassengerComponent,
   },
   {
     path: 'login',
