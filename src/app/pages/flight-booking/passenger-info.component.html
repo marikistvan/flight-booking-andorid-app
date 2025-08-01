@@ -1,33 +1,22 @@
 <StackLayout class="page">
   <GridLayout columns="auto, *" class="action-bar">
-    <Label text="Indulási hely kiválasztása" colspan="2" class="action-bar-title"></Label>
+    <Label text="Utas(ok) adati megadása" colspan="2" class="action-bar-title"></Label>
     <Image src="~/assets/icons/right-arrow.png" (tap)="onCancel()" class="fas btn-back-rotate-black"></Image>
   </GridLayout>
 
-  <!--      <GridLayout [formGroup]="passengerForm" class="flight-search-form" columns="*,5px,*"
-        rows="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,*">
+  <GridLayout [formGroup]="passengerForm" columns="*" [rows]="rowsCount" class="passenger-info-form">
+    @for(passenger of flightOffer.travelerPricings; let i = $index; track i) {
+    <StackLayout col="0" [row]="i">
+      <Label [text]="passenger.travelerId + '. utas ('+passengersType[i]+')'" class="form-label"></Label>
+      <TextField hint="utas adatai" class="input-field" editable="false" (tap)="setPassenger(passenger.travelerId)"></TextField>
+    </StackLayout>
+    }
 
-     <Label col="0" colSpan="3" row="0" text="1. Utas" class="form-label"></Label>
-        <TextField col="0" colspan="3" row="1" class="input-field" formControlName="firtsPassenger" editable="false"
-          (tap)="setPassengerInfo()" hint="adatai megadása" [ngClass]="{ 'input-error': isInvalid('firtsPassenger') }">
-        </TextField>
-
-
-      </GridLayout>-->
-  <GridLayout [formGroup]="passengerForm" columns="auto" rows="auto,auto,auto,auto" [rows]="passengers.length * 2"
-    class="flight-search-form">
-    <ng-container *ngFor="let name of passengers; let i = index">
-      <Label [text]="(i + 1) + '. Utas'" col="0" [row]="i" class="form-label"></Label>
-
-      <TextField col="0" [row]="(i + 1)" [formControlName]="name" class="input-field"
-        hint="adatai megadása" [editable]="false" (tap)="setPassengerInfo(i)"
-        [ngClass]="{ 'input-error': isInvalid(name) }">
-      </TextField>
-    </ng-container>
+    <GridLayout col="0" [row]="flightOffer.travelerPricings.length" columns="auto, *" (tap)="submit()"
+      class="btn-submit-grid">
+      <Image col="0" src="~/assets/icons/right-arrow.png" class="right-arrow-icon"></Image>
+      <Label col="1" text="Következő" class="btn-submit-label"></Label>
+    </GridLayout>
   </GridLayout>
 
-  <!--   <StackLayout col="0" colSpan="3" row="6" orientation="horizontal" (tap)="submit()">
-        <Image src="~/assets/icons/google.png" class="btn-google-img" />
-        <Label text="Bejelentkezés a Googleval" class="btn-google-label"></Label>
-      </StackLayout> -->
 </StackLayout>

@@ -1,12 +1,14 @@
-import { AfterViewInit, Component, ElementRef, ViewChild, signal } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild, ViewContainerRef, signal } from '@angular/core';
 import { GridLayout, ItemSpec, Label, StackLayout, Image } from '@nativescript/core';
 import { Dictionaries, FlightOffersResponse } from '~/app/models/flight-offers-response';
+import { ModalDialogOptions, ModalDialogParams, ModalDialogService } from '@nativescript/angular';
 import { FlightOffer } from '~/app/models/flight-offers-response';
 import { AmadeusService } from '~/app/services/amadeus.service';
 import { DatePipe } from '@angular/common';
 import { LocationResponseForOneLocation } from '~/app/models/location-response-for-one-location';
 import data from '~/assets/iata_data.json';
-import { ModalDialogParams, ModalDialogService } from '@nativescript/angular';
+import { PassengerInfoComponent } from '~/app/pages/flight-booking/passenger-info.component';
+
 
 @Component({
   providers: [DatePipe],
@@ -33,12 +35,14 @@ export class FlightDetailsComponent implements AfterViewInit {
   constructor(
     private amadeusService: AmadeusService,
     private datePipe: DatePipe,
+    private modalDialogService: ModalDialogService,
+    private viewContainerRef: ViewContainerRef,
     private modalDialogParams: ModalDialogParams
   ) {
     this.dictionary = modalDialogParams.context.dictionary;
     this.flightOffer = modalDialogParams.context.flight;
-   // this.dictionary = amadeusService.getMockFlightOffers().dictionaries;
-   // this.flightOffer = amadeusService.getMockFlightOffers().data[0];
+    // this.dictionary = amadeusService.getMockFlightOffers().dictionaries;
+    // this.flightOffer = amadeusService.getMockFlightOffers().data[0];
     this.halfPrice = Number(this.flightOffer.price.total) / 2;
   }
 
@@ -71,7 +75,7 @@ export class FlightDetailsComponent implements AfterViewInit {
       connectionTime.orientation = 'horizontal';
       connectionTime.horizontalAlignment = 'center';
       connectionTime.className = 'flight-details-component-connection-time';
-
+  
       connectionTime.addChild(this.label('csatlakozási idő a reptéren', 'flight-details-component-travel-info', -1, -1));
       const connectionTimeNumber = this.
       connectionTime.addChild(this.label(, 'flight-details-component-date-info', -1, -1));
@@ -276,5 +280,24 @@ export class FlightDetailsComponent implements AfterViewInit {
     const hours = match[1] ? `${+match[1]} óra` : '';
     const minutes = match[2] ? `${+match[2]} perc` : '';
     return [hours, minutes].filter(Boolean).join(' ');
+  }
+
+  async selectFlight() {
+    const options: ModalDialogOptions = {
+      context: {
+        flight: this.flightOffer,
+        dictionary: this.dictionary
+      },
+      fullscreen: true,
+      viewContainerRef: this.viewContainerRef
+    };
+    const result = await this.modalDialogService
+      .showModal(PassengerInfoComponent, options);
+
+    if (result) {
+
+    } else {
+
+    }
   }
 }

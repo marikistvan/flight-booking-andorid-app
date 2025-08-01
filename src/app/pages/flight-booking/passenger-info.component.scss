@@ -15,27 +15,37 @@
   rotate: 180;
 }
 
-.flight-search-form {
-  margin: 30px 30px 100px 30px;
+.passenger-info-form {
+  margin: 70 10 0 10;
   border-radius: 70px;
-  height: 400;
   padding: 16;
   background-color: white;
   box-shadow: 10px 5px rgba(0, 0, 0, 0.16);
   align-items: center;
 }
 
-.form-label {
-  margin-top: 25;
-}
-.input-field{
-  margin-top: 40;
+.btn-submit-grid {
+  margin-top: 30;
+  margin-bottom: 10;
+  background-color: #2374ee;
+  color: white;
+  border-radius: 20;
+  height: 45;
 }
 
+.right-arrow-icon {
+  width: 25;
+  height: 25;
+  margin-left: 10;
+}
+
+.btn-submit-label {
+  margin: 10 0 10 60;
+  font-size: 20;
+}
 
 .input-error {
   border-color: red;
   border-width: 1;
   border-radius: 4;
 }
-
