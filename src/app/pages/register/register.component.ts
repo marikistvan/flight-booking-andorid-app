@@ -12,6 +12,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 })
 
 export class RegisterComponent implements OnInit {
+  sexType: Array<string> = ['Nő','Férfi', 'Egyéb'];
   registerFormGroup = new FormGroup({
     email: new FormControl<string | null>('', Validators.required),
     lastName: new FormControl<string | null>('', Validators.required),
