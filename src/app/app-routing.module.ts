@@ -19,7 +19,7 @@ import { PassengerInfoComponent } from './pages/flight-booking/passenger-info.co
 import { SetpassengerComponent } from './pages/flight-booking/set-passenger/set-passenger.component'
 
 const routes: Routes = [
-  { path: '', redirectTo: '/setPassenger', pathMatch: 'full' },
+  { path: '', redirectTo: '/flightSearch', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,

@@ -5,6 +5,7 @@ import { ModalDialogOptions, ModalDialogParams, ModalDialogService, RouterExtens
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Dictionaries, FlightOffer } from "~/app/models/flight-offers-response";
 import { SetpassengerComponent } from './set-passenger/set-passenger.component'
+import { Passenger } from "~/app/models/passenger";
 
 
 @Component({
@@ -16,8 +17,10 @@ import { SetpassengerComponent } from './set-passenger/set-passenger.component'
 export class PassengerInfoComponent implements OnInit {
   dictionary: Dictionaries;
   flightOffer: FlightOffer;
+  passengersNumber: number;
   passengerForm = new FormGroup({});
   passengersType: string[] = [];
+  passengers: Passenger[] = [];
   rowsCount = "auto";
 
   controlIndex = 0;
@@ -25,16 +28,18 @@ export class PassengerInfoComponent implements OnInit {
   ngOnInit(): void {
     this.genRows();
     this.setPassengerType();
+    this.setPassengersArray();
   }
   constructor(private modalDialogParams: ModalDialogParams, private modalDialogSerivce: ModalDialogService, private viewContainerRef: ViewContainerRef) {
     this.dictionary = modalDialogParams.context.dictionary;
     this.flightOffer = modalDialogParams.context.flight;
+    this.passengersNumber = this.flightOffer.travelerPricings.length;
   }
 
   setPassengerInfo() { }
 
   genRows() {
-    for (let i = 0; i < this.flightOffer.travelerPricings.length; i++) {
+    for (let i = 0; i < this.passengersNumber; i++) {
       this.rowsCount += ",auto";
     }
     return this.rowsCount;
@@ -57,17 +62,48 @@ export class PassengerInfoComponent implements OnInit {
   }
 
   async setPassenger(id: string) {
-    console.log('passengerId: ' + id);
     const option: ModalDialogOptions = {
-      context: id + '. ' + this.passengersType[Number(id)] + ' utas',
+      context: id + '. utas (' + this.passengersType[Number(id)-1]+')',
       fullscreen: true,
       viewContainerRef: this.viewContainerRef
     }
-    const result = await this.modalDialogSerivce.showModal(SetpassengerComponent, option);
+    await this.modalDialogSerivce.showModal(SetpassengerComponent, option).then((result) => {
+      if (result) {
+        const [passenger, action] = result;
+        console.log('0: ' + JSON.stringify(passenger));
+        console.log('1: ' + action);
+        this.passengers[Number(id) - 1] = passenger;
+        if (action !== 'cancel') {
+          this.nextPassenger(Number(id)-1) === 0 ? '' : this.setPassenger(this.nextPassenger(Number(id)-1).toString());
+        }
+      }
+    });
+  }
+
+  nextPassenger(previousId: number): number {
+    if (this.passengers.length - 1 === previousId) {
+      return 0;
+    } else {
+
+      return previousId+2;
+    }
   }
 
   isInvalid(controlName: string): boolean {
     const control = this.passengerForm.get(controlName);
     return control && control.invalid && (control.dirty || control.touched);
+  }
+
+  setPassengersArray() {
+    for (let i = 0; i < this.passengersNumber; i++) {
+      const passenger: Passenger = {
+        firstName: '',
+        lastName: '',
+        born: new Date(),
+        sex: '',
+        baggageType: ''
+      }
+      this.passengers.push(passenger);
+    }
   }
 }

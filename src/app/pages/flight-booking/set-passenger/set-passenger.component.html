@@ -6,7 +6,7 @@
 
   <GridLayout [formGroup]="passengerForm" columns="*,5px,*" rows="auto,auto,auto,auto,auto,auto,auto,auto"
     class="passenger-info-form">
-    <Label col="0" colSpan="3" row="0" text="1. felnőtt adatai" class="text-center f-16"></Label>
+    <Label col="0" colSpan="3" row="0" [text]='formTitle' class="text-center f-16"></Label>
 
     <Label col="0" row="1" text="Vezetéknév" class="form-label"></Label>
     <TextField col="0" row="2" class="input-field" formControlName="lastName" editable="true" hint="Vezetéknév">
@@ -21,16 +21,16 @@
     </DatePickerField>
 
     <Label col="2" row="3" text="Neme" class="form-label"></Label>
-    <TextField class="input-field" hint="Nő,Férfi,Egyéb..." col="2" row="4" [text]="passengerForm.get('sexType').value"
-      formControlName="sexType" editable="false" (tap)="openSexTypePicker()" formControlName="sexType">
+    <TextField class="input-field" hint="Nő,Férfi,Egyéb..." col="2" row="4" [text]="passengerForm.get('sex').value"
+      formControlName="sex" editable="false" (tap)="openSexPicker()" formControlName="sex">
     </TextField>
 
-    <Label col="0" colSpan="3" row="5" text="Utazás típusa" class="form-label"></Label>
+    <Label col="0" colSpan="3" row="5" text="Poggyász kiválasztása" class="form-label"></Label>
     <GridLayout col="0" colspan="3" row="6" columns="*, auto" class="input-baggage-type-grid">
       <Image col="1" src="~/assets/icons/down-arrow.png" class="icon-baggage-type" (tap)="openBaggagePicker()">
       </Image>
       <TextField col="0" class="triptype-textfield" formControlName="baggageType"
-        [text]="passengerForm.get('baggageType').value" editable="false" hint="Egyirányú, Oda-vissza"
+        [text]="passengerForm.get('baggageType').value" editable="false" hint="Kézipoggyász"
         (tap)="openBaggagePicker()"></TextField>
     </GridLayout>
 

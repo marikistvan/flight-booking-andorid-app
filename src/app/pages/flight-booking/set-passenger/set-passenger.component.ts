@@ -14,29 +14,51 @@ import { Passenger } from '~/app/models/passenger'
 
 export class SetpassengerComponent implements OnInit {
   sexType: Array<string> = ['Nő', 'Férfi', 'Egyéb'];
+  formTitle: string;
   baggageType: Array<string> = ['Kézipoggyász'];
   passengerForm = new FormGroup({
     lastName: new FormControl<string>('', Validators.required),
     firstName: new FormControl<string>('', Validators.required),
     bornDate: new FormControl<Date | null>(null, Validators.required),
-    sexType: new FormControl<string>('', Validators.required),
+    sex: new FormControl<string>('', Validators.required),
     baggageType: new FormControl<string>('', Validators.required)
   })
   ngOnInit(): void {
   }
-  constructor(/*private modalDialogParams: ModalDialogParams*/) {
+  constructor(private modalDialogParams: ModalDialogParams) {
+    this.formTitle = modalDialogParams.context;
   }
 
-  onCancel() { }
+  submit() {
+    const passenger = {
+      firstName: this.passengerForm.get('firstName').value,
+      lastName: this.passengerForm.get('lastName').value,
+      born: this.passengerForm.get('bornDate').value,
+      sex: this.passengerForm.get('sex').value,
+      baggageType: this.passengerForm.get('baggageType').value
+    }
+    this.modalDialogParams.closeCallback([passenger,'next']);
+  }
 
-  openSexTypePicker() {
+  onCancel() {
+    const passenger = {
+      firstName: this.passengerForm.get('firstName').value,
+      lastName: this.passengerForm.get('lastName').value,
+      born: this.passengerForm.get('bornDate').value,
+      sex: this.passengerForm.get('sex').value,
+      baggageType: this.passengerForm.get('baggageType').value
+    }
+    this.modalDialogParams.closeCallback([passenger,'cancel']);
+  }
+
+  openSexPicker() {
     action({
       message: 'Válaszd ki a nemét.',
       cancelButtonText: 'Mégse',
       actions: this.sexType
     }).then(result => {
       if (result !== 'Mégse') {
-        this.passengerForm.get('sexType').setValue(result);
+        this.passengerForm.get('sex').setValue(result);
       }
     });
   }
@@ -51,5 +73,4 @@ export class SetpassengerComponent implements OnInit {
       }
     })
   }
-  submit() { }
 }

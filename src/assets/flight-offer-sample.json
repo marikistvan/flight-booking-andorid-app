@@ -372,6 +372,556 @@
               ]
             }
           ]
+        },
+                {
+          "travelerId": "2",
+          "fareOption": "STANDARD",
+          "travelerType": "CHILD",
+          "price": {
+            "currency": "EUR",
+            "total": "537.33",
+            "base": "391.00"
+          },
+          "fareDetailsBySegment": [
+            {
+              "segmentId": "41",
+              "cabin": "ECONOMY",
+              "fareBasis": "XOWBSSAU",
+              "brandedFare": "SS",
+              "brandedFareLabel": "SUPER SAVER",
+              "class": "X",
+              "includedCheckedBags": {
+                "weight": 0,
+                "weightUnit": "KG"
+              },
+              "includedCabinBags": {
+                "weight": 7,
+                "weightUnit": "KG"
+              },
+              "amenities": [
+                {
+                  "description": "UPTO44LB 20KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO66LB 30KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO88LB40KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO22LB 10KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "PRE RESERVED SEAT ASSIGNMENT",
+                  "isChargeable": true,
+                  "amenityType": "PRE_RESERVED_SEAT",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "MEALS",
+                  "isChargeable": true,
+                  "amenityType": "MEAL",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                }
+              ]
+            },
+            {
+              "segmentId": "42",
+              "cabin": "ECONOMY",
+              "fareBasis": "XOWBSSMY",
+              "brandedFare": "SS",
+              "brandedFareLabel": "SUPER SAVER",
+              "class": "X",
+              "includedCheckedBags": {
+                "weight": 0,
+                "weightUnit": "KG"
+              },
+              "includedCabinBags": {
+                "weight": 7,
+                "weightUnit": "KG"
+              },
+              "amenities": [
+                {
+                  "description": "UPTO44LB 20KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO66LB 30KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO88LB40KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO22LB 10KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "PRE RESERVED SEAT ASSIGNMENT",
+                  "isChargeable": true,
+                  "amenityType": "PRE_RESERVED_SEAT",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "MEALS",
+                  "isChargeable": true,
+                  "amenityType": "MEAL",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                }
+              ]
+            },
+            {
+              "segmentId": "113",
+              "cabin": "ECONOMY",
+              "fareBasis": "XOWTH",
+              "brandedFare": "SS",
+              "brandedFareLabel": "SUPER SAVER",
+              "class": "X",
+              "includedCheckedBags": {
+                "weight": 0,
+                "weightUnit": "KG"
+              },
+              "includedCabinBags": {
+                "quantity": 1
+              },
+              "amenities": [
+                {
+                  "description": "UPTO44LB 20KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO66LB 30KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO88LB40KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO22LB 10KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "PRE RESERVED SEAT ASSIGNMENT",
+                  "isChargeable": true,
+                  "amenityType": "PRE_RESERVED_SEAT",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "MEALS",
+                  "isChargeable": true,
+                  "amenityType": "MEAL",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                }
+              ]
+            },
+            {
+              "segmentId": "114",
+              "cabin": "ECONOMY",
+              "fareBasis": "XOWBSSAU",
+              "brandedFare": "SS",
+              "brandedFareLabel": "SUPER SAVER",
+              "class": "X",
+              "includedCheckedBags": {
+                "weight": 0,
+                "weightUnit": "KG"
+              },
+              "includedCabinBags": {
+                "weight": 7,
+                "weightUnit": "KG"
+              },
+              "amenities": [
+                {
+                  "description": "UPTO44LB 20KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO66LB 30KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO88LB40KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO22LB 10KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "PRE RESERVED SEAT ASSIGNMENT",
+                  "isChargeable": true,
+                  "amenityType": "PRE_RESERVED_SEAT",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "MEALS",
+                  "isChargeable": true,
+                  "amenityType": "MEAL",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "travelerId": "3",
+          "fareOption": "STANDARD",
+          "travelerType": "INFANT",
+          "price": {
+            "currency": "EUR",
+            "total": "537.33",
+            "base": "391.00"
+          },
+          "fareDetailsBySegment": [
+            {
+              "segmentId": "41",
+              "cabin": "ECONOMY",
+              "fareBasis": "XOWBSSAU",
+              "brandedFare": "SS",
+              "brandedFareLabel": "SUPER SAVER",
+              "class": "X",
+              "includedCheckedBags": {
+                "weight": 0,
+                "weightUnit": "KG"
+              },
+              "includedCabinBags": {
+                "weight": 7,
+                "weightUnit": "KG"
+              },
+              "amenities": [
+                {
+                  "description": "UPTO44LB 20KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO66LB 30KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO88LB40KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO22LB 10KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "PRE RESERVED SEAT ASSIGNMENT",
+                  "isChargeable": true,
+                  "amenityType": "PRE_RESERVED_SEAT",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "MEALS",
+                  "isChargeable": true,
+                  "amenityType": "MEAL",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                }
+              ]
+            },
+            {
+              "segmentId": "42",
+              "cabin": "ECONOMY",
+              "fareBasis": "XOWBSSMY",
+              "brandedFare": "SS",
+              "brandedFareLabel": "SUPER SAVER",
+              "class": "X",
+              "includedCheckedBags": {
+                "weight": 0,
+                "weightUnit": "KG"
+              },
+              "includedCabinBags": {
+                "weight": 7,
+                "weightUnit": "KG"
+              },
+              "amenities": [
+                {
+                  "description": "UPTO44LB 20KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO66LB 30KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO88LB40KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO22LB 10KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "PRE RESERVED SEAT ASSIGNMENT",
+                  "isChargeable": true,
+                  "amenityType": "PRE_RESERVED_SEAT",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "MEALS",
+                  "isChargeable": true,
+                  "amenityType": "MEAL",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                }
+              ]
+            },
+            {
+              "segmentId": "113",
+              "cabin": "ECONOMY",
+              "fareBasis": "XOWTH",
+              "brandedFare": "SS",
+              "brandedFareLabel": "SUPER SAVER",
+              "class": "X",
+              "includedCheckedBags": {
+                "weight": 0,
+                "weightUnit": "KG"
+              },
+              "includedCabinBags": {
+                "quantity": 1
+              },
+              "amenities": [
+                {
+                  "description": "UPTO44LB 20KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO66LB 30KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO88LB40KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO22LB 10KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "PRE RESERVED SEAT ASSIGNMENT",
+                  "isChargeable": true,
+                  "amenityType": "PRE_RESERVED_SEAT",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "MEALS",
+                  "isChargeable": true,
+                  "amenityType": "MEAL",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                }
+              ]
+            },
+            {
+              "segmentId": "114",
+              "cabin": "ECONOMY",
+              "fareBasis": "XOWBSSAU",
+              "brandedFare": "SS",
+              "brandedFareLabel": "SUPER SAVER",
+              "class": "X",
+              "includedCheckedBags": {
+                "weight": 0,
+                "weightUnit": "KG"
+              },
+              "includedCabinBags": {
+                "weight": 7,
+                "weightUnit": "KG"
+              },
+              "amenities": [
+                {
+                  "description": "UPTO44LB 20KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO66LB 30KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO88LB40KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "UPTO22LB 10KG BAGGAGE",
+                  "isChargeable": true,
+                  "amenityType": "BAGGAGE",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "PRE RESERVED SEAT ASSIGNMENT",
+                  "isChargeable": true,
+                  "amenityType": "PRE_RESERVED_SEAT",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                },
+                {
+                  "description": "MEALS",
+                  "isChargeable": true,
+                  "amenityType": "MEAL",
+                  "amenityProvider": {
+                    "name": "BrandedFare"
+                  }
+                }
+              ]
+            }
+          ]
         }
       ]
     },

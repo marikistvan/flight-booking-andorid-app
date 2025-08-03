@@ -82,46 +82,59 @@ export class FlightSearchComponent implements OnInit {
   }
 
   async submitFlightSearch() {
-       if (this.searchFormGroup.invalid) {
-         this.searchFormGroup.markAllAsTouched();
-         return;
-       }
-       if (this.isDateWrong()) { return; }
-       try {
-         this.isSearchStarted.set(true);
-   
-         const response = await firstValueFrom(
-           this.amadeusService.searchFlights(
-             this.searchFormGroup.get('fromIATACode').value,
-             this.searchFormGroup.get('toPlaceIATACode').value,
-             this.datePipe.transform(this.searchFormGroup.get('fromDate').value, 'yyyy-MM-dd'),
-             this.passangerCategoryArray[0].count.toString(),
-             this.maxSearchNumber,
-             this.searchFormGroup.get('returnDate').value !== undefined ? this.datePipe.transform(this.searchFormGroup.get('returnDate').value, 'yyyy-MM-dd') : undefined,
-             this.passangerCategoryArray[1].count.toString(),
-             this.passangerCategoryArray[2].count.toString()
-           )
-         );
-   
-         this.flightOffers = response;
-         const options: ModalDialogOptions = {
-           context: {
-             flightOffers: response.data,
-             dictionary: response.dictionaries,
-             toPlace: this.searchFormGroup.get('toPlace').value.split(',')[0],
-           },
-           fullscreen: true,
-           viewContainerRef: this.viewContainerRef
-         };
-   
-         const result = await this.modalDialogService.showModal(FlightListComponent, options);
-   
-         this.isSearchStarted.set(false);
-   
-       } catch (error) {
-         console.error("Hiba a keresés során:", error);
-         this.isSearchStarted.set(false);
-       }
+
+    const options: ModalDialogOptions = {
+      context: {
+        flightOffers: this.amadeusService.getMockFlightOffers().data,
+        dictionary: this.amadeusService.getMockFlightOffers().dictionaries,
+        toPlace: 'valahova',
+      },
+      fullscreen: true,
+      viewContainerRef: this.viewContainerRef
+    };
+
+    const result = await this.modalDialogService.showModal(FlightListComponent, options);
+    /*
+  if (this.searchFormGroup.invalid) {
+    this.searchFormGroup.markAllAsTouched();
+    return;
+  }
+  if (this.isDateWrong()) { return; }
+  try {
+    this.isSearchStarted.set(true);
+ 
+    const response = await firstValueFrom(
+      this.amadeusService.searchFlights(
+        this.searchFormGroup.get('fromIATACode').value,
+        this.searchFormGroup.get('toPlaceIATACode').value,
+        this.datePipe.transform(this.searchFormGroup.get('fromDate').value, 'yyyy-MM-dd'),
+        this.passangerCategoryArray[0].count.toString(),
+        this.maxSearchNumber,
+        this.searchFormGroup.get('returnDate').value !== undefined ? this.datePipe.transform(this.searchFormGroup.get('returnDate').value, 'yyyy-MM-dd') : undefined,
+        this.passangerCategoryArray[1].count.toString(),
+        this.passangerCategoryArray[2].count.toString()
+      )
+    );
+ 
+    this.flightOffers = response;
+    const options: ModalDialogOptions = {
+      context: {
+        flightOffers: response.data,
+        dictionary: response.dictionaries,
+        toPlace: this.searchFormGroup.get('toPlace').value.split(',')[0],
+      },
+      fullscreen: true,
+      viewContainerRef: this.viewContainerRef
+    };
+ 
+    const result = await this.modalDialogService.showModal(FlightListComponent, options);
+ 
+    this.isSearchStarted.set(false);
+ 
+  } catch (error) {
+    console.error("Hiba a keresés során:", error);
+    this.isSearchStarted.set(false);
+  }*/
   }
 
   openTripTypePicker() {
