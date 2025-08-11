@@ -5,15 +5,15 @@
   </GridLayout>
 
   <ScrollView class="scroll-height">
-        <StackLayout>
-    @if(flightOffers){
-    @for(flight of flightOffers; track flight.id){
-
+    <StackLayout>
+      @if(this.flightOffers?.length){
+      @for(flight of flightOffers; track flight.id){
       <ns-flight-list-row [flight]="flight" [dictionary]="dictionary"></ns-flight-list-row>
-    }
-    }@else {
-    <Label text="töltés"></Label>
-    }
+      }
+      }
+      @else {
+      <Label text="Nincs a keresési feltételeknek megfelelő adat." class="empty-flight-message" textWrap="true"></Label>
+      }
     </StackLayout>
   </ScrollView>
 </StackLayout>

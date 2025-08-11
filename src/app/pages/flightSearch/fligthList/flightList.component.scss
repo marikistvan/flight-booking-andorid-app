@@ -14,6 +14,16 @@
     height: 20;
     rotate: 180;
 }
-.scroll-height{
+
+.scroll-height {
     height: 90%;
+}
+
+.empty-flight-message {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    line-break: auto;
+    font-size: 30px;
+    font-weight: bold;
 }

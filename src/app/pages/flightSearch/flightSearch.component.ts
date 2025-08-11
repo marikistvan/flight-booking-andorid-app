@@ -82,9 +82,9 @@ export class FlightSearchComponent implements OnInit {
   }
 
   async submitFlightSearch() {
-
+/*  
     const options: ModalDialogOptions = {
-      context: {
+    context: {
         flightOffers: this.amadeusService.getMockFlightOffers().data,
         dictionary: this.amadeusService.getMockFlightOffers().dictionaries,
         toPlace: 'valahova',
@@ -93,8 +93,8 @@ export class FlightSearchComponent implements OnInit {
       viewContainerRef: this.viewContainerRef
     };
 
-    const result = await this.modalDialogService.showModal(FlightListComponent, options);
-    /*
+    const result = await this.modalDialogService.showModal(FlightListComponent, options);*/
+    
   if (this.searchFormGroup.invalid) {
     this.searchFormGroup.markAllAsTouched();
     return;
@@ -134,7 +134,7 @@ export class FlightSearchComponent implements OnInit {
   } catch (error) {
     console.error("Hiba a keresés során:", error);
     this.isSearchStarted.set(false);
-  }*/
+  }
   }
 
   openTripTypePicker() {

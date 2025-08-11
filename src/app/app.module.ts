@@ -36,7 +36,8 @@ import { PassengerInfoComponent } from './pages/flight-booking/passenger-info.co
 import { registerLocaleData } from '@angular/common'
 import { SetpassengerComponent } from './pages/flight-booking/set-passenger/set-passenger.component'
 import localeHu from '@angular/common/locales/hu';
-
+import { SelectSeatComponent } from './pages/flight-booking/select-seat/select-seat.component'
+import { SeatDetailsModalComponent } from './pages/flight-booking/select-seat/seat-details-modal/seat-details-modal.component'
 registerLocaleData(localeHu);
 
 @NgModule({
@@ -56,7 +57,8 @@ registerLocaleData(localeHu);
     NativeScriptDateTimePickerModule,
     NativeScriptPickerModule,
     NativeScriptFormsModule,
-    NativeScriptUIListViewModule],
+    NativeScriptUIListViewModule,
+  ],
 
   declarations: [
     AppComponent,
@@ -80,7 +82,9 @@ registerLocaleData(localeHu);
     FlightListRowComponent,
     FlightDetailsComponent,
     PassengerInfoComponent,
-    SetpassengerComponent
+    SetpassengerComponent,
+    SelectSeatComponent,
+    SeatDetailsModalComponent
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

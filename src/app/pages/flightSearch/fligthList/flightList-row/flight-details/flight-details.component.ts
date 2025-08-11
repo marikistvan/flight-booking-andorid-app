@@ -49,7 +49,6 @@ export class FlightDetailsComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.setupMainGrid(this.DepartureMainGrid, 0);
 
-
     this.addMainFlightInfo(this.DepartureMainGrid, 0);
 
     this.addOpeningTabButton(this.DepartureMainGrid, 'departure', 0);
@@ -220,7 +219,9 @@ export class FlightDetailsComponent implements AfterViewInit {
     grid.addChild(departureAndArrivalWithTimeGrid);
   }
 
-  onCancel() { }
+  onCancel() {
+    this.modalDialogParams.closeCallback(null);
+  }
 
   switchExpanded(flightInfo: string) {
     if (flightInfo === 'departure') {

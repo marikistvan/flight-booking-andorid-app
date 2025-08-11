@@ -17,16 +17,25 @@ import { FlightDetailsComponent } from './pages/flightSearch/fligthList/flightLi
 import { FlightListRowComponent } from './pages/flightSearch/fligthList/flightList-row/flightList-row.component'
 import { PassengerInfoComponent } from './pages/flight-booking/passenger-info.component'
 import { SetpassengerComponent } from './pages/flight-booking/set-passenger/set-passenger.component'
-
+import { SelectSeatComponent } from './pages/flight-booking/select-seat/select-seat.component'
+import { SeatDetailsModalComponent } from './pages/flight-booking/select-seat/seat-details-modal/seat-details-modal.component'
 const routes: Routes = [
   { path: '', redirectTo: '/flightSearch', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,
   },
+    {
+    path: 'seatDetails',
+    component: SeatDetailsModalComponent,
+  },
+  {
+    path: 'seat',
+    component: SelectSeatComponent,
+  },
   {
     path: 'setPassenger',
-    component:SetpassengerComponent,
+    component: SetpassengerComponent,
   },
   {
     path: 'login',

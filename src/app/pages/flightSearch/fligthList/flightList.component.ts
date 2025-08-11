@@ -12,7 +12,6 @@ export class FlightListComponent {
   public flightOffers: FlightOffer[];
   dictionary: Dictionaries;
   constructor(private modalDialogParams: ModalDialogParams) {
-
     this.flightOffers = this.modalDialogParams.context.flightOffers;
     this.mainArrivalCity = this.modalDialogParams.context.toPlace;
     this.dictionary = this.modalDialogParams.context.dictionary;
