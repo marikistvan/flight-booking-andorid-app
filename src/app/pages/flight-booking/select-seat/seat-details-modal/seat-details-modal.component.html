@@ -1,0 +1,21 @@
+<StackLayout>
+    <GridLayout class="seat-details-card" columns="*,5,*" rows="auto,auto,auto,auto">
+        <Label row="0" col="0" text="kabin típus:" class="details-name"></Label>
+        <Label row="0" col="2" [text]="data.cabinType" class="details-value"></Label>
+
+        <Label row="1" col="0" text="ülés száma:" class="details-name"></Label>
+        <Label row="1" col="2" [text]="data.seatNumber" class="details-value"></Label>
+
+        <Label row="2" col="0" text="állapot:" class="details-name"></Label>
+        <Label row="2" col="2" [text]="data.status" class="details-value"></Label>
+        @if(data.price !== '-1'){
+        <Label row="3" col="0" text="ülés ára:" class="details-name"></Label>
+        <Label row="3" col="2" [text]="data.price +' EUR'" class="details-value"></Label>
+        }
+
+    </GridLayout>
+    @if(data.status==='AVAILABLE'){
+    <Button text="Foglalás" class="submit-btn" (tap)="reserve()"></Button>
+    }
+    <Button text="Bezárás" class="close-btn" (tap)="close()"></Button>
+</StackLayout>

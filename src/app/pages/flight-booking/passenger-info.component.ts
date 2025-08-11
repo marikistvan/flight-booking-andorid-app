@@ -1,11 +1,15 @@
 import { Component, computed, OnInit, signal, ViewContainerRef } from "@angular/core";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
-import { action, Application } from "@nativescript/core";
+import { action, Application, Observable } from "@nativescript/core";
 import { ModalDialogOptions, ModalDialogParams, ModalDialogService, RouterExtensions } from "@nativescript/angular";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Dictionaries, FlightOffer } from "~/app/models/flight-offers-response";
 import { SetpassengerComponent } from './set-passenger/set-passenger.component'
 import { Passenger } from "~/app/models/passenger";
+import { SeatmapResponse } from "~/app/models/seatmap-response";
+import { AmadeusService } from "~/app/services/amadeus.service";
+import { firstValueFrom } from "rxjs";
+import seatmap from '~/assets/seatmap.json'
 
 
 @Component({
@@ -30,9 +34,15 @@ export class PassengerInfoComponent implements OnInit {
     this.setPassengerType();
     this.setPassengersArray();
   }
-  constructor(private modalDialogParams: ModalDialogParams, private modalDialogSerivce: ModalDialogService, private viewContainerRef: ViewContainerRef) {
+  constructor(private modalDialogParams: ModalDialogParams,
+    private modalDialogSerivce: ModalDialogService,
+    private viewContainerRef: ViewContainerRef,
+    private amadeusService: AmadeusService
+  ) {
     this.dictionary = modalDialogParams.context.dictionary;
     this.flightOffer = modalDialogParams.context.flight;
+    /* this.dictionary=this.amadeusService.getMockFlightOffers().dictionaries;
+     this.flightOffer=this.amadeusService.getMockFlightOffers().data[1];*/
     this.passengersNumber = this.flightOffer.travelerPricings.length;
   }
 
@@ -45,8 +55,14 @@ export class PassengerInfoComponent implements OnInit {
     return this.rowsCount;
   }
 
-  onCancel() { }
-  submit() { }
+  onCancel() {
+    this.modalDialogParams.closeCallback(null);
+  }
+  submit() {
+    if (this.isAllDataIsFilledIn()) {
+      console.log('mehetünk tovább');
+    }
+  }
 
   setPassengerType() {
     let index = 0;
@@ -60,21 +76,27 @@ export class PassengerInfoComponent implements OnInit {
       }
     });
   }
-
   async setPassenger(id: string) {
+    const title = id + '. utas (' + this.passengersType[Number(id) - 1] + ')';
+    const passenger: Passenger = this.passengers[Number(id) - 1];
+    const isOneWay = this.flightOffer.itineraries.length === 2 ? false : true;
+    const departureSeatCount = this.flightOffer.itineraries[0].segments.length;
+    let arrivalSeatCount = undefined;
+    if (this.flightOffer.itineraries.length > 1) {
+      arrivalSeatCount = this.flightOffer.itineraries[1].segments.length;
+    }
+    const seatMapDatas = (await firstValueFrom(this.amadeusService.getSeatMap(this.flightOffer))).data;
     const option: ModalDialogOptions = {
-      context: id + '. utas (' + this.passengersType[Number(id)-1]+')',
+      context: [title, passenger, isOneWay, departureSeatCount, arrivalSeatCount, seatMapDatas],
       fullscreen: true,
       viewContainerRef: this.viewContainerRef
     }
     await this.modalDialogSerivce.showModal(SetpassengerComponent, option).then((result) => {
       if (result) {
         const [passenger, action] = result;
-        console.log('0: ' + JSON.stringify(passenger));
-        console.log('1: ' + action);
-        this.passengers[Number(id) - 1] = passenger;
         if (action !== 'cancel') {
-          this.nextPassenger(Number(id)-1) === 0 ? '' : this.setPassenger(this.nextPassenger(Number(id)-1).toString());
+          this.passengers[Number(id) - 1] = passenger;
+          this.nextPassenger(Number(id) - 1) === 0 ? '' : this.setPassenger(this.nextPassenger(Number(id) - 1).toString());
         }
       }
     });
@@ -85,10 +107,18 @@ export class PassengerInfoComponent implements OnInit {
       return 0;
     } else {
 
-      return previousId+2;
+      return previousId + 2;
     }
   }
 
+  isAllDataIsFilledIn(): boolean {
+    for (let i = 0; i < this.passengersNumber; i++) {
+      if (this.passengers[i].firstName === '') {
+        return false;
+      }
+    }
+    return true;
+  }
   isInvalid(controlName: string): boolean {
     const control = this.passengerForm.get(controlName);
     return control && control.invalid && (control.dirty || control.touched);
@@ -101,7 +131,9 @@ export class PassengerInfoComponent implements OnInit {
         lastName: '',
         born: new Date(),
         sex: '',
-        baggageType: ''
+        baggageType: '',
+        seatNumberWayThere: '',
+        seatNumberWayBack: ''
       }
       this.passengers.push(passenger);
     }

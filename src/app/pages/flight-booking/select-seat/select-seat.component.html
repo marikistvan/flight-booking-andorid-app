@@ -1,0 +1,16 @@
+<StackLayout class="page">
+  <GridLayout columns="auto, *" class="action-bar">
+    @if(direction===0){
+    <Label text="Oda út Ülőhelykiválasztás" colspan="2" class="action-bar-title"></Label>
+    }@else {
+    <Label text="Vissza út Ülőhelykiválasztás" colspan="2" class="action-bar-title"></Label>
+    }
+    <Image src="~/assets/icons/right-arrow.png" (tap)="onCancel()" class="fas btn-back-rotate-black"></Image>
+  </GridLayout>
+  <Label [text]="'Válaszd ki'+firstName+' '+lastName+' ülőhelyét'" style="text-align: center; font-size: 14;"></Label>
+  <ScrollView class="scrollView-height">
+  <StackLayout #planeContainer>
+
+  </StackLayout>
+  </ScrollView>
+</StackLayout>

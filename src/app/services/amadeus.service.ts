@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core'
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { HttpClientModule } from '@angular/common/http'
 import { Observable, switchMap } from 'rxjs'
 import { environment } from '../../environments/environment'
 import { LocationResponse } from '../models/location-response'
 import { LocationResponseForOneLocation } from '../models/location-response-for-one-location'
 import { FlightOffersResponse } from '../models/flight-offers-response'
+import { FlightOffer } from '../models/flight-offers-response'
+import { SeatmapResponse } from '../models/seatmap-response'
 import data from '../../assets/flight-offer-sample.json'
 
 @Injectable({
@@ -93,6 +95,21 @@ export class AmadeusService {
       );
     }
   }
+
+  getSeatMap(flightOffer: FlightOffer): Observable<SeatmapResponse> {
+    const url = `https://test.api.amadeus.com/v1/shopping/seatmaps`;
+    return this.http.post<SeatmapResponse>(
+      url,
+      { data: [flightOffer] }, // <-- a Seatmaps API data[] tömböt vár
+      {
+        headers: new HttpHeaders({
+          'Authorization': `Bearer ${this.accessToken}`,
+          'Content-Type': 'application/json'
+        })
+      }
+    );
+  }
+
 
   private makeLocationsRequest(keywords: string): Observable<LocationResponse> {
     const url = `https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT&keyword=${keywords}&page%5Blimit%5D=10&page%5Boffset%5D=0&sort=analytics.travelers.score&view=LIGHT`;
