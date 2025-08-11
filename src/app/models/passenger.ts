@@ -4,4 +4,6 @@ export interface Passenger{
     born:Date,
     sex: string,
     baggageType:string
+    seatNumberWayThere:string,
+    seatNumberWayBack:string
 }

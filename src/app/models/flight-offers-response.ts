@@ -95,6 +95,10 @@ export interface FareDetailsBySegment {
     includedCheckedBags?: BagInfo;
     includedCabinBags?: BagInfo;
     amenities?: Amenity[];
+    additionalServices?: SeatNumber;
+}
+export interface SeatNumber{
+    chargeableSeatNumber:string;
 }
 
 export interface BagInfo {
