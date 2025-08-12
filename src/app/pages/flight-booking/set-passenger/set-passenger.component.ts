@@ -3,7 +3,7 @@ import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { action, Application, GridLayout, Image, ItemSpec, Label, TextField } from "@nativescript/core";
 import { ModalDialogOptions, ModalDialogParams, ModalDialogService, RouterExtensions } from "@nativescript/angular";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Passenger } from '~/app/models/passenger'
+import { FlightInfo, Passenger } from '~/app/models/passenger'
 import { title } from "process";
 import { SelectSeatComponent } from "../select-seat/select-seat.component";
 import { SeatmapResponse } from "~/app/models/seatmap-response"
@@ -19,6 +19,7 @@ import { Seatmap } from "~/app/models/seatmap-response";
 export class SetpassengerComponent implements OnInit, AfterViewInit {
   sexType: Array<string> = ['Nő', 'Férfi', 'Egyéb'];
   formTitle: string;
+  wayThere:FlightInfo[];
   seatMap: Seatmap[] = [];
   isOneWay: boolean;
   departureSeatCount: number;
@@ -59,12 +60,14 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
       this.passengerForm.markAllAsTouched();
       return;
     }
-    const passenger = {
+
+    const passenger:Passenger = {
       firstName: this.passengerForm.get('firstName').value,
       lastName: this.passengerForm.get('lastName').value,
       born: this.passengerForm.get('bornDate').value,
       sex: this.passengerForm.get('sex').value,
       baggageType: this.passengerForm.get('baggageType').value,
+      seatNumberWayThere:[],
     }
     this.modalDialogParams.closeCallback([passenger, 'next']);
   }

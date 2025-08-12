@@ -1,0 +1,105 @@
+[
+  {
+    "firstName": "Anna",
+    "lastName": "Kovács",
+    "born": "1992-05-14T00:00:00.000Z",
+    "sex": "female",
+    "baggageType": "checked",
+    "seatNumberWayThere": [
+      {
+        "fromPlace": "Budapest",
+        "toPlace": "Frankfurt",
+        "seatNumber": "12A"
+      },
+      {
+        "fromPlace": "Frankfurt",
+        "toPlace": "New York",
+        "seatNumber": "22B"
+      }
+    ],
+    "seatNumberWayBack": [
+      {
+        "fromPlace": "New York",
+        "toPlace": "London",
+        "seatNumber": "14C"
+      },
+      {
+        "fromPlace": "London",
+        "toPlace": "Budapest",
+        "seatNumber": "9D"
+      }
+    ]
+  },
+  {
+    "firstName": "Péter",
+    "lastName": "Nagy",
+    "born": "1987-11-02T00:00:00.000Z",
+    "sex": "male",
+    "baggageType": "carry-on",
+    "seatNumberWayThere": [
+      {
+        "fromPlace": "Budapest",
+        "toPlace": "Doha",
+        "seatNumber": "7C"
+      },
+      {
+        "fromPlace": "Doha",
+        "toPlace": "Sydney",
+        "seatNumber": "45F"
+      }
+    ],
+    "seatNumberWayBack": [
+      {
+        "fromPlace": "Sydney",
+        "toPlace": "Singapore",
+        "seatNumber": "32A"
+      },
+      {
+        "fromPlace": "Singapore",
+        "toPlace": "Budapest",
+        "seatNumber": "15B"
+      }
+    ]
+  },
+  {
+    "firstName": "László",
+    "lastName": "Szabó",
+    "born": "1975-01-22T00:00:00.000Z",
+    "sex": "male",
+    "baggageType": "checked",
+    "seatNumberWayThere": [
+      {
+        "fromPlace": "Debrecen",
+        "toPlace": "Amsterdam",
+        "seatNumber": "18F"
+      },
+      {
+        "fromPlace": "Amsterdam",
+        "toPlace": "Tokyo",
+        "seatNumber": "31E"
+      },
+      {
+        "fromPlace": "Tokyo",
+        "toPlace": "Osaka",
+        "seatNumber": "12B"
+      }
+    ],
+    "seatNumberWayBack": [
+      {
+        "fromPlace": "Osaka",
+        "toPlace": "Tokyo",
+        "seatNumber": "14D"
+      },
+      {
+        "fromPlace": "Tokyo",
+        "toPlace": "Amsterdam",
+        "seatNumber": "30C"
+      },
+      {
+        "fromPlace": "Amsterdam",
+        "toPlace": "Debrecen",
+        "seatNumber": "18E"
+      }
+    ]
+  }
+]

@@ -1,9 +1,10 @@
 <StackLayout class="page">
+    @if(!isJustSummary){
     <GridLayout columns="auto, *" class="action-bar">
         <Label text="Részletes megtekités" colSpan="2" class="action-bar-title"></Label>
         <Image src="~/assets/icons/right-arrow.png" (tap)="onCancel()" class="fas btn-back-rotate-black"></Image>
     </GridLayout>
-
+    }
     <ScrollView class="testScroolClass">
         <StackLayout>
             <StackLayout orientation="horizontal" class="travel-date-layout" horizontalAlignment="center">
@@ -23,7 +24,7 @@
             }
             <StackLayout #arrivalContainer>
             </StackLayout>
-
+            @if(!isJustSummary){
             <GridLayout columns="auto,auto,70,auto" rows="24, auto" class="price-grid">
                 <Image col="0" row="0" rowSpan="2" src="~/assets/icons/cost.png" class="icon-cost"
                     verticalAlignment="center"></Image>
@@ -31,7 +32,7 @@
                 <Label col="1" row="0" [text]="halfPrice +' '+flightOffer.price.currency "
                     class="big-price-label"></Label>
                 <Label col="1" row="1" text="1 út költsége" class="price-detail"></Label>
-                
+
                 <Label col="3" row="0" [text]="flightOffer.price.total +' '+flightOffer.price.currency"
                     class="big-price-label" style="text-align: center;"></Label>
                 <Label col="3" row="1" text="összesen" class="price-detail"></Label>
@@ -47,6 +48,7 @@
                 <Label col="0" row="0" text="Kosárba" class="btn-transparent-label"></Label>
                 <Button col="1" row="0" text="Megvásárlás" class="btn-buy-blue" (tap)="selectFlight()"></Button>
             </GridLayout>
+            }
         </StackLayout>
     </ScrollView>
 </StackLayout>

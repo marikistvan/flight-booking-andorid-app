@@ -38,6 +38,8 @@ import { SetpassengerComponent } from './pages/flight-booking/set-passenger/set-
 import localeHu from '@angular/common/locales/hu';
 import { SelectSeatComponent } from './pages/flight-booking/select-seat/select-seat.component'
 import { SeatDetailsModalComponent } from './pages/flight-booking/select-seat/seat-details-modal/seat-details-modal.component'
+import { FlightSummaryComponent } from './pages/flight-booking/flight-summary/flight-summary.component'
+import { PassengerDetailsComponent } from './pages/flight-booking/flight-summary/passenger-details/passenger-details.component'
 registerLocaleData(localeHu);
 
 @NgModule({
@@ -84,7 +86,9 @@ registerLocaleData(localeHu);
     PassengerInfoComponent,
     SetpassengerComponent,
     SelectSeatComponent,
-    SeatDetailsModalComponent
+    SeatDetailsModalComponent,
+    FlightSummaryComponent,
+    PassengerDetailsComponent
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })

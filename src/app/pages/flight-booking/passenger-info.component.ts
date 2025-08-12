@@ -1,7 +1,5 @@
 import { Component, computed, OnInit, signal, ViewContainerRef } from "@angular/core";
-import { RadSideDrawer } from "nativescript-ui-sidedrawer";
-import { action, Application, Observable } from "@nativescript/core";
-import { ModalDialogOptions, ModalDialogParams, ModalDialogService, RouterExtensions } from "@nativescript/angular";
+import { ModalDialogOptions, ModalDialogParams, ModalDialogService } from "@nativescript/angular";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Dictionaries, FlightOffer } from "~/app/models/flight-offers-response";
 import { SetpassengerComponent } from './set-passenger/set-passenger.component'
@@ -10,6 +8,7 @@ import { SeatmapResponse } from "~/app/models/seatmap-response";
 import { AmadeusService } from "~/app/services/amadeus.service";
 import { firstValueFrom } from "rxjs";
 import seatmap from '~/assets/seatmap.json'
+import { FlightSummaryComponent } from "./flight-summary/flight-summary.component";
 
 
 @Component({
@@ -58,10 +57,21 @@ export class PassengerInfoComponent implements OnInit {
   onCancel() {
     this.modalDialogParams.closeCallback(null);
   }
-  submit() {
+  async submit() {
     if (this.isAllDataIsFilledIn()) {
-      console.log('mehetünk tovább');
+      const option: ModalDialogOptions = {
+      context: {
+        flightOffer:this.flightOffer,
+        dictionaries:this.dictionary,
+        passengers:this.passengers,
+      },
+      fullscreen: true,
+      viewContainerRef: this.viewContainerRef
     }
+    await this.modalDialogSerivce.showModal(FlightSummaryComponent, option).then((result) => {
+
+    });
+    } 
   }
 
   setPassengerType() {
@@ -129,11 +139,10 @@ export class PassengerInfoComponent implements OnInit {
       const passenger: Passenger = {
         firstName: '',
         lastName: '',
-        born: new Date(),
+        born: '',
         sex: '',
         baggageType: '',
-        seatNumberWayThere: '',
-        seatNumberWayBack: ''
+        seatNumberWayThere:[]
       }
       this.passengers.push(passenger);
     }

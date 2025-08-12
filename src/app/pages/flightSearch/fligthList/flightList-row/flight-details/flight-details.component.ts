@@ -1,8 +1,18 @@
-import { AfterViewInit, Component, ElementRef, ViewChild, ViewContainerRef, signal } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  ViewContainerRef,
+  Input,
+  Optional,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+  AfterViewInit
+} from '@angular/core';
 import { GridLayout, ItemSpec, Label, StackLayout, Image } from '@nativescript/core';
-import { Dictionaries, FlightOffersResponse } from '~/app/models/flight-offers-response';
+import { Dictionaries, FlightOffer } from '~/app/models/flight-offers-response';
 import { ModalDialogOptions, ModalDialogParams, ModalDialogService } from '@nativescript/angular';
-import { FlightOffer } from '~/app/models/flight-offers-response';
 import { AmadeusService } from '~/app/services/amadeus.service';
 import { DatePipe } from '@angular/common';
 import { LocationResponseForOneLocation } from '~/app/models/location-response-for-one-location';
@@ -17,46 +27,84 @@ import { PassengerInfoComponent } from '~/app/pages/flight-booking/passenger-inf
   styleUrls: ['./flight-details.component.scss'],
 })
 
-export class FlightDetailsComponent implements AfterViewInit {
+export class FlightDetailsComponent implements OnInit, OnChanges, AfterViewInit {
+  @Input() dictionary!: Dictionaries;
+  @Input() flightOffer!: FlightOffer;
+  @Input() isJustSummary!:boolean;
+
   private segmentDepartureHeaders: GridLayout[] = [];
   private segmentArrivalHeaders: GridLayout[] = [];
   private segmentDepartureDetails: GridLayout[] = [];
   private segmentArrivalDetails: GridLayout[] = [];
   private expandedStates: { [key: string]: boolean } = {};
-  locations = signal<LocationResponseForOneLocation[]>([]);
-  dictionary: Dictionaries;
-  flightOffer: FlightOffer;
-  halfPrice: number;
+  private dataReady = false;
+  private viewReady = false;
+  locations: LocationResponseForOneLocation[] = [];
+  halfPrice!: number;
+
   DepartureMainGrid = new GridLayout();
   ArrivalMainGrid = new GridLayout();
+
   @ViewChild('departureContainer', { static: false }) departureContainerRef!: ElementRef;
   @ViewChild('arrivalContainer', { static: false }) arrivalContainerRef!: ElementRef;
+
+  private viewInitialized = false;
 
   constructor(
     private amadeusService: AmadeusService,
     private datePipe: DatePipe,
     private modalDialogService: ModalDialogService,
     private viewContainerRef: ViewContainerRef,
-    private modalDialogParams: ModalDialogParams
-  ) {
-    this.dictionary = modalDialogParams.context.dictionary;
-    this.flightOffer = modalDialogParams.context.flight;
-    // this.dictionary = amadeusService.getMockFlightOffers().dictionaries;
-    // this.flightOffer = amadeusService.getMockFlightOffers().data[0];
-    this.halfPrice = Number(this.flightOffer.price.total) / 2;
+    @Optional() private modalDialogParams?: ModalDialogParams
+  ) { }
+  ngAfterViewInit() {
+    this.viewReady = true;
+    this.tryInitView();
   }
 
-  ngAfterViewInit() {
+  private tryInitView() {
+    if (this.dataReady && this.viewReady) {
+      this.initView();
+    }
+    if(this.isJustSummary){
+      this.expandedStates['arrival']=false;
+      this.expandedStates['departure']=false;
+      this.switchExpanded('departure');
+      this.switchExpanded('arrival');
+    }
+  }
+  ngOnInit() {
+    if (this.modalDialogParams?.context) {
+      this.dictionary = this.dictionary ?? this.modalDialogParams.context.dictionary;
+      this.flightOffer = this.flightOffer ?? this.modalDialogParams.context.flight;
+    }
+    if (this.dictionary && this.flightOffer) {
+      this.dataReady = true;
+      this.tryInitView();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if ((changes['dictionary'] || changes['flightOffer']) && this.dictionary && this.flightOffer) {
+      this.dataReady = true;
+      this.tryInitView();
+    }
+  }
+  private initView() {
+    if (this.viewInitialized) return;
+    this.viewInitialized = true;
+
+    this.halfPrice = Number(this.flightOffer.price.total) / 2;
+
     this.setupMainGrid(this.DepartureMainGrid, 0);
-
     this.addMainFlightInfo(this.DepartureMainGrid, 0);
-
     this.addOpeningTabButton(this.DepartureMainGrid, 'departure', 0);
 
     for (let i = 0; i < this.flightOffer.itineraries[0].segments.length; i++) {
       this.addSegmentHeader(this.DepartureMainGrid, 'departure', i, 0);
       this.addSegmentDetails(this.DepartureMainGrid, 'departure', i, 0);
     }
+
     if (this.flightOffer.itineraries.length === 2) {
       this.setupMainGrid(this.ArrivalMainGrid, 1);
       this.addMainFlightInfo(this.ArrivalMainGrid, 1);
@@ -66,31 +114,13 @@ export class FlightDetailsComponent implements AfterViewInit {
         this.addSegmentDetails(this.ArrivalMainGrid, 'arrival', i, 1);
       }
     }
-    /*
-            const connectionTime = new StackLayout();
-      GridLayout.setColumn(connectionTime, 0);
-      GridLayout.setColumnSpan(connectionTime, 5);
-      GridLayout.setRow(connectionTime, 5);
-      connectionTime.orientation = 'horizontal';
-      connectionTime.horizontalAlignment = 'center';
-      connectionTime.className = 'flight-details-component-connection-time';
-  
-      connectionTime.addChild(this.label('csatlakozási idő a reptéren', 'flight-details-component-travel-info', -1, -1));
-      const connectionTimeNumber = this.
-      connectionTime.addChild(this.label(, 'flight-details-component-date-info', -1, -1));
-              <StackLayout col="0" colSpan="5" row="5" orientation="horizontal" class="travel-date-layout"
-              horizontalAlignment="center">
-              <Label text="csatlakozási idő a reptéren" class="travel-info"></Label>
-              <Label text="2 óra 0 perc" class="date-info"></Label>
-          </StackLayout>
-      
-    */
-
 
     const departureContainer = this.departureContainerRef.nativeElement;
     departureContainer.addChild(this.DepartureMainGrid);
+
     const arrivalContainer = this.arrivalContainerRef.nativeElement;
     arrivalContainer.addChild(this.ArrivalMainGrid);
+
     this.expandedStates['departure'] = true;
     this.expandedStates['arrival'] = true;
   }

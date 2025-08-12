@@ -1,0 +1,32 @@
+<StackLayout class="page">
+    <GridLayout columns="auto, *" class="action-bar">
+        <Label text="Foglalás véglegesítése" colSpan="2" class="action-bar-title"></Label>
+        <Image src="~/assets/icons/right-arrow.png" (tap)="onCancel()" class="fas btn-back-rotate-black"></Image>
+    </GridLayout>
+    @if(!isShowFlightDetails){
+    <Button text="járatinformációk mutatása" class="submit-btn bg-green" (tap)="testOC()"></Button>
+    }
+    @if(isShowFlightDetails){
+    <Button text="járatinformációk elrejtése" class="submit-btn bg-red" (tap)="testOC()"></Button>
+    <StackLayout style="height: 50%; border-width: 1; border-color: black;">
+        <ns-flight-details [flightOffer]="flightOffer" [dictionary]="dictionary"
+            [isJustSummary]="true"></ns-flight-details>
+    </StackLayout>
+    }
+    <ScrollView style="height: 90%;">
+        <StackLayout>
+            @for(passenger of passengers;track $index){
+            <ns-passenger-details [passenger]="passenger"></ns-passenger-details>
+            }
+            <GridLayout columns="auto,auto,70,auto" rows="24, auto" class="price-grid">
+                <Image col="0" row="0" rowSpan="2" src="~/assets/icons/cost.png" class="icon-cost"
+                    verticalAlignment="center">
+                </Image>
+                <Label col="3" row="0" [text]="flightOffer.price.total +' '+flightOffer.price.currency"
+                    class="big-price-label" style="text-align: center;"></Label>
+                <Label col="3" row="1" text="összesen" class="price-detail"></Label>
+            </GridLayout>
+            <Button text="Foglalás véglegesítése" class="submit-btn bg-blue"></Button>
+        </StackLayout>
+    </ScrollView>
+</StackLayout>
