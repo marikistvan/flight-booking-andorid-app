@@ -40,7 +40,7 @@ export interface Seatmap {
 
 export interface AirportInfo {
   iataCode: string;
-  terminal: string;
+  terminal?: string;
   at: string; // ISO date
 }
 
@@ -56,10 +56,10 @@ export interface DeckConfiguration {
   length: number;
   startSeatRow: number;
   endSeatRow: number;
-  startWingsX: number;
-  endWingsX: number;
-  startWingsRow: number;
-  endWingsRow: number;
+  startWingsX?: number;
+  endWingsX?: number;
+  startWingsRow?: number;
+  endWingsRow?: number;
   exitRowsX: number[];
 }
 
@@ -102,10 +102,10 @@ export interface Coordinates {
 }
 
 export interface AircraftCabinAmenities {
-  power: Power;
+  power?: Power;
   seat: SeatAmenities;
-  wifi: Wifi;
-  entertainment: Entertainment[];
+  wifi?: Wifi;
+  entertainment?: Entertainment[];
   food: Food;
   beverage: Beverage;
 }

@@ -3,6 +3,8 @@ import { BehaviorSubject } from 'rxjs';
 import { firebase } from '@nativescript/firebase-core';
 import '@nativescript/firebase-auth';
 import { Firestore } from '@nativescript/firebase-firestore';
+
+
 import { RouterExtensions } from '@nativescript/angular';
 
 @Injectable({

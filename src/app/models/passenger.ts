@@ -12,4 +12,5 @@ export interface FlightInfo {
     fromPlace: string;
     toPlace: string;
     seatNumber: string;
+    segmentId: string;
 }

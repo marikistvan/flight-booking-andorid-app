@@ -22,7 +22,7 @@ import { SeatDetailsModalComponent } from './pages/flight-booking/select-seat/se
 import { FlightSummaryComponent } from './pages/flight-booking/flight-summary/flight-summary.component'
 import { PassengerDetailsComponent } from './pages/flight-booking/flight-summary/passenger-details/passenger-details.component'
 const routes: Routes = [
-  { path: '', redirectTo: '/flightSummary', pathMatch: 'full' },
+  { path: '', redirectTo: '/passengerInfo', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,

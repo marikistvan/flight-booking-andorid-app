@@ -1,13 +1,11 @@
-import { AfterViewInit, Component, computed, ElementRef, OnInit, signal, ViewChild, ViewContainerRef } from "@angular/core";
-import { RadSideDrawer } from "nativescript-ui-sidedrawer";
-import { action, Application, GridLayout, Image, ItemSpec, Label, TextField } from "@nativescript/core";
+import { AfterViewInit, Component, computed, ElementRef, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
+import { action, GridLayout, Image, ItemSpec, Label, TextField } from "@nativescript/core";
 import { ModalDialogOptions, ModalDialogParams, ModalDialogService, RouterExtensions } from "@nativescript/angular";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { FlightInfo, Passenger } from '~/app/models/passenger'
-import { title } from "process";
 import { SelectSeatComponent } from "../select-seat/select-seat.component";
-import { SeatmapResponse } from "~/app/models/seatmap-response"
 import { Seatmap } from "~/app/models/seatmap-response";
+import { FlightOffer } from "~/app/models/flight-offers-response";
 
 
 @Component({
@@ -19,9 +17,10 @@ import { Seatmap } from "~/app/models/seatmap-response";
 export class SetpassengerComponent implements OnInit, AfterViewInit {
   sexType: Array<string> = ['Nő', 'Férfi', 'Egyéb'];
   formTitle: string;
-  wayThere:FlightInfo[];
+  wayThere: FlightInfo[];
   seatMap: Seatmap[] = [];
   isOneWay: boolean;
+  flightOffer: FlightOffer;
   departureSeatCount: number;
   arrivalSeatCount: number;
   baggageType: Array<string> = ['Kézipoggyász'];
@@ -37,18 +36,34 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
   }
   constructor(private modalDialogParams: ModalDialogParams, private modalDialogSerivce: ModalDialogService, private viewContainerRef: ViewContainerRef) {
-    const [title, passenger, isOneWay, departureSeatCount, arrivalSeatCount, seatMapDatas] = modalDialogParams.context;
-    this.formTitle = title;
-    this.isOneWay = isOneWay;
-    this.departureSeatCount = departureSeatCount;
-    this.arrivalSeatCount = arrivalSeatCount;
-    this.seatMap = seatMapDatas;
-    if (passenger.firstName !== '') {
+    const context = modalDialogParams.context;
+    this.formTitle = context.title;
+    this.flightOffer = context.flightOffer;
+    this.isOneWay = this.flightOffer.itineraries.length < 2;
+    this.departureSeatCount = this.flightOffer.itineraries[0].segments.length;
+    if (!this.isOneWay) {
+      this.arrivalSeatCount = context.flightOffer.itineraries[1].segments.length;
+    }
+    this.seatMap = context.seatMap;
+    const passenger: Passenger = context.passenger;
+    if (context.passenger.firstName !== '') {
       this.passengerForm.get('lastName').setValue(passenger.lastName);
       this.passengerForm.get('firstName').setValue(passenger.firstName);
       this.passengerForm.get('bornDate').setValue(passenger.born);
       this.passengerForm.get('sex').setValue(passenger.sex);
       this.passengerForm.get('baggageType').setValue(passenger.baggageType);
+      for (let i = 0; i < this.departureSeatCount; i++) {
+        const segmentId = this.flightOffer.itineraries[0].segments[i].id;
+        this.passengerForm.setControl(segmentId, new FormControl<string>(''));
+        this.passengerForm.get(segmentId).setValue(passenger.seatNumberWayThere.find((element) => element.segmentId === segmentId).seatNumber);
+      }
+      if (this.arrivalSeatCount) {
+        for (let i = 0; i < this.arrivalSeatCount; i++) {
+          const segmentId = this.flightOffer.itineraries[1].segments[i].id;
+          this.passengerForm.setControl(segmentId, new FormControl<string>(''));
+          this.passengerForm.get(segmentId).setValue(passenger.seatNumberWayThere.find((element) => element.segmentId === segmentId).seatNumber);
+        }
+      }
     }
   }
   ngAfterViewInit(): void {
@@ -61,15 +76,33 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    const passenger:Passenger = {
+    const passenger: Passenger = {
       firstName: this.passengerForm.get('firstName').value,
       lastName: this.passengerForm.get('lastName').value,
       born: this.passengerForm.get('bornDate').value,
       sex: this.passengerForm.get('sex').value,
       baggageType: this.passengerForm.get('baggageType').value,
-      seatNumberWayThere:[],
+      seatNumberWayThere: this.feltoltData(0),
+      seatNumberWayBack: this.feltoltData(1)
     }
     this.modalDialogParams.closeCallback([passenger, 'next']);
+  }
+  feltoltData(iteratiesNumber: number): FlightInfo[] {
+    let flightSeats: FlightInfo[] = [];
+    if (iteratiesNumber === 1 && this.isOneWay) {
+      return flightSeats;
+    }
+    const segmentInfo = this.flightOffer.itineraries[iteratiesNumber].segments;
+    for (let i = 0; i < segmentInfo.length; i++) {
+      const flight: FlightInfo = {
+        seatNumber: this.passengerForm.get(segmentInfo[i].id).value,
+        fromPlace: segmentInfo[i].departure.iataCode,
+        toPlace: segmentInfo[i].arrival.iataCode,
+        segmentId: segmentInfo[i].id
+      }
+      flightSeats.push(flight);
+    }
+    return flightSeats;
   }
 
   onCancel() {
@@ -98,16 +131,16 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
       }
     })
   }
-  async openSeatPicker(direction: string, dataId: number, controlName: string) {
+  async openSeatPicker(direction: string, segmentId: string) {
     if (this.passengerForm.get('lastName').value !== '' && this.passengerForm.get('firstName').value !== '') {
       const lastName = this.passengerForm.get('lastName').value;
       const firstName = this.passengerForm.get('firstName').value;
-
+      const seatMap = this.seatMap.find((element) => element.segmentId === segmentId);
       const option: ModalDialogOptions = {
         context: {
           lastName,
           firstName,
-          seatMap: this.seatMap[dataId],
+          seatMap: seatMap,
           direction
         },
         fullscreen: true,
@@ -116,12 +149,12 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
 
       await this.modalDialogSerivce.showModal(SelectSeatComponent, option).then((result) => {
         if (result?.action === 'reserve') {
-          const element = this.seatMap[dataId].decks[0].seats.find(s => s.number === result.seatNumber);
+          const element = this.seatMap.find((element) => element.segmentId === segmentId).decks[0].seats.find(s => s.number === result.seatNumber);
           element.travelerPricing.forEach(tp => {
             tp.seatAvailabilityStatus = 'underReservation';
           });
 
-          this.passengerForm.get(controlName)?.setValue(result.seatNumber);
+          this.passengerForm.get(segmentId)?.setValue(result.seatNumber);
         }
       });
     }
@@ -130,29 +163,43 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
   seatSelectCreate() {
     const selectSeat = this.selectSeatRef.nativeElement;
 
-    for (let i = 0; i < this.departureSeatCount; i++) {
-      const controlName = `departureSeat_${i}`;
-      this.passengerForm.addControl(controlName, new FormControl<string>(''));
+    this.addSeatSelection(
+      selectSeat,
+      this.departureSeatCount,
+      this.flightOffer.itineraries[0].segments,
+      'wayThere'
+    );
 
-      selectSeat.addChild(this.label(`${i + 1}. oda úti ülőhely kiválasztása`, 'form-label'));
-      const grid = new GridLayout();
-      this.seatGridSet(grid, 'wayThere', 'oda úti ülőhely megadása', i, controlName);
-      selectSeat.addChild(grid);
-    }
-    
     if (this.arrivalSeatCount !== undefined) {
-      for (let i = 0; i < this.arrivalSeatCount; i++) {
-        const controlName = `arrivalSeat_${i}`;
-        this.passengerForm.addControl(controlName, new FormControl<string>(''));
-
-        selectSeat.addChild(this.label(`${i + 1}. vissza úti ülőhely kiválasztása`, 'form-label'));
-        const grid = new GridLayout();
-        this.seatGridSet(grid, 'wayBack', 'vissza úti ülőhely megadása', this.departureSeatCount - 1 + i, controlName);
-        selectSeat.addChild(grid);
-      }
+      this.addSeatSelection(
+        selectSeat,
+        this.arrivalSeatCount,
+        this.flightOffer.itineraries[1].segments,
+        'wayBack'
+      );
     }
   }
-  seatGridSet(grid: GridLayout, direction: string, hint: string, dataId: number, controlName: string) {
+  private addSeatSelection(
+    selectSeat: any,
+    segmentCount: number,
+    segments: any[],
+    wayType: 'wayThere' | 'wayBack'
+  ) {
+    for (let i = 0; i < segmentCount; i++) {
+      const segmentInfo = segments[i];
+      const segmentId = segmentInfo.id;
+
+      this.passengerForm.addControl(segmentId, new FormControl<string>(''));
+
+      const iataCodes = `${segmentInfo.departure.iataCode} ${segmentInfo.arrival.iataCode}`;
+      selectSeat.addChild(this.label(`${iataCodes} úti ülőhely kiválasztása`, 'form-label'));
+
+      const grid = new GridLayout();
+      this.seatGridSet(grid, wayType, `${iataCodes} úti ülőhely megadása`, segmentId);
+      selectSeat.addChild(grid);
+    }
+  }
+  seatGridSet(grid: GridLayout, direction: string, hint: string, segmentId: string) {
     this.formatGridColumnsOrRows('col', ['*', 'auto'], grid);
     grid.className = 'set-passenger-component-input-baggage-type-grid';
 
@@ -161,7 +208,7 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
     arrowImg.className = 'set-passenger-icon-baggage-type';
     arrowImg.src = '~/assets/icons/down-arrow.png';
     arrowImg.on('tap', () => {
-      this.openSeatPicker(direction, dataId, controlName);
+      this.openSeatPicker(direction, segmentId);
     });
     grid.addChild(arrowImg);
 
@@ -171,14 +218,14 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
     GridLayout.setColumn(textF, 0);
     textF.hint = hint;
 
-    const control = this.passengerForm.get(controlName);
+    const control = this.passengerForm.get(segmentId);
     textF.text = control.value || '';
     control.valueChanges.subscribe(val => {
       textF.text = val || '';
     });
 
     textF.on('tap', () => {
-      this.openSeatPicker(direction, dataId, controlName);
+      this.openSeatPicker(direction, segmentId);
     });
 
     grid.addChild(textF);
