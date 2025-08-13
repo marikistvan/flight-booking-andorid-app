@@ -1,9 +1,10 @@
-import { Component } from "@angular/core"
-import { ModalDialogParams } from "@nativescript/angular"
-import { Dictionaries, FlightOffer } from '~/app/models/flight-offers-response'
+import { Component } from "@angular/core";
+import { ModalDialogParams } from "@nativescript/angular";
+import { Dictionaries, FlightOffer } from '~/app/models/flight-offers-response';
 import { Passenger } from "~/app/models/passenger";
-import flightoffer from '~/assets/flight-offer-sample.json'
-import passengers from '~/assets/passenger-data.json'
+import flightoffer from '~/assets/flight-offer-sample.json';
+import passengers from '~/assets/passenger-data.json';
+import { Booking } from '~/app/models/booking';
 
 @Component({
   selector: "ns-flight-summary",
@@ -31,5 +32,14 @@ export class FlightSummaryComponent {
   }
   testOC() {
     this.isShowFlightDetails = !this.isShowFlightDetails;
+  }
+  booking() {
+    const booking:Booking={
+        userId: '',
+        bookingId: '',
+        createdAt: '',
+        flights: [],
+        passengers:[]
+    }
   }
 }
