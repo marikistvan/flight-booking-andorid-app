@@ -1,9 +1,10 @@
-<StackLayout class="page">
-  <GridLayout columns="auto, *" class="action-bar">
+<ActionBar flat="true" class="action-bar">
+  <GridLayout columns="auto, *">
     <Label text="Utas(ok) adati megadása" colspan="2" class="action-bar-title"></Label>
     <Image src="~/assets/icons/right-arrow.png" (tap)="onCancel()" class="fas btn-back-rotate-black"></Image>
   </GridLayout>
-
+</ActionBar>
+<StackLayout class="page">
   <GridLayout [formGroup]="passengerForm" columns="*" [rows]="rowsCount" class="passenger-info-form">
     @for(passenger of flightOffer.travelerPricings; let i = $index; track i) {
     <StackLayout col="0" [row]="i">
