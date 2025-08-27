@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core'
-import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { HttpClientModule } from '@angular/common/http'
-import { Observable, switchMap } from 'rxjs'
-import { environment } from '../../environments/environment'
-import { LocationResponse } from '../models/location-response'
-import { LocationResponseForOneLocation } from '../models/location-response-for-one-location'
-import { FlightOffersResponse } from '../models/flight-offers-response'
-import { FlightOffer } from '../models/flight-offers-response'
-import { SeatmapResponse } from '../models/seatmap-response'
-import data from '../../assets/flight-offer-sample.json'
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { Observable, switchMap } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { LocationResponse } from '../models/location-response';
+import { LocationResponseForOneLocation } from '../models/location-response-for-one-location';
+import { FlightOffersResponse } from '../models/flight-offers-response';
+import { FlightOffer } from '../models/flight-offers-response';
+import { SeatmapResponse } from '../models/seatmap-response';
+import data from '../../assets/flight-offer-sample.json';
+import { errorMessages } from '~/app/models/errors/apiError';
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +20,9 @@ export class AmadeusService {
   private clientSecret = environment.amadeusClientSecret;
   private accessToken: string | null = null;
 
-
   constructor(private http: HttpClient) { }
 
-  getToken(): Observable<any> {
+  private getToken(): Observable<any> {
     const body = new URLSearchParams();
     body.set('grant_type', 'client_credentials');
     body.set('client_id', this.clientId);
@@ -35,11 +35,11 @@ export class AmadeusService {
     });
   }
 
-  setAccessToken(token: string) {
+  private setAccessToken(token: string) {
     this.accessToken = token;
   }
 
-  getAccessToken() {
+  private getAccessToken() {
     return this.accessToken;
   }
   /**
@@ -68,7 +68,7 @@ export class AmadeusService {
     }
   }
 
-  makesearchFlightsRequest(origin: string, destination: string, departureDate: string, adults: string, max: string, returnDate: string, childrens: string, infants: string): Observable<FlightOffersResponse> {
+  private makesearchFlightsRequest(origin: string, destination: string, departureDate: string, adults: string, max: string, returnDate: string, childrens: string, infants: string): Observable<FlightOffersResponse> {
     let url;
     if (returnDate === null) {
       url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destination}&departureDate=${departureDate}&adults=${adults}&children=${childrens}&infants=${infants}&max=${max}`;
@@ -100,7 +100,7 @@ export class AmadeusService {
     const url = `https://test.api.amadeus.com/v1/shopping/seatmaps`;
     return this.http.post<SeatmapResponse>(
       url,
-      { data: [flightOffer] }, // <-- a Seatmaps API data[] tömböt vár
+      { data: [flightOffer] },
       {
         headers: new HttpHeaders({
           'Authorization': `Bearer ${this.accessToken}`,
@@ -142,7 +142,13 @@ export class AmadeusService {
       },
     });
   }
+  
   getMockFlightOffers(): FlightOffersResponse {
     return data;
+  }
+
+  handleApiError(err: any): string {
+    const code = err?.error?.code || err?.status;
+    return errorMessages[code] || "Ismeretlen hiba történt. Kérjük, próbálja újra később.";
   }
 }

@@ -1,28 +1,26 @@
-import { Injectable, OnInit } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { firebase } from "@nativescript/firebase-core";
-import { ObservableArray } from "@nativescript/core";
 import "@nativescript/firebase-auth";
 import "@nativescript/firebase-firestore";
 import { FieldValue } from "@nativescript/firebase-firestore";
 import { Blog } from "../models/blog";
 import { catchError, from, map, Observable, shareReplay } from "rxjs";
+import { AuthService } from "./auth.service";
 
 @Injectable({ providedIn: "root" })
 export class BlogService {
-  blogs = [];
+  private blogs?: Observable<Blog[]>;
   userBlogs = [];
-  user = firebase().auth().currentUser;
-  auth = firebase().auth();
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   createBlog(blog: Blog) {
-    if (this.user) {
+    if (this.authService.currentUser) {
       firebase().firestore().collection("blog").add({
         title: blog.title,
         content: blog.content,
         created_at: FieldValue.serverTimestamp(),
-        author_id: this.user.uid,
+        author_id: this.authService.currentUser.uid,
       });
       console.log("blogBejegyzés fent van");
     } else {
@@ -30,17 +28,17 @@ export class BlogService {
     }
 
   }
-  private blogs$?: Observable<Blog[]>;
+
 
   getBlogs(): Observable<Blog[]> {
-    if (!this.blogs$) {
+    if (!this.blogs) {
       const blogQuery = firebase()
         .firestore()
         .collection("blog")
         .orderBy("created_at", "desc")
         .get();
 
-      this.blogs$ = from(blogQuery).pipe(
+      this.blogs = from(blogQuery).pipe(
         map(querySnapshot => {
           const blogs: Blog[] = [];
           querySnapshot.forEach(doc => {
@@ -63,7 +61,7 @@ export class BlogService {
       );
     }
 
-    return this.blogs$;
+    return this.blogs;
   }
 
   async getBlog(blogId: string): Promise<Blog> {
@@ -86,7 +84,7 @@ export class BlogService {
   }
 
   updateBlog(blogId: string, updatedBlog: Blog) {
-    if (this.user != null) {
+    if (this.authService.currentUser) {
       firebase().firestore().collection("blog").doc(blogId).update({
         title: updatedBlog.title,
         content: updatedBlog.content,

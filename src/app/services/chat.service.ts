@@ -15,8 +15,8 @@ export class ChatService {
   constructor(private http: HttpClient) {}
 
   async sendMessage(prompt: ChatMessage[]): Promise<Observable<any>> {
-    const valami= await this.http.post<any>(this.apiUrl, { prompt });
-    console.log(valami);
-    return valami;
+    const result= await this.http.post<any>(this.apiUrl, { prompt });
+    console.log(result);
+    return result;
   }
 }

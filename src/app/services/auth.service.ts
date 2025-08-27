@@ -117,22 +117,21 @@ export class AuthService {
   resetPassword(data) {
     return this.auth.sendPasswordResetEmail(data);
   }
-
+  
   setUserProperties() {
-    firebase()
-      .firestore()
+    return firebase().firestore()
       .collection("users")
       .doc(this.currentUser.uid)
-      .get()
-      .then((cred) => {
-        if (cred && !cred.exists) {
-          return;
-        }
-        this._firstName = cred.data()['firstName'];
-        this._lastName = cred.data()['lastName'];
-        this._sex = cred.data()['genre'];
-        this._bornDate = cred.data()['born'];
-        this._fullName = this._firstName + ' ' + this._lastName;
+      .onSnapshot((doc) => {
+        if (!doc.exists) return;
+
+        const data = doc.data();
+        this._firstName = data?.firstName ?? '';
+        this._lastName = data?.lastName ?? '';
+        this._sex = data?.genre ?? '';
+        this._bornDate = data?.born ?? '';
+        this._fullName = `${this._firstName} ${this._lastName}`;
       });
   }
+
 }
