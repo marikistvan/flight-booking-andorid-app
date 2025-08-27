@@ -95,13 +95,13 @@
 .flight-details-component-btn-details-up {
   width: 20;
   height: 20;
-  rotate: 270;
+  transform: rotate(270);
 }
 
 .flight-details-component-btn-details-down {
   width: 20;
   height: 20;
-  rotate: 90;
+  transform: rotate(90);
 }
 
 .flight-details-component-details-header {
@@ -278,7 +278,7 @@
   width: 100;
   height: 246;
   margin-bottom: 400;
-  rotate: 45;
+  transform: rotate(45);
   background-color: #bac0c7;
 }
 
@@ -286,7 +286,7 @@
   width: 100;
   height: 246;
   margin-bottom: 400;
-  rotate: 45;
+  transform: rotate(45);
   background-color: #bac0c7;
 }
 
@@ -294,7 +294,7 @@
   width: 84;
   height: 246;
   margin-bottom: 400;
-  rotate: -45;
+  transform: rotate(-45);
   background-color: #bac0c7;
   z-index: 0;
 }
@@ -304,7 +304,7 @@
   background-color: #bbd5f4;
   width: 112;
   height: 143;
-  rotate: 345.1;
+   transform: rotate(345);
   z-index: 0;
 }
 
