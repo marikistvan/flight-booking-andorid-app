@@ -1,7 +1,9 @@
+import { Passenger } from "./passenger";
+
 export interface Booking {
   userId: string;
-  bookingId: string;
-  createdAt: string; 
+  bookingId?: string;
+  createdAt: string;
   flights: Flight[];
   passengers: Passenger[];
 }
@@ -13,12 +15,5 @@ export interface Flight {
   airline: string;
   departureIATA: string;
   arrivalIATA: string;
-}
-
-export interface Passenger {
-  fullName: string;
-  birthDate: string; 
-  gender: 'F' | 'N' | 'E';
-  baggage: string;
-  seats: Record<string, string>; 
+  segmentId: string;
 }

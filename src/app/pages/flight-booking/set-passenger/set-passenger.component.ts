@@ -20,6 +20,7 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
   wayThere: FlightInfo[];
   seatMap: Seatmap[] = [];
   isOneWay: boolean;
+  passengerId:string;
   flightOffer: FlightOffer;
   departureSeatCount: number;
   arrivalSeatCount: number;
@@ -38,6 +39,7 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
   constructor(private modalDialogParams: ModalDialogParams, private modalDialogSerivce: ModalDialogService, private viewContainerRef: ViewContainerRef) {
     const context = modalDialogParams.context;
     this.formTitle = context.title;
+    this.passengerId=context.id;
     this.flightOffer = context.flightOffer;
     this.isOneWay = this.flightOffer.itineraries.length < 2;
     this.departureSeatCount = this.flightOffer.itineraries[0].segments.length;
@@ -55,13 +57,13 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
       for (let i = 0; i < this.departureSeatCount; i++) {
         const segmentId = this.flightOffer.itineraries[0].segments[i].id;
         this.passengerForm.setControl(segmentId, new FormControl<string>(''));
-        this.passengerForm.get(segmentId).setValue(passenger.seatNumberWayThere.find((element) => element.segmentId === segmentId).seatNumber);
+        this.passengerForm.get(segmentId).setValue(passenger.seats.find((element) => element.segmentId === segmentId).seatNumber);
       }
       if (this.arrivalSeatCount) {
         for (let i = 0; i < this.arrivalSeatCount; i++) {
           const segmentId = this.flightOffer.itineraries[1].segments[i].id;
           this.passengerForm.setControl(segmentId, new FormControl<string>(''));
-          this.passengerForm.get(segmentId).setValue(passenger.seatNumberWayThere.find((element) => element.segmentId === segmentId).seatNumber);
+          this.passengerForm.get(segmentId).setValue(passenger.seats.find((element) => element.segmentId === segmentId).seatNumber);
         }
       }
     }
@@ -82,26 +84,22 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
       born: this.passengerForm.get('bornDate').value,
       sex: this.passengerForm.get('sex').value,
       baggageType: this.passengerForm.get('baggageType').value,
-      seatNumberWayThere: this.feltoltData(0),
-      seatNumberWayBack: this.feltoltData(1)
+      seats: this.uploadSeats(),
+      id:this.passengerId
     }
     this.modalDialogParams.closeCallback([passenger, 'next']);
   }
-  feltoltData(iteratiesNumber: number): FlightInfo[] {
+  uploadSeats(): FlightInfo[] {
     let flightSeats: FlightInfo[] = [];
-    if (iteratiesNumber === 1 && this.isOneWay) {
-      return flightSeats;
-    }
-    const segmentInfo = this.flightOffer.itineraries[iteratiesNumber].segments;
-    for (let i = 0; i < segmentInfo.length; i++) {
-      const flight: FlightInfo = {
-        seatNumber: this.passengerForm.get(segmentInfo[i].id).value,
-        fromPlace: segmentInfo[i].departure.iataCode,
-        toPlace: segmentInfo[i].arrival.iataCode,
-        segmentId: segmentInfo[i].id
-      }
-      flightSeats.push(flight);
-    }
+    this.flightOffer.itineraries.forEach((element) => {
+      element.segments.forEach((segment) => {
+        const flight: FlightInfo = {
+          seatNumber: this.passengerForm.get(segment.id).value,
+          segmentId: segment.id
+        }
+        flightSeats.push(flight);
+      })
+    })
     return flightSeats;
   }
 

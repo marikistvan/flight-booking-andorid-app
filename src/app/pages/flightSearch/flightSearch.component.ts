@@ -4,16 +4,15 @@ import { action, Application } from "@nativescript/core";
 import { ModalDialogOptions, RouterExtensions } from "@nativescript/angular";
 import { AmadeusService } from "../../services/amadeus.service";
 import { ModalDialogService } from "@nativescript/angular";
-import { AuthService } from "~/app/services/auth.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ViewContainerRef } from "@angular/core";
 import { FlightSearchDestinationSelectorComponent } from "./flight-search-destination-selector/flightSearchDestinationSelector.component";
 import { FlightSearchPassengersSelectorComponent } from "./flight-search-passengers-selector/flightSearchPassengersSelector.component";
 import { PassengerCategory } from '../../models/passenger-category';
 import { LocationResponse } from "~/app/models/location-response";
-import { Dictionaries, FlightOffersResponse } from "~/app/models/flight-offers-response";
-import { FlightListComponent } from "./fligthList/flightList.component";
+import { FlightOffersResponse } from "~/app/models/flight-offers-response";
 import { DatePipe } from "@angular/common";
+import { FlightSearchStateService } from '~/app/services/flight-search-state.service';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
@@ -49,9 +48,10 @@ export class FlightSearchComponent implements OnInit {
     private modalDialogService: ModalDialogService,
     private viewContainerRef: ViewContainerRef,
     private amadeusService: AmadeusService,
-    private datePipe: DatePipe
-  ) {
-  }
+    private datePipe: DatePipe,
+    private searchStateService: FlightSearchStateService,
+    private routerExtensions: RouterExtensions
+  ) {}
 
   ngOnInit(): void {
     this.todayDate = this.getTodayDate();
@@ -69,72 +69,49 @@ export class FlightSearchComponent implements OnInit {
     return this.searchFormGroup.get('tripType').value;
   }
 
-  getTodayDate() {
+  private getTodayDate() {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, "0");
     var mm = String(today.getMonth() + 1).padStart(2, "0");
     var yyyy = today.getFullYear();
     return yyyy + "-" + mm + "-" + dd;
   }
+
   isInvalid(controlName: string): boolean {
     const control = this.searchFormGroup.get(controlName);
     return control && control.invalid && (control.dirty || control.touched);
   }
 
   async submitFlightSearch() {
+    if (this.searchFormGroup.invalid) {
+      this.searchFormGroup.markAllAsTouched();
+      return;
+    }
+    if (this.isDateWrong()) { return; }
+    try {
+      this.isSearchStarted.set(true);
 
-    const options: ModalDialogOptions = {
-      context: {
-        flightOffers: this.amadeusService.getMockFlightOffers().data,
-        dictionary: this.amadeusService.getMockFlightOffers().dictionaries,
-        toPlace: 'valahova',
-      },
-      fullscreen: true,
-      viewContainerRef: this.viewContainerRef
-    };
-
-    const result = await this.modalDialogService.showModal(FlightListComponent, options);
-    /* 
-   if (this.searchFormGroup.invalid) {
-     this.searchFormGroup.markAllAsTouched();
-     return;
-   }
-   if (this.isDateWrong()) { return; }
-   try {
-     this.isSearchStarted.set(true);
-  
-     const response = await firstValueFrom(
-       this.amadeusService.searchFlights(
-         this.searchFormGroup.get('fromIATACode').value,
-         this.searchFormGroup.get('toPlaceIATACode').value,
-         this.datePipe.transform(this.searchFormGroup.get('fromDate').value, 'yyyy-MM-dd'),
-         this.passangerCategoryArray[0].count.toString(),
-         this.maxSearchNumber,
-         this.searchFormGroup.get('returnDate').value !== undefined ? this.datePipe.transform(this.searchFormGroup.get('returnDate').value, 'yyyy-MM-dd') : undefined,
-         this.passangerCategoryArray[1].count.toString(),
-         this.passangerCategoryArray[2].count.toString()
-       )
-     );
-  
-     this.flightOffers = response;
-     const options: ModalDialogOptions = {
-       context: {
-         flightOffers: response.data,
-         dictionary: response.dictionaries,
-         toPlace: this.searchFormGroup.get('toPlace').value.split(',')[0],
-       },
-       fullscreen: true,
-       viewContainerRef: this.viewContainerRef
-     };
-  
-     const result = await this.modalDialogService.showModal(FlightListComponent, options);
-  
-     this.isSearchStarted.set(false);
-  
-   } catch (error) {
-     console.error("Hiba a keresés során:", error);
-     this.isSearchStarted.set(false);
-   }*/
+      const response = await firstValueFrom(
+        this.amadeusService.searchFlights(
+          this.searchFormGroup.get('fromIATACode').value,
+          this.searchFormGroup.get('toPlaceIATACode').value,
+          this.datePipe.transform(this.searchFormGroup.get('fromDate').value, 'yyyy-MM-dd'),
+          this.passangerCategoryArray[0].count.toString(),
+          this.maxSearchNumber,
+          this.searchFormGroup.get('returnDate').value !== undefined ? this.datePipe.transform(this.searchFormGroup.get('returnDate').value, 'yyyy-MM-dd') : undefined,
+          this.passangerCategoryArray[1].count.toString(),
+          this.passangerCategoryArray[2].count.toString()
+        )
+      )
+      const toPlace = this.searchFormGroup.get('toPlace').value.split(',')[0];
+      this.searchStateService.setFlights(response.data, response.dictionaries, toPlace);
+      this.routerExtensions.navigate(['flightList']);
+    } catch (error) {
+      console.error("Hiba a keresés során:", error);
+      this.isSearchStarted.set(false);
+    } finally {
+      this.isSearchStarted.set(false);
+    }
   }
 
   openTripTypePicker() {
@@ -171,9 +148,7 @@ export class FlightSearchComponent implements OnInit {
   }
 
   async chooseDestination(type: 'from' | 'to'): Promise<void> {
-
     const controlName = type === 'from' ? 'fromPlace' : 'toPlace';
-
     const options: ModalDialogOptions = {
       context: { type },
       fullscreen: true,
@@ -190,7 +165,6 @@ export class FlightSearchComponent implements OnInit {
       }
       this.searchFormGroup.get(controlName)?.setValue(this.formatName(result.detailedName, result.iataCode));
     }
-
   }
 
   formatName(detailedName: string, iataCode: string): string {

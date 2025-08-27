@@ -15,9 +15,12 @@ import { HomeComponent } from './pages/home/home.component'
 export class AppComponent implements OnInit {
   private _sideDrawerTransition: DrawerTransitionBase;
 
-  constructor(private routerExtensions: RouterExtensions, public authService: AuthService, private viewContainerRef: ViewContainerRef, private modalDialogService: ModalDialogService) {
-
-   }
+  constructor(
+    private routerExtensions: RouterExtensions,
+    public authService: AuthService,
+    private viewContainerRef: ViewContainerRef,
+    private modalDialogService: ModalDialogService
+  ) {}
 
   ngOnInit(): void {
     this._sideDrawerTransition = new SlideInOnTopTransition();

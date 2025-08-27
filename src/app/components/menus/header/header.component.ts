@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NativeScriptModule, RouterExtensions } from '@nativescript/angular';
+import { RouterExtensions } from '@nativescript/angular';
 import { Application, StackLayout } from '@nativescript/core';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import { AppComponent } from '~/app/app.component';

@@ -1,16 +1,14 @@
 export interface Passenger {
+    id:string,
     firstName: string,
     lastName: string,
     born: string,
     sex: string,
     baggageType: string
-    seatNumberWayThere: FlightInfo[],
-    seatNumberWayBack?: FlightInfo[]
+    seats: FlightInfo[]
 }
 
 export interface FlightInfo {
-    fromPlace: string;
-    toPlace: string;
     seatNumber: string;
     segmentId: string;
 }

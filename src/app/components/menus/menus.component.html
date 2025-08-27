@@ -36,6 +36,12 @@
     <Image col="0" src="res://cart" width="12" height="12" class="icon-distance"></Image>
     <Label col="1" text="Kosár" class="p-r-10"></Label>
   </GridLayout>
+
+  <GridLayout columns="auto, *" class="nt-drawer__list-item" [class.-selected]="isComponentSelected('/flightTicketList')"
+    (tap)="onNavItemTap('/flightTicketList')">
+    <Image col="0" src="res://ticket_flight" width="12" height="12" class="icon-distance"></Image>
+    <Label col="1" text="Jegyeim" class="p-r-10"></Label>
+  </GridLayout>
   }
 
   <StackLayout class="hr"></StackLayout>
