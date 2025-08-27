@@ -1,10 +1,12 @@
-<StackLayout class="page">
-    @if(!isJustSummary){
-    <GridLayout columns="auto, *" class="action-bar">
-        <Label text="Részletes megtekités" colSpan="2" class="action-bar-title"></Label>
+@if(!isJustSummary){
+<ActionBar flat="true" class="action-bar">
+    <GridLayout columns="auto, *">
+        <Label text="Részletes megtekités" colspan="2" class="action-bar-title"></Label>
         <Image src="~/assets/icons/right-arrow.png" (tap)="onCancel()" class="fas btn-back-rotate-black"></Image>
     </GridLayout>
-    }
+</ActionBar>
+}
+<StackLayout class="page">
     <ScrollView class="testScroolClass">
         <StackLayout>
             <StackLayout orientation="horizontal" class="travel-date-layout" horizontalAlignment="center">

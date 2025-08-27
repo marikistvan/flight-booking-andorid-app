@@ -2,43 +2,46 @@ import {
   Component,
   ElementRef,
   ViewChild,
-  ViewContainerRef,
   Input,
-  Optional,
   OnInit,
-  OnChanges,
-  SimpleChanges,
-  AfterViewInit
+  AfterViewInit,
+  NO_ERRORS_SCHEMA,
 } from '@angular/core';
 import { GridLayout, ItemSpec, Label, StackLayout, Image } from '@nativescript/core';
 import { Dictionaries, FlightOffer } from '~/app/models/flight-offers-response';
-import { ModalDialogOptions, ModalDialogParams, ModalDialogService } from '@nativescript/angular';
+import { ModalDialogOptions, ModalDialogService, NativeScriptCommonModule, RouterExtensions } from '@nativescript/angular';
 import { AmadeusService } from '~/app/services/amadeus.service';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { LocationResponseForOneLocation } from '~/app/models/location-response-for-one-location';
 import data from '~/assets/iata_data.json';
 import { PassengerInfoComponent } from '~/app/pages/flight-booking/passenger-info.component';
-
+import { FlightSearchStateService } from '~/app/services/flight-search-state.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   providers: [DatePipe],
+  standalone: true,
   selector: 'ns-flight-details',
   templateUrl: './flight-details.component.html',
   styleUrls: ['./flight-details.component.scss'],
+  imports: [
+    CommonModule,
+    NativeScriptCommonModule
+  ],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 
-export class FlightDetailsComponent implements OnInit, OnChanges, AfterViewInit {
+export class FlightDetailsComponent implements OnInit, AfterViewInit {
   @Input() dictionary!: Dictionaries;
   @Input() flightOffer!: FlightOffer;
-  @Input() isJustSummary!:boolean;
+  @Input() isJustSummary?: boolean;
+  @Input() flightId?: string;
 
   private segmentDepartureHeaders: GridLayout[] = [];
   private segmentArrivalHeaders: GridLayout[] = [];
   private segmentDepartureDetails: GridLayout[] = [];
   private segmentArrivalDetails: GridLayout[] = [];
   private expandedStates: { [key: string]: boolean } = {};
-  private dataReady = false;
-  private viewReady = false;
   locations: LocationResponseForOneLocation[] = [];
   halfPrice!: number;
 
@@ -54,42 +57,32 @@ export class FlightDetailsComponent implements OnInit, OnChanges, AfterViewInit 
     private amadeusService: AmadeusService,
     private datePipe: DatePipe,
     private modalDialogService: ModalDialogService,
-    private viewContainerRef: ViewContainerRef,
-    @Optional() private modalDialogParams?: ModalDialogParams
+    private routerExtensions: RouterExtensions,
+    private searchStateService: FlightSearchStateService,
+    private route: ActivatedRoute
   ) { }
   ngAfterViewInit() {
-    this.viewReady = true;
-    this.tryInitView();
+    this.initView();
+    if (this.isJustSummary) {
+      this.setOpeningTagAsClosed();
+    }
   }
 
-  private tryInitView() {
-    if (this.dataReady && this.viewReady) {
-      this.initView();
-    }
-    if(this.isJustSummary){
-      this.expandedStates['arrival']=false;
-      this.expandedStates['departure']=false;
-      this.switchExpanded('departure');
-      this.switchExpanded('arrival');
-    }
+  setOpeningTagAsClosed() {
+    this.expandedStates['arrival'] = false;
+    this.expandedStates['departure'] = false;
+    this.switchExpanded('departure');
+    this.switchExpanded('arrival');
   }
+
   ngOnInit() {
-    if (this.modalDialogParams?.context) {
-      this.dictionary = this.dictionary ?? this.modalDialogParams.context.dictionary;
-      this.flightOffer = this.flightOffer ?? this.modalDialogParams.context.flight;
-    }
-    if (this.dictionary && this.flightOffer) {
-      this.dataReady = true;
-      this.tryInitView();
+    this.flightId = this.route.snapshot.paramMap.get('flightId') ?? '';
+    if (!this.isJustSummary) {
+      this.dictionary = this.searchStateService.getDictionary();
+      this.flightOffer = this.searchStateService.getFlightById(this.flightId);
     }
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if ((changes['dictionary'] || changes['flightOffer']) && this.dictionary && this.flightOffer) {
-      this.dataReady = true;
-      this.tryInitView();
-    }
-  }
   private initView() {
     if (this.viewInitialized) return;
     this.viewInitialized = true;
@@ -150,20 +143,20 @@ export class FlightDetailsComponent implements OnInit, OnChanges, AfterViewInit 
     grid.addChild(this.label(this.flightOffer.itineraries[iteratiesNumber].segments[segmentLength - 1].arrival.iataCode, 'flight-details-component-t-iataCode', 3, 2));
   }
 
-  private addOpeningTabButton(grid: GridLayout, flightInfo: string, iteratiesNumber: number): void {
+  private addOpeningTabButton(grid: GridLayout, departureOrArrival: string, iteratiesNumber: number): void {
     const openingTabImg = new Image();
-    const isExpanded = this.expandedStates[flightInfo] ?? false;
+    const isExpanded = this.expandedStates[departureOrArrival] ?? false;
     openingTabImg.src = '~/assets/icons/right-arrow.png';
     openingTabImg.className = isExpanded
       ? 'flight-details-component-btn-details-up'
       : 'flight-details-component-btn-details-down';
 
     openingTabImg.on('tap', () => {
-      const currentlyExpanded = this.expandedStates[flightInfo] ?? false;
+      const currentlyExpanded = this.expandedStates[departureOrArrival] ?? false;
       const newExpanded = !currentlyExpanded;
-      this.expandedStates[flightInfo] = newExpanded;
+      this.expandedStates[departureOrArrival] = newExpanded;
 
-      this.switchExpanded(flightInfo);
+      this.switchExpanded(departureOrArrival);
 
       openingTabImg.className = newExpanded
         ? 'flight-details-component-btn-details-up'
@@ -177,7 +170,6 @@ export class FlightDetailsComponent implements OnInit, OnChanges, AfterViewInit 
 
     grid.addChild(openingTabImg);
   }
-
 
   private addSegmentHeader(grid: GridLayout, flightInfo: string, i: number, iteratiesNumber: number): void {
     const segment = this.flightOffer.itineraries[iteratiesNumber].segments[i];
@@ -197,7 +189,7 @@ export class FlightDetailsComponent implements OnInit, OnChanges, AfterViewInit 
     const logo = new Image();
     logo.className = 'flight-details-component-airline-icon';
     logo.src = '~/assets/icons/workplace.png';
-    const name = this.dictionary.carriers[segment.operating.carrierCode];
+    let name = this.dictionary?.carriers[segment.operating.carrierCode] ?? '';
     const label = new Label();
     label.text = name;
     stack.addChild(logo);
@@ -250,7 +242,7 @@ export class FlightDetailsComponent implements OnInit, OnChanges, AfterViewInit 
   }
 
   onCancel() {
-    this.modalDialogParams.closeCallback(null);
+    this.routerExtensions.back();
   }
 
   switchExpanded(flightInfo: string) {
@@ -314,21 +306,6 @@ export class FlightDetailsComponent implements OnInit, OnChanges, AfterViewInit 
   }
 
   async selectFlight() {
-    const options: ModalDialogOptions = {
-      context: {
-        flight: this.flightOffer,
-        dictionary: this.dictionary
-      },
-      fullscreen: true,
-      viewContainerRef: this.viewContainerRef
-    };
-    const result = await this.modalDialogService
-      .showModal(PassengerInfoComponent, options);
-
-    if (result) {
-
-    } else {
-
-    }
+    this.routerExtensions.navigate(['passengerInfo', this.flightId]);
   }
 }
