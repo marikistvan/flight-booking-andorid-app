@@ -1,14 +1,19 @@
-<StackLayout class="page">
-  <GridLayout columns="auto, *" class="action-bar">
-    <Label [text]="mainArrivalCity" colspan="2" class="action-bar-title"></Label>
+<ActionBar flat="true" class="action-bar">
+  <GridLayout columns="auto, *">
+    <Label [text]="searchService.getToPlace()" colspan="2" class="action-bar-title"></Label>
     <Image src="~/assets/icons/right-arrow.png" (tap)="onCancel()" class="fas btn-back-rotate-black"></Image>
   </GridLayout>
-
+</ActionBar>
+<StackLayout class="page">
+  <!--<GridLayout columns="auto, *" class="action-bar">
+    <Label [text]="searchService.getToPlace()" colspan="2" class="action-bar-title"></Label>
+    <Image src="~/assets/icons/right-arrow.png" (tap)="onCancel()" class="fas btn-back-rotate-black"></Image>
+  </GridLayout>-->
   <ScrollView class="scroll-height">
     <StackLayout>
-      @if(this.flightOffers?.length){
-      @for(flight of flightOffers; track flight.id){
-      <ns-flight-list-row [flight]="flight" [dictionary]="dictionary"></ns-flight-list-row>
+      @if(searchService.getFlightOffers()){
+      @for(flight of searchService.getFlightOffers(); track flight.id){
+      <ns-flight-list-row [flight]="flight" [dictionary]="searchService.dictionary"></ns-flight-list-row>
       }
       }
       @else {
