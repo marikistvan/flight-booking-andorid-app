@@ -1,0 +1,42 @@
+<StackLayout>
+  <GridLayout columns="auto,*,200,*,auto" rows="*,auto,*" class="header-footer-bg header-h-10">
+    <Image src="~/assets/icons/ticket.png" col='0' row="1" class="ticket-icon rotate-180"></Image>
+    <StackLayout col='2' row="0" rowSpan="3" class="header-middle-stack">
+      <Image src="~/assets/icons/airplane.png" class="plane-icon"></Image>
+      <Label [text]="airLine" class="header-title"></Label>
+    </StackLayout>
+    <Image src="~/assets/icons/ticket.png" col='4' row="1" class="ticket-icon rotate-315"></Image>
+  </GridLayout>
+  <StackLayout class="ticket-container">
+    <GridLayout columns="10,auto,*,auto,10" rows="auto,auto,10,auto,auto">
+      <Label [text]="flight.departureIATA" col="1" row="0" class="f-26"></Label>
+      <Label [text]="flight.arrivalIATA" col="3" row="0" class="f-26 t-right"></Label>
+
+      <Label [text]="departureCity" col="1" row="1" class="f-24"></Label>
+      <Label [text]="arrivalCity" col="3" row="1" class="f-24 t-right"></Label>
+
+      <Label [text]="datePipe.transform(flight.departureDate,'YYYY.MM.dd')" col="1" row="3" class="f-24"></Label>
+      <Label [text]="datePipe.transform(flight.arrivalDate,'YYYY.MM.dd')" col="3" row="3" class="f-24 t-right"></Label>
+
+      <Label [text]="datePipe.transform(flight.departureDate,'HH:mm')" col="1" row="4" class="f-20"></Label>
+      <Label [text]="datePipe.transform(flight.arrivalDate,'HH:mm')" col="3" row="4" class="f-20 t-right"></Label>
+    </GridLayout>
+    <StackLayout orientation="horizontal" class="passenger-name-bg">
+      <Label text="Utas neve:" class="f-20"></Label>
+      <Label text="" width="100"></Label>
+      <Label [text]="passenger.lastName+' '+passenger.firstName" class="f-20"></Label>
+    </StackLayout>
+
+    <GridLayout columns="10,auto,*,auto,10" rows="auto,auto">
+      <Label text="Ülés" col="1" row="0" class="f-26 t-center"></Label>
+      <Label text="Járat" col="3" row="0" class="f-26 t-center"></Label>
+
+      <Label [text]="seatNumber" col="1" row="1" class="f-24 t-center"></Label>
+      <Label [text]="flight.flightNumber" col="3" row="1" class="f-24 t-center"></Label>
+    </GridLayout>
+     <Image [src]="barcodeUrl" class="barcode"></Image>
+  </StackLayout>
+  <Stacklayout class="header-footer-bg footer-h-8">
+    <Label [text]="airLine" class="header-title"></Label>
+  </Stacklayout>
+</StackLayout>
