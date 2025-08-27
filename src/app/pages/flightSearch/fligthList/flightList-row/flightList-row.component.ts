@@ -1,14 +1,19 @@
-import { DatePipe } from "@angular/common";
-import { Component, Input, OnInit, signal, ViewContainerRef } from "@angular/core";
-import { ModalDialogOptions, ModalDialogService } from "@nativescript/angular";
-import { Dictionaries, FlightOffer, FlightOffersResponse } from "~/app/models/flight-offers-response";
-import { FlightDetailsComponent } from "./flight-details/flight-details.component";
+import { CommonModule, DatePipe } from "@angular/common";
+import { Component, Input, NO_ERRORS_SCHEMA, OnInit, signal } from "@angular/core";
+import { NativeScriptCommonModule, RouterExtensions } from "@nativescript/angular";
+import { Dictionaries, FlightOffer } from "~/app/models/flight-offers-response";
 
 @Component({
   providers: [DatePipe],
+  standalone: true,
   selector: "ns-flight-list-row",
   templateUrl: "./flightList-row.component.html",
   styleUrls: ["./flightList-row.component.scss"],
+  imports: [
+    CommonModule,
+    NativeScriptCommonModule,
+  ],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 export class FlightListRowComponent implements OnInit {
   @Input({ required: true }) flight!: FlightOffer;
@@ -17,8 +22,8 @@ export class FlightListRowComponent implements OnInit {
   isSearchStarted = signal(false);
   constructor(
     public datePipe: DatePipe,
-    private modalDialogService: ModalDialogService,
-    private viewContainerRef: ViewContainerRef) { }
+    private routerExtensions: RouterExtensions
+  ) { }
   ngOnInit(): void {
     this.halfPrice = Number(this.flight.price.total) / 2;
   }
@@ -33,21 +38,7 @@ export class FlightListRowComponent implements OnInit {
   }
   async select() {
     this.isSearchStarted.set(true);
-    const options: ModalDialogOptions = {
-      context: {
-        flight: this.flight,
-        dictionary: this.dictionary
-      },
-      fullscreen: true,
-      viewContainerRef: this.viewContainerRef
-    };
-    const result = await this.modalDialogService
-      .showModal(FlightDetailsComponent, options);
-
-    if (result) {
-      this.isSearchStarted.set(false);
-    } else {
-      this.isSearchStarted.set(false);
-    }
+    this.routerExtensions.navigate(['flightDetails', this.flight.id]);
+    this.isSearchStarted.set(false);
   }
 }
