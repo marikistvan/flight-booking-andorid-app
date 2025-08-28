@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ModalDialogParams } from "@nativescript/angular";
+import { ModalDialogParams, RouterExtensions } from "@nativescript/angular";
 import { topmost } from "@nativescript/core/ui/frame";
 
 @Component({
@@ -9,19 +9,19 @@ import { topmost } from "@nativescript/core/ui/frame";
 })
 
 export class HomeComponent implements OnInit {
-  constructor(private modalDialogParams: ModalDialogParams) { }
+  constructor(private routerExtension: RouterExtensions) { }
   ngOnInit(): void {
   }
-  loginWithGoogle(){
-    this.modalDialogParams.closeCallback('google');
+  loginWithGoogle() {
+
   }
-  login(){
-    this.modalDialogParams.closeCallback('login');
+  login() {
+    this.routerExtension.navigate(['login']);
   }
-  register(){
-    this.modalDialogParams.closeCallback('register');
+  register() {
+    this.routerExtension.navigate(['register']);
   }
-  tryApp(){
-    this.modalDialogParams.closeCallback('try');
+  tryApp() {
+    this.routerExtension.navigate(['flightSearch']);
   }
 }
