@@ -13,34 +13,39 @@
         rows="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto">
 
         <Label col="0" colSpan="3" row="0" text="E-mail" class="form-first-label"></Label>
-        <TextField col="0" colspan="3" row="1" class="input-field" formControlName="email" editable="true" hint="E-mail cím">
+
+        <TextField col="0" colspan="3" row="1" class="input-field" formControlName="email" editable="true"
+          hint="E-mail cím" [ngClass]="{ 'input-error': isInvalid('email') }">
         </TextField>
 
         <Label col="0" row="2" text="Vezetéknév" class="form-label"></Label>
-        <TextField col="0" row="3" class="input-field" formControlName="lastName" editable="true" hint="Vezetéknév">
+        <TextField col="0" row="3" class="input-field" formControlName="firstName" editable="true" hint="Vezetéknév"
+          [ngClass]="{ 'input-error': isInvalid('firstName') }">
         </TextField>
 
         <Label col="2" row="2" text="Keresztnév" class="form-label"></Label>
-        <TextField col="2" row="3" class="input-field" formControlName="firstName" editable="true" hint="Keresztnév">
+        <TextField col="2" row="3" class="input-field" formControlName="lastName" editable="true" hint="Keresztnév"
+          [ngClass]="{ 'input-error': isInvalid('lastName') }">
         </TextField>
 
         <Label col="0" row="4" text="Születési dátum" class="form-label"></Label>
         <DatePickerField class="input-field" col="0" row="5" formControlName="bornDate"
-          [pickerDefaultDate]="minBornDate" [maxDate]="minBornDate" [hint]="minBornDate"></DatePickerField>
+          [text]="datePipe.transform(registerFormGroup.get('bornDate').value, 'YYYY.MM.dd')" [pickerDefaultDate]="minBornDate" [maxDate]="minBornDate"
+          [hint]="minBornDate" [ngClass]="{ 'input-error': isInvalid('bornDate') }"></DatePickerField>
 
         <Label col="2" row="4" text="Neme" class="form-label"></Label>
-        <TextField class="input-field" hint="Nő,Férfi,Egyéb..." col="2" row="5" editable="false" (tap)="selectSex()"
-          formControlName="sex">
+        <TextField class="input-field" hint="Nő,Férfi,Egyéb..." [text]="registerFormGroup.get('sex').value" col="2"
+          row="5" editable="false" (tap)="selectSex()" formControlName="sex"
+          [ngClass]="{ 'input-error': isInvalid('sex') }">
         </TextField>
-
         <Label col="0" colSpan="3" row="6" text="Jelszó" class="form-label"></Label>
-        <TextField col="0" colspan="3" row="7" class="input-field" formControlName="password" editable="true"
-          hint="Jelszó">
+        <TextField col="0" secure="true" colspan="3" row="7" class="input-field" formControlName="password" editable="true"
+          hint="Jelszó" [ngClass]="{ 'input-error': hasError('password', 'passwordMismatch') }">
         </TextField>
 
         <Label col="0" colSpan="3" row="8" text="Jelszó mégegyszer" class="form-label"></Label>
-        <TextField col="0" colspan="3" row="9" class="input-field" formControlName="passwordAgain" editable="true"
-          hint="Jelszó megerősítése">
+        <TextField col="0" secure="true" colspan="3" row="9" class="input-field" formControlName="passwordAgain" editable="true"
+          hint="Jelszó megerősítése" [ngClass]="{ 'input-error': hasError('passwordAgain', 'passwordMismatch') }">
         </TextField>
 
         <GridLayout col="0" colSpan="3" row="10" columns="auto, *" (tap)="submitRegister()" class="btn-submit-grid">

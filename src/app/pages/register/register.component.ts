@@ -1,32 +1,55 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, LOCALE_ID, NO_ERRORS_SCHEMA, OnChanges, OnInit, SimpleChanges } from "@angular/core";
 import "@nativescript/firebase-auth";
 import "@nativescript/firebase-firestore";
+import localeHu from '@angular/common/locales/hu';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
-import { Application } from '@nativescript/core'
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { action, Application, DatePicker } from '@nativescript/core'
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import { CommonModule, DatePipe, registerLocaleData } from "@angular/common";
+import { NativeScriptCommonModule, NativeScriptFormsModule } from "@nativescript/angular";
+import { NativeScriptDateTimePickerModule } from "@nativescript/datetimepicker/angular";
+import { NativeScriptPickerModule } from "@nativescript/picker/angular";
+import { passwordMatchValidator } from '~/app/validators/password-match.validator';
+import { emailRegexValidator } from '~/app/validators/email-regex.validator';
 
+registerLocaleData(localeHu);
 @Component({
+  
+  providers: [{ provide: LOCALE_ID, useValue: 'hu', },DatePipe],
   selector: "ns-register",
+  standalone: true,
   templateUrl: "register.component.html",
   styleUrls: ["./register.component.scss"],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    NativeScriptCommonModule,
+    NativeScriptFormsModule,
+    FormsModule,
+    NativeScriptDateTimePickerModule,
+    NativeScriptPickerModule,
+  ],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 
 export class RegisterComponent implements OnInit {
-  sexType: Array<string> = ['Nő','Férfi', 'Egyéb'];
+  sexType: Array<string> = ['Nő', 'Férfi', 'Egyéb'];
   registerFormGroup = new FormGroup({
-    email: new FormControl<string | null>('', Validators.required),
-    lastName: new FormControl<string | null>('', Validators.required),
-    firstName: new FormControl<string | null>('', Validators.required),
-    bornDate: new FormControl<Date | null>(null, Validators.required),
-    sex: new FormControl<string | null>('', Validators.required),
-    password: new FormControl<string | null>('', Validators.required),
-    passwordAgain: new FormControl<string | null>('', Validators.required),
-  })
+    email: new FormControl('', [Validators.required, emailRegexValidator]),
+    lastName: new FormControl('', Validators.required),
+    firstName: new FormControl('', Validators.required),
+    bornDate: new FormControl(null, Validators.required),
+    sex: new FormControl('', Validators.required),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    passwordAgain: new FormControl('', [Validators.required, Validators.minLength(8)]),
+  }, { validators: passwordMatchValidator })
   minBornDate: string;
+  ispasswordMatch: boolean = true;
+
+  constructor(public datePipe: DatePipe) { }
 
   ngOnInit(): void {
-    this.minBornDate= this.getAdultThresholdDate();
-    console.log(this.minBornDate);
+    this.minBornDate = this.getAdultThresholdDate();
   }
 
   getAdultThresholdDate() {
@@ -44,18 +67,68 @@ export class RegisterComponent implements OnInit {
     const isoString = pastDate.toISOString().split('T')[0];
     return isoString;
   }
-  selectSex(){
+  selectSex() {
+    action({
+      message: 'Válaszd ki a nemét.',
+      cancelButtonText: 'Mégse',
+      actions: this.sexType
+    }).then(result => {
+      if (result !== 'Mégse') {
+        this.registerFormGroup.get('sex').setValue(result);
+      }
+    });
+  }
+  submitRegister() {
+    const errors = this.registerFormGroup.errors;
+    if (errors?.passwordMismatch) {
+      this.registerFormGroup.get('password').markAllAsTouched;
+      this.registerFormGroup.get('passwordAgain').markAllAsTouched;
+      console.log('A jelszavak nem egyeznek!');
+      this.ispasswordMatch = false;
+    } else {
+      this.ispasswordMatch = true;
+    }
+    if (errors?.emailRegex) {
+      console.log('nem megfelelő az email');
+    }
+    if (this.registerFormGroup.invalid) {
+      this.registerFormGroup.markAllAsTouched();
+      return;
+    }
+  }
+  loginWithGoogle() {
 
   }
-  submitRegister(){
-
+  get emailInvalid(): boolean {
+    const control = this.registerFormGroup.get('email');
+    return control && control.invalid && (control.dirty || control.touched);
   }
-  loginWithGoogle(){
 
+  isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  isInvalid(controlName: string): boolean {
+    const control = this.registerFormGroup.get(controlName);
+    return control && control.invalid && (control.dirty || control.touched);
   }
   onDrawerButtonTap(): void {
     const sideDrawer = <RadSideDrawer>Application.getRootView()
     sideDrawer.showDrawer()
+  }
+
+  hasError(controlName: string, groupErrorName?: string): boolean {
+    const control = this.registerFormGroup.get(controlName);
+
+    const controlInvalid = control && control.invalid && (control.dirty || control.touched);
+
+    const groupInvalid = groupErrorName
+      ? this.registerFormGroup.hasError(groupErrorName) &&
+      (control.dirty || control.touched)
+      : false;
+
+    return controlInvalid || groupInvalid;
   }
 }
 

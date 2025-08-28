@@ -1,6 +1,6 @@
-import {  Component } from "@angular/core";
+import { Component, NO_ERRORS_SCHEMA } from "@angular/core";
 import { Dialogs, prompt } from "@nativescript/core";
-import {RouterExtensions } from "@nativescript/angular";
+import { NativeScriptCommonModule, RouterExtensions } from "@nativescript/angular";
 import { SelectedIndexChangedEventData } from "nativescript-drop-down";
 import "@nativescript/firebase-auth";
 import "@nativescript/firebase-firestore";
@@ -10,11 +10,18 @@ import { AppComponent } from "../../app.component"
 import { firebase } from "@nativescript/firebase-core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "~/app/services/auth.service";
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: "ns-login",
+  standalone: true,
   templateUrl: "login.component.html",
   styleUrls: ["./login.component.css"],
+  imports: [
+    CommonModule,
+    NativeScriptCommonModule,
+  ],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 
 export class LoginComponent {

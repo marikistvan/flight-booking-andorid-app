@@ -16,12 +16,10 @@ import { HeaderComponent } from './components/menus/header/header.component';
 import { FlightSearchComponent } from './pages/flightSearch/flightSearch.component';
 import { FlightSearchDestinationSelectorComponent } from './pages/flightSearch/flight-search-destination-selector/flightSearchDestinationSelector.component';
 import { SettingsComponent } from './pages/settings/settings.component';
-import { LoginComponent } from './pages/login/login.component';
 import { NativeScriptUIListViewModule } from 'nativescript-ui-listview/angular';
 import { FlightSearchPassengersSelectorComponent } from './pages/flightSearch/flight-search-passengers-selector/flightSearchPassengersSelector.component';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
-import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { BlogItemComponent } from './pages/blog-list/blog-item/blog-item.component';
 import { BlogListComponent } from './pages/blog-list/blog-list.component';
@@ -41,8 +39,7 @@ import { FlightTicketRowComponent } from './pages/flight-ticket-list/flight-tick
 registerLocaleData(localeHu);
 
 @NgModule({
-  providers: [{ provide: LOCALE_ID, useValue: 'hu', }
-  ],
+  providers: [{ provide: LOCALE_ID, useValue: 'hu', }],
   bootstrap: [AppComponent],
   imports: [
     AppRoutingModule,
@@ -66,11 +63,9 @@ registerLocaleData(localeHu);
     FlightSearchComponent,
     SettingsComponent,
     MenusComponent,
-    LoginComponent,
     FlightSearchDestinationSelectorComponent,
     FlightSearchPassengersSelectorComponent,
     HomeComponent,
-    RegisterComponent,
     ProfileComponent,
     BlogListComponent,
     CreateBlogComponent,
