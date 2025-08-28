@@ -2,6 +2,7 @@
 .input-bar {
   background-color: rgb(205, 232, 243);
   align-items: center;
+  height: 100;
   padding: 5;
 }
 .send-btn {
@@ -12,9 +13,10 @@
 }
 .input {
   background-color: #f0f8ff; 
-  font-size: 10;
+  font-size: 15;
+  height: 100;
   border: 1px solid #5a9eff;
-  border-radius: 8px;
+  border-radius: 8;
 }
 .time{
   font-size: 8;

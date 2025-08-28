@@ -1,40 +1,28 @@
 <ActionBar class="action-bar">
   <NavigationButton visibility="hidden"></NavigationButton>
-  <GridLayout columns="50, *">
+  <GridLayout columns="50, *,auto">
     <Label class="action-bar-title" text="Anna AI chat" colSpan="2"></Label>
     <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
   </GridLayout>
 </ActionBar>
 
-<GridLayout rows="7*, *">
-  <ListView row="0" [items]="messageHistory" class="page">
-<ng-template let-item="item">
-  <GridLayout rows="auto">
-    <StackLayout
-      class="message"
-      [class.me]="item.role === 'user'"
-      [class.other]="item.role !== 'user'"
-      orientation="horizontal"
-      [horizontalAlignment]="item.role === 'user' ? 'right' : 'left'"
-    >
-      <GridLayout rows="*,auto">
-        <Label col="0" row="0" textWrap="true" [text]="item.role + ': ' + item.content"></Label>
-        <Label [text]="item.timestamp | date:'yyyy.MM.dd    HH:mm:ss'" row="1" col="0" class="time"></Label>
+<GridLayout rows="5*, *">
+  <ListView row="0" [items]="messageHistory()" class="page">
+    <ng-template let-item="item">
+      <GridLayout rows="auto">
+        <StackLayout class="message" [class.me]="item.role === 'user'" [class.other]="item.role !== 'user'"
+          orientation="horizontal" [horizontalAlignment]="item.role === 'user' ? 'right' : 'left'">
+          <GridLayout rows="*,auto">
+            <Label col="0" row="0" textWrap="true" [text]="item.role + ': ' + item.content"></Label>
+            <Label [text]="item.timestamp | date:'yyyy.MM.dd HH:mm:ss'" row="1" col="0" class="time"></Label>
+          </GridLayout>
+        </StackLayout>
       </GridLayout>
-    </StackLayout>
-  </GridLayout>
-</ng-template>
+    </ng-template>
   </ListView>
   <GridLayout row="1" rows="*" columns="2*,*" orientation="horizontal" class="input-bar">
-    <TextView
-  row="0"
-  col="0"
-  [(ngModel)]="newMessage"
-  hint="Írj üzenetet..."
-  class="input"
-  (textChange)="onTextChange($event)"
-  #messageInput
-></TextView>
-<Button text="Küldés" row="0" col="1" (tap)="sendMessage()" class="send-btn"></Button>
+    <TextView row="0" col="0" [(ngModel)]="newMessage" hint="Írj üzenetet..." class="input"
+      (textChange)="onTextChange($event)" #messageInput></TextView>
+    <Button text="Küldés" row="0" col="1" (tap)="sendMessage()" class="send-btn"></Button>
   </GridLayout>
 </GridLayout>

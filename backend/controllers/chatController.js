@@ -24,15 +24,14 @@ exports.askChatGPT = async (req, res) => {
     });
 
     const answer = response.choices[0].message.content;
-    res.status(200).json({ response: answer });
+    res.status(200).json(answer);
   } catch (error) {
     console.error("Hiba a ChatGPT API hívásnál:", error.message);
-    res.status(500).json({ error: "Hiba történt a válasz lekérésekor." });
+    res.status(500).json(error+ ' Hiba történt a válasz lekérésekor.');
   }
 };
 exports.createChatIfNotExists = async (req, res) => {
   const { userId1, userId2 } = req.body;
-  console.log("hallo, itt vagyok a chatControllerbe");
   if (!userId1 || !userId2) {
     return res.status(400).json({ error: 'Két userId szükséges' });
   }

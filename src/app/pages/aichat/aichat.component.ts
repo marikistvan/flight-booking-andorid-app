@@ -1,78 +1,73 @@
-import { Component, ViewChild, OnInit, ElementRef } from "@angular/core";
+import { Component, ViewChild, OnInit, ElementRef, OnDestroy, signal } from "@angular/core";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { Application, TextView } from "@nativescript/core";
-import { firstValueFrom } from "rxjs";
+import { firstValueFrom, Observable } from "rxjs";
 import { ChatService } from "~/app/services/chat.service";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "~/environments/environment";
 import { Chat } from "../../models/chat";
+import { MessageHistory } from '~/app/models/messageHistory'
+import { Message } from "~/app/models/message";
 
 @Component({
   selector: "ns-aichat",
   templateUrl: "./aichat.component.html",
   styleUrls: ["./aichat.component.scss"],
 })
-export class AiChatComponent implements OnInit {
-  userMessage = "";
-  chatResponse = "";
-  isMessageNotNull: boolean;
-  month: Date;
-
-
-  messageHistory: { role: "user" | "assistant" | "system"; content: string, timestamp?: Date }[] = [
-  ];
-
-  newMessage: string;
+export class AiChatComponent implements OnInit, OnDestroy {
+  chatResponse: any;
+  newMessage = signal('');
+  messages: Message[] = [];
+  messageHistory = signal<MessageHistory[]>([]);
   @ViewChild("messageInput", { static: false })
   messageInputRef: ElementRef<TextView>;
 
-  async sendMessage() {
-    if (!this.newMessage || this.newMessage.trim() === "") return;
-    this.isMessageNotNull = true;
+  constructor(private chatService: ChatService, private http: HttpClient) { }
 
-    const userMessage = this.newMessage.trim();
-    this.messageHistory.push({ role: "user", content: this.newMessage });
-    this.newMessage = "";
+  async ngOnInit(): Promise<void> {
     try {
-      const response: any = await firstValueFrom(
-        this.http.post(environment.backendUrl+"api/chat/ask", {
-          prompt: this.messageHistory,
-        })
-      );
-      this.messageHistory.push({ role: "assistant", content: response.response, timestamp: new Date() });
-      //this.saveMessage();
+      await this.chatService.getMessagesFromFirebase();
+
+      this.messages = this.chatService.messages();
+      this.setMessageHistory();
     } catch (error) {
-      console.error("Hiba a válasz lekérésekor:", error);
-      this.messageHistory.push({
-        role: "assistant",
-        content: "Sajnálom, hiba történt a válasz lekérésekor.",
-      });
+      console.error("Hiba az üzenetek lekérésekor:", error);
     }
   }
-  constructor(private chatService: ChatService, private http: HttpClient) { }
-  createChat(userid: string) {
-    const body = {
-      userId1: userid,
-      userId2: "AnnaAi",
-    };
-    console.log("hallo");
-    fetch(environment.backendUrl+"api/chat/create", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const chatId = data.chatId;
-        console.log("létre lett hozva a chat. Id: " + chatId);
-      });
+  setMessageHistory() {
+
+    const history : MessageHistory[] = this.messages.map(m => ({
+      role:m.isAi? 'assistant' :'user',
+      content:m.message,
+      timestamp:m.createdAt
+    }));
+
+    this.messageHistory.set(history);
   }
-  saveMessage(userid: string): void {
-    const newChat: Chat = {
-      userid: "",
-      userMessage: "ada",
-    };
+
+  ngOnDestroy(): void {
   }
+
+  async sendMessage() {
+    this.newMessage.set(this.newMessage().trim());
+    if (this.newMessage() === "") return;
+    this.messageHistory.update(history => [...history, { role: "user", content: this.newMessage(), timestamp: new Date() }]);
+    this.chatService.saveMessage(this.newMessage(), false);
+    this.newMessage.set("");
+    try {
+      this.chatResponse = await firstValueFrom(
+        this.http.post(environment.backendUrl + "api/chat/ask", {
+          prompt: this.messageHistory(),
+        })
+      );
+      this.messageHistory.update(history => [...history, { role: "assistant", content: this.chatResponse, timestamp: new Date() }]);
+      this.chatService.saveMessage(this.chatResponse, true);
+    } catch (error) {
+      console.error("Hiba a válasz lekérésekor:", error);
+      this.messageHistory.update(history => [...history, { role: "assistant", content: 'Sajnálom, hiba történt a válasz lekérésekor.', timestamp: new Date() }]);
+    }
+  }
+
   onTextChange(event) {
     const textView = this.messageInputRef.nativeElement;
     setTimeout(() => {
@@ -86,11 +81,6 @@ export class AiChatComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.newMessage = "";
-    this.isMessageNotNull = false;
-    this.month = new Date();
-  }
   onDrawerButtonTap(): void {
     const sideDrawer = <RadSideDrawer>Application.getRootView();
     sideDrawer.showDrawer();
