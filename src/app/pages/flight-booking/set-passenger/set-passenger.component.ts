@@ -7,7 +7,6 @@ import { SelectSeatComponent } from "../select-seat/select-seat.component";
 import { Seatmap } from "~/app/models/seatmap-response";
 import { FlightOffer } from "~/app/models/flight-offers-response";
 
-
 @Component({
   selector: "ns-set-passenger",
   templateUrl: "./set-passenger.component.html",

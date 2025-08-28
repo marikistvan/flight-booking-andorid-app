@@ -67,6 +67,8 @@ export class AuthService {
     return this.auth.createUserWithEmailAndPassword(email, password);
   }
 
+  
+
   isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);

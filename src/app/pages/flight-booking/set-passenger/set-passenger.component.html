@@ -26,7 +26,7 @@
 
         <Label col="2" row="3" text="Neme" class="form-label"></Label>
         <TextField class="input-field" hint="Nő,Férfi,Egyéb..." col="2" row="4" [text]="passengerForm.get('sex').value"
-          formControlName="sex" editable="false" (tap)="openSexPicker()" formControlName="sex"
+          formControlName="sex" editable="false" (tap)="openSexPicker()"
           [ngClass]="{ 'input-error': isInvalid('sex') }">
         </TextField>
 

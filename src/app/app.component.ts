@@ -20,33 +20,13 @@ export class AppComponent implements OnInit {
     public authService: AuthService,
     private viewContainerRef: ViewContainerRef,
     private modalDialogService: ModalDialogService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this._sideDrawerTransition = new SlideInOnTopTransition();
-   if (!this.authService.currentUser) {
-      this.natigateToHome();
+    if (!this.authService.currentUser) {
+      this.routerExtensions.navigate(['home']);
     }
-  }
-  async natigateToHome() {
-    const options: ModalDialogOptions = {
-      fullscreen: true,
-      viewContainerRef: this.viewContainerRef
-    };
-    const result = await this.modalDialogService
-      .showModal(HomeComponent, options);
-
-    if (result && result === 'login') {
-      this.routerExtensions.navigate(['login']);
-    } else if (result && result === 'register') {
-      this.routerExtensions.navigate(['login']);
-    }
-    else if (result && result === 'try') {
-      this.routerExtensions.navigate(['flightSearch']);
-    } else if (result && result === 'google') {
-      console.log("Oké, google kell navigálni");
-    }
-
   }
 
   get sideDrawerTransition(): DrawerTransitionBase {

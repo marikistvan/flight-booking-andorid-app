@@ -8,9 +8,10 @@ import { BasketComponent } from './pages/basket/basket.component';
 import { AiChatComponent } from './pages/aichat/aichat.component';
 import { FlightSearchComponent } from './pages/flightSearch/flightSearch.component';
 import { FlightTicketListComponent } from './pages/flight-ticket-list/flight-ticket-list.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/flightSearch', pathMatch: 'full' },
+//  { path: '', redirectTo: '/profile', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,
@@ -39,6 +40,11 @@ const routes: Routes = [
     path: 'flightTicketList',
     component: FlightTicketListComponent,
   },
+  {
+    path: 'settings',
+    component: SettingsComponent,
+  },
+
   {
     path: 'passDetails',
     loadComponent: () =>
