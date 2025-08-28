@@ -4,17 +4,20 @@ import { EmailAuthProvider } from "@nativescript/firebase-auth";
 import { HttpClient } from '@angular/common/http';
 import { environment } from "~/environments/environment";
 import { AuthService } from "./auth.service";
+import { RouterExtensions } from "@nativescript/angular";
+import { firebase } from "@nativescript/firebase-core";
 
 @Injectable({ providedIn: "root" })
 
 export class UserService {
   bornYear: string;
   errors: Array<string>;
-
+  userId: string = '';
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private routerExtension: RouterExtensions
   ) { }
 
   checkIfAdult(birthDate: Date): string {
@@ -69,9 +72,35 @@ export class UserService {
       throw err;
     }
   }
-  /*  deleteUser(){
-      this.user.delete();
-    }*/
+  deleteUser() {
+    this.userId = this.authService.currentUser.uid;
+    this.deleteUsersData();
+    this.authService.currentUser.delete();
+    this.routerExtension.navigate(['flightSearch']);
+  }
+
+  private deleteUsersData() {
+    firebase().firestore().collection('users').doc(this.userId).delete()
+      .then(() => {
+        console.log('sikeresen törölve a user a users kollekcióból.');
+      }
+      ).catch((error) => {
+        console.error("Valami hiba történt a user a users kollekcióból való törlés során: " + error);
+      });
+    firebase().firestore().collection('conversations').doc(this.userId).delete().then(() => {
+      console.log('sikeresen törölve a user a conversations kollekcióból.');
+    }
+    ).catch((error) => {
+      console.error("Valami hiba történt a user a conversations kollekcióból való törlés során: " + error);
+    });
+    firebase().firestore().collection('userBasket').doc(this.userId).delete().then(() => {
+      console.log('sikeresen törölve a user a userBasket kollekcióból.');
+    }
+    ).catch((error) => {
+      console.error("Valami hiba történt a user a userBasket kollekcióból való törlés során: " + error);
+    });
+  }
+
   async updateFullName(firstname: string, lastname: string) {
     try {
       const res = await firstValueFrom(
