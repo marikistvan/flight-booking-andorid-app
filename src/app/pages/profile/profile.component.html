@@ -9,11 +9,12 @@
   <Page actionBarHidden="true" class="page">
     <StackLayout class="main-container">
 
-      <GridLayout class="profile-form" columns="auto,5px,*,auto" rows="auto,auto,auto,auto,auto,150,*">
+      <GridLayout class="profile-form" columns="auto,5px,*,auto" rows="auto,auto,auto,auto,auto,auto,auto,*">
         <Image row="0" col="0" colSpan="3" src="~/assets/icons/user.png" class="user-icon"></Image>
         <Image row="0" col="3" colSpan="4" src="~/assets/icons/upload-photo.png" class="edit-icon"></Image>
 
         <Label row="1" col="0" text="Teljes név: " class="user-data-label"></Label>
+        
         <Label row="1" col="2" [text]="authService.userName" class="user-data-label"></Label>
         <Image row="1" col="3" colSpan="4" src="~/assets/icons/edit-pen.png" class="edit-icon"></Image>
 
@@ -22,7 +23,7 @@
         <Image row="2" col="3" colSpan="4" src="~/assets/icons/edit-pen.png" class="edit-icon"></Image>
 
         <Label row="3" col="0" text="Születési dátum: " class="user-data-label"></Label>
-        <Label row="3" col="2" [text]="authService.born" class="user-data-label"></Label>
+        <Label row="3" col="2" [text]="datePipe.transform(authService.born,'YYYY.MM.dd')" class="user-data-label"></Label>
         <Image row="3" col="3" colSpan="4" src="~/assets/icons/edit-pen.png" class="edit-icon"></Image>
 
         <Label row="4" col="0" text="Neme: " class="user-data-label"></Label>
@@ -31,7 +32,13 @@
 
         <StackLayout row="5" col="0" colSpan="4" orientation="horizontal" class="btn-transparent-edit-password"
           (tap)="editPassword()">
-          <Label text="Jelszó módosítás" class="btn-edit-password-label" verticalAlignment="stretch"
+          <Label text="Jelszó módosítás" class="btn-label" verticalAlignment="stretch"
+            horizontalAlignment="left"></Label>
+        </StackLayout>
+
+        <StackLayout row="6" col="0" colSpan="4" orientation="horizontal" class="btn-transparent-delete-profile"
+          (tap)="deleteProfile()">
+          <Label text="Fiók törlése" class="btn-label color-red" verticalAlignment="stretch"
             horizontalAlignment="left"></Label>
         </StackLayout>
       </GridLayout>
