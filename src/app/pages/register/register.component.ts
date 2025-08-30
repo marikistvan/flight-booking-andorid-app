@@ -14,8 +14,8 @@ import { emailRegexValidator } from '~/app/validators/email-regex.validator';
 
 registerLocaleData(localeHu);
 @Component({
-  
-  providers: [{ provide: LOCALE_ID, useValue: 'hu', },DatePipe],
+
+  providers: [{ provide: LOCALE_ID, useValue: 'hu', }, DatePipe],
   selector: "ns-register",
   standalone: true,
   templateUrl: "register.component.html",
@@ -109,10 +109,6 @@ export class RegisterComponent implements OnInit {
     return emailRegex.test(email);
   }
 
-  isInvalid(controlName: string): boolean {
-    const control = this.registerFormGroup.get(controlName);
-    return control && control.invalid && (control.dirty || control.touched);
-  }
   onDrawerButtonTap(): void {
     const sideDrawer = <RadSideDrawer>Application.getRootView()
     sideDrawer.showDrawer()
