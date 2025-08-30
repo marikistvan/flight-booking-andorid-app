@@ -35,14 +35,19 @@ registerLocaleData(localeHu);
 export class RegisterComponent implements OnInit {
   sexType: Array<string> = ['Nő', 'Férfi', 'Egyéb'];
   registerFormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required, emailRegexValidator]),
+    email: new FormControl('', {
+      validators: [Validators.required, emailRegexValidator],
+      updateOn: "blur"
+    }),
     lastName: new FormControl('', Validators.required),
     firstName: new FormControl('', Validators.required),
     bornDate: new FormControl(null, Validators.required),
     sex: new FormControl('', Validators.required),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    passwordAgain: new FormControl('', [Validators.required, Validators.minLength(8)]),
-  }, { validators: passwordMatchValidator })
+    password: new FormControl('', { validators: [Validators.required, Validators.minLength(8)], updateOn: 'blur' }),
+    passwordAgain: new FormControl('', { validators: [Validators.required, Validators.minLength(8)], updateOn: 'blur' })
+  }, {
+    validators: passwordMatchValidator,
+  })
   minBornDate: string;
   ispasswordMatch: boolean = true;
 

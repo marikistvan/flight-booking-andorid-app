@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this._sideDrawerTransition = new SlideInOnTopTransition();
     if (!this.authService.currentUser) {
-      this.routerExtensions.navigate(['home']);
+      this.routerExtensions.navigate(['register']);
     }
   }
 
