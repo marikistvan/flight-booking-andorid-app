@@ -78,10 +78,12 @@ export class AuthService {
   }
 
   register(email: string, password: string, firstName: string, lastName: string, genre: string, born: string) {
-    return this.createUser(email, password).then((credential) => {
+    return this.createUser(email, password).then(async (credential) => {
       if (!credential.user) return;
 
-      this.createUserProfile(credential.user.uid, firstName, lastName, genre, born);
+      await this.createUserProfile(credential.user.uid, firstName, lastName, genre, born);
+      await credential.user.sendEmailVerification();
+      await firebase().auth().signOut();
       })
       .catch((error) => {
         console.error("Hiba a regisztráció során:", error);
