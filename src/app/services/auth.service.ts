@@ -1,9 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, last } from 'rxjs';
 import { firebase } from '@nativescript/firebase-core';
 import '@nativescript/firebase-auth';
-import { Firestore } from '@nativescript/firebase-firestore';
-
 
 import { RouterExtensions } from '@nativescript/angular';
 
@@ -28,7 +26,6 @@ export class AuthService {
     if (this.currentUser) {
       this.setUserProperties();
     }
-
   }
 
   get currentUser() {
@@ -63,11 +60,34 @@ export class AuthService {
     return this._sex;
   }
 
-  register(email: string, password: string, list: {}) {
+  private createUser(email: string, password: string) {
     return this.auth.createUserWithEmailAndPassword(email, password);
   }
 
-  
+  private createUserProfile(uid: string, firstName: string, lastName: string, genre: string, born: string) {
+    return firebase().firestore()
+      .collection("users")
+      .doc(uid)
+      .set({
+        firstName,
+        lastName,
+        genre,
+        born,
+        createdAt: new Date()
+      });
+  }
+
+  register(email: string, password: string, firstName: string, lastName: string, genre: string, born: string) {
+    return this.createUser(email, password).then((credential) => {
+      if (!credential.user) return;
+
+      this.createUserProfile(credential.user.uid, firstName, lastName, genre, born);
+      })
+      .catch((error) => {
+        console.error("Hiba a regisztráció során:", error);
+        throw error;
+      });
+  }
 
   isValidEmail(email: string): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -119,7 +139,7 @@ export class AuthService {
   resetPassword(data) {
     return this.auth.sendPasswordResetEmail(data);
   }
-  
+
   setUserProperties() {
     return firebase().firestore()
       .collection("users")
