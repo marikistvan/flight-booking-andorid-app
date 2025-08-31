@@ -58,27 +58,31 @@ export class RegisterComponent implements OnInit {
     this.minBornDate = this.getAdultThresholdDate();
   }
 
-  get lastName(){
+  get lastName() {
     return this.registerFormGroup.get('lastName').value;
   }
 
-  get firstName(){
+  get firstName() {
     return this.registerFormGroup.get('firstName').value;
   }
 
-  get email(){
+  get email() {
     return this.registerFormGroup.get('email').value;
   }
 
-  get sex(){
+  get sex() {
     return this.registerFormGroup.get('sex').value;
   }
 
-  get password(){
+  get born() {
+    return this.registerFormGroup.get('born').value;
+  }
+
+  get password() {
     return this.registerFormGroup.get('password').value;
   }
-  
-  get passWordAgain(){
+
+  get passWordAgain() {
     return this.registerFormGroup.get('passwordAgain').value;
   }
 
@@ -124,6 +128,8 @@ export class RegisterComponent implements OnInit {
     if (this.registerFormGroup.invalid) {
       this.registerFormGroup.markAllAsTouched();
       return;
+    } else {
+      this.authService.register(this.email, this.password, this.firstName, this.lastName, this.sex, this.born);
     }
   }
   loginWithGoogle() {
