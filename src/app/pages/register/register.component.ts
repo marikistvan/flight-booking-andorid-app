@@ -75,7 +75,7 @@ export class RegisterComponent implements OnInit {
   }
 
   get born() {
-    return this.registerFormGroup.get('born').value;
+    return this.registerFormGroup.get('bornDate').value;
   }
 
   get password() {
@@ -126,10 +126,21 @@ export class RegisterComponent implements OnInit {
       console.log('nem megfelelő az email');
     }
     if (this.registerFormGroup.invalid) {
-      this.registerFormGroup.markAllAsTouched();
+      Object.keys(this.registerFormGroup.controls).forEach(key => {
+        const control = this.registerFormGroup.get(key);
+        if (control?.invalid) {
+          console.log(`${key} hibás:`, control.errors);
+        }
+      });
       return;
     } else {
-      this.authService.register(this.email, this.password, this.firstName, this.lastName, this.sex, this.born);
+      this.authService.register(this.email, this.password, this.firstName, this.lastName, this.sex, this.born).then((result) =>
+        console.log('Sikeres regisztáricó')
+      ).catch((error) => {
+        console.log('hiba történt regisztrálásnál: ' + error);
+      }
+      )
+      console.log('Sikeres regisztráció');
     }
   }
   loginWithGoogle() {
