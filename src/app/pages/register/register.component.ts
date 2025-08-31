@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
     bornDate: new FormControl(null, Validators.required),
     sex: new FormControl('', Validators.required),
     password: new FormControl('', { validators: [Validators.required, Validators.minLength(8)], updateOn: 'blur' }),
-    passwordAgain: new FormControl('', { validators: [Validators.required, Validators.minLength(8)], updateOn: 'blur' })
+    passwordAgain: new FormControl('', [Validators.required, Validators.minLength(8)])
   }, {
     validators: passwordMatchValidator,
   })
