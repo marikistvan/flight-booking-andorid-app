@@ -40,8 +40,8 @@ export class LoginComponent {
     this.routerExtensions.navigate(['register']);
   }
 
-  onLogin(): void {
-    this.authService.login(this.loginFormGroup.get('email').value.trim(), this.loginFormGroup.get('password').value);
+  async onLogin(): Promise<void> {
+    await this.authService.login(this.loginFormGroup.get('email').value.trim(), this.loginFormGroup.get('password').value);
   }
 
   onDrawerButtonTap(): void {
