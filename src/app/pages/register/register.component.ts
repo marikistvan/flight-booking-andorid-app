@@ -11,6 +11,7 @@ import { NativeScriptDateTimePickerModule } from "@nativescript/datetimepicker/a
 import { NativeScriptPickerModule } from "@nativescript/picker/angular";
 import { passwordMatchValidator } from '~/app/validators/password-match.validator';
 import { emailRegexValidator } from '~/app/validators/email-regex.validator';
+import { AuthService } from "~/app/services/auth.service";
 
 registerLocaleData(localeHu);
 @Component({
@@ -51,10 +52,34 @@ export class RegisterComponent implements OnInit {
   minBornDate: string;
   ispasswordMatch: boolean = true;
 
-  constructor(public datePipe: DatePipe) { }
+  constructor(public datePipe: DatePipe, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.minBornDate = this.getAdultThresholdDate();
+  }
+
+  get lastName(){
+    return this.registerFormGroup.get('lastName').value;
+  }
+
+  get firstName(){
+    return this.registerFormGroup.get('firstName').value;
+  }
+
+  get email(){
+    return this.registerFormGroup.get('email').value;
+  }
+
+  get sex(){
+    return this.registerFormGroup.get('sex').value;
+  }
+
+  get password(){
+    return this.registerFormGroup.get('password').value;
+  }
+  
+  get passWordAgain(){
+    return this.registerFormGroup.get('passwordAgain').value;
   }
 
   getAdultThresholdDate() {
