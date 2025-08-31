@@ -2,8 +2,8 @@
 <StackLayout class="nt-drawer__header">
  
   <Image class="nt-drawer__header-image fas t-36" src="font://&#xf2bd;"></Image>
-  <Label class="nt-drawer__header-brand">{{this.authService.userName}}</Label>
-  <Label class="nt-drawer__header-footnote">{{this.authService.currentUser.email}}</Label>
+  <Label class="nt-drawer__header-brand" [text]="this.authService.userName"></Label>
+  <Label class="nt-drawer__header-footnote" [text]="this.authService.currentUser.email"></Label>
   
 </StackLayout>
 }
