@@ -78,7 +78,7 @@ export class RegisterComponent implements OnInit {
   }
 
   get born() {
-    return this.registerFormGroup.get('bornDate').value;
+    return this.datePipe.transform(this.registerFormGroup.get('bornDate').value,'YYYY.MM.dd');;
   }
 
   get password() {
