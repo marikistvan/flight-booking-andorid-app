@@ -3,10 +3,10 @@ import "@nativescript/firebase-auth";
 import "@nativescript/firebase-firestore";
 import localeHu from '@angular/common/locales/hu';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
-import { action, Application, DatePicker } from '@nativescript/core'
+import { action, Application, DatePicker, Dialogs } from '@nativescript/core'
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { CommonModule, DatePipe, registerLocaleData } from "@angular/common";
-import { NativeScriptCommonModule, NativeScriptFormsModule } from "@nativescript/angular";
+import { NativeScriptCommonModule, NativeScriptFormsModule, RouterExtensions } from "@nativescript/angular";
 import { NativeScriptDateTimePickerModule } from "@nativescript/datetimepicker/angular";
 import { NativeScriptPickerModule } from "@nativescript/picker/angular";
 import { passwordMatchValidator } from '~/app/validators/password-match.validator';
@@ -52,7 +52,10 @@ export class RegisterComponent implements OnInit {
   minBornDate: string;
   ispasswordMatch: boolean = true;
 
-  constructor(public datePipe: DatePipe, private authService: AuthService) { }
+  constructor(
+    public datePipe: DatePipe,
+    private authService: AuthService,
+    private routerExtensions: RouterExtensions) { }
 
   ngOnInit(): void {
     this.minBornDate = this.getAdultThresholdDate();
@@ -134,12 +137,27 @@ export class RegisterComponent implements OnInit {
       });
       return;
     } else {
-      this.authService.register(this.email, this.password, this.firstName, this.lastName, this.sex, this.born).then((result) =>
-        console.log('Sikeres regisztáricó')
-      ).catch((error) => {
-        console.log('hiba történt regisztrálásnál: ' + error);
-      }
-      )
+      this.authService.register(this.email, this.password, this.firstName, this.lastName, this.sex, this.born).then(() => {
+        console.log('Sikeres regisztáricó'),
+          Dialogs.alert({
+            title: 'Sikeres regisztáricó!',
+            message: 'Küldtünk egy megerősítő emailt, kérjük végezze el, a megerősítést!',
+            okButtonText: 'OK',
+            cancelable: true,
+          }).then(() => {
+            this.routerExtensions.navigate(['login']);
+          })
+      })
+        .catch((error) => {
+          console.log('hiba történt regisztrálásnál: ' + error);
+          Dialogs.alert({
+            title: 'Hiba!',
+            message: 'Kérem próbálja meg később!',
+            okButtonText: 'OK',
+            cancelable: true,
+          })
+        }
+        )
       console.log('Sikeres regisztráció');
     }
   }
