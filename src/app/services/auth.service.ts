@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable, OnInit, signal } from '@angular/core';
 import { BehaviorSubject, last } from 'rxjs';
 import { firebase } from '@nativescript/firebase-core';
 import '@nativescript/firebase-auth';
@@ -11,11 +11,11 @@ import { RouterExtensions } from '@nativescript/angular';
 export class AuthService {
   private auth = firebase().auth();
   private authStatusSub = new BehaviorSubject<any | null>(null);
-  private _fullName: string;
-  private _firstName: string;
-  private _lastName: string;
-  private _bornDate: string;
-  private _sex: string;
+  private _fullName = signal<string>("");
+  private _firstName = signal<string>("");
+  private _lastName = signal<string>("");
+  private _bornDate = signal<string>("");
+  private _sex = signal<string>("");
 
   currentAuthStatus = this.authStatusSub.asObservable();
 
@@ -23,9 +23,7 @@ export class AuthService {
     firebase().auth().addAuthStateChangeListener((user) => {
       this.authStatusSub.next(user);
     });
-    if (this.currentUser) {
-      this.setUserProperties();
-    }
+    if(this.auth.currentUser) this.setUserProperties();
   }
 
   get currentUser() {
@@ -33,11 +31,11 @@ export class AuthService {
   }
 
   get lastName() {
-    return this._lastName;
+    return this._lastName();
   }
 
   set lastName(lastname: string) {
-    this._lastName = lastname;
+    this._lastName.set(lastname);
 
   }
   get email(): string {
@@ -45,19 +43,19 @@ export class AuthService {
   }
 
   get firstName(): string {
-    return this._firstName;
+    return this._firstName();
   }
 
   get userName() {
-    return this._fullName;
+    return this._fullName();
   }
 
   get born(): string {
-    return this._bornDate;
+    return this._bornDate();
   }
 
   get sex(): string {
-    return this._sex;
+    return this._sex();
   }
 
   private createUser(email: string, password: string) {
@@ -84,7 +82,7 @@ export class AuthService {
       await this.createUserProfile(credential.user.uid, firstName, lastName, genre, born);
       await credential.user.sendEmailVerification();
       await firebase().auth().signOut();
-      })
+    })
       .catch((error) => {
         console.error("Hiba a regisztráció során:", error);
         throw error;
@@ -96,7 +94,7 @@ export class AuthService {
     return emailRegex.test(email);
   }
 
-  login(email: string, password: string): string {
+  async login(email: string, password: string): Promise<string> {
     firebase()
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -129,11 +127,11 @@ export class AuthService {
 
   signOut() {
     return this.auth.signOut().then(() => {
-      this._lastName = '';
-      this._firstName = '';
-      this._bornDate = '';
-      this._fullName = '';
-      this._sex = '';
+      this._lastName.set('');
+      this._firstName.set('');
+      this._bornDate.set('');
+      this._fullName.set('');
+      this._sex.set('');
       this.routerExtensions.navigate(['login']);
     });
   }
@@ -143,6 +141,7 @@ export class AuthService {
   }
 
   setUserProperties() {
+    console.log('hallo itt vagyok');
     return firebase().firestore()
       .collection("users")
       .doc(this.currentUser.uid)
@@ -150,11 +149,11 @@ export class AuthService {
         if (!doc.exists) return;
 
         const data = doc.data();
-        this._firstName = data?.firstName ?? '';
-        this._lastName = data?.lastName ?? '';
-        this._sex = data?.genre ?? '';
-        this._bornDate = data?.born ?? '';
-        this._fullName = `${this._firstName} ${this._lastName}`;
+        this._firstName.set(data?.firstName ?? '');
+        this._lastName.set(data?.lastName ?? '');
+        this._sex.set(data?.genre ?? '');
+        this._bornDate.set(data?.born ?? '');
+        this._fullName.set(this._firstName() + ' ' + this._lastName());
       });
   }
 
