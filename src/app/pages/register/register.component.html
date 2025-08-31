@@ -28,11 +28,11 @@
 
         <Label col="0" row="4" text="Születési dátum" class="form-label"></Label>
         <DatePickerField class="input-field" col="0" row="5" formControlName="bornDate"
-          [text]="datePipe.transform(registerFormGroup.get('bornDate').value, 'YYYY.MM.dd')" [pickerDefaultDate]="minBornDate" [maxDate]="minBornDate"
+          [text]="born" [pickerDefaultDate]="minBornDate" [maxDate]="minBornDate"
           [hint]="minBornDate"></DatePickerField>
 
         <Label col="2" row="4" text="Neme" class="form-label"></Label>
-        <TextField class="input-field" hint="Nő,Férfi,Egyéb..." [text]="registerFormGroup.get('sex').value" col="2"
+        <TextField class="input-field" hint="Nő,Férfi,Egyéb..." [text]="sex" col="2"
           row="5" editable="false" (tap)="selectSex()" formControlName="sex">
         </TextField>
         <Label col="0" colSpan="3" row="6" text="Jelszó" class="form-label"></Label>
