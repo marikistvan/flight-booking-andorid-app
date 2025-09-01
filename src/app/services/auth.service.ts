@@ -94,25 +94,23 @@ export class AuthService {
     return emailRegex.test(email);
   }
 
-  async login(email: string, password: string): Promise<string> {
-    firebase()
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then((cred) => {
-        const user = cred.user;
-        if (user && !user.emailVerified) {
-          firebase().auth().signOut();
-          return "need email validate";
-        }
-        this.setUserProperties();
-        this.routerExtensions.navigate(['flightSearch']);
-        return 'ok';
-      })
-      .catch((error) => {
-        return "error during logging";
-      });
-    return 'ok';
+  async login(email: string, password: string) {
+    try {
+      const cred = await firebase().auth().signInWithEmailAndPassword(email, password);
+      const user = cred.user;
+
+      if (user && !user.emailVerified) {
+        await firebase().auth().signOut();
+        throw new Error("need-email-validate");
+      }
+
+      this.setUserProperties();
+      this.routerExtensions.navigate(['flightSearch']);
+    } catch (error) {
+      throw error;
+    }
   }
+
 
   signIn(email: string, password: string) {
     return this.auth
@@ -156,7 +154,7 @@ export class AuthService {
       });
   }
 
-  async Reauthenticate(password: string):Promise<boolean> {
+  async Reauthenticate(password: string): Promise<boolean> {
     const user = firebase().auth().currentUser;
     const credential = EmailAuthProvider.credential(user.email, password);
     try {
