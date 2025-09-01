@@ -27,7 +27,6 @@ export class LoginComponent {
   isLoginStarted = signal(false);
   isBadEmailOrPassword = signal(false);
   isNeedEmailValidate = signal(false);
-  isUnepectedErrorHappened = signal(false);
 
   loginFormGroup = new FormGroup({
     email: new FormControl<string | null>('', Validators.required),
@@ -47,6 +46,7 @@ export class LoginComponent {
 
   async onLogin(): Promise<void> {
     this.isBadEmailOrPassword.set(false);
+    this.isNeedEmailValidate.set(false);
 
     if (this.loginFormGroup.invalid) {
       this.isBadEmailOrPassword.set(true);
@@ -60,8 +60,13 @@ export class LoginComponent {
         this.loginFormGroup.get('email').value.trim(),
         this.loginFormGroup.get('password').value
       );
-    } catch (error: any) {
+    }
+    catch (error: any) {
+      if (error?.message === 'need-email-validate') {
+        this.isNeedEmailValidate.set(true);
+      } else {
         this.isBadEmailOrPassword.set(true);
+      }
     } finally {
       this.isLoginStarted.set(false);
     }

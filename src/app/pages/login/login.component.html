@@ -27,8 +27,12 @@
 
         @if(isBadEmailOrPassword()){
         <Label col="0" colSpan="3" row="4" text="Hibás email vagy jelszó!" class="text-danger"></Label>
+        }@else if(isNeedEmailValidate()){
+        <Label col="0" colSpan="3" row="4" text="Validálja az email címét!" class="text-danger"></Label>
+        }@else {
+           <Label col="0" colSpan="3" row="4" text="" class="text-danger"></Label>
         }
-        
+
         <GridLayout col="0" colSpan="3" row="5" columns="auto, *" (tap)="onLogin()" class="btn-submit-grid">
           <Image col="0" src="~/assets/icons/enter.png" class="enter-icon"></Image>
           <Label col="1" text="Bejelentkezés" class="btn-submit-label"></Label>
