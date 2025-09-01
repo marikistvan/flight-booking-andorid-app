@@ -12,7 +12,7 @@ import { CommonModule } from "@angular/common";
   selector: "ns-login",
   standalone: true,
   templateUrl: "login.component.html",
-  styleUrls: ["./login.component.css"],
+  styleUrls: ["./login.component.scss"],
   imports: [
     ReactiveFormsModule,
     CommonModule,
@@ -25,6 +25,10 @@ import { CommonModule } from "@angular/common";
 
 export class LoginComponent {
   isLoginStarted = signal(false);
+  isBadEmailOrPassword = signal(false);
+  isNeedEmailValidate = signal(false);
+  isUnepectedErrorHappened = signal(false);
+
   loginFormGroup = new FormGroup({
     email: new FormControl<string | null>('', Validators.required),
     password: new FormControl<string | null>('', Validators.required),
@@ -42,10 +46,25 @@ export class LoginComponent {
   }
 
   async onLogin(): Promise<void> {
-    if(this.loginFormGroup.invalid) return;
+    this.isBadEmailOrPassword.set(false);
+
+    if (this.loginFormGroup.invalid) {
+      this.isBadEmailOrPassword.set(true);
+      return;
+    }
+
     this.isLoginStarted.set(true);
-    await this.authService.login(this.loginFormGroup.get('email').value.trim(), this.loginFormGroup.get('password').value);
-    this.isLoginStarted.set(false);
+
+    try {
+      await this.authService.login(
+        this.loginFormGroup.get('email').value.trim(),
+        this.loginFormGroup.get('password').value
+      );
+    } catch (error: any) {
+        this.isBadEmailOrPassword.set(true);
+    } finally {
+      this.isLoginStarted.set(false);
+    }
   }
 
   onDrawerButtonTap(): void {
