@@ -9,6 +9,9 @@
 <GridLayout>
   <Frame>
     <Page actionBarHidden="true" class="page">
+      @if(isSearchStarted()){
+      <ActivityIndicator busy="true" />
+      }@else{
       <GridLayout [formGroup]="loginFormGroup" class="login-form" columns="*,5px,*"
         rows="auto,auto,auto,auto,auto,auto,auto,auto,auto">
 
@@ -18,8 +21,8 @@
         </TextField>
 
         <Label col="0" colSpan="3" row="2" text="Jelszó" class="form-label"></Label>
-        <TextField col="0" secure="true" colspan="3" row="3" class="input-field" formControlName="password" editable="true"
-          hint="Jelszó">
+        <TextField col="0" secure="true" colspan="3" row="3" class="input-field" formControlName="password"
+          editable="true" hint="Jelszó">
         </TextField>
 
         <GridLayout col="0" colSpan="3" row="4" columns="auto, *" (tap)="onLogin()" class="btn-submit-grid">
@@ -46,6 +49,7 @@
           <Label text="Regisztráció" class="btn-register-label"></Label>
         </StackLayout>
       </GridLayout>
+    }
     </Page>
   </Frame>
 </GridLayout>

@@ -1,4 +1,4 @@
-import { Component, NO_ERRORS_SCHEMA } from "@angular/core";
+import { Component, NO_ERRORS_SCHEMA, signal } from "@angular/core";
 import { NativeScriptCommonModule, NativeScriptFormsModule, RouterExtensions } from "@nativescript/angular";
 import "@nativescript/firebase-auth";
 import "@nativescript/firebase-firestore";
@@ -24,6 +24,7 @@ import { CommonModule } from "@angular/common";
 })
 
 export class LoginComponent {
+  isSearchStarted = signal(false);
   loginFormGroup = new FormGroup({
     email: new FormControl<string | null>('', Validators.required),
     password: new FormControl<string | null>('', Validators.required),
@@ -41,7 +42,10 @@ export class LoginComponent {
   }
 
   async onLogin(): Promise<void> {
+    if(this.loginFormGroup.invalid) return;
+    this.isSearchStarted.set(true);
     await this.authService.login(this.loginFormGroup.get('email').value.trim(), this.loginFormGroup.get('password').value);
+    this.isSearchStarted.set(false);
   }
 
   onDrawerButtonTap(): void {
