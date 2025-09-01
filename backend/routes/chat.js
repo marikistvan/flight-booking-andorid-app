@@ -11,7 +11,6 @@ function generateChatId(userId1, userId2) {
 // POST /api/chat
 router.post('/create', async (req, res) => {
   const { userId1, userId2 } = req.body;
-  console.log("hallo itt vagyok a chat.js-ben");
   if (!userId1 || !userId2) {
     return res.status(400).json({ error: 'Két userId szükséges' });
   }
