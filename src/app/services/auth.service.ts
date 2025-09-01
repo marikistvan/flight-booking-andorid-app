@@ -2,8 +2,8 @@ import { Injectable, OnInit, signal } from '@angular/core';
 import { BehaviorSubject, last } from 'rxjs';
 import { firebase } from '@nativescript/firebase-core';
 import '@nativescript/firebase-auth';
-
 import { RouterExtensions } from '@nativescript/angular';
+import { EmailAuthProvider } from '@nativescript/firebase-auth';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +23,7 @@ export class AuthService {
     firebase().auth().addAuthStateChangeListener((user) => {
       this.authStatusSub.next(user);
     });
-    if(this.auth.currentUser) this.setUserProperties();
+    if (this.auth.currentUser) this.setUserProperties();
   }
 
   get currentUser() {
@@ -141,7 +141,6 @@ export class AuthService {
   }
 
   setUserProperties() {
-    console.log('hallo itt vagyok');
     return firebase().firestore()
       .collection("users")
       .doc(this.currentUser.uid)
@@ -157,4 +156,14 @@ export class AuthService {
       });
   }
 
+  async Reauthenticate(password: string):Promise<boolean> {
+    const user = firebase().auth().currentUser;
+    const credential = EmailAuthProvider.credential(user.email, password);
+    try {
+      await user.reauthenticateWithCredential(credential);
+      return true;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

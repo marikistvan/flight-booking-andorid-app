@@ -19,26 +19,50 @@ export class ProfileComponent {
     public authService: AuthService,
     private userService: UserService,
     public datePipe: DatePipe
-  ) {}
+  ) { }
 
   userDataModify(): boolean {
     return true;
   }
-  editPassword() {}
+  editPassword() { }
 
-  deleteProfile() {
-    Dialogs.confirm({
+  async deleteProfile() {
+    if (!(await this.confirmDelete())) return;
+
+    const password = await this.askPassword();
+    if (!password) return;
+
+    try {
+      await this.authService.Reauthenticate(password);
+      this.userService.deleteUser();
+    } catch {
+      Dialogs.alert({
+        title: 'Hiba!',
+        message: 'A jelszó nem megfelelő!',
+        okButtonText: 'OK',
+      });
+    }
+  }
+
+  private async confirmDelete(): Promise<boolean> {
+    return Dialogs.confirm({
       title: 'Fiók törlése!',
       message: 'Biztosan törölni akarod a fiókod?',
       okButtonText: 'Igen',
       cancelButtonText: 'Nem',
       neutralButtonText: 'Mégsem',
-    }).then((result) => {
-      if (result) {
-        this.userService.deleteUser();
-      }
-    })
+    });
+  }
 
+  private async askPassword(): Promise<string | null> {
+    const result = await Dialogs.prompt({
+      title: 'Adja meg a jelszavát!',
+      message: 'A megerősítéshez kérem adja meg a jelszavát!',
+      inputType: 'password',
+      okButtonText: 'OK',
+      cancelButtonText: 'Mégsem',
+    });
+    return result.result ? result.text : null;
   }
   onDrawerButtonTap(): void {
     const sideDrawer = <RadSideDrawer>Application.getRootView()
