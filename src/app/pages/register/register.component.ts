@@ -1,4 +1,4 @@
-import { Component, LOCALE_ID, NO_ERRORS_SCHEMA, OnChanges, OnInit, SimpleChanges } from "@angular/core";
+import { Component, LOCALE_ID, NO_ERRORS_SCHEMA, OnChanges, OnInit, signal, SimpleChanges } from "@angular/core";
 import "@nativescript/firebase-auth";
 import "@nativescript/firebase-firestore";
 import localeHu from '@angular/common/locales/hu';
@@ -35,6 +35,7 @@ registerLocaleData(localeHu);
 
 export class RegisterComponent implements OnInit {
   sexType: Array<string> = ['Nő', 'Férfi', 'Egyéb'];
+  isRegisterStarted = signal(false);
   registerFormGroup = new FormGroup({
     email: new FormControl('', {
       validators: [Validators.required, emailRegexValidator],
@@ -137,8 +138,9 @@ export class RegisterComponent implements OnInit {
       });
       return;
     } else {
+      this.isRegisterStarted.set(true);
       this.authService.register(this.email, this.password, this.firstName, this.lastName, this.sex, this.born).then(() => {
-        console.log('Sikeres regisztáricó'),
+        this.isRegisterStarted.set(false);
           Dialogs.alert({
             title: 'Sikeres regisztáricó!',
             message: 'Küldtünk egy megerősítő emailt, kérjük végezze el, a megerősítést!',
@@ -149,6 +151,7 @@ export class RegisterComponent implements OnInit {
           })
       })
         .catch((error) => {
+          this.isRegisterStarted.set(false);
           console.log('hiba történt regisztrálásnál: ' + error);
           Dialogs.alert({
             title: 'Hiba!',

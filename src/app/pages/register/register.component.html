@@ -9,6 +9,9 @@
 <GridLayout>
   <Frame>
     <Page actionBarHidden="true" class="page">
+      @if(isRegisterStarted()){
+      <ActivityIndicator busy="true" />
+      }@else{
       <GridLayout [formGroup]="registerFormGroup" class="register-form" columns="*,5px,*"
         rows="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto">
 
@@ -27,22 +30,21 @@
         </TextField>
 
         <Label col="0" row="4" text="Születési dátum" class="form-label"></Label>
-        <DatePickerField class="input-field" col="0" row="5" formControlName="bornDate"
-          [text]="born" [pickerDefaultDate]="minBornDate" [maxDate]="minBornDate"
-          [hint]="minBornDate"></DatePickerField>
+        <DatePickerField class="input-field" col="0" row="5" formControlName="bornDate" [text]="born"
+          [pickerDefaultDate]="minBornDate" [maxDate]="minBornDate" [hint]="minBornDate"></DatePickerField>
 
         <Label col="2" row="4" text="Neme" class="form-label"></Label>
-        <TextField class="input-field" hint="Nő,Férfi,Egyéb..." [text]="sex" col="2"
-          row="5" editable="false" (tap)="selectSex()" formControlName="sex">
+        <TextField class="input-field" hint="Nő,Férfi,Egyéb..." [text]="sex" col="2" row="5" editable="false"
+          (tap)="selectSex()" formControlName="sex">
         </TextField>
         <Label col="0" colSpan="3" row="6" text="Jelszó" class="form-label"></Label>
-        <TextField col="0" secure="true" colspan="3" row="7" class="input-field" formControlName="password" editable="true"
-          hint="Jelszó">
+        <TextField col="0" secure="true" colspan="3" row="7" class="input-field" formControlName="password"
+          editable="true" hint="Jelszó">
         </TextField>
 
         <Label col="0" colSpan="3" row="8" text="Jelszó mégegyszer" class="form-label"></Label>
-        <TextField col="0" secure="true" colspan="3" row="9" class="input-field" formControlName="passwordAgain" editable="true"
-          hint="Jelszó megerősítése">
+        <TextField col="0" secure="true" colspan="3" row="9" class="input-field" formControlName="passwordAgain"
+          editable="true" hint="Jelszó megerősítése">
         </TextField>
 
         <GridLayout col="0" colSpan="3" row="10" columns="auto, *" (tap)="submitRegister()" class="btn-submit-grid">
@@ -61,6 +63,7 @@
           <Label text="Regisztráció a Googleval" class="btn-google-label"></Label>
         </StackLayout>
       </GridLayout>
+      }
     </Page>
   </Frame>
 </GridLayout>
