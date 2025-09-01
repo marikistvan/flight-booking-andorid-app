@@ -79,7 +79,7 @@ export class RegisterComponent implements OnInit {
   }
 
   get born() {
-    return this.datePipe.transform(this.registerFormGroup.get('bornDate').value,'YYYY.MM.dd');;
+    return this.datePipe.transform(this.registerFormGroup.get('bornDate').value, 'YYYY.MM.dd');;
   }
 
   get password() {
@@ -105,6 +105,7 @@ export class RegisterComponent implements OnInit {
     const isoString = pastDate.toISOString().split('T')[0];
     return isoString;
   }
+
   selectSex() {
     action({
       message: 'Válaszd ki a nemét.',
@@ -116,8 +117,54 @@ export class RegisterComponent implements OnInit {
       }
     });
   }
+
   submitRegister() {
     const errors = this.registerFormGroup.errors;
+    this.hasError(errors);
+    if (this.registerFormGroup.invalid) return;
+    else {
+      this.isRegisterStarted.set(true);
+      this.authService.register(this.email, this.password, this.firstName, this.lastName, this.sex, this.born)
+        .then(() => {
+          this.isRegisterStarted.set(false);
+          this.sendEmailDialogWithNavigate();
+        })
+        .catch((error) => {
+          this.errorDialog(error);
+        })
+    }
+  }
+
+  loginWithGoogle() { }
+
+  private sendEmailDialogWithNavigate() {
+    Dialogs.alert({
+      title: 'Sikeres regisztáricó!',
+      message: 'Küldtünk egy megerősítő emailt, kérjük végezze el, a megerősítést!',
+      okButtonText: 'OK',
+      cancelable: true,
+    }).then(() => {
+      this.routerExtensions.navigate(['login']);
+    })
+  }
+
+  private errorDialog(error: any) {
+    this.isRegisterStarted.set(false);
+    console.log('hiba történt regisztrálásnál: ' + error);
+    Dialogs.alert({
+      title: 'Hiba!',
+      message: 'Kérem próbálja meg később!',
+      okButtonText: 'OK',
+      cancelable: true,
+    })
+  }
+
+  onDrawerButtonTap(): void {
+    const sideDrawer = <RadSideDrawer>Application.getRootView()
+    sideDrawer.showDrawer()
+  }
+
+  private hasError(errors: any) {
     if (errors?.passwordMismatch) {
       this.registerFormGroup.get('password').markAllAsTouched;
       this.registerFormGroup.get('passwordAgain').markAllAsTouched;
@@ -129,70 +176,6 @@ export class RegisterComponent implements OnInit {
     if (errors?.emailRegex) {
       console.log('nem megfelelő az email');
     }
-    if (this.registerFormGroup.invalid) {
-      Object.keys(this.registerFormGroup.controls).forEach(key => {
-        const control = this.registerFormGroup.get(key);
-        if (control?.invalid) {
-          console.log(`${key} hibás:`, control.errors);
-        }
-      });
-      return;
-    } else {
-      this.isRegisterStarted.set(true);
-      this.authService.register(this.email, this.password, this.firstName, this.lastName, this.sex, this.born).then(() => {
-        this.isRegisterStarted.set(false);
-          Dialogs.alert({
-            title: 'Sikeres regisztáricó!',
-            message: 'Küldtünk egy megerősítő emailt, kérjük végezze el, a megerősítést!',
-            okButtonText: 'OK',
-            cancelable: true,
-          }).then(() => {
-            this.routerExtensions.navigate(['login']);
-          })
-      })
-        .catch((error) => {
-          this.isRegisterStarted.set(false);
-          console.log('hiba történt regisztrálásnál: ' + error);
-          Dialogs.alert({
-            title: 'Hiba!',
-            message: 'Kérem próbálja meg később!',
-            okButtonText: 'OK',
-            cancelable: true,
-          })
-        }
-        )
-      console.log('Sikeres regisztráció');
-    }
-  }
-  loginWithGoogle() {
-
-  }
-  get emailInvalid(): boolean {
-    const control = this.registerFormGroup.get('email');
-    return control && control.invalid && (control.dirty || control.touched);
-  }
-
-  isValidEmail(email: string): boolean {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
-
-  onDrawerButtonTap(): void {
-    const sideDrawer = <RadSideDrawer>Application.getRootView()
-    sideDrawer.showDrawer()
-  }
-
-  hasError(controlName: string, groupErrorName?: string): boolean {
-    const control = this.registerFormGroup.get(controlName);
-
-    const controlInvalid = control && control.invalid && (control.dirty || control.touched);
-
-    const groupInvalid = groupErrorName
-      ? this.registerFormGroup.hasError(groupErrorName) &&
-      (control.dirty || control.touched)
-      : false;
-
-    return controlInvalid || groupInvalid;
   }
 }
 
