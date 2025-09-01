@@ -24,7 +24,7 @@ import { CommonModule } from "@angular/common";
 })
 
 export class LoginComponent {
-  isSearchStarted = signal(false);
+  isLoginStarted = signal(false);
   loginFormGroup = new FormGroup({
     email: new FormControl<string | null>('', Validators.required),
     password: new FormControl<string | null>('', Validators.required),
@@ -43,9 +43,9 @@ export class LoginComponent {
 
   async onLogin(): Promise<void> {
     if(this.loginFormGroup.invalid) return;
-    this.isSearchStarted.set(true);
+    this.isLoginStarted.set(true);
     await this.authService.login(this.loginFormGroup.get('email').value.trim(), this.loginFormGroup.get('password').value);
-    this.isSearchStarted.set(false);
+    this.isLoginStarted.set(false);
   }
 
   onDrawerButtonTap(): void {

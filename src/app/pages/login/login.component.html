@@ -9,7 +9,7 @@
 <GridLayout>
   <Frame>
     <Page actionBarHidden="true" class="page">
-      @if(isSearchStarted()){
+      @if(isLoginStarted()){
       <ActivityIndicator busy="true" />
       }@else{
       <GridLayout [formGroup]="loginFormGroup" class="login-form" columns="*,5px,*"
