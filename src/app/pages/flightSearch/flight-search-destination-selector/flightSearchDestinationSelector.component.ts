@@ -16,7 +16,7 @@ import { Location } from '../../../models/location-response'
 })
 
 export class FlightSearchDestinationSelectorComponent implements OnInit {
-  isSearching=signal<boolean>(false);
+  isSearching = signal<boolean>(false);
   searchTerm = signal<string>('');
   context: string = "";
   locations = signal<Location[]>([]);
@@ -65,7 +65,7 @@ export class FlightSearchDestinationSelectorComponent implements OnInit {
   onCancel() {
     this.modalDialogParams.closeCallback("");
   }
-  selectAirport(event:  ItemEventData) {
+  selectAirport(event: ItemEventData) {
     const index = event.index;
     const selected = this.locationItems[index];
 

@@ -19,10 +19,10 @@
     </TextField>
     <Image src="~/assets/icons/exit.png" row="0" col="2" class="btn-exit-sm" (tap)="onDelete()"></Image>
   </GridLayout>
-@if(isSearching()){
+  @if(isSearching()){
   <ActivityIndicator busy="true" />
-}
-@else{
+  }
+  @else{
   <ListView [items]="locationItems" class="list-view" (itemTap)="selectAirport($event)">
     <ng-template let-location="item">
       <GridLayout columns="auto, *">
@@ -36,5 +36,5 @@
       </GridLayout>
     </ng-template>
   </ListView>
-}
+  }
 </StackLayout>
