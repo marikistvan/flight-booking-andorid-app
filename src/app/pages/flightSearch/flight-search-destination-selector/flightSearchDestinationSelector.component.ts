@@ -16,6 +16,7 @@ import { Location } from '../../../models/location-response'
 })
 
 export class FlightSearchDestinationSelectorComponent implements OnInit {
+  isSearching=signal<boolean>(false);
   searchTerm = signal<string>('');
   context: string = "";
   locations = signal<Location[]>([]);
@@ -43,7 +44,9 @@ export class FlightSearchDestinationSelectorComponent implements OnInit {
   onSearchTextChanged(event: any) {
     this.searchTerm.set((event.object as TextField).text || '');
     if (this.searchTerm().trim().length > 2) {
+      this.isSearching.set(true);
       this.amadeusService.getLocations(this.searchTerm().trim()).subscribe((response) => {
+        this.isSearching.set(false);
         this.locations.set(response.data);
       });
 
