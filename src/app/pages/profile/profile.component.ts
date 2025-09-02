@@ -5,6 +5,7 @@ import { RouterExtensions } from "@nativescript/angular";
 import { AuthService } from '~/app/services/auth.service';
 import { UserService } from '~/app/services/user.service';
 import { DatePipe } from '@angular/common';
+import { GoogleSignin } from '@nativescript/google-signin';
 
 @Component({
   providers: [DatePipe],
@@ -29,6 +30,10 @@ export class ProfileComponent {
   async deleteProfile() {
     if (!(await this.confirmDelete())) return;
 
+    if (this.authService.isGoogleUser()) {
+      await this.deleteGoogeAccount();
+      return;
+    }
     const password = await this.askPassword();
     if (!password) return;
 
@@ -42,6 +47,21 @@ export class ProfileComponent {
         okButtonText: 'OK',
       });
     }
+  }
+
+  private async deleteGoogeAccount() {
+    try {
+      await this.authService.signInWithGoogle();
+      GoogleSignin.disconnect();
+      await this.userService.deleteUser();
+    } catch {
+      Dialogs.alert({
+        title: 'Hiba!',
+        message: 'Hiba történt, próbálja meg később!',
+        okButtonText: 'OK',
+      });
+    }
+
   }
 
   private async confirmDelete(): Promise<boolean> {
