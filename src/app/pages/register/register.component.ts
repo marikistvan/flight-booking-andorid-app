@@ -135,7 +135,18 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  loginWithGoogle() { }
+  signInWithGoogle() {
+    this.authService.signInWithGoogle().then(() => {
+      this.routerExtensions.navigate(['flightSearch']);
+    }).catch((error) => {
+      console.log('hiba történt google regisztrálás során: ' + error);
+      Dialogs.alert({
+        title: 'Hiba!',
+        message: 'Hiba történt, próbálja meg később!',
+        okButtonText: 'OK',
+      });
+    })
+  }
 
   private sendEmailDialogWithNavigate() {
     Dialogs.alert({
