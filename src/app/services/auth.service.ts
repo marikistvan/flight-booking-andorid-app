@@ -3,12 +3,14 @@ import { BehaviorSubject, last } from 'rxjs';
 import { firebase } from '@nativescript/firebase-core';
 import '@nativescript/firebase-auth';
 import { RouterExtensions } from '@nativescript/angular';
-import { EmailAuthProvider } from '@nativescript/firebase-auth';
+import { EmailAuthProvider, GoogleAuthProvider } from '@nativescript/firebase-auth';
+import { GoogleSignin } from '@nativescript/google-signin';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+
   private auth = firebase().auth();
   private authStatusSub = new BehaviorSubject<any | null>(null);
   private _fullName = signal<string>("");
@@ -25,6 +27,7 @@ export class AuthService {
     });
     if (this.auth.currentUser) this.setUserProperties();
   }
+
 
   get currentUser() {
     return this.auth.currentUser;
@@ -124,6 +127,7 @@ export class AuthService {
   }
 
   signOut() {
+    if(this.isGoogleUser){GoogleSignin.disconnect();}
     return this.auth.signOut().then(() => {
       this._lastName.set('');
       this._firstName.set('');
@@ -154,6 +158,13 @@ export class AuthService {
       });
   }
 
+  isGoogleUser(): boolean {
+    const user = this.auth.currentUser;
+    if (!user) return false;
+
+    return user.providerData.some(p => p.providerId === 'google.com');
+  }
+
   async Reauthenticate(password: string): Promise<boolean> {
     const user = firebase().auth().currentUser;
     const credential = EmailAuthProvider.credential(user.email, password);
@@ -164,4 +175,22 @@ export class AuthService {
       throw error;
     }
   }
+
+  async signInWithGoogle() {
+    try {
+      await GoogleSignin.configure({});
+      const user = await GoogleSignin.signIn().then((user) => {
+        
+        const credential = GoogleAuthProvider.credential(
+          user.idToken,
+          user.accessToken,
+        )
+        firebase().auth().signInWithCredential(credential)
+      })
+    } catch (e) {
+      console.error("Google Sign-In hiba:", e);
+      throw e;
+    }
+  }
+
 }

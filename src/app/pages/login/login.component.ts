@@ -7,7 +7,13 @@ import { Application } from '@nativescript/core'
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { AuthService } from "~/app/services/auth.service";
 import { CommonModule } from "@angular/common";
+import { registerElement } from '@nativescript/angular';
+import { GoogleSignin } from '@nativescript/google-signin';
 
+registerElement(
+  'GoogleSignInButton',
+  () => require('@nativescript/google-signin').GoogleSignInButton,
+)
 @Component({
   selector: "ns-login",
   standalone: true,
@@ -38,7 +44,13 @@ export class LoginComponent {
     private authService: AuthService
   ) { }
 
-  loginWithGoogle() { }
+  async signInWithGoogle() {
+    this.authService.signInWithGoogle().then(() => {
+      this.routerExtensions.navigate(['flightSearch']);
+    }).catch((error) => {
+      console.log('hiba történt google bejelentkezés során: ' + error);
+    })
+  }
 
   register() {
     this.routerExtensions.navigate(['register']);

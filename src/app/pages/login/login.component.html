@@ -30,7 +30,7 @@
         }@else if(isNeedEmailValidate()){
         <Label col="0" colSpan="3" row="4" text="Validálja az email címét!" class="text-danger"></Label>
         }@else {
-           <Label col="0" colSpan="3" row="4" text="" class="text-danger"></Label>
+        <Label col="0" colSpan="3" row="4" text="" class="text-danger"></Label>
         }
 
         <GridLayout col="0" colSpan="3" row="5" columns="auto, *" (tap)="onLogin()" class="btn-submit-grid">
@@ -44,7 +44,7 @@
           <StackLayout col="2" class="or-separte-line"></StackLayout>
         </GridLayout>
 
-        <StackLayout col="0" colSpan="3" row="7" orientation="horizontal" (tap)="loginWithGoogle()">
+        <StackLayout col="0" colSpan="3" row="7" orientation="horizontal" (tap)="signInWithGoogle()">
           <Image src="~/assets/icons/google.png" class="btn-google-img" />
           <Label text="Bejelentkezés a Googleval" class="btn-google-label"></Label>
         </StackLayout>
