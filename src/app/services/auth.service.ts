@@ -127,7 +127,7 @@ export class AuthService {
   }
 
   signOut() {
-    if(this.isGoogleUser){GoogleSignin.disconnect();}
+    if (this.isGoogleUser) { GoogleSignin.disconnect(); }
     return this.auth.signOut().then(() => {
       this._lastName.set('');
       this._firstName.set('');
@@ -140,6 +140,15 @@ export class AuthService {
 
   resetPassword(data) {
     return this.auth.sendPasswordResetEmail(data);
+  }
+
+  async isUserDocExists(): Promise<boolean> {
+    const doc = await firebase().firestore()
+      .collection("users")
+      .doc(this.currentUser.uid)
+      .get();
+
+    return doc.exists;
   }
 
   setUserProperties() {
@@ -180,12 +189,12 @@ export class AuthService {
     try {
       await GoogleSignin.configure({});
       const user = await GoogleSignin.signIn().then((user) => {
-        
+
         const credential = GoogleAuthProvider.credential(
           user.idToken,
           user.accessToken,
         )
-        firebase().auth().signInWithCredential(credential)
+        firebase().auth().signInWithCredential(credential);
       })
     } catch (e) {
       console.error("Google Sign-In hiba:", e);
