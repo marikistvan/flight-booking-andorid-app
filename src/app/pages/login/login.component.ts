@@ -3,7 +3,7 @@ import { NativeScriptCommonModule, NativeScriptFormsModule, RouterExtensions } f
 import "@nativescript/firebase-auth";
 import "@nativescript/firebase-firestore";
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
-import { Application } from '@nativescript/core'
+import { Application, Dialogs } from '@nativescript/core'
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { AuthService } from "~/app/services/auth.service";
 import { CommonModule } from "@angular/common";
@@ -44,11 +44,16 @@ export class LoginComponent {
     private authService: AuthService
   ) { }
 
-  async signInWithGoogle() {
+  signInWithGoogle() {
     this.authService.signInWithGoogle().then(() => {
       this.routerExtensions.navigate(['flightSearch']);
     }).catch((error) => {
       console.log('hiba történt google bejelentkezés során: ' + error);
+      Dialogs.alert({
+        title: 'Hiba!',
+        message: 'Hiba történt, próbálja meg később!',
+        okButtonText: 'OK',
+      });
     })
   }
 
