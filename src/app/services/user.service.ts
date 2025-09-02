@@ -6,13 +6,13 @@ import { environment } from "~/environments/environment";
 import { AuthService } from "./auth.service";
 import { RouterExtensions } from "@nativescript/angular";
 import { firebase } from "@nativescript/firebase-core";
+import { GoogleSignin } from '@nativescript/google-signin';
 
 @Injectable({ providedIn: "root" })
 
 export class UserService {
   bornYear: string;
   errors: Array<string>;
-  userId: string = '';
 
   constructor(
     private http: HttpClient,
@@ -73,27 +73,30 @@ export class UserService {
     }
   }
   deleteUser() {
-    this.userId = this.authService.currentUser.uid;
-    this.deleteUsersData();
-    this.authService.currentUser.delete();
-    this.routerExtension.navigate(['flightSearch']);
+    this.deleteUsersData(this.authService.currentUser.uid);
+    this.authService.currentUser.delete()
+      .then(() => {
+        this.routerExtension.navigate(['login']);
+      })
+      .catch((error) => { throw error; });
   }
 
-  private deleteUsersData() {
-    firebase().firestore().collection('users').doc(this.userId).delete()
+  private async deleteUsersData(userId: string) {
+
+    firebase().firestore().collection('users').doc(userId).delete()
       .then(() => {
         console.log('sikeresen törölve a user a users kollekcióból.');
       }
       ).catch((error) => {
         console.error("Valami hiba történt a user a users kollekcióból való törlés során: " + error);
       });
-    firebase().firestore().collection('conversations').doc(this.userId).delete().then(() => {
+    firebase().firestore().collection('conversations').doc(userId).delete().then(() => {
       console.log('sikeresen törölve a user a conversations kollekcióból.');
     }
     ).catch((error) => {
       console.error("Valami hiba történt a user a conversations kollekcióból való törlés során: " + error);
     });
-    firebase().firestore().collection('userBasket').doc(this.userId).delete().then(() => {
+    firebase().firestore().collection('userBasket').doc(userId).delete().then(() => {
       console.log('sikeresen törölve a user a userBasket kollekcióból.');
     }
     ).catch((error) => {
