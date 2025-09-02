@@ -1,4 +1,4 @@
-import { Component, Input, NO_ERRORS_SCHEMA, OnInit, ViewContainerRef } from "@angular/core";
+import { Component, Input, NO_ERRORS_SCHEMA, OnInit, signal, ViewContainerRef } from "@angular/core";
 import { ModalDialogOptions, ModalDialogService, NativeScriptCommonModule, RouterExtensions } from "@nativescript/angular";
 import { FormGroup } from "@angular/forms";
 import { Dictionaries, FlightOffer } from "~/app/models/flight-offers-response";
@@ -23,6 +23,7 @@ import { ActivatedRoute } from "@angular/router";
 })
 
 export class PassengerInfoComponent implements OnInit {
+  isButtonPressed = signal<boolean>(false);
   @Input() flightId: string;
   dictionary: Dictionaries;
   flightOffer: FlightOffer;
@@ -40,7 +41,7 @@ export class PassengerInfoComponent implements OnInit {
     private amadeusService: AmadeusService,
     private searchStateService: FlightSearchStateService,
     private routerExtensions: RouterExtensions,
-     private route: ActivatedRoute
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -67,8 +68,10 @@ export class PassengerInfoComponent implements OnInit {
   }
   async submit() {
     if (this.isAllDataIsFilledIn()) {
+      this.isButtonPressed.set(true);
       this.searchStateService.setPassengers(this.passengers);
       this.routerExtensions.navigate(['flightSummary', this.flightOffer.id]);
+      this.isButtonPressed.set(false);
     }
   }
 
@@ -92,7 +95,7 @@ export class PassengerInfoComponent implements OnInit {
     if (this.flightOffer.itineraries.length > 1) {
       arrivalSeatCount = this.flightOffer.itineraries[1].segments.length;
     }
-
+    this.isButtonPressed.set(true);
     try {
       const seatMapResponse = await firstValueFrom(
         this.amadeusService.getSeatMap(this.flightOffer)
@@ -112,6 +115,7 @@ export class PassengerInfoComponent implements OnInit {
         viewContainerRef: this.viewContainerRef
       };
       await this.modalDialogSerivce.showModal(SetpassengerComponent, option).then((result) => {
+        this.isButtonPressed.set(false);
         if (result) {
           const [updatedPassenger, action] = result;
           if (action !== 'cancel') {
@@ -127,6 +131,7 @@ export class PassengerInfoComponent implements OnInit {
       });
 
     } catch (err: any) {
+      this.isButtonPressed.set(false);
       console.error("SeatMap API hiba:", err);
 
       let userMessage = "Ismeretlen hiba történt. Kérjük, próbálja újra később.";
