@@ -42,7 +42,7 @@ export interface Segment {
     aircraft: {
         code: string;
     };
-    operating: {
+    operating?: {
         carrierCode?: string;
         carrierName?: string;
     };

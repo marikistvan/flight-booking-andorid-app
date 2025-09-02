@@ -24,8 +24,8 @@ export interface Seatmap {
   arrival: AirportInfo;
   carrierCode: string;
   number: string;
-  operating: {
-    carrierCode: string;
+  operating?: {
+    carrierCode?: string;
   };
   aircraft: {
     code: string;
