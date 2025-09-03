@@ -1,18 +1,19 @@
-import { Injectable } from "@angular/core";
+import { Injectable, signal } from "@angular/core";
 import { firebase } from "@nativescript/firebase-core";
 import "@nativescript/firebase-auth";
 import "@nativescript/firebase-firestore";
 import { FieldValue } from "@nativescript/firebase-firestore";
 import { Blog } from "../models/blog";
-import { catchError, from, map, Observable, shareReplay } from "rxjs";
 import { AuthService } from "./auth.service";
 
 @Injectable({ providedIn: "root" })
 export class BlogService {
-  private blogs?: Observable<Blog[]>;
+  private blogs = signal<Blog[]>([]);
   userBlogs = [];
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {
+    this.setBlogs();
+  }
 
   createBlog(blog: Blog) {
     if (this.authService.currentUser) {
@@ -26,42 +27,36 @@ export class BlogService {
     } else {
       console.log("blogbejegyzés nem sikerült, mert nincs user bejelentkezve");
     }
-
   }
 
+  getBlogs(): Blog[] {
+    return this.blogs();
+  }
 
-  getBlogs(): Observable<Blog[]> {
-    if (!this.blogs) {
-      const blogQuery = firebase()
-        .firestore()
-        .collection("blog")
-        .orderBy("created_at", "desc")
-        .get();
-
-      this.blogs = from(blogQuery).pipe(
-        map(querySnapshot => {
-          const blogs: Blog[] = [];
-          querySnapshot.forEach(doc => {
-            const data = doc.data();
-            blogs.push({
-              id: doc.id,
-              title: data.title,
-              content: data.content,
-              createdAt: data.created_at?.toDate(),
-              authorId: data.author_id
-            });
+  setBlogs(): void {
+    firebase()
+      .firestore()
+      .collection("blog")
+      .orderBy("created_at", "desc")
+      .get()
+      .then(querySnapshot => {
+        const blogs: Blog[] = [];
+        querySnapshot.forEach(doc => {
+          const data = doc.data();
+          blogs.push({
+            id: doc.id,
+            title: data.title,
+            content: data.content,
+            createdAt: data.created_at?.toDate(),
+            authorId: data.author_id
           });
-          return blogs;
-        }),
-        catchError(error => {
-          console.error("Hiba a blogok lekérdezésekor:", error);
-          return [[]];
-        }),
-        shareReplay(1)
-      );
-    }
-
-    return this.blogs;
+        });
+        this.blogs.set(blogs);
+      })
+      .catch(error => {
+        console.error("Hiba a blogok lekérdezésekor:", error);
+        this.blogs.set([]);
+      });
   }
 
   async getBlog(blogId: string): Promise<Blog> {
@@ -69,18 +64,16 @@ export class BlogService {
 
     if (blogDoc.exists) {
       return blogDoc.data();
+    }
 
-    } else {
+    else {
       console.log('Blog not found');
       return null;
     }
   }
   async getUserBlogs(userid: string) {
-    this.getBlogs().subscribe({
-      next(res) {
-        this.userBlogs.push(res.filter(blog => blog.authorId === userid));
-      }
-    })
+    await this.setBlogs();
+    this.userBlogs.push(this.blogs().filter(blog => blog.authorId === userid));
   }
 
   updateBlog(blogId: string, updatedBlog: Blog) {
@@ -101,5 +94,14 @@ export class BlogService {
     }
   }
 
-
+  deleteBlog(blog: Blog) {
+    firebase().firestore().collection('blog').doc(blog.id).delete()
+      .then(() => {
+        this.setBlogs();
+      })
+      .catch((error) => {
+        console.error('Hiba történt blog törlése során:' + error);
+        throw error;
+      })
+  }
 }
