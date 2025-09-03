@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalDialogParams, RouterExtensions } from "@nativescript/angular";
+import { Dialogs } from "@nativescript/core";
 import { topmost } from "@nativescript/core/ui/frame";
+import { AuthService } from "~/app/services/auth.service";
 
 @Component({
   selector: "ns-home",
@@ -9,19 +11,30 @@ import { topmost } from "@nativescript/core/ui/frame";
 })
 
 export class HomeComponent implements OnInit {
-  constructor(private routerExtension: RouterExtensions) { }
+  constructor(private routerExtensions: RouterExtensions, private authService: AuthService) { }
+  
   ngOnInit(): void {
   }
-  loginWithGoogle() {
 
+  signInWithGoogle() {
+    this.authService.signInWithGoogle().then(() => {
+      this.routerExtensions.navigate(['flightSearch']);
+    }).catch((error) => {
+      console.log('hiba történt google bejelentkezés során: ' + error);
+      Dialogs.alert({
+        title: 'Hiba!',
+        message: 'Hiba történt, próbálja meg később!',
+        okButtonText: 'OK',
+      });
+    })
   }
   login() {
-    this.routerExtension.navigate(['login']);
+    this.routerExtensions.navigate(['login']);
   }
   register() {
-    this.routerExtension.navigate(['register']);
+    this.routerExtensions.navigate(['register']);
   }
   tryApp() {
-    this.routerExtension.navigate(['flightSearch']);
+    this.routerExtensions.navigate(['flightSearch']);
   }
 }
