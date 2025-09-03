@@ -2,7 +2,9 @@ import { Component, Input, ViewContainerRef } from '@angular/core'
 import { ModalDialogOptions, ModalDialogService } from '@nativescript/angular';
 import { Blog } from '~/app/models/blog';
 import { AuthService } from '~/app/services/auth.service';
-import {ReadBlogComponent} from '../read-blog/read-blog.component'
+import { ReadBlogComponent } from '../read-blog/read-blog.component'
+import { BlogService } from '~/app/services/blog.service';
+import { Dialogs } from '@nativescript/core';
 
 @Component({
   selector: 'ns-blog-item',
@@ -16,15 +18,29 @@ export class BlogItemComponent {
     public authService: AuthService,
     private modalDialogService: ModalDialogService,
     private viewContainerRef: ViewContainerRef,
+    private blogService: BlogService
 
   ) { }
 
   testEdit() {
     console.log("edit");
   }
-  testDelete() {
-    console.log("delete");
+
+  async testDelete() {
+    if(!(await this.confirmDelete())) return;
+    this.blogService.deleteBlog(this.blog);
   }
+
+  private async confirmDelete(): Promise<boolean> {
+    return Dialogs.confirm({
+      title: 'Blog törlése!',
+      message: 'Biztosan törölni akarod a blogot?',
+      okButtonText: 'Igen',
+      cancelButtonText: 'Nem',
+      neutralButtonText: 'Mégsem',
+    });
+  }
+  
   testOpenBlog() {
     console.log("openBlog");
   }

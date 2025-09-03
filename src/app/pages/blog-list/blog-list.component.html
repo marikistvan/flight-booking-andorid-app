@@ -20,7 +20,7 @@
     <Image src="~/assets/icons/exit.png" row="0" col="2" class="btn-exit-sm" (tap)="onDelete()"></Image>
   </GridLayout>
 
-  <RadListView row="1" [items]="blogService.getBlogs() | async">
+  <RadListView row="1" [items]="blogService.getBlogs()">
     <ng-template let-blog="item">
       <ns-blog-item [blog]="blog"></ns-blog-item>
     </ng-template>

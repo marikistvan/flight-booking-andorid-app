@@ -32,6 +32,7 @@ export class CreateBlogComponent implements OnInit {
     };
 
     this.blogService.createBlog(blog);
+    this.blogService.setBlogs();
     this.modalDialogParams.closeCallback(null);
   }
 
