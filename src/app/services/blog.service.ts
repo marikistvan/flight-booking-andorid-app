@@ -76,11 +76,11 @@ export class BlogService {
     this.userBlogs.push(this.blogs().filter(blog => blog.authorId === userid));
   }
 
-  updateBlog(blogId: string, updatedBlog: Blog) {
+  updateBlog(blog:Blog) {
     if (this.authService.currentUser) {
-      firebase().firestore().collection("blog").doc(blogId).update({
-        title: updatedBlog.title,
-        content: updatedBlog.content,
+      firebase().firestore().collection("blog").doc(blog.id).update({
+        title: blog.title,
+        content: blog.content,
         updated_at: FieldValue.serverTimestamp(),
       })
         .then(() => {
