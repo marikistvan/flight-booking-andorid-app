@@ -5,6 +5,7 @@ import { AuthService } from '~/app/services/auth.service';
 import { ReadBlogComponent } from '../read-blog/read-blog.component'
 import { BlogService } from '~/app/services/blog.service';
 import { Dialogs } from '@nativescript/core';
+import { CreateBlogComponent } from '../create-blog/create-blog.component';
 
 @Component({
   selector: 'ns-blog-item',
@@ -22,12 +23,24 @@ export class BlogItemComponent {
 
   ) { }
 
-  testEdit() {
-    console.log("edit");
+  async editBlog() {
+    const options: ModalDialogOptions = {
+      context: {
+        mode: "edit",
+        blog: this.blog
+      },
+      fullscreen: true,
+      viewContainerRef: this.viewContainerRef
+    };
+    const result = await this.modalDialogService
+      .showModal(CreateBlogComponent, options);
+
+    if (result as Blog) {
+    }
   }
 
-  async testDelete() {
-    if(!(await this.confirmDelete())) return;
+  async deleteBlog() {
+    if (!(await this.confirmDelete())) return;
     this.blogService.deleteBlog(this.blog);
   }
 
@@ -40,7 +53,7 @@ export class BlogItemComponent {
       neutralButtonText: 'Mégsem',
     });
   }
-  
+
   testOpenBlog() {
     console.log("openBlog");
   }
