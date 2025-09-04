@@ -14,6 +14,7 @@ import { FlightOffersResponse } from "~/app/models/flight-offers-response";
 import { DatePipe } from "@angular/common";
 import { FlightSearchStateService } from '~/app/services/flight-search-state.service';
 import { firstValueFrom } from 'rxjs';
+import { localize } from "@nativescript/localize";
 
 @Component({
   providers: [DatePipe],
@@ -23,14 +24,16 @@ import { firstValueFrom } from 'rxjs';
 })
 
 export class FlightSearchComponent implements OnInit {
-  tripTypes: Array<string> = ['Egyirányú', 'Oda-Vissza'];
+  oneWay = localize('flightSearch.oneWay');
+  roundTrip = localize('flightSearch.roundTrip');
+  tripTypes: Array<string> = [this.oneWay, this.roundTrip];
   flightOffers: FlightOffersResponse;
   maxSearchNumber: string = '20';
   isSearchStarted = signal(false);
-  passangerCategoryArray: PassengerCategory[] = [
-    { id: 'adult', ageCategory: 'Felnőtt', description: '18 év felett', count: 1 },
-    { id: 'child', ageCategory: 'Gyerek', description: '2–12 év között', count: 0 },
-    { id: 'infant', ageCategory: 'Csecsemő', description: '0–2 év között', count: 0 },
+  passengerCategories: PassengerCategory[] = [
+    { id: 'adult', ageCategory: localize('passengerCategory.adult'), description: localize('passengerCategory.adultDes'), count: 1 },
+    { id: 'child', ageCategory: localize('passengerCategory.child'), description: localize('passengerCategory.childDes'), count: 0 },
+    { id: 'infant', ageCategory: localize('passengerCategory.infant'), description: localize('passengerCategory.infantDes'), count: 0 },
   ];
   searchFormGroup = new FormGroup({
     tripType: new FormControl(null, Validators.required),
@@ -96,11 +99,11 @@ export class FlightSearchComponent implements OnInit {
           this.searchFormGroup.get('fromIATACode').value,
           this.searchFormGroup.get('toPlaceIATACode').value,
           this.datePipe.transform(this.searchFormGroup.get('fromDate').value, 'yyyy-MM-dd'),
-          this.passangerCategoryArray[0].count.toString(),
+          this.passengerCategories[0].count.toString(),
           this.maxSearchNumber,
           this.searchFormGroup.get('returnDate').value !== undefined ? this.datePipe.transform(this.searchFormGroup.get('returnDate').value, 'yyyy-MM-dd') : undefined,
-          this.passangerCategoryArray[1].count.toString(),
-          this.passangerCategoryArray[2].count.toString()
+          this.passengerCategories[1].count.toString(),
+          this.passengerCategories[2].count.toString()
         )
       )
       const toPlace = this.searchFormGroup.get('toPlace').value.split(',')[0];
@@ -116,13 +119,13 @@ export class FlightSearchComponent implements OnInit {
 
   openTripTypePicker() {
     action({
-      message: 'Válassz utazási típust',
-      cancelButtonText: 'Mégse',
+      message: localize("flightSearch.tripPickerMessage"),
+      cancelButtonText: localize("general.cancel"),
       actions: this.tripTypes
     }).then(result => {
-      if (result !== 'Mégse') {
+      if (result !== localize("general.cancel")) {
         this.searchFormGroup.get('tripType').setValue(result);
-        if (result === 'Egyirányú') {
+        if (result === localize("flightSearch.oneWay")) {
           this.searchFormGroup.get('returnDate')?.setValue(null);
         }
       }
@@ -130,7 +133,7 @@ export class FlightSearchComponent implements OnInit {
   }
   async selectPassengers() {
     const options: ModalDialogOptions = {
-      context: this.passangerCategoryArray,
+      context: this.passengerCategories,
       fullscreen: true,
       viewContainerRef: this.viewContainerRef
     };
@@ -138,9 +141,9 @@ export class FlightSearchComponent implements OnInit {
       .showModal(FlightSearchPassengersSelectorComponent, options);
 
     if (result as PassengerCategory[]) {
-      this.passangerCategoryArray = result;
+      this.passengerCategories = result;
       let sum = 0;
-      this.passangerCategoryArray.forEach(element => {
+      this.passengerCategories.forEach(element => {
         sum += element.count;
       });
       this.searchFormGroup.get('passengers')?.setValue(sum);
