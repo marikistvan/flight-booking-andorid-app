@@ -189,7 +189,6 @@ export class AuthService {
     try {
       await GoogleSignin.configure({});
       const user = await GoogleSignin.signIn().then((user) => {
-
         const credential = GoogleAuthProvider.credential(
           user.idToken,
           user.accessToken,

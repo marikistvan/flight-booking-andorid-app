@@ -23,7 +23,7 @@ export class BlogListComponent {
     private modalDialogService: ModalDialogService,
     private viewContainerRef: ViewContainerRef,
     public authService: AuthService
-  ) {}
+  ) { }
 
   onSearchTextChanged(event: any) {
     const query = event.value.toLowerCase();
@@ -35,7 +35,9 @@ export class BlogListComponent {
 
   async createBlog() {
     const options: ModalDialogOptions = {
-      context: "create",
+      context: {
+        mode: "create",
+      },
       fullscreen: true,
       viewContainerRef: this.viewContainerRef
     };
