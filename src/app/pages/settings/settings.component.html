@@ -6,14 +6,42 @@
     <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
   </GridLayout>
 </ActionBar>
+<StackLayout class="page testMiddle">
 
-<Frame>
-  <Page actionBarHidden="true" class="page">
-    <StackLayout class="main-container">
+    <StackLayout class="card">
+      <Label text="{{ 'Hello world !' | L }}"></Label>
+      <Label text="{{ 'I am %s' | L:'user name' }}"></Label>
+      <Label text="Nyelválasztó" class="form-label"></Label>
+      <GridLayout columns="*, auto" class="input-grid w-100-pc">
+        <Image col="1" src="~/assets/icons/down-arrow.png" class="img-select-arrow">
+        </Image>
+        <TextField col="0" editable="false" class="input-text-field" text="Hungary"></TextField>
+      </GridLayout>
+
+      <Label text="Alapértelmezett indulási hely" class="form-label"></Label>
+      <GridLayout columns="*, auto" class="input-grid w-100-pc">
+        <Image col="1" src="~/assets/icons/down-arrow.png" class="img-select-arrow">
+        </Image>
+        <TextField col="0" editable="false" class="input-text-field" hint="Jhon F. Kennedy Int"></TextField>
+      </GridLayout>
+
+      <Label text="Pénznem választó" class="form-label"></Label>
+      <GridLayout columns="*, auto" class="input-grid w-40-pc horiz-left">
+        <Image col="1" src="~/assets/icons/down-arrow.png" class="img-select-arrow">
+        </Image>
+        <TextField col="0" class="input-text-field" text="EUR"></TextField>
+      </GridLayout>
+
+      <Label text="Pénznem választó" class="form-label"></Label>
+      <Switch checked="true" class="switch-sty horiz-left" />
 
       @if(authService.currentUser){
-      <Button text="Kijelentkezés" (tap)="signOut()" class="blue-btn"></Button>
+      <GridLayout columns="auto, *, 30" class="btn-transparent w-100-pc" (tap)="signOut()">
+        <Image col="0" src="~/assets/icons/enter.png" class="enter-icon" />
+
+        <Label col="1" text="Kijelentkezés" class="btn-logout-label"></Label>
+
+      </GridLayout>
       }
     </StackLayout>
-  </Page>
-</Frame>
+</StackLayout>

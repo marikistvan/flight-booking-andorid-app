@@ -7,18 +7,19 @@ import { AuthService } from '~/app/services/auth.service';
 
   selector: 'Settings',
   templateUrl: './settings.component.html',
+  styleUrls: ["./settings.component.scss"],
 })
 export class SettingsComponent implements OnInit {
   constructor(public authService: AuthService) {
   }
 
-  ngOnInit(): void {  }
+  ngOnInit(): void { }
 
   onDrawerButtonTap(): void {
     const sideDrawer = <RadSideDrawer>Application.getRootView()
     sideDrawer.showDrawer()
   }
-  signOut():void{
+  signOut(): void {
     this.authService.signOut();
 
   }
