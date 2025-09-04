@@ -35,6 +35,7 @@ import { SeatDetailsModalComponent } from './pages/flight-booking/select-seat/se
 import { FlightTicketComponent } from './pages/flight-ticket-list/flight-ticket/flight-ticket.component';
 import { FlightTicketListComponent } from './pages/flight-ticket-list/flight-ticket-list.component';
 import { FlightTicketRowComponent } from './pages/flight-ticket-list/flight-ticket-row/flight-ticket-row.component';
+import { NativeScriptLocalizeModule } from '@nativescript/localize/angular';
 
 registerLocaleData(localeHu);
 
@@ -55,6 +56,7 @@ registerLocaleData(localeHu);
     NativeScriptPickerModule,
     NativeScriptFormsModule,
     NativeScriptUIListViewModule,
+    NativeScriptLocalizeModule
   ],
 
   declarations: [

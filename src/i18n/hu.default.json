@@ -1,0 +1,51 @@
+{
+  "app.name": "Repülőjegy foglaló",
+  "general": {
+    "cancel": "Mégse",
+    "submit": "Alkalmaz"
+  },
+  "settings": {
+    "title": "Beállítások",
+    "switchlanguage": "Nyelvválasztó",
+    "defaultDeparturePoint": "Alapértelmezett indulási hely",
+    "currencySelector": "Pénznem választó",
+    "enablePushNotifications": "Push értesítések engedélyezése",
+    "logout": "Kijelentkezés",
+    "chooseLanguage":"Válaszd ki a nyelvet!",
+    "changeLanguageTitle":"Nyelv megváltoztatás",
+    "changeLanguageMessage":"Az alkalmazásnak újra kell indulnia, hogy megváltozzon a nyelv.",
+    "close":"Bezárás!"
+  },
+  "flightSearch": {
+    "title": "Járat Keresés",
+    "promoTitle": "Szuper árak - Gyors -\nUtazz ahova csak szeretnél",
+    "flightType": "Utazás típusa",
+    "oneWay": "Egyirányú",
+    "roundTrip": "Oda-Vissza",
+    "flightTypeHint": "Egyirányú, Oda-vissza",
+    "fromPlace": "Honnan",
+    "toPlace": "Hova",
+    "departure": "Indulás",
+    "back": "Vissza",
+    "dateError": "Kezdeti dátum nem lehet később, mint a végdátum",
+    "passengers": "Utasok",
+    "search": "Keresés",
+    "tripPickerMessage": "Válassz utazási típust"
+  },
+  "passengerCategory": {
+    "adult": "Felnőtt",
+    "child": "Gyerek",
+    "infant": "Csecsemő",
+    "adultDes": "18 év felett",
+    "childDes": "2–12 év között",
+    "infantDes": "0–2 év között"
+  },
+  "passengersSelector": {
+    "title": "Utasok kiválasztása",
+    "promoTitle": "Adja meg, hogy\nhányan szeretnének utazni,\ntöbbit intézzük mi.",
+    "moreInfantsThenAdultsError": "A csecsők csak a felnőttek ölében utazhatnak, így legalább annyi felnőtt szükséges, mint csecsemő.",
+    "oneAdultIsRequredError": "1 felnőtt kiválasztása kötelező",
+    "childrenAloneError": "A gyerekek nem utazhatnak egyedül.",
+    "moreThen9Error": "Az ülő utasok (felnőttek és gyermekek) teljes száma nem haladhatja meg a 9-et."
+  }
+}

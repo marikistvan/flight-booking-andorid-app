@@ -1,0 +1,51 @@
+{
+  "app.name": "Flight booking",
+  "general": {
+    "cancel": "Cancel",
+    "submit": "Submit"
+  },
+  "settings": {
+    "title": "Settings",
+    "switchlanguage": "Language Selector",
+    "defaultDeparturePoint": "Default Departure Point",
+    "currencySelector": "Currency Selector",
+    "enablePushNotifications": "Enable Push Notifications",
+    "logout": "Log Out",
+    "chooseLanguage": "Choose a language!",
+    "changeLanguageTitle": "Change Language",
+    "changeLanguageMessage": "The app needs to restart to apply the new language.",
+    "close": "Close"
+  },
+  "flightSearch": {
+    "title": "Flight Search",
+    "promoTitle": "Amazing deals - Fast -\nTravel anywhere you want",
+    "flightType": "Trip Type",
+    "oneWay": "One Way",
+    "roundTrip": "Round Trip",
+    "flightTypeHint": "One way, Round trip",
+    "fromPlace": "From",
+    "toPlace": "To",
+    "departure": "Departure",
+    "back": "Return",
+    "dateError": "Start date cannot be later than end date",
+    "passengers": "Passengers",
+    "search": "Search",
+    "tripPickerMessage": "Select trip type"
+  },
+  "passengerCategory": {
+    "adult": "Adult",
+    "child": "Child",
+    "infant": "Infant",
+    "adultDes": "Above 18 years",
+    "childDes": "Between 2–12 years",
+    "infantDes": "Between 0–2 years"
+  },
+  "passengersSelector": {
+    "title": "Select Passengers",
+    "promoTitle": "Tell us how many\nare traveling,\nwe’ll take care of the rest.",
+    "moreInfantsThenAdultsError": "Infants travel only on adults' laps, so at least as many adults as infants are required.",
+    "oneAdultIsRequredError": "Selecting 1 adult is mandatory",
+    "childrenAloneError": "Children cannot travel alone.",
+    "moreThen9Error": "The total number of seated passengers (adults and children) cannot exceed 9."
+  }
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="_passengersSelector_moreThen9Error_1h7L4H">"Az ülő utasok (felnőttek és gyermekek) teljes száma nem haladhatja meg a 9-et."</string>
+  <string name="_passengersSelector_childrenAloneError_KEHxI">"A gyerekek nem utazhatnak egyedül."</string>
+  <string name="_passengersSelector_oneAdultIsRequredError_1Ox3ax">"1 felnőtt kiválasztása kötelező"</string>
+  <string name="_passengersSelector_moreInfantsThenAdultsError_1fcqyA">"A csecsők csak a felnőttek ölében utazhatnak, így legalább annyi felnőtt szükséges, mint csecsemő."</string>
+  <string name="_passengersSelector_promoTitle_uFRFi">"Adja meg, hogy\nhányan szeretnének utazni,\ntöbbit intézzük mi."</string>
+  <string name="_passengersSelector_title_ZMurpg">"Utasok kiválasztása"</string>
+  <string name="_passengerCategory_infantDes_1HNN9X">"0–2 év között"</string>
+  <string name="_passengerCategory_childDes_1uf8Ko">"2–12 év között"</string>
+  <string name="_passengerCategory_adultDes_Z1kPCAE">"18 év felett"</string>
+  <string name="_passengerCategory_infant_Zal8nK">"Csecsemő"</string>
+  <string name="_passengerCategory_child_tgCrA">"Gyerek"</string>
+  <string name="_passengerCategory_adult_t8191">"Felnőtt"</string>
+  <string name="_flightSearch_tripPickerMessage_Z22xib0">"Válassz utazási típust"</string>
+  <string name="_flightSearch_search_ZbkxsK">"Keresés"</string>
+  <string name="_flightSearch_passengers_1S9ULQ">"Utasok"</string>
+  <string name="_flightSearch_dateError_Z1gPmlV">"Kezdeti dátum nem lehet később, mint a végdátum"</string>
+  <string name="_flightSearch_back_Z1GkLUF">"Vissza"</string>
+  <string name="_flightSearch_departure_Z2ocU5H">"Indulás"</string>
+  <string name="_flightSearch_toPlace_GnuUj">"Hova"</string>
+  <string name="_flightSearch_fromPlace_ZRjBcc">"Honnan"</string>
+  <string name="_flightSearch_flightTypeHint_103OSb">"Egyirányú, Oda-vissza"</string>
+  <string name="_flightSearch_roundTrip_ZWua1s">"Oda-Vissza"</string>
+  <string name="_flightSearch_oneWay_Zj02sw">"Egyirányú"</string>
+  <string name="_flightSearch_flightType_Z1BdnC0">"Utazás típusa"</string>
+  <string name="_flightSearch_promoTitle_26NKD1">"Szuper árak - Gyors -\nUtazz ahova csak szeretnél"</string>
+  <string name="_flightSearch_title_Z1DlxG6">"Járat Keresés"</string>
+  <string name="_settings_close_1ySOF9">"Bezárás!"</string>
+  <string name="_settings_changeLanguageMessage_Z1JmQXN">"Az alkalmazásnak újra kell indulnia, hogy megváltozzon a nyelv."</string>
+  <string name="_settings_changeLanguageTitle_24fn85">"Nyelv megváltoztatás"</string>
+  <string name="_settings_chooseLanguage_ZQOBVS">"Válaszd ki a nyelvet!"</string>
+  <string name="_settings_logout_Z1Nkn9B">"Kijelentkezés"</string>
+  <string name="_settings_enablePushNotifications_1r9id">"Push értesítések engedélyezése"</string>
+  <string name="_settings_currencySelector_Z2be4Pv">"Pénznem választó"</string>
+  <string name="_settings_defaultDeparturePoint_YlCuh">"Alapértelmezett indulási hely"</string>
+  <string name="_settings_switchlanguage_wefrr">"Nyelvválasztó"</string>
+  <string name="_settings_title_1A1C8V">"Beállítások"</string>
+  <string name="_general_submit_yls2t">"Alkalmaz"</string>
+  <string name="_general_cancel_Z2smY">"Mégse"</string>
+  <string name="_app_name_1k3Sbz">"Repülőjegy foglaló"</string>
+  <string name="app_name">"Repülőjegy foglaló"</string>
+  <string name="title_activity_kimera">"Repülőjegy foglaló"</string>
+</resources>

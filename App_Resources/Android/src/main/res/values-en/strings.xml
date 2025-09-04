@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="_passengersSelector_moreThen9Error_1h7L4H">"The total number of seated passengers (adults and children) cannot exceed 9."</string>
+  <string name="_passengersSelector_childrenAloneError_KEHxI">"Children cannot travel alone."</string>
+  <string name="_passengersSelector_oneAdultIsRequredError_1Ox3ax">"Selecting 1 adult is mandatory"</string>
+  <string name="_passengersSelector_moreInfantsThenAdultsError_1fcqyA">"Infants travel only on adults\' laps, so at least as many adults as infants are required."</string>
+  <string name="_passengersSelector_promoTitle_uFRFi">"Tell us how many\nare traveling,\nwe’ll take care of the rest."</string>
+  <string name="_passengersSelector_title_ZMurpg">"Select Passengers"</string>
+  <string name="_passengerCategory_infantDes_1HNN9X">"Between 0–2 years"</string>
+  <string name="_passengerCategory_childDes_1uf8Ko">"Between 2–12 years"</string>
+  <string name="_passengerCategory_adultDes_Z1kPCAE">"Above 18 years"</string>
+  <string name="_passengerCategory_infant_Zal8nK">"Infant"</string>
+  <string name="_passengerCategory_child_tgCrA">"Child"</string>
+  <string name="_passengerCategory_adult_t8191">"Adult"</string>
+  <string name="_flightSearch_tripPickerMessage_Z22xib0">"Select trip type"</string>
+  <string name="_flightSearch_search_ZbkxsK">"Search"</string>
+  <string name="_flightSearch_passengers_1S9ULQ">"Passengers"</string>
+  <string name="_flightSearch_dateError_Z1gPmlV">"Start date cannot be later than end date"</string>
+  <string name="_flightSearch_back_Z1GkLUF">"Return"</string>
+  <string name="_flightSearch_departure_Z2ocU5H">"Departure"</string>
+  <string name="_flightSearch_toPlace_GnuUj">"To"</string>
+  <string name="_flightSearch_fromPlace_ZRjBcc">"From"</string>
+  <string name="_flightSearch_flightTypeHint_103OSb">"One way, Round trip"</string>
+  <string name="_flightSearch_roundTrip_ZWua1s">"Round Trip"</string>
+  <string name="_flightSearch_oneWay_Zj02sw">"One Way"</string>
+  <string name="_flightSearch_flightType_Z1BdnC0">"Trip Type"</string>
+  <string name="_flightSearch_promoTitle_26NKD1">"Amazing deals - Fast -\nTravel anywhere you want"</string>
+  <string name="_flightSearch_title_Z1DlxG6">"Flight Search"</string>
+  <string name="_settings_close_1ySOF9">"Close"</string>
+  <string name="_settings_changeLanguageMessage_Z1JmQXN">"The app needs to restart to apply the new language."</string>
+  <string name="_settings_changeLanguageTitle_24fn85">"Change Language"</string>
+  <string name="_settings_chooseLanguage_ZQOBVS">"Choose a language!"</string>
+  <string name="_settings_logout_Z1Nkn9B">"Log Out"</string>
+  <string name="_settings_enablePushNotifications_1r9id">"Enable Push Notifications"</string>
+  <string name="_settings_currencySelector_Z2be4Pv">"Currency Selector"</string>
+  <string name="_settings_defaultDeparturePoint_YlCuh">"Default Departure Point"</string>
+  <string name="_settings_switchlanguage_wefrr">"Language Selector"</string>
+  <string name="_settings_title_1A1C8V">"Settings"</string>
+  <string name="_general_submit_yls2t">"Submit"</string>
+  <string name="_general_cancel_Z2smY">"Cancel"</string>
+  <string name="_app_name_1k3Sbz">"Flight booking"</string>
+  <string name="app_name">"Flight booking"</string>
+  <string name="title_activity_kimera">"Flight booking"</string>
+</resources>

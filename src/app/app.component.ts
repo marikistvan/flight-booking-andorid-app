@@ -6,7 +6,7 @@ import { Application } from '@nativescript/core'
 import "@nativescript/firebase-auth";
 import "@nativescript/firebase-firestore";
 import { AuthService } from './services/auth.service';
-import { HomeComponent } from './pages/home/home.component'
+import { androidLaunchEventLocalizationHandler } from '@nativescript/localize';
 
 @Component({
   selector: 'ns-app',
@@ -26,6 +26,9 @@ export class AppComponent implements OnInit {
     this._sideDrawerTransition = new SlideInOnTopTransition();
     if (!this.authService.currentUser) {
       this.routerExtensions.navigate(['register']);
+    }
+    if (Application.android) {
+      androidLaunchEventLocalizationHandler();
     }
   }
 
