@@ -1,11 +1,11 @@
 <StackLayout class="page">
   <GridLayout columns="auto, *" class="action-bar">
-    <Label text="Utasok kiválasztása" colspan="2" class="action-bar-title"></Label>
+    <Label text="{{'passengersSelector.title' | L}}" colspan="2" class="action-bar-title"></Label>
     <Image src="~/assets/icons/right-arrow.png" (tap)="onCancel()" class="fas btn-back-rotate-black"></Image>
   </GridLayout>
   <StackLayout class="promo-title-container">
     <Label textWrap="true" class="promo-title"
-      text="Adja meg, hogy&#10;hányan szeretnének utazni,&#10;többit intézzük mi."></Label>
+      text="{{'passengersSelector.promoTitle' | L}}"></Label>
 
   </StackLayout>
   <GridLayout [formGroup]="passengersFormGroup" class="flight-passengers-form" columns="*,50px,30px,50px"
@@ -21,21 +21,21 @@
     }
     @if(isInfantsNumberMoreThenAdults){
     <Label textWrap="true" colspan="4" row="8"
-      text="A csecsők csak a felnőttek ölében utazhatnak, így legalább annyi felnőtt szükséges, mint csecsemő."
+      text="{{'passengersSelector.moreInfantsThenAdultsError' | L}}"
       class="fs-15 text-danger"></Label>
     }
     @if(isPassengerNumberZero){
-    <Label colspan="4" row="8" text="1 felnőtt kiválasztása kötelező" class="fs-15 text-danger"></Label>
+    <Label colspan="4" row="8" text="{{'passengersSelector.oneAdultIsRequredError' | L}}" class="fs-15 text-danger"></Label>
     }
     @if(isOnlyChild){
-    <Label textWrap="true" colspan="4" row="8" text="A gyerekek nem utazhatnak egyedül."
+    <Label textWrap="true" colspan="4" row="8" text="{{'passengersSelector.childrenAloneError' | L}}"
       class="fs-15 text-danger"></Label>
     }
     @if(isTotalNumberOfSeatedTravelersMoreThenNine){
     <Label textWrap="true" colspan="4" row="9"
-      text="Az ülő utasok (felnőttek és gyermekek) teljes száma nem haladhatja meg a 9-et."
+      text="{{'passengersSelector.moreThen9Error' | L}}"
       class="fs-15 text-danger"></Label>
     }
-    <Button colspan="4" row="10" text="Alkalmaz" class="btn-primary" (tap)="submit()"></Button>
+    <Button colspan="4" row="10" text="{{'general.submit' | L}}" class="btn-primary" (tap)="submit()"></Button>
   </GridLayout>
 </StackLayout>

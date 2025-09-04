@@ -1,9 +1,10 @@
-import { Component, OnInit, signal } from "@angular/core";
+import { ChangeDetectorRef, Component, OnInit, signal } from "@angular/core";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { action, Application, Dialogs, ObservableArray } from "@nativescript/core";
 import { FormControl, FormBuilder, FormGroup } from "@angular/forms";
 import { PassengerCategory } from '../../../models/passenger-category';
 import { ModalDialogParams } from "@nativescript/angular";
+import { localize } from "@nativescript/localize";
 @Component({
   selector: "ns-flightSearchPassengersSelectorComponent",
   templateUrl: "flightSearchPassengersSelector.component.html",
@@ -18,13 +19,19 @@ export class FlightSearchPassengersSelectorComponent implements OnInit {
   isTotalNumberOfSeatedTravelersMoreThenNine: boolean;
 
   passengerCategories: PassengerCategory[] = [
-    { id: 'adult', ageCategory: 'Felnőtt', description: '12 év felett', count: 1 },
-    { id: 'child', ageCategory: 'Gyerek', description: '2–12 év között', count: 0 },
-    { id: 'infant', ageCategory: 'Csecsemő', description: '0–2 év között', count: 0 },
+    { id: 'adult', ageCategory: localize('passengerCategory.adult'), description: localize('passengerCategory.adultDes'), count: 1 },
+    { id: 'child', ageCategory: localize('passengerCategory.child'), description: localize('passengerCategory.childDes'), count: 0 },
+    { id: 'infant', ageCategory: localize('passengerCategory.infant'), description: localize('passengerCategory.infantDes'), count: 0 },
   ];
   ngOnInit(): void {
   }
-  constructor(private formBuilder: FormBuilder, private modalDialogParams: ModalDialogParams) {
+  constructor
+    (
+      private formBuilder: FormBuilder,
+      private modalDialogParams: ModalDialogParams,
+      private readonly changeDetectorRef: ChangeDetectorRef
+    ) {
+    setTimeout(() => this.changeDetectorRef.detectChanges(), 0);
     const receivePassengersCategories: PassengerCategory[] = modalDialogParams.context;
     for (let i = 0; i < receivePassengersCategories.length; i++) {
       this.passengerCategories[i].count = receivePassengersCategories[i].count;
