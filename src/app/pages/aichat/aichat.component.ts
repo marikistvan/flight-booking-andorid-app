@@ -8,6 +8,7 @@ import { environment } from "~/environments/environment";
 import { Chat } from "../../models/chat";
 import { MessageHistory } from '~/app/models/messageHistory'
 import { Message } from "~/app/models/message";
+import { localize } from "@nativescript/localize";
 
 @Component({
   selector: "ns-aichat",
@@ -64,7 +65,7 @@ export class AiChatComponent implements OnInit, OnDestroy {
       this.chatService.saveMessage(this.chatResponse, true);
     } catch (error) {
       console.error("Hiba a válasz lekérésekor:", error);
-      this.messageHistory.update(history => [...history, { role: "assistant", content: 'Sajnálom, hiba történt a válasz lekérésekor.', timestamp: new Date() }]);
+      this.messageHistory.update(history => [...history, { role: "assistant", content: localize('aiChat.chatError'), timestamp: new Date() }]);
     }
   }
 

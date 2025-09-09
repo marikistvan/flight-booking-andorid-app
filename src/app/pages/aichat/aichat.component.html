@@ -23,6 +23,6 @@
   <GridLayout row="1" rows="*" columns="2*,*" orientation="horizontal" class="input-bar">
     <TextView row="0" col="0" [(ngModel)]="newMessage" hint="Írj üzenetet..." class="input"
       (textChange)="onTextChange($event)" #messageInput></TextView>
-    <Button text="Küldés" row="0" col="1" (tap)="sendMessage()" class="send-btn"></Button>
+    <Button text="{{'aiChat.send' | L}}" row="0" col="1" (tap)="sendMessage()" class="send-btn"></Button>
   </GridLayout>
 </GridLayout>
