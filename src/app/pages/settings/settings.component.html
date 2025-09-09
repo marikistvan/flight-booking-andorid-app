@@ -13,7 +13,7 @@
       <GridLayout columns="*, auto" class="input-grid w-100-pc" (tap)="setAppLanguage()">
         <Image col="1" src="~/assets/icons/down-arrow.png" class="img-select-arrow">
         </Image>
-        <TextField col="0" editable="false" class="input-text-field" text="Hungary" (tap)="setAppLanguage()"></TextField>
+        <TextField col="0" editable="false" class="input-text-field" [text]="actualLanguage()" (tap)="setAppLanguage()"></TextField>
       </GridLayout>
 
       <Label text="{{'settings.defaultDeparturePoint' | L}}" class="form-label"></Label>

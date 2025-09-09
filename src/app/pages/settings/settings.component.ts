@@ -4,15 +4,17 @@ import { action, Application, Dialogs, Utils } from '@nativescript/core'
 import { AuthService } from '~/app/services/auth.service';
 import { overrideLocale } from '@nativescript/localize';
 import { localize } from "@nativescript/localize";
+import { Device } from '@nativescript/core';
+import { ApplicationSettings } from '@nativescript/core';
 
 @Component({
-
   selector: 'Settings',
   templateUrl: './settings.component.html',
   styleUrls: ["./settings.component.scss"],
 })
 export class SettingsComponent implements OnInit {
   languages=signal(['Hungary','English']);
+  actualLanguage=signal('');
   languageDict: Record<string, string> = {
     'Hungary':'hu',
     'English':'en'
@@ -21,7 +23,15 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    const appLang=ApplicationSettings.getString('__app__language__');
+    if(appLang!==null || appLang !==undefined){
+      const language = (Object.keys(this.languageDict) as Array<string>).find(key => this.languageDict[key] === appLang);
+      this.actualLanguage.set(language);
+    }else{
+      const deviceLan=Device.language.split('-')[0];
+      const language = (Object.keys(this.languageDict) as Array<string>).find(key => this.languageDict[key] === deviceLan);
+      this.actualLanguage.set(language ?? '');
+    }
   }
 
   onDrawerButtonTap(): void {
