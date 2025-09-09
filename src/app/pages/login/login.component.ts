@@ -9,7 +9,8 @@ import { AuthService } from "~/app/services/auth.service";
 import { CommonModule } from "@angular/common";
 import { registerElement } from '@nativescript/angular';
 import { GoogleSignin } from '@nativescript/google-signin';
-
+import { localize } from "@nativescript/localize";
+import { NativeScriptLocalizeModule } from "@nativescript/localize/angular";
 registerElement(
   'GoogleSignInButton',
   () => require('@nativescript/google-signin').GoogleSignInButton,
@@ -24,7 +25,8 @@ registerElement(
     CommonModule,
     NativeScriptCommonModule,
     NativeScriptFormsModule,
-    FormsModule
+    FormsModule,
+    NativeScriptLocalizeModule
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })
@@ -50,9 +52,9 @@ export class LoginComponent {
     }).catch((error) => {
       console.log('hiba történt google bejelentkezés során: ' + error);
       Dialogs.alert({
-        title: 'Hiba!',
-        message: 'Hiba történt, próbálja meg később!',
-        okButtonText: 'OK',
+        title: localize('general.errorTitle'),
+        message: localize('general.errorOccured'),
+        okButtonText: localize('general.ok'),
       });
     })
   }
