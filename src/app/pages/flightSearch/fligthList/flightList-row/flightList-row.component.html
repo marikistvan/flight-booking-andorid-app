@@ -12,7 +12,7 @@
         </StackLayout>
 
         <Label col="1" row="2" [text]="flight.itineraries[0].segments[0].departure.iataCode" class="t-iataCode"></Label>
-        <Label col="2" row="2" [text]="flight.itineraries[0].segments.length-1 + ' átszállás'"
+        <Label col="2" row="2" [text]="flight.itineraries[0].segments.length-1 + ' '+stapOver()"
             class="t-transfer"></Label>
         <Label col="3" row="2"
             [text]="flight.itineraries[0].segments[flight.itineraries[0].segments.length-1].arrival.iataCode"
@@ -33,7 +33,7 @@
         </StackLayout>
 
         <Label col="1" row="6" [text]="flight.itineraries[1].segments[0].departure.iataCode" class="t-iataCode"></Label>
-        <Label col="2" row="6" [text]="flight.itineraries[1].segments.length-1 + ' átszállás'"
+        <Label col="2" row="6" [text]="flight.itineraries[1].segments.length-1 + ' '+stapOver()"
             class="t-transfer"></Label>
         <Label col="3" row="6"
             [text]="flight.itineraries[1].segments[flight.itineraries[0].segments.length-1].arrival.iataCode"
@@ -47,7 +47,7 @@
             @if(flight.itineraries.length===2){
 
             <Label col="0" row="0" [text]="halfPrice + ' ' +flight.price.currency" class="flight-price"></Label>
-            <Label col="0" row="1" [text]="'Összesen:'+flight.price.total+' '+flight.price.currency"
+            <Label col="0" row="1" [text]="summary()+flight.price.total+' '+flight.price.currency"
                 class="full-price"></Label>
             }@else{
             <Label col="0" row="0" rowSpan="2" [text]="flight.price.total+' '+flight.price.currency"
@@ -56,7 +56,7 @@
             @if(isSearchStarted()){
             <ActivityIndicator col="1" row="0" rowSpan="2" busy="true" class="search-activity" />
             }@else{
-            <Button col="1" row="0" rowSpan="2" text="Kiválasztás" class="btn-submit" (tap)="select()"></Button>
+            <Button col="1" row="0" rowSpan="2" text="{{'flightListRow.choose' | L}}" class="btn-submit" (tap)="select()"></Button>
             }
         </Gridlayout>
 
