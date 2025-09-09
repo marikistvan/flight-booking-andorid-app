@@ -8,7 +8,7 @@ import { ActivatedRoute } from "@angular/router";
 import { FlightSearchStateService } from "~/app/services/flight-search-state.service";
 import { CommonModule } from "@angular/common";
 import { PassengerDetailsComponent } from "./passenger-details/passenger-details.component";
-
+import { NativeScriptLocalizeModule } from "@nativescript/localize/angular";
 @Component({
   selector: "ns-flight-summary",
   standalone: true,
@@ -18,7 +18,8 @@ import { PassengerDetailsComponent } from "./passenger-details/passenger-details
     CommonModule,
     NativeScriptCommonModule,
     PassengerDetailsComponent,
-    FlightDetailsComponent
+    FlightDetailsComponent,
+    NativeScriptLocalizeModule
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })
