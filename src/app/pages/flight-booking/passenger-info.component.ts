@@ -9,7 +9,8 @@ import { firstValueFrom } from "rxjs";
 import { CommonModule } from "@angular/common";
 import { FlightSearchStateService } from "~/app/services/flight-search-state.service";
 import { ActivatedRoute } from "@angular/router";
-
+import { NativeScriptLocalizeModule } from "@nativescript/localize/angular";
+import { localize } from "@nativescript/localize";
 @Component({
   selector: "ns-passenger-info",
   standalone: true,
@@ -18,6 +19,7 @@ import { ActivatedRoute } from "@angular/router";
   imports: [
     CommonModule,
     NativeScriptCommonModule,
+    NativeScriptLocalizeModule
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })
@@ -79,16 +81,16 @@ export class PassengerInfoComponent implements OnInit {
     let index = 0;
     this.flightOffer.travelerPricings.forEach(element => {
       if (element.travelerType === 'ADULT') {
-        this.passengersType[index++] = 'felnőtt';
+        this.passengersType[index++] = localize('passengerCategory.adult');
       } else if (element.travelerType === 'CHILD') {
-        this.passengersType[index++] = 'gyerkmek';
+        this.passengersType[index++] = localize('passengerCategory.child');
       } else {
-        this.passengersType[index++] = 'csecsemő';
+        this.passengersType[index++] = localize('passengerCategory.infant');
       }
     });
   }
   async setPassenger(id: string) {
-    const title = `${id}. utas (${this.passengersType[Number(id) - 1]})`;
+    const title = `${id} ${localize('passengerInfo.passenger')} (${this.passengersType[Number(id) - 1]})`;
     const passenger: Passenger = this.passengers[Number(id) - 1];
     let arrivalSeatCount: number | undefined = undefined;
 
@@ -134,13 +136,13 @@ export class PassengerInfoComponent implements OnInit {
       this.isButtonPressed.set(false);
       console.error("SeatMap API hiba:", err);
 
-      let userMessage = "Ismeretlen hiba történt. Kérjük, próbálja újra később.";
+      let userMessage = localize('general.errorOccured');
       if (err?.error?.code) {
         userMessage = this.amadeusService.handleApiError(err);
       } else if (err.status === 404) {
-        userMessage = "A járat ülésrendje nem található.";
+        userMessage = localize('passengerInfo.notFoundSeatMap');
       } else if (err.status === 500) {
-        userMessage = "Szerverhiba történt. Kérjük, próbálja újra később.";
+        userMessage = localize('passengerInfo.serverError');
       }
 
       alert(userMessage);

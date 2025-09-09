@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="_register_other_Z1OzfLj">"Egyéb"</string>
+  <string name="_register_man_Z21pGoT">"Férfi"</string>
+  <string name="_register_woman_Z1O3l11">"Nő"</string>
+  <string name="_home_ok_1hTRsx">"Ok"</string>
+  <string name="_home_errorTitle_NSesC">"Hiba!"</string>
+  <string name="_home_errorOccured_2qXWlI">"Hiba történt, próbálja meg később!"</string>
+  <string name="_home_tryTheApp_AJD8g">"Kipróbálom az appot"</string>
+  <string name="_home_promoTitle3_15wD7L">"Böngéssz simán."</string>
+  <string name="_home_login_Zchpqi">"Bejelentkezés"</string>
+  <string name="_home_isHaveAcc_AwJBS">"Már van felhasználói fiókod?"</string>
+  <string name="_home_createAcc_1a3mYu">"Fiók létrehozása"</string>
+  <string name="_home_registerWithGoogle_ZqbOc0">"Regisztráció a Googleval"</string>
+  <string name="_home_promoTitle2_15wD7K">"Csatlakozz még ma."</string>
+  <string name="_home_promoTitle1_15wD7J">"Tapasztald meg a teljes kényelmet"</string>
+  <string name="_flightTicketRow_seat_15mk6z">"Ülés:"</string>
+  <string name="_flightTicketList_title_Z151ICr">"Jegyeid"</string>
+  <string name="_flightTicket_passengerName_2m7toz">"Utas neve:"</string>
+  <string name="_flightTicket_flight_2eVsqf">"Járat"</string>
+  <string name="_flightTicket_seat_ZCeJF3">"ÜLÉS"</string>
+  <string name="_flightListRow_choose_1xUuA1">"Kiválasztás"</string>
+  <string name="_flightListRow_stepOver_Z3IM9W">"átszállás"</string>
+  <string name="_flightList_noDataMessage_2444Tb">"Nincs a keresési feltételeknek megfelelő adat."</string>
+  <string name="_destinationSelector_searchHint_1F6WEq">"Keresés..."</string>
+  <string name="_destinationSelector_toPlace_Z1IThRL">"Érkezési hely:"</string>
+  <string name="_destinationSelector_fromPlace_27P16R">"Indulási hely:"</string>
+  <string name="_destinationSelector_toTitle_Z1IDk9f">"Érkezési hely kiválasztása"</string>
+  <string name="_destinationSelector_fromTitle_285XPo">"Indulási hely kiválasztása"</string>
   <string name="_passengersSelector_moreThen9Error_1h7L4H">"Az ülő utasok (felnőttek és gyermekek) teljes száma nem haladhatja meg a 9-et."</string>
   <string name="_passengersSelector_childrenAloneError_KEHxI">"A gyerekek nem utazhatnak egyedül."</string>
   <string name="_passengersSelector_oneAdultIsRequredError_1Ox3ax">"1 felnőtt kiválasztása kötelező"</string>
@@ -36,6 +63,9 @@
   <string name="_settings_defaultDeparturePoint_YlCuh">"Alapértelmezett indulási hely"</string>
   <string name="_settings_switchlanguage_wefrr">"Nyelvválasztó"</string>
   <string name="_settings_title_1A1C8V">"Beállítások"</string>
+  <string name="_general_summary_2d2wQr">"Összesen:"</string>
+  <string name="_general_minute_lask3">"perc"</string>
+  <string name="_general_hour_1GVTDs">"óra"</string>
   <string name="_general_submit_yls2t">"Alkalmaz"</string>
   <string name="_general_cancel_Z2smY">"Mégse"</string>
   <string name="_app_name_1k3Sbz">"Repülőjegy foglaló"</string>

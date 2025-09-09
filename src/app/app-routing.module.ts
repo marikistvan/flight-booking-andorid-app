@@ -11,7 +11,7 @@ import { FlightTicketListComponent } from './pages/flight-ticket-list/flight-tic
 import { SettingsComponent } from './pages/settings/settings.component';
 
 const routes: Routes = [
-//  { path: '', redirectTo: '/profile', pathMatch: 'full' },
+  { path: '', redirectTo: '/profile', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,

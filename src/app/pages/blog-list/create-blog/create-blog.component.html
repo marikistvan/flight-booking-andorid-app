@@ -1,30 +1,30 @@
 <StackLayout class="page">
   <GridLayout columns="auto, *" class="action-bar">
-    <Label text="Blog létrehozás" colspan="2" class="action-bar-title"></Label>
+    <Label text="{{'createBlog.title' | L}}" colspan="2" class="action-bar-title"></Label>
     <Image src="~/assets/icons/right-arrow.png" (tap)="onCancel()" class="fas btn-back-rotate-black"></Image>
   </GridLayout>
 
   <GridLayout [formGroup]="blogFormGroup" class="blog-create-form" columns="*,auto"
     rows="auto,auto,auto,auto,auto,auto,auto">
 
-    <Label col="0" colSpan="2" row="0" text="Cím" class="first-form-label"></Label>
-    <TextField col="0" colspan="2" row="1" class="input-field" formControlName="title" hint="Cím"></TextField>
+    <Label col="0" colSpan="2" row="0" text="{{'createBlog.blogTitle' | L}}" class="first-form-label"></Label>
+    <TextField col="0" colspan="2" row="1" class="input-field" formControlName="title" hint="{{'createBlog.blogTitle' | L}}"></TextField>
 
-    <Label col="0" colSpan="2" row="2" text="Leírás" class="form-label"></Label>
-    <TextView col="0" colspan="2" row="3" class="input-field height-100" formControlName="content" hint="Leírás">
+    <Label col="0" colSpan="2" row="2" text="{{'createBlog.description' | L}}" class="form-label"></Label>
+    <TextView col="0" colspan="2" row="3" class="input-field height-100" formControlName="content" hint="{{'createBlog.description' | L}}">
     </TextView>
 
-    <Label col="0" colSpan="2" row="4" text="Fotó feltöltése" class="form-label"></Label>
+    <Label col="0" colSpan="2" row="4" text="{{'createBlog.uploadPhoto' | L}}" class="form-label"></Label>
     <GridLayout col="0" row="5" columns="30, auto" class="photo-field-grid">
       <Image col="0" src="~/assets/icons/picture.png" class="photo-icon"></Image>
-      <TextField class=" select-picture-field" col="1" editable="false" formControlName="photo" hint="Fotó feltöltése">
+      <TextField class=" select-picture-field" col="1" editable="false" formControlName="photo" hint="{{'createBlog.uploadPhoto' | L}}">
       </TextField>
     </GridLayout>
     @if (mode() === 'edit'){
-    <Button colspan="4" row="6" text="Alkalmaz" class="btn-primary" (tap)="submitEdit()"></Button>
+    <Button colspan="4" row="6" text="{{'general.submit' | L}}" class="btn-primary" (tap)="submitEdit()"></Button>
     }
     @else {
-    <Button colspan="4" row="6" text="Alkalmaz" class="btn-primary" (tap)="submitCreate()"></Button>
+    <Button colspan="4" row="6" text="{{'general.submit' | L}}" class="btn-primary" (tap)="submitCreate()"></Button>
     }
 
   </GridLayout>

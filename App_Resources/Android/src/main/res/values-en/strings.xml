@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="_flightTicketRow_seat_15mk6z">"Seat:"</string>
+  <string name="_flightTicketList_title_Z151ICr">"Your Tickets"</string>
+  <string name="_flightTicket_passengerName_2m7toz">"Passenger Name:"</string>
+  <string name="_flightTicket_flight_2eVsqf">"Flight"</string>
+  <string name="_flightTicket_seat_ZCeJF3">"SEAT"</string>
+  <string name="_flightListRow_choose_1xUuA1">"Select"</string>
+  <string name="_flightListRow_stepOver_Z3IM9W">"transfer"</string>
+  <string name="_flightList_noDataMessage_2444Tb">"No data matches your search criteria."</string>
+  <string name="_destinationSelector_searchHint_1F6WEq">"Search..."</string>
+  <string name="_destinationSelector_toPlace_Z1IThRL">"Arrival:"</string>
+  <string name="_destinationSelector_fromPlace_27P16R">"Departure:"</string>
+  <string name="_destinationSelector_toTitle_Z1IDk9f">"Select Arrival"</string>
+  <string name="_destinationSelector_fromTitle_285XPo">"Select Departure"</string>
   <string name="_passengersSelector_moreThen9Error_1h7L4H">"The total number of seated passengers (adults and children) cannot exceed 9."</string>
   <string name="_passengersSelector_childrenAloneError_KEHxI">"Children cannot travel alone."</string>
   <string name="_passengersSelector_oneAdultIsRequredError_1Ox3ax">"Selecting 1 adult is mandatory"</string>
@@ -41,4 +54,21 @@
   <string name="_app_name_1k3Sbz">"Flight booking"</string>
   <string name="app_name">"Flight booking"</string>
   <string name="title_activity_kimera">"Flight booking"</string>
+  <string name="_register_other_Z1OzfLj">"Egyéb"</string>
+  <string name="_register_man_Z21pGoT">"Férfi"</string>
+  <string name="_register_woman_Z1O3l11">"Nő"</string>
+  <string name="_home_ok_1hTRsx">"Ok"</string>
+  <string name="_home_errorTitle_NSesC">"Hiba!"</string>
+  <string name="_home_errorOccured_2qXWlI">"Hiba történt, próbálja meg később!"</string>
+  <string name="_home_tryTheApp_AJD8g">"Kipróbálom az appot"</string>
+  <string name="_home_promoTitle3_15wD7L">"Böngéssz simán."</string>
+  <string name="_home_login_Zchpqi">"Bejelentkezés"</string>
+  <string name="_home_isHaveAcc_AwJBS">"Már van felhasználói fiókod?"</string>
+  <string name="_home_createAcc_1a3mYu">"Fiók létrehozása"</string>
+  <string name="_home_registerWithGoogle_ZqbOc0">"Regisztráció a Googleval"</string>
+  <string name="_home_promoTitle2_15wD7K">"Csatlakozz még ma."</string>
+  <string name="_home_promoTitle1_15wD7J">"Tapasztald meg a teljes kényelmet"</string>
+  <string name="_general_summary_2d2wQr">"Összesen:"</string>
+  <string name="_general_minute_lask3">"perc"</string>
+  <string name="_general_hour_1GVTDs">"óra"</string>
 </resources>

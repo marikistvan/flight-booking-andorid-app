@@ -5,12 +5,17 @@ import '@nativescript/firebase-auth';
 import { RouterExtensions } from '@nativescript/angular';
 import { EmailAuthProvider, GoogleAuthProvider } from '@nativescript/firebase-auth';
 import { GoogleSignin } from '@nativescript/google-signin';
+import { localize } from '@nativescript/localize';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-
+  sexTypeDict: Record<string, string> = {
+    'woman': localize('register.woman'),
+    'man': localize('register.man'),
+    'other': localize('register.other')
+  };
   private auth = firebase().auth();
   private authStatusSub = new BehaviorSubject<any | null>(null);
   private _fullName = signal<string>("");
@@ -161,7 +166,7 @@ export class AuthService {
         const data = doc.data();
         this._firstName.set(data?.firstName ?? '');
         this._lastName.set(data?.lastName ?? '');
-        this._sex.set(data?.genre ?? '');
+        this._sex.set(this.sexTypeDict[data?.genre] ?? '');
         this._bornDate.set(data?.born ?? '');
         this._fullName.set(this._firstName() + ' ' + this._lastName());
       });

@@ -1,6 +1,6 @@
 <ActionBar flat="true" class="action-bar">
   <GridLayout columns="auto, *">
-    <Label text="Utas(ok) adati megadása" colspan="2" class="action-bar-title"></Label>
+    <Label text="{{'passengerInfo.title' | L}}" colspan="2" class="action-bar-title"></Label>
     <Image src="~/assets/icons/right-arrow.png" (tap)="onCancel()" class="fas btn-back-rotate-black"></Image>
   </GridLayout>
 </ActionBar>
@@ -14,10 +14,10 @@
       <StackLayout col="0" [row]="i">
         <Label [text]="passenger.travelerId + '. utas ('+passengersType[i]+')'" class="form-label"></Label>
         @if(passengers[$index].firstName===''){
-        <TextField hint="utas adatai" class="input-field" editable="false" (tap)="setPassenger(passenger.travelerId)">
+        <TextField hint="{{'passengerInfo.title' | L}}" class="input-field" editable="false" (tap)="setPassenger(passenger.travelerId)">
         </TextField>
         }@else {
-        <TextField hint="utas adatai" [text]="passengers[$index].firstName +' '+ passengers[$index].lastName"
+        <TextField hint="{{'passengerInfo.title' | L}}" [text]="passengers[$index].firstName +' '+ passengers[$index].lastName"
           class="input-field" editable="false" (tap)="setPassenger(passenger.travelerId)"></TextField>
         }
       </StackLayout>
@@ -25,7 +25,7 @@
       <GridLayout col="0" [row]="flightOffer.travelerPricings.length" columns="auto, *" (tap)="submit()"
         class="btn-submit-grid">
         <Image col="0" src="~/assets/icons/right-arrow.png" class="right-arrow-icon"></Image>
-        <Label col="1" text="Következő" class="btn-submit-label"></Label>
+        <Label col="1" text="{{'passengerInfo.next' | L}}" class="btn-submit-label"></Label>
       </GridLayout>
     </GridLayout>
     }
