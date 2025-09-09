@@ -1,20 +1,20 @@
 <StackLayout class="page">
   <GridLayout columns="auto, *" class="action-bar">
     @if(context==='from'){
-    <Label text="Indulási hely kiválasztása" colspan="2" class="action-bar-title"></Label>
+    <Label text="{{'destinationSelector.fromTitle' | L}}" colspan="2" class="action-bar-title"></Label>
     }@else {
-    <Label text="Érkezési hely kiválasztása" colspan="2" class="action-bar-title"></Label>
+    <Label text="{{'destinationSelector.toTitle' | L}}" colspan="2" class="action-bar-title"></Label>
     }
     <Image src="~/assets/icons/right-arrow.png" (tap)="onCancel()" class="fas btn-back-rotate-black"></Image>
   </GridLayout>
   <GridLayout rows="auto" columns="70px,*,20px" class="search-container">
     @if(context==='from'){
-    <Label textWrap="true" text="Indulási hely:" row="0" col="0" class="label"></Label>
+    <Label textWrap="true" text="{{'destinationSelector.fromPlace' | L}}" row="0" col="0" class="label"></Label>
     }@else {
-    <Label textWrap="true" text="Érkezési hely:" row="0" col="0" class="label"></Label>
+    <Label textWrap="true" text="{{'destinationSelector.toPlace' | L}}" row="0" col="0" class="label"></Label>
     }
 
-    <TextField row="0" col="1" [text]="searchTerm()" (textChange)="onSearchTextChanged($event)" hint="Keresés..."
+    <TextField row="0" col="1" [text]="searchTerm()" (textChange)="onSearchTextChanged($event)" hint="{{'destinationSelector.searchHint' | L}}"
       class="search-bar" autocorrect="false">
     </TextField>
     <Image src="~/assets/icons/exit.png" row="0" col="2" class="btn-exit-sm" (tap)="onDelete()"></Image>

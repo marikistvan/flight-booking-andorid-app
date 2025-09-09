@@ -2,6 +2,7 @@ import { DatePipe } from "@angular/common";
 import { Component, Input, signal, Signal } from "@angular/core";
 import { Booking } from '~/app/models/booking';
 import { TicketLabel } from "~/app/models/ticket-label";
+import { localize } from "@nativescript/localize";
 @Component({
   providers: [DatePipe],
   selector: "ns-flight-ticket-row",
@@ -10,6 +11,7 @@ import { TicketLabel } from "~/app/models/ticket-label";
 })
 
 export class FlightTicketRowComponent {
+  seat=localize('flightTicketRow.seat');
   @Input({ required: true }) ticket: TicketLabel;
   constructor(public datePipe:DatePipe) {
   }

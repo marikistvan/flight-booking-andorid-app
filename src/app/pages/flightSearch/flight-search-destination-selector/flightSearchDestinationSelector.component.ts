@@ -1,13 +1,8 @@
-import { Component, OnInit, signal } from "@angular/core";
-import { RadSideDrawer } from "nativescript-ui-sidedrawer";
-import { action, Application, Dialogs, ItemEventData, ObservableArray, TextField } from "@nativescript/core";
-import { ModalDialogOptions, ModalDialogParams, RouterExtensions } from "@nativescript/angular";
-import { ModalDialogService } from "@nativescript/angular";
-import { AuthService } from "~/app/services/auth.service";
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { ViewContainerRef } from "@angular/core";
+import { ChangeDetectorRef, Component, OnInit, signal } from "@angular/core";
+import { ItemEventData, TextField } from "@nativescript/core";
+import { ModalDialogParams } from "@nativescript/angular";
 import { AmadeusService } from "~/app/services/amadeus.service";
-import { Location } from '../../../models/location-response'
+import { Location } from '../../../models/location-response';
 
 @Component({
   selector: "ns-flightSearchDestinationSelectorComponent",
@@ -31,12 +26,19 @@ export class FlightSearchDestinationSelectorComponent implements OnInit {
     },
   ];
   filteredAirports = [...this.airports];
-  constructor(private modalDialogParams: ModalDialogParams, private amadeusService: AmadeusService) {
+  constructor
+    (
+      private modalDialogParams: ModalDialogParams,
+      private amadeusService: AmadeusService,
+      private readonly changeDetectorRef: ChangeDetectorRef
+    ) {
+    setTimeout(() => this.changeDetectorRef.detectChanges(), 0);
     this.context = modalDialogParams.context.type;
   }
-
+  
   ngOnInit(): void {
   }
+
   get locationItems(): Location[] {
     return this.locations();
   }
@@ -62,9 +64,11 @@ export class FlightSearchDestinationSelectorComponent implements OnInit {
   onDelete() {
     this.searchTerm.set('');
   }
+
   onCancel() {
     this.modalDialogParams.closeCallback("");
   }
+
   selectAirport(event: ItemEventData) {
     const index = event.index;
     const selected = this.locationItems[index];
