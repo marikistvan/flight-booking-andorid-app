@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { enableSwipeBackNavigationProperty } from "@nativescript/core/ui/page/page-common";
 import { SeatDetailsModalComponent } from "./seat-details-modal/seat-details-modal.component";
 import { Seatmap } from "~/app/models/seatmap-response";
+import { localize } from "@nativescript/localize";
 
 @Component({
   selector: "ns-select-seat",
@@ -14,6 +15,8 @@ import { Seatmap } from "~/app/models/seatmap-response";
 })
 
 export class SelectSeatComponent implements OnInit, AfterViewInit {
+  choose=localize('selectSeat.choose');
+  yourSeat=localize('selectSeat.yourSeat');
   seats: Seatmap;
   lastName:string;
   firstName:string;
