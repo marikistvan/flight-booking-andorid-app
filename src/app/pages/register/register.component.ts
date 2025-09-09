@@ -12,6 +12,8 @@ import { NativeScriptPickerModule } from "@nativescript/picker/angular";
 import { passwordMatchValidator } from '~/app/validators/password-match.validator';
 import { emailRegexValidator } from '~/app/validators/email-regex.validator';
 import { AuthService } from "~/app/services/auth.service";
+import { NativeScriptLocalizeModule } from "@nativescript/localize/angular";
+import { localize } from "@nativescript/localize";
 
 registerLocaleData(localeHu);
 @Component({
@@ -29,12 +31,17 @@ registerLocaleData(localeHu);
     FormsModule,
     NativeScriptDateTimePickerModule,
     NativeScriptPickerModule,
+    NativeScriptLocalizeModule
   ],
   schemas: [NO_ERRORS_SCHEMA]
 })
 
 export class RegisterComponent implements OnInit {
-  sexType: Array<string> = ['Nő', 'Férfi', 'Egyéb'];
+  sexTypeDict: Record<string, string> = {
+    'woman': localize('register.woman'),
+    'man': localize('register.man'),
+    'other': localize('register.other')
+  };
   isRegisterStarted = signal(false);
   registerFormGroup = new FormGroup({
     email: new FormControl('', {
@@ -108,12 +115,13 @@ export class RegisterComponent implements OnInit {
 
   selectSex() {
     action({
-      message: 'Válaszd ki a nemét.',
-      cancelButtonText: 'Mégse',
-      actions: this.sexType
+      message: localize('register.chooseYourSex'),
+      cancelButtonText: localize('general.cancel'),
+      actions: Object.values(this.sexTypeDict)
     }).then(result => {
-      if (result !== 'Mégse') {
-        this.registerFormGroup.get('sex').setValue(result);
+      if (result !== localize('general.cancel')) {
+        const sex = (Object.keys(this.sexTypeDict) as Array<string>).find(key => this.sexTypeDict[key] === result);
+        this.registerFormGroup.get('sex').setValue(sex);
       }
     });
   }
@@ -141,18 +149,18 @@ export class RegisterComponent implements OnInit {
     }).catch((error) => {
       console.log('hiba történt google regisztrálás során: ' + error);
       Dialogs.alert({
-        title: 'Hiba!',
-        message: 'Hiba történt, próbálja meg később!',
-        okButtonText: 'OK',
+        title: localize('register.errorTitle'),
+        message: localize('register.errorOccured'),
+        okButtonText: localize('register.ok'),
       });
     })
   }
 
   private sendEmailDialogWithNavigate() {
     Dialogs.alert({
-      title: 'Sikeres regisztáricó!',
-      message: 'Küldtünk egy megerősítő emailt, kérjük végezze el, a megerősítést!',
-      okButtonText: 'OK',
+      title: localize('register.registerSuccess'),
+      message: localize('register.emailSent'),
+      okButtonText: localize('register.ok'),
       cancelable: true,
     }).then(() => {
       this.routerExtensions.navigate(['login']);
@@ -163,9 +171,9 @@ export class RegisterComponent implements OnInit {
     this.isRegisterStarted.set(false);
     console.log('hiba történt regisztrálásnál: ' + error);
     Dialogs.alert({
-      title: 'Hiba!',
-      message: 'Kérem próbálja meg később!',
-      okButtonText: 'OK',
+      title: localize('register.errorTitle'),
+      message: localize('register.errorOccured'),
+      okButtonText: localize('register.ok'),
       cancelable: true,
     })
   }

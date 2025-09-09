@@ -1,7 +1,7 @@
 <ActionBar class="action-bar">
   <NavigationButton visibility="hidden"></NavigationButton>
   <GridLayout columns="50, *">
-    <Label class="action-bar-title" text="Regisztráció" colSpan="2"></Label>
+    <Label class="action-bar-title" text="{{'register.title' | L}}" colSpan="2"></Label>
     <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
   </GridLayout>
 </ActionBar>
@@ -15,52 +15,52 @@
       <GridLayout [formGroup]="registerFormGroup" class="register-form" columns="*,5px,*"
         rows="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto,auto">
 
-        <Label col="0" colSpan="3" row="0" text="E-mail" class="form-first-label"></Label>
+        <Label col="0" colSpan="3" row="0" text="{{'register.email' | L}}" class="form-first-label"></Label>
 
         <TextField col="0" colspan="3" row="1" class="input-field" formControlName="email" editable="true"
-          hint="E-mail cím">
+          hint="{{'register.emailAddress' | L}}">
         </TextField>
 
-        <Label col="0" row="2" text="Vezetéknév" class="form-label"></Label>
-        <TextField col="0" row="3" class="input-field" formControlName="firstName" editable="true" hint="Vezetéknév">
+        <Label col="0" row="2" text="{{'register.lastName' | L}}" class="form-label"></Label>
+        <TextField col="0" row="3" class="input-field" formControlName="firstName" editable="true" hint="{{'register.lastName' | L}}">
         </TextField>
 
-        <Label col="2" row="2" text="Keresztnév" class="form-label"></Label>
-        <TextField col="2" row="3" class="input-field" formControlName="lastName" editable="true" hint="Keresztnév">
+        <Label col="2" row="2" text="{{'register.firstName' | L}}" class="form-label"></Label>
+        <TextField col="2" row="3" class="input-field" formControlName="lastName" editable="true" hint="{{'register.firstName' | L}}">
         </TextField>
 
-        <Label col="0" row="4" text="Születési dátum" class="form-label"></Label>
+        <Label col="0" row="4" text="{{'register.bornDate' | L}}" class="form-label"></Label>
         <DatePickerField class="input-field" col="0" row="5" formControlName="bornDate" [text]="born"
           [pickerDefaultDate]="minBornDate" [maxDate]="minBornDate" [hint]="minBornDate"></DatePickerField>
 
-        <Label col="2" row="4" text="Neme" class="form-label"></Label>
-        <TextField class="input-field" hint="Nő,Férfi,Egyéb..." [text]="sex" col="2" row="5" editable="false"
+        <Label col="2" row="4" text="{{'register.sex' | L}}" class="form-label"></Label>
+        <TextField class="input-field" hint="{{'register.sexHint' | L}}" [text]="sex" col="2" row="5" editable="false"
           (tap)="selectSex()" formControlName="sex">
         </TextField>
-        <Label col="0" colSpan="3" row="6" text="Jelszó" class="form-label"></Label>
+        <Label col="0" colSpan="3" row="6" text="{{'register.password' | L}}" class="form-label"></Label>
         <TextField col="0" secure="true" colspan="3" row="7" class="input-field" formControlName="password"
-          editable="true" hint="Jelszó">
+          editable="true" hint="{{'register.firstName' | L}}">
         </TextField>
 
-        <Label col="0" colSpan="3" row="8" text="Jelszó mégegyszer" class="form-label"></Label>
+        <Label col="0" colSpan="3" row="8" text="{{'register.passwordAgain' | L}}" class="form-label"></Label>
         <TextField col="0" secure="true" colspan="3" row="9" class="input-field" formControlName="passwordAgain"
-          editable="true" hint="Jelszó megerősítése">
+          editable="true" hint="{{'register.passwordAgainHint' | L}}">
         </TextField>
 
         <GridLayout col="0" colSpan="3" row="10" columns="auto, *" (tap)="submitRegister()" class="btn-submit-grid">
           <Image col="0" src="~/assets/icons/enter.png" class="enter-icon"></Image>
-          <Label col="1" text="Regisztráció" class="btn-submit-label"></Label>
+          <Label col="1" text="{{'register.title' | L}}" class="btn-submit-label"></Label>
         </GridLayout>
 
         <GridLayout col="0" colSpan="3" row="11" columns="*,auto,*" class="or-separate-grid" rows="auto">
           <StackLayout col="0" class="or-separte-line"></StackLayout>
-          <Label text="Vagy" col="1" class="or-separte-text"></Label>
+          <Label text="{{'register.or' | L}}" col="1" class="or-separte-text"></Label>
           <StackLayout col="2" class="or-separte-line"></StackLayout>
         </GridLayout>
 
         <StackLayout col="0" colSpan="3" row="12" orientation="horizontal" (tap)="signInWithGoogle()">
           <Image src="~/assets/icons/google.png" class="btn-google-img" />
-          <Label text="Regisztráció a Googleval" class="btn-google-label"></Label>
+          <Label text="{{'register.registerWidthGoogle' | L}}" class="btn-google-label"></Label>
         </StackLayout>
       </GridLayout>
       }
