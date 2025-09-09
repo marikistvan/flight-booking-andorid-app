@@ -6,6 +6,7 @@ import { ReadBlogComponent } from '../read-blog/read-blog.component'
 import { BlogService } from '~/app/services/blog.service';
 import { Dialogs } from '@nativescript/core';
 import { CreateBlogComponent } from '../create-blog/create-blog.component';
+import { localize } from '@nativescript/localize';
 
 @Component({
   selector: 'ns-blog-item',
@@ -46,11 +47,11 @@ export class BlogItemComponent {
 
   private async confirmDelete(): Promise<boolean> {
     return Dialogs.confirm({
-      title: 'Blog törlése!',
-      message: 'Biztosan törölni akarod a blogot?',
-      okButtonText: 'Igen',
-      cancelButtonText: 'Nem',
-      neutralButtonText: 'Mégsem',
+      title: localize('blogItem.deleteBlog'),
+      message: localize('blogItem.isSuredeleteBlog'),
+      okButtonText: localize('general.yes'),
+      cancelButtonText: localize('general.no'),
+      neutralButtonText: localize('general.cancel'),
     });
   }
 
