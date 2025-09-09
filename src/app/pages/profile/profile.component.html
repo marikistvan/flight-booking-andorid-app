@@ -1,7 +1,7 @@
 <ActionBar class="action-bar">
   <NavigationButton visibility="hidden"></NavigationButton>
   <GridLayout columns="50, *">
-    <Label class="action-bar-title" text="Profil" colSpan="2"></Label>
+    <Label class="action-bar-title" text="{{'profile.title' | L}}" colSpan="2"></Label>
     <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
   </GridLayout>
 </ActionBar>
@@ -13,32 +13,32 @@
         <Image row="0" col="0" colSpan="3" src="~/assets/icons/user.png" class="user-icon"></Image>
         <Image row="0" col="3" colSpan="4" src="~/assets/icons/upload-photo.png" class="edit-icon"></Image>
 
-        <Label row="1" col="0" text="Teljes név: " class="user-data-label"></Label>
+        <Label row="1" col="0" text="{{'profile.fullName' | L}}" class="user-data-label"></Label>
         
         <Label row="1" col="2" [text]="authService.userName" class="user-data-label"></Label>
         <Image row="1" col="3" colSpan="4" src="~/assets/icons/edit-pen.png" class="edit-icon"></Image>
 
-        <Label row="2" col="0" text="E-mail cím: " class="user-data-label"></Label>
+        <Label row="2" col="0" text="{{'profile.emailAddress' | L}}" class="user-data-label"></Label>
         <Label row="2" col="2" [text]="authService.email" class="user-data-label"></Label>
         <Image row="2" col="3" colSpan="4" src="~/assets/icons/edit-pen.png" class="edit-icon"></Image>
 
-        <Label row="3" col="0" text="Születési dátum: " class="user-data-label"></Label>
+        <Label row="3" col="0" text="{{'profile.bornDate' | L}}" class="user-data-label"></Label>
         <Label row="3" col="2" [text]="datePipe.transform(authService.born,'YYYY.MM.dd')" class="user-data-label"></Label>
         <Image row="3" col="3" colSpan="4" src="~/assets/icons/edit-pen.png" class="edit-icon"></Image>
 
-        <Label row="4" col="0" text="Neme: " class="user-data-label"></Label>
+        <Label row="4" col="0" text="{{'profile.sex' | L}}" class="user-data-label"></Label>
         <Label row="4" col="2" [text]="authService.sex" class="user-data-label"></Label>
         <Image row="4" col="3" colSpan="4" src="~/assets/icons/edit-pen.png" class="edit-icon"></Image>
 
         <StackLayout row="5" col="0" colSpan="4" orientation="horizontal" class="btn-transparent-edit-password"
           (tap)="editPassword()">
-          <Label text="Jelszó módosítás" class="btn-label" verticalAlignment="stretch"
+          <Label text="{{'profile.passwordModify' | L}}" class="btn-label" verticalAlignment="stretch"
             horizontalAlignment="left"></Label>
         </StackLayout>
 
         <StackLayout row="6" col="0" colSpan="4" orientation="horizontal" class="btn-transparent-delete-profile"
           (tap)="deleteProfile()">
-          <Label text="Fiók törlése" class="btn-label color-red" verticalAlignment="stretch"
+          <Label text="{{'profile.deleteProfile' | L}}" class="btn-label color-red" verticalAlignment="stretch"
             horizontalAlignment="left"></Label>
         </StackLayout>
       </GridLayout>

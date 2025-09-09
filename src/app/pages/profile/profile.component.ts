@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
 import { Application, Dialogs } from '@nativescript/core'
 import { RouterExtensions } from "@nativescript/angular";
@@ -6,6 +6,7 @@ import { AuthService } from '~/app/services/auth.service';
 import { UserService } from '~/app/services/user.service';
 import { DatePipe } from '@angular/common';
 import { GoogleSignin } from '@nativescript/google-signin';
+import { localize } from '@nativescript/localize';
 
 @Component({
   providers: [DatePipe],
@@ -42,9 +43,9 @@ export class ProfileComponent {
       this.userService.deleteUser();
     } catch {
       Dialogs.alert({
-        title: 'Hiba!',
-        message: 'A jelszó nem megfelelő!',
-        okButtonText: 'OK',
+        title: localize('general.errorTitle'),
+        message: localize('profile.passwordIsIncorrect'),
+        okButtonText: localize('general.ok'),
       });
     }
   }
@@ -56,9 +57,9 @@ export class ProfileComponent {
       await this.userService.deleteUser();
     } catch {
       Dialogs.alert({
-        title: 'Hiba!',
-        message: 'Hiba történt, próbálja meg később!',
-        okButtonText: 'OK',
+        title: localize('general.errorTitle'),
+        message: localize('general.errorOccured'),
+        okButtonText: localize('general.ok'),
       });
     }
 
@@ -66,21 +67,21 @@ export class ProfileComponent {
 
   private async confirmDelete(): Promise<boolean> {
     return Dialogs.confirm({
-      title: 'Fiók törlése!',
-      message: 'Biztosan törölni akarod a fiókod?',
-      okButtonText: 'Igen',
-      cancelButtonText: 'Nem',
-      neutralButtonText: 'Mégsem',
+      title: localize('profile.deleteProfile'),
+      message: localize('profile.isSuredeleteProfile'),
+      okButtonText: localize('general.yes'),
+      cancelButtonText: localize('general.no'),
+      neutralButtonText: localize('general.cancel'),
     });
   }
 
   private async askPassword(): Promise<string | null> {
     const result = await Dialogs.prompt({
-      title: 'Adja meg a jelszavát!',
-      message: 'A megerősítéshez kérem adja meg a jelszavát!',
+      title: localize('profile.writeDownYourPasswordTitle'),
+      message: localize('profile.writeDownYourPassword'),
       inputType: 'password',
-      okButtonText: 'OK',
-      cancelButtonText: 'Mégsem',
+      okButtonText: localize('general.ok'),
+      cancelButtonText: localize('general.cancel'),
     });
     return result.result ? result.text : null;
   }
