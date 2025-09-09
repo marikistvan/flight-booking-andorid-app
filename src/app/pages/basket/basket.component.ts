@@ -3,6 +3,7 @@ import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
 import { Application,ObservableArray } from '@nativescript/core'
 import { FirebaseAuth } from '@nativescript/firebase-auth';
 import { firebase } from "@nativescript/firebase-core";
+import { localize } from '@nativescript/localize';
 
 interface BasicFlightInformation {
   data_itineraries_segments_departure_at: string
@@ -20,6 +21,12 @@ interface BasicFlightInformation {
   styleUrls: ["./basket.component.scss"],
 })
 export class BasketComponent implements OnInit {
+  start=localize('blogItem.start');
+  arrive=localize('blogItem.arrive');
+  startIataCode=localize('blogItem.startItataCode');
+  arriveIataCode=localize('blogItem.arriveIataCode');
+  priceTotal=localize('blogItem.priceTotal');
+  duration=localize('blogItem.duration');
   user=firebase().auth().currentUser;
   auth = firebase().auth();
   basicFlightInformations:ObservableArray<BasicFlightInformation>;
