@@ -6,6 +6,7 @@ import { FlightInfo, Passenger } from '~/app/models/passenger'
 import { SelectSeatComponent } from "../select-seat/select-seat.component";
 import { Seatmap } from "~/app/models/seatmap-response";
 import { FlightOffer } from "~/app/models/flight-offers-response";
+import { localize } from "@nativescript/localize";
 
 @Component({
   selector: "ns-set-passenger",
@@ -14,12 +15,19 @@ import { FlightOffer } from "~/app/models/flight-offers-response";
 })
 
 export class SetpassengerComponent implements OnInit, AfterViewInit {
-  sexType: Array<string> = ['Nő', 'Férfi', 'Egyéb'];
+  sexTypeDict: Record<string, string> = {
+    'woman': localize('register.woman'),
+    'man': localize('register.man'),
+    'other': localize('register.other')
+  };
+  baggageTypeDict:Record<string,string>={
+    'handbag':localize('setPassenger.handbag')
+  }
   formTitle: string;
   wayThere: FlightInfo[];
   seatMap: Seatmap[] = [];
   isOneWay: boolean;
-  passengerId:string;
+  passengerId: string;
   flightOffer: FlightOffer;
   departureSeatCount: number;
   arrivalSeatCount: number;
@@ -38,7 +46,7 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
   constructor(private modalDialogParams: ModalDialogParams, private modalDialogSerivce: ModalDialogService, private viewContainerRef: ViewContainerRef) {
     const context = modalDialogParams.context;
     this.formTitle = context.title;
-    this.passengerId=context.id;
+    this.passengerId = context.id;
     this.flightOffer = context.flightOffer;
     this.isOneWay = this.flightOffer.itineraries.length < 2;
     this.departureSeatCount = this.flightOffer.itineraries[0].segments.length;
@@ -84,7 +92,7 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
       sex: this.passengerForm.get('sex').value,
       baggageType: this.passengerForm.get('baggageType').value,
       seats: this.uploadSeats(),
-      id:this.passengerId
+      id: this.passengerId
     }
     this.modalDialogParams.closeCallback([passenger, 'next']);
   }
@@ -108,23 +116,25 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
 
   openSexPicker() {
     action({
-      message: 'Válaszd ki a nemét.',
-      cancelButtonText: 'Mégse',
-      actions: this.sexType
+      message: localize('register.chooseYourSex'),
+      cancelButtonText: localize('general.cancel'),
+      actions: Object.values(this.sexTypeDict)
     }).then(result => {
-      if (result !== 'Mégse') {
-        this.passengerForm.get('sex').setValue(result);
+      if (result !== localize('general.cancel')) {
+        const sex = (Object.keys(this.sexTypeDict) as Array<string>).find(key => this.sexTypeDict[key] === result);
+        this.passengerForm.get('sex').setValue(sex);
       }
     });
   }
   openBaggagePicker() {
     action({
-      message: 'Válaszd ki a poggyászt.',
-      cancelButtonText: 'Mégse',
-      actions: this.baggageType
+      message: localize('setPassenger.selectYourHandBag'),
+      cancelButtonText: localize('general.cancel'),
+      actions: Object.values(this.baggageTypeDict)
     }).then(result => {
-      if (result !== 'Mégse') {
-        this.passengerForm.get('baggageType').setValue(result);
+      if (result !== localize('general.cancel')) {
+        const baggage = (Object.keys(this.baggageTypeDict) as Array<string>).find(key => this.baggageTypeDict[key] === result);
+        this.passengerForm.get('baggageType').setValue(baggage);
       }
     })
   }
