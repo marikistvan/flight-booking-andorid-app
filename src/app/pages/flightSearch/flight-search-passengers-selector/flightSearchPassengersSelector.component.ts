@@ -5,6 +5,7 @@ import { FormControl, FormBuilder, FormGroup } from "@angular/forms";
 import { PassengerCategory } from '../../../models/passenger-category';
 import { ModalDialogParams } from "@nativescript/angular";
 import { localize } from "@nativescript/localize";
+
 @Component({
   selector: "ns-flightSearchPassengersSelectorComponent",
   templateUrl: "flightSearchPassengersSelector.component.html",
