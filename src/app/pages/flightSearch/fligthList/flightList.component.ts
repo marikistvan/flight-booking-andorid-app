@@ -3,6 +3,8 @@ import { Component, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule, RouterExtensions } from "@nativescript/angular";
 import { FlightSearchStateService } from "~/app/services/flight-search-state.service";
 import { FlightListRowComponent } from "./flightList-row/flightList-row.component";
+import { localize } from "@nativescript/localize";
+import { NativeScriptLocalizeModule } from '@nativescript/localize/angular';
 
 @Component({
   standalone: true,
@@ -12,7 +14,8 @@ import { FlightListRowComponent } from "./flightList-row/flightList-row.componen
   imports: [
     CommonModule,
     NativeScriptCommonModule,
-    FlightListRowComponent
+    FlightListRowComponent,
+    NativeScriptLocalizeModule
   ],
   schemas: [NO_ERRORS_SCHEMA]
 
