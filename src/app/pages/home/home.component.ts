@@ -3,6 +3,7 @@ import { ModalDialogParams, RouterExtensions } from "@nativescript/angular";
 import { Dialogs } from "@nativescript/core";
 import { topmost } from "@nativescript/core/ui/frame";
 import { AuthService } from "~/app/services/auth.service";
+import { localize } from "@nativescript/localize";
 
 @Component({
   selector: "ns-home",
@@ -22,9 +23,9 @@ export class HomeComponent implements OnInit {
     }).catch((error) => {
       console.log('hiba történt google bejelentkezés során: ' + error);
       Dialogs.alert({
-        title: 'Hiba!',
-        message: 'Hiba történt, próbálja meg később!',
-        okButtonText: 'OK',
+        title: localize('home.errorTitle'),
+        message: localize('home.errorOccured'),
+        okButtonText: localize('home.ok'),
       });
     })
   }

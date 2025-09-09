@@ -6,13 +6,13 @@
 <StackLayout class="main-container page">
 
   <StackLayout class="promo-title-container">
-    <Label textWrap="true" class="promo-title" text="Tapasztald meg a teljes kényelmet"></Label>
-    <Label textWrap="true" class="promo-subhead" text="Csatlakozz még ma."></Label>
+    <Label textWrap="true" class="promo-title" text="{{'home.promoTitle1' | L}}"></Label>
+    <Label textWrap="true" class="promo-subhead" text="{{'home.promoTitle2' | L}}"></Label>
   </StackLayout>
 
   <StackLayout orientation="horizontal" class="btn-transparent-google" (tap)="signInWithGoogle()">
     <Image src="~/assets/icons/google.png" class="btn-google-img" />
-    <Label text="Regisztráció a Googleval" class="btn-google-label"></Label>
+    <Label text="{{'home.registerWithGoogle' | L}}" class="btn-google-label"></Label>
   </StackLayout>
 
   <GridLayout columns="*,auto,*" class="or-separate-grid" rows="auto">
@@ -21,19 +21,19 @@
     <StackLayout col="2" class="or-separte-line"></StackLayout>
   </GridLayout>
 
-  <Button text="Fiók létrehozása" (tap)="register()" class="btn-create-account"></Button>
+  <Button text="{{'home.createAcc' | L}}" (tap)="register()" class="btn-create-account"></Button>
 
-  <Label textWrap="true" class="promo-subhead" text="Már van felhasználói fiókod?"></Label>
+  <Label textWrap="true" class="promo-subhead" text="{{'home.isHaveAcc' | L}}"></Label>
 
   <StackLayout orientation="horizontal" class="btn-transparent-login" (tap)="login()">
     <Image src="~/assets/icons/enter.png" class="btn-transparent-img" />
-    <Label text="Bejelentkezés" class="btn-transparent-label"></Label>
+    <Label text="{{'home.login' | L}}" class="btn-transparent-label"></Label>
   </StackLayout>
 
-  <Label textWrap="true" class="promo-subhead" text="Böngéssz simán."></Label>
+  <Label textWrap="true" class="promo-subhead" text="{{'home.promoTitle3' | L}}"></Label>
 
   <StackLayout orientation="horizontal" class="btn-transparent-try-app" (tap)="tryApp()">
-    <Label text="Kipróbálom az oldalt" class="btn-try-app-label" verticalAlignment="stretch"
+    <Label text="{{'home.tryTheApp' | L}}" class="btn-try-app-label" verticalAlignment="stretch"
       horizontalAlignment="left"></Label>
   </StackLayout>
 </StackLayout>
