@@ -23,7 +23,8 @@
     "chooseLanguage": "Válaszd ki a nyelvet!",
     "changeLanguageTitle": "Nyelv megváltoztatás",
     "changeLanguageMessage": "Az alkalmazásnak újra kell indulnia, hogy megváltozzon a nyelv.",
-    "close": "Bezárás!"
+    "close": "Bezárás!",
+    "chooseCurrency":"Válaszd ki a valutát!"
   },
   "flightSearch": {
     "title": "Járat Keresés",

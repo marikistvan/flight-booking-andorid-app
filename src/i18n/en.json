@@ -2,7 +2,16 @@
   "app.name": "Flight booking",
   "general": {
     "cancel": "Cancel",
-    "submit": "Submit"
+    "submit": "Apply",
+    "hour": "hour",
+    "minute": "minute",
+    "summary": "Total:",
+    "errorTitle": "Error!",
+    "errorOccured": "An error occurred, please try again later!",
+    "ok": "Ok",
+    "yes": "Yes",
+    "no": "No",
+    "save": "Save"
   },
   "settings": {
     "title": "Settings",
@@ -14,7 +23,8 @@
     "chooseLanguage": "Choose a language!",
     "changeLanguageTitle": "Change Language",
     "changeLanguageMessage": "The app needs to restart to apply the new language.",
-    "close": "Close"
+    "close": "Close",
+    "chooseCurrency":"Choose a currency!"
   },
   "flightSearch": {
     "title": "Flight Search",
