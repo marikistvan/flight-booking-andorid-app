@@ -6,6 +6,8 @@ import { overrideLocale } from '@nativescript/localize';
 import { localize } from "@nativescript/localize";
 import { Device } from '@nativescript/core';
 import { ApplicationSettings } from '@nativescript/core';
+import { getString, setString } from '@nativescript/core/application-settings';
+import { FlightSearchStateService } from '~/app/services/flight-search-state.service';
 
 @Component({
   selector: 'Settings',
@@ -13,25 +15,34 @@ import { ApplicationSettings } from '@nativescript/core';
   styleUrls: ["./settings.component.scss"],
 })
 export class SettingsComponent implements OnInit {
-  languages=signal(['Hungary','English']);
-  actualLanguage=signal('');
+  languages = signal(['Hungary', 'English']);
+  currencies = signal(['HUF', 'EUR', 'USD', 'CHF']);
+  actualLanguage = signal('');
+  actualLCurrency=signal('HUF');
   languageDict: Record<string, string> = {
-    'Hungary':'hu',
-    'English':'en'
-};
-  constructor(public authService: AuthService) {
+    'Hungary': 'hu',
+    'English': 'en'
+  };
+  currencyDict: Record<string, string> = {
+    'HUF': 'Ft',
+    'EUR': '€',
+    'USD':'$',
+    'CHF':'Fr.'
+  };
+  constructor(public authService: AuthService,private searchState:FlightSearchStateService) {
   }
 
   ngOnInit(): void {
-    const appLang=ApplicationSettings.getString('__app__language__');
-    if(appLang!==null || appLang !==undefined){
+    const appLang = ApplicationSettings.getString('__app__language__');
+    if (appLang !== null || appLang !== undefined) {
       const language = (Object.keys(this.languageDict) as Array<string>).find(key => this.languageDict[key] === appLang);
       this.actualLanguage.set(language);
-    }else{
-      const deviceLan=Device.language.split('-')[0];
+    } else {
+      const deviceLan = Device.language.split('-')[0];
       const language = (Object.keys(this.languageDict) as Array<string>).find(key => this.languageDict[key] === deviceLan);
       this.actualLanguage.set(language ?? '');
     }
+    this.actualLCurrency.set(getString('appCurrency','EUR'));
   }
 
   onDrawerButtonTap(): void {
@@ -53,7 +64,23 @@ export class SettingsComponent implements OnInit {
         this.askUserToRestartTheApp(this.languageDict[result]);
       }
     });
+  }
 
+  setCurrency() {
+    action({
+      message: localize('settings.chooseCurrency'),
+      cancelButtonText: localize('general.cancel'),
+      actions: this.currencies(),
+    }).then(result => {
+      if (result !== localize('general.cancel')) {
+        this.actualLCurrency.set(result);
+        this.searchState.setCurrency(result);
+        this.searchState.setPriceSymbol(this.currencyDict[result]);
+        setString('appCurrency',result);
+        setString('appCurrencySymbol',this.currencyDict[result]);
+
+      }
+    });
   }
 
   async askUserToRestartTheApp(language: string) {

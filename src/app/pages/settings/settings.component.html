@@ -25,9 +25,9 @@
 
       <Label text="{{'settings.currencySelector' | L}}" class="form-label"></Label>
       <GridLayout columns="*, auto" class="input-grid w-40-pc horiz-left">
-        <Image col="1" src="~/assets/icons/down-arrow.png" class="img-select-arrow">
+        <Image col="1" src="~/assets/icons/down-arrow.png" class="img-select-arrow" (tap)="setCurrency()">
         </Image>
-        <TextField col="0" class="input-text-field" text="EUR"></TextField>
+        <TextField col="0" class="input-text-field" [text]="actualLCurrency()" editable="false" (tap)="setCurrency()"></TextField>
       </GridLayout>
 
       <Label text="{{'settings.enablePushNotifications' | L}}" class="form-label"></Label>
