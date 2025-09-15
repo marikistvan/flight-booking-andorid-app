@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core'
+import { Component, OnInit, signal, ViewContainerRef } from '@angular/core'
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
 import { action, Application, Dialogs, Utils } from '@nativescript/core'
 import { AuthService } from '~/app/services/auth.service';
@@ -8,6 +8,10 @@ import { Device } from '@nativescript/core';
 import { ApplicationSettings } from '@nativescript/core';
 import { getString, setString } from '@nativescript/core/application-settings';
 import { FlightSearchStateService } from '~/app/services/flight-search-state.service';
+import { ModalDialogOptions, ModalDialogService } from '@nativescript/angular';
+import { FlightSearchDestinationSelectorComponent } from '../flightSearch/flight-search-destination-selector/flightSearchDestinationSelector.component';
+import { LocationResponse } from '~/app/models/location-response';
+import { Message } from "nativescript-push";
 
 @Component({
   selector: 'Settings',
@@ -16,9 +20,10 @@ import { FlightSearchStateService } from '~/app/services/flight-search-state.ser
 })
 export class SettingsComponent implements OnInit {
   languages = signal(['Hungary', 'English']);
+  defaultDestionation = signal('');
   currencies = signal(['HUF', 'EUR', 'USD', 'CHF']);
-  actualLanguage = signal('');
-  actualLCurrency=signal('HUF');
+  actualLanguage = signal(null);
+  actualLCurrency = signal('HUF');
   languageDict: Record<string, string> = {
     'Hungary': 'hu',
     'English': 'en'
@@ -26,10 +31,16 @@ export class SettingsComponent implements OnInit {
   currencyDict: Record<string, string> = {
     'HUF': 'Ft',
     'EUR': '€',
-    'USD':'$',
-    'CHF':'Fr.'
+    'USD': '$',
+    'CHF': 'Fr.'
   };
-  constructor(public authService: AuthService,private searchState:FlightSearchStateService) {
+  constructor(
+    public authService: AuthService,
+    private searchState: FlightSearchStateService,
+    private viewContainerRef: ViewContainerRef,
+    private modalDialogService: ModalDialogService) {
+
+    console.log(`Notifications enabled? ${Message.areNotificationsEnabled()}`);
   }
 
   ngOnInit(): void {
@@ -42,7 +53,8 @@ export class SettingsComponent implements OnInit {
       const language = (Object.keys(this.languageDict) as Array<string>).find(key => this.languageDict[key] === deviceLan);
       this.actualLanguage.set(language ?? '');
     }
-    this.actualLCurrency.set(getString('appCurrency','EUR'));
+    this.actualLCurrency.set(getString('appCurrency', 'EUR'));
+    this.defaultDestionation.set(getString('defaultDestiontion', ''));
   }
 
   onDrawerButtonTap(): void {
@@ -76,8 +88,8 @@ export class SettingsComponent implements OnInit {
         this.actualLCurrency.set(result);
         this.searchState.setCurrency(result);
         this.searchState.setPriceSymbol(this.currencyDict[result]);
-        setString('appCurrency',result);
-        setString('appCurrencySymbol',this.currencyDict[result]);
+        setString('appCurrency', result);
+        setString('appCurrencySymbol', this.currencyDict[result]);
 
       }
     });
@@ -95,7 +107,27 @@ export class SettingsComponent implements OnInit {
         console.log(result)
         Utils.android.getCurrentActivity().finish();
       }
-
     });
   }
+
+  async chooseDestination(): Promise<void> {
+    const options: ModalDialogOptions = {
+      context: { type: "defaultDestination" },
+      fullscreen: true,
+      viewContainerRef: this.viewContainerRef
+    };
+    const result = await this.modalDialogService
+      .showModal(FlightSearchDestinationSelectorComponent, options);
+
+    if (result as LocationResponse) {
+      const defaultDes = this.formatName(result.detailedName, result.iataCode);
+      setString('defaultDestiontion', defaultDes);
+      this.defaultDestionation.set(defaultDes);
+    }
+  }
+  formatName(detailedName: string, iataCode: string): string {
+    const parts = detailedName.split('/');
+    return parts.join(', ') + ` (${iataCode})`;
+  }
+
 }

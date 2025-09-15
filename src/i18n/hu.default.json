@@ -61,8 +61,10 @@
   "destinationSelector": {
     "fromTitle": "Indulási hely kiválasztása",
     "toTitle": "Érkezési hely kiválasztása",
+    "defaultDestinationTitle": "Alapértelmezett hely kiválasztása",
     "fromPlace": "Indulási hely:",
     "toPlace": "Érkezési hely:",
+    "defaultPlace":"Alapértelmezett hely:",
     "searchHint": "Keresés..."
   },
   "flightList": {

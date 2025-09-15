@@ -15,6 +15,7 @@ import { DatePipe } from "@angular/common";
 import { FlightSearchStateService } from '~/app/services/flight-search-state.service';
 import { firstValueFrom } from 'rxjs';
 import { localize } from "@nativescript/localize";
+import { getString } from "@nativescript/core/application-settings";
 
 @Component({
   providers: [DatePipe],
@@ -54,12 +55,13 @@ export class FlightSearchComponent implements OnInit {
     private datePipe: DatePipe,
     private searchStateService: FlightSearchStateService,
     private routerExtensions: RouterExtensions
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.todayDate = this.getTodayDate();
     this.searchFormGroup.get('fromDate')?.valueChanges.subscribe(() => this.validateDates());
     this.searchFormGroup.get('returnDate')?.valueChanges.subscribe(() => this.validateDates());
+    this.searchFormGroup.get('fromPlace')?.setValue(getString('defaultDestiontion',''))
   }
   validateDates() {
     const fromDate = this.searchFormGroup.get('fromDate')?.value;

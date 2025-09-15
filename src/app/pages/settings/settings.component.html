@@ -20,7 +20,7 @@
       <GridLayout columns="*, auto" class="input-grid w-100-pc">
         <Image col="1" src="~/assets/icons/down-arrow.png" class="img-select-arrow">
         </Image>
-        <TextField col="0" editable="false" class="input-text-field" hint="Jhon F. Kennedy Int"></TextField>
+        <TextField col="0" editable="false" class="input-text-field" hint="Jhon F. Kennedy Int" [text]="defaultDestionation()" (tap)="chooseDestination()"></TextField>
       </GridLayout>
 
       <Label text="{{'settings.currencySelector' | L}}" class="form-label"></Label>

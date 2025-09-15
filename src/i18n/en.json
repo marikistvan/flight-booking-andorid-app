@@ -24,7 +24,7 @@
     "changeLanguageTitle": "Change Language",
     "changeLanguageMessage": "The app needs to restart to apply the new language.",
     "close": "Close",
-    "chooseCurrency":"Choose a currency!"
+    "chooseCurrency": "Choose a currency!"
   },
   "flightSearch": {
     "title": "Flight Search",
@@ -61,8 +61,10 @@
   "destinationSelector": {
     "fromTitle": "Select Departure",
     "toTitle": "Select Arrival",
+    "defaultDestinationTitle": "Select Default Destiontion",
     "fromPlace": "Departure:",
     "toPlace": "Arrival:",
+    "defaultPlace": "Default:", 
     "searchHint": "Search..."
   },
   "flightList": {
