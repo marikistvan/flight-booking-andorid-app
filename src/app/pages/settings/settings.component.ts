@@ -39,8 +39,6 @@ export class SettingsComponent implements OnInit {
     private searchState: FlightSearchStateService,
     private viewContainerRef: ViewContainerRef,
     private modalDialogService: ModalDialogService) {
-
-    console.log(`Notifications enabled? ${Message.areNotificationsEnabled()}`);
   }
 
   ngOnInit(): void {
