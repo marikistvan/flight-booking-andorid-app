@@ -1,6 +1,6 @@
 import { Component, OnInit, signal, ViewContainerRef } from '@angular/core'
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
-import { action, Application, Dialogs, Utils } from '@nativescript/core'
+import { action, Application, Color, Dialogs, EventData, Switch, Utils } from '@nativescript/core'
 import { AuthService } from '~/app/services/auth.service';
 import { overrideLocale } from '@nativescript/localize';
 import { localize } from "@nativescript/localize";
@@ -11,7 +11,8 @@ import { FlightSearchStateService } from '~/app/services/flight-search-state.ser
 import { ModalDialogOptions, ModalDialogService } from '@nativescript/angular';
 import { FlightSearchDestinationSelectorComponent } from '../flightSearch/flight-search-destination-selector/flightSearchDestinationSelector.component';
 import { LocationResponse } from '~/app/models/location-response';
-import { Message } from "nativescript-push";
+import { HttpClient } from '@angular/common/http';
+import { LocalNotifications } from '@nativescript/local-notifications';
 
 @Component({
   selector: 'Settings',
@@ -19,6 +20,7 @@ import { Message } from "nativescript-push";
   styleUrls: ["./settings.component.scss"],
 })
 export class SettingsComponent implements OnInit {
+  isNotificationEnabled = signal<boolean>(false);
   languages = signal(['Hungary', 'English']);
   defaultDestionation = signal('');
   currencies = signal(['HUF', 'EUR', 'USD', 'CHF']);
@@ -38,7 +40,8 @@ export class SettingsComponent implements OnInit {
     public authService: AuthService,
     private searchState: FlightSearchStateService,
     private viewContainerRef: ViewContainerRef,
-    private modalDialogService: ModalDialogService) {
+    private modalDialogService: ModalDialogService,
+    private http: HttpClient) {
   }
 
   ngOnInit(): void {
@@ -53,12 +56,16 @@ export class SettingsComponent implements OnInit {
     }
     this.actualLCurrency.set(getString('appCurrency', 'EUR'));
     this.defaultDestionation.set(getString('defaultDestiontion', ''));
+    this.requestPermission();
+    const notification = getString('isNotificationEnabled', 'True');
+    notification === 'True' ? this.isNotificationEnabled.set(true) : this.isNotificationEnabled.set(false);
   }
 
   onDrawerButtonTap(): void {
     const sideDrawer = <RadSideDrawer>Application.getRootView()
     sideDrawer.showDrawer()
   }
+
   signOut(): void {
     this.authService.signOut();
   }
@@ -123,9 +130,58 @@ export class SettingsComponent implements OnInit {
       this.defaultDestionation.set(defaultDes);
     }
   }
+
   formatName(detailedName: string, iataCode: string): string {
     const parts = detailedName.split('/');
     return parts.join(', ') + ` (${iataCode})`;
   }
 
+  requestPermission() {
+    LocalNotifications.requestPermission().then(granted => {
+      if (granted && getString('isNotificationEnabled', 'True') === 'True') {
+        this.scheduleMonthlyPromo();
+      }
+      else {
+        console.log('Nincs engedély értesítésre');
+      }
+    });
+  }
+
+  scheduleMonthlyPromo() {
+  const savedTime = Number(getString('promoNext', '0'));
+  let firstTrigger: Date;
+
+  if (savedTime) {
+    firstTrigger = new Date(savedTime);
+  } else {
+    firstTrigger = new Date();
+    firstTrigger.setDate(firstTrigger.getDate() + 30);
+    setString('promoNext', firstTrigger.getTime().toString());
+  }
+
+  LocalNotifications.schedule([{
+    id: 200,
+    title: 'Ne maradj le a repülőjáratokról!',
+    body: 'Nézd meg a mai ajánlatokat!',
+    at: firstTrigger,
+    interval: { month: 1 },
+    sound: 'default'
+  }]).then(
+    scheduledIds => console.log('Havi promóció ütemezve, ID:', scheduledIds),
+    error => console.log('Hiba az ütemezésnél:', error)
+  );
+}
+
+  async onCheckedChange(event: EventData) {
+    const mySwitch = event.object as Switch;
+    if (mySwitch.checked) {
+      this.requestPermission();
+      setString('isNotificationEnabled', 'True');
+    } else {
+      setString('isNotificationEnabled', 'False');
+      LocalNotifications.cancelAll().then(() => {
+        console.log('Értesítések letiltva');
+      });
+    }
+  }
 }
