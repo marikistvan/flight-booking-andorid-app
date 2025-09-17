@@ -127,6 +127,7 @@ export class SettingsComponent implements OnInit {
     if (result as LocationResponse) {
       const defaultDes = this.formatName(result.detailedName, result.iataCode);
       setString('defaultDestiontion', defaultDes);
+      setString('defaultDestiontionIATACode',result.iataCode);
       this.defaultDestionation.set(defaultDes);
     }
   }

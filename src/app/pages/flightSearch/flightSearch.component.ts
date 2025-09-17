@@ -61,7 +61,8 @@ export class FlightSearchComponent implements OnInit {
     this.todayDate = this.getTodayDate();
     this.searchFormGroup.get('fromDate')?.valueChanges.subscribe(() => this.validateDates());
     this.searchFormGroup.get('returnDate')?.valueChanges.subscribe(() => this.validateDates());
-    this.searchFormGroup.get('fromPlace')?.setValue(getString('defaultDestiontion',''))
+    this.searchFormGroup.get('fromPlace')?.setValue(getString('defaultDestiontion', ''));
+    this.searchFormGroup.get('fromIATACode')?.setValue(getString('defaultDestiontionIATACode', ''));
   }
   validateDates() {
     const fromDate = this.searchFormGroup.get('fromDate')?.value;
