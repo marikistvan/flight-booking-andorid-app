@@ -109,7 +109,7 @@ export class FlightSearchComponent implements OnInit {
         )
       )
       const toPlace = this.searchFormGroup.get('toPlace').value.split(',')[0];
-      this.searchStateService.setFlights(response.data, response.dictionaries, toPlace);
+      await this.searchStateService.setFlights(response.data, response.dictionaries, toPlace);
       this.routerExtensions.navigate(['flightList']);
     } catch (error) {
       console.error("Hiba a keresés során:", error);

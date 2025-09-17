@@ -11,12 +11,11 @@
   </GridLayout>-->
   <ScrollView class="scroll-height">
     <StackLayout>
-      @if(searchService.getFlightOffers()){
-      @for(flight of searchService.getFlightOffers(); track flight.id){
+      @if(flightsData){
+      @for(flight of flightsData; track flight.id){
       <ns-flight-list-row [flight]="flight" [dictionary]="searchService.dictionary"></ns-flight-list-row>
       }
-      }
-      @else {
+      } @else {
       <Label text="{{'flightList.noDataMessage | L'}}" class="empty-flight-message" textWrap="true"></Label>
       }
     </StackLayout>

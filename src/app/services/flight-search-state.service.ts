@@ -8,6 +8,7 @@ import { getString } from '@nativescript/core/application-settings';
 @Injectable({ providedIn: "root" })
 export class FlightSearchStateService {
     private flightOffers: FlightOffer[];
+    private flightsWithSpecificCurrency: FlightOffer[];
     private dictionary: Dictionaries;
     private toPlace: string;
     private passengers: Passenger[];
@@ -19,11 +20,11 @@ export class FlightSearchStateService {
         this.setPriceSymbol((getString('appCurrencySymbol', '€')));
     }
 
-    setFlights(flightOffers: FlightOffer[], dictionaries: Dictionaries, toPlace: string) {
+    async setFlights(flightOffers: FlightOffer[], dictionaries: Dictionaries, toPlace: string) {
         this.flightOffers = flightOffers;
-        this.changeCurrency(this.flightOffers);
         this.dictionary = dictionaries;
         this.toPlace = toPlace;
+        await this.getFlightsWithSpecificCurrency();
     }
 
     setCurrency(currency: string) {
@@ -42,10 +43,27 @@ export class FlightSearchStateService {
         };
     }
 
+    async getFlightsWithSpecificCurrency() {
+        this.flightsWithSpecificCurrency = [...this.flightOffers];
+        await this.changeCurrency(this.flightsWithSpecificCurrency);
+        console.log(this.flightsWithSpecificCurrency[0].price.total);
+        return {
+            flightOffers: this.flightsWithSpecificCurrency,
+            dictionary: this.dictionary,
+            toPlace: this.toPlace
+        };
+    }
+
     getFlightOffers() { return this.flightOffers; }
+
+    getFlightOffersWithSpecificCurrency(){return this.flightsWithSpecificCurrency};
 
     getFlightById(id: string): FlightOffer {
         return this.flightOffers.find((flight) => flight.id === id);
+    }
+
+    getFlightByIdWithSpecificCurrency(id: string): FlightOffer {
+        return this.flightsWithSpecificCurrency.find((flight) => flight.id === id);
     }
 
     getDictionary() {

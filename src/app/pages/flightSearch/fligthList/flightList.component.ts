@@ -1,10 +1,11 @@
 import { CommonModule } from "@angular/common";
-import { Component, NO_ERRORS_SCHEMA } from "@angular/core";
+import { Component, NO_ERRORS_SCHEMA, OnInit } from "@angular/core";
 import { NativeScriptCommonModule, RouterExtensions } from "@nativescript/angular";
 import { FlightSearchStateService } from "~/app/services/flight-search-state.service";
 import { FlightListRowComponent } from "./flightList-row/flightList-row.component";
 import { localize } from "@nativescript/localize";
 import { NativeScriptLocalizeModule } from '@nativescript/localize/angular';
+import { Dictionaries, FlightOffer } from "~/app/models/flight-offers-response";
 
 @Component({
   standalone: true,
@@ -20,11 +21,16 @@ import { NativeScriptLocalizeModule } from '@nativescript/localize/angular';
   schemas: [NO_ERRORS_SCHEMA]
 
 })
-export class FlightListComponent{
+export class FlightListComponent implements OnInit{
+  flightsData: FlightOffer[];
   constructor(
     private routerExtensions: RouterExtensions,
     public searchService: FlightSearchStateService
   ) {}
+
+  async ngOnInit(): Promise<void> {
+    this.flightsData=await this.searchService.getFlightOffersWithSpecificCurrency();
+  }
   
   onCancel() {
     this.routerExtensions.back();

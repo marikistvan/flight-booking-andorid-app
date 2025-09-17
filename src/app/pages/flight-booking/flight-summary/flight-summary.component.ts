@@ -41,7 +41,7 @@ export class FlightSummaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.flightId = this.route.snapshot.paramMap.get('flightId')!;
-    this.flightOffer = this.searchStateService.getFlightById(this.flightId);
+    this.flightOffer = this.searchStateService.getFlightByIdWithSpecificCurrency(this.flightId);
     this.passengers = this.searchStateService.getPassengers();
     this.dictionary = this.searchStateService.getDictionary();
   }
