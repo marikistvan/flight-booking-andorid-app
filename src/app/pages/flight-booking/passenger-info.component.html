@@ -14,11 +14,13 @@
       <StackLayout col="0" [row]="i">
         <Label [text]="passenger.travelerId + '. utas ('+passengersType[i]+')'" class="form-label"></Label>
         @if(passengers[$index].firstName===''){
-        <TextField hint="{{'passengerInfo.title' | L}}" class="input-field" editable="false" (tap)="setPassenger(passenger.travelerId)">
+        <TextField hint="{{'passengerInfo.title' | L}}" class="input-field" editable="false"
+          (tap)="setPassenger(passenger.travelerId)">
         </TextField>
         }@else {
-        <TextField hint="{{'passengerInfo.title' | L}}" [text]="passengers[$index].firstName +' '+ passengers[$index].lastName"
-          class="input-field" editable="false" (tap)="setPassenger(passenger.travelerId)"></TextField>
+        <TextField hint="{{'passengerInfo.title' | L}}"
+          [text]="passengers[$index].firstName +' '+ passengers[$index].lastName" class="input-field" editable="false"
+          (tap)="setPassenger(passenger.travelerId)"></TextField>
         }
       </StackLayout>
       }

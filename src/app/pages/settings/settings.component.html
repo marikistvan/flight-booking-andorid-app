@@ -8,38 +8,42 @@
 </ActionBar>
 <StackLayout class="page testMiddle">
 
-    <StackLayout class="card">
-      <Label text="{{'settings.switchlanguage' | L}}" class="form-label"></Label>
-      <GridLayout columns="*, auto" class="input-grid w-100-pc" (tap)="setAppLanguage()">
-        <Image col="1" src="~/assets/icons/down-arrow.png" class="img-select-arrow">
-        </Image>
-        <TextField col="0" editable="false" class="input-text-field" [text]="actualLanguage()" (tap)="setAppLanguage()"></TextField>
-      </GridLayout>
+  <StackLayout class="card">
+    <Label text="{{'settings.switchlanguage' | L}}" class="form-label"></Label>
+    <GridLayout columns="*, auto" class="input-grid w-100-pc" (tap)="setAppLanguage()">
+      <Image col="1" src="~/assets/icons/down-arrow.png" class="img-select-arrow">
+      </Image>
+      <TextField col="0" editable="false" class="input-text-field" [text]="actualLanguage()" (tap)="setAppLanguage()">
+      </TextField>
+    </GridLayout>
 
-      <Label text="{{'settings.defaultDeparturePoint' | L}}" class="form-label"></Label>
-      <GridLayout columns="*, auto" class="input-grid w-100-pc">
-        <Image col="1" src="~/assets/icons/down-arrow.png" class="img-select-arrow">
-        </Image>
-        <TextField col="0" editable="false" class="input-text-field" hint="Jhon F. Kennedy Int" [text]="defaultDestionation()" (tap)="chooseDestination()"></TextField>
-      </GridLayout>
+    <Label text="{{'settings.defaultDeparturePoint' | L}}" class="form-label"></Label>
+    <GridLayout columns="*, auto" class="input-grid w-100-pc">
+      <Image col="1" src="~/assets/icons/down-arrow.png" class="img-select-arrow">
+      </Image>
+      <TextField col="0" editable="false" class="input-text-field" hint="Jhon F. Kennedy Int"
+        [text]="defaultDestionation()" (tap)="chooseDestination()"></TextField>
+    </GridLayout>
 
-      <Label text="{{'settings.currencySelector' | L}}" class="form-label"></Label>
-      <GridLayout columns="*, auto" class="input-grid w-40-pc horiz-left">
-        <Image col="1" src="~/assets/icons/down-arrow.png" class="img-select-arrow" (tap)="setCurrency()">
-        </Image>
-        <TextField col="0" class="input-text-field" [text]="actualLCurrency()" editable="false" (tap)="setCurrency()"></TextField>
-      </GridLayout>
+    <Label text="{{'settings.currencySelector' | L}}" class="form-label"></Label>
+    <GridLayout columns="*, auto" class="input-grid w-40-pc horiz-left">
+      <Image col="1" src="~/assets/icons/down-arrow.png" class="img-select-arrow" (tap)="setCurrency()">
+      </Image>
+      <TextField col="0" class="input-text-field" [text]="actualLCurrency()" editable="false" (tap)="setCurrency()">
+      </TextField>
+    </GridLayout>
 
-      <Label text="{{'settings.enablePushNotifications' | L}}" class="form-label"></Label>
-      <Switch checked="true" class="switch-sty horiz-left" />
+    <Label text="{{'settings.enablePushNotifications' | L}}" class="form-label"></Label>
+    <Switch [checked]=isNotificationEnabled() class="switch-sty horiz-left" (checkedChange)="onCheckedChange($event)">
+    </Switch>
 
-      @if(authService.currentUser){
-      <GridLayout columns="auto, *, 30" class="btn-transparent w-100-pc" (tap)="signOut()">
-        <Image col="0" src="~/assets/icons/enter.png" class="enter-icon" />
+    @if(authService.currentUser){
+    <GridLayout columns="auto, *, 30" class="btn-transparent w-100-pc" (tap)="signOut()">
+      <Image col="0" src="~/assets/icons/enter.png" class="enter-icon" />
 
-        <Label col="1" text="{{'settings.logout' | L}}" class="btn-logout-label"></Label>
+      <Label col="1" text="{{'settings.logout' | L}}" class="btn-logout-label"></Label>
 
-      </GridLayout>
-      }
-    </StackLayout>
+    </GridLayout>
+    }
+  </StackLayout>
 </StackLayout>
