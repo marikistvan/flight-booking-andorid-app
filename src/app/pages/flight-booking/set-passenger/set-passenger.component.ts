@@ -1,11 +1,11 @@
-import { AfterViewInit, Component, computed, ElementRef, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewContainerRef } from "@angular/core";
 import { action, GridLayout, Image, ItemSpec, Label, TextField } from "@nativescript/core";
-import { ModalDialogOptions, ModalDialogParams, ModalDialogService, RouterExtensions } from "@nativescript/angular";
+import { ModalDialogOptions, ModalDialogParams, ModalDialogService } from "@nativescript/angular";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { FlightInfo, Passenger } from '~/app/models/passenger'
 import { SelectSeatComponent } from "../select-seat/select-seat.component";
 import { Seatmap } from "~/app/models/seatmap-response";
-import { FlightOffer } from "~/app/models/flight-offers-response";
+import { FlightOffer, Segment } from "~/app/models/flight-offers-response";
 import { localize } from "@nativescript/localize";
 
 @Component({
@@ -15,13 +15,14 @@ import { localize } from "@nativescript/localize";
 })
 
 export class SetpassengerComponent implements OnInit, AfterViewInit {
+  segmentIndexArray: string[] = [];
   sexTypeDict: Record<string, string> = {
     'woman': localize('register.woman'),
     'man': localize('register.man'),
     'other': localize('register.other')
   };
-  baggageTypeDict:Record<string,string>={
-    'handbag':localize('setPassenger.handbag')
+  baggageTypeDict: Record<string, string> = {
+    'handbag': localize('setPassenger.handbag')
   }
   formTitle: string;
   wayThere: FlightInfo[];
@@ -43,7 +44,11 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
   });
   ngOnInit(): void {
   }
-  constructor(private modalDialogParams: ModalDialogParams, private modalDialogSerivce: ModalDialogService, private viewContainerRef: ViewContainerRef) {
+  constructor(
+    private modalDialogParams: ModalDialogParams,
+    private modalDialogSerivce: ModalDialogService,
+    private viewContainerRef: ViewContainerRef
+  ) {
     const context = modalDialogParams.context;
     this.formTitle = context.title;
     this.passengerId = context.id;
@@ -55,25 +60,25 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
     }
     this.seatMap = context.seatMap;
     const passenger: Passenger = context.passenger;
-    if (context.passenger.firstName !== '') {
-      this.passengerForm.get('lastName').setValue(passenger.lastName);
-      this.passengerForm.get('firstName').setValue(passenger.firstName);
-      this.passengerForm.get('bornDate').setValue(passenger.born);
-      this.passengerForm.get('sex').setValue(passenger.sex);
-      this.passengerForm.get('baggageType').setValue(passenger.baggageType);
-      for (let i = 0; i < this.departureSeatCount; i++) {
-        const segmentId = this.flightOffer.itineraries[0].segments[i].id;
-        this.passengerForm.setControl(segmentId, new FormControl<string>(''));
-        this.passengerForm.get(segmentId).setValue(passenger.seats.find((element) => element.segmentId === segmentId).seatNumber);
-      }
-      if (this.arrivalSeatCount) {
-        for (let i = 0; i < this.arrivalSeatCount; i++) {
-          const segmentId = this.flightOffer.itineraries[1].segments[i].id;
-          this.passengerForm.setControl(segmentId, new FormControl<string>(''));
-          this.passengerForm.get(segmentId).setValue(passenger.seats.find((element) => element.segmentId === segmentId).seatNumber);
-        }
-      }
+    this.flightOffer.itineraries[0].segments.forEach((s) => this.segmentIndexArray.push(s.id))
+    if (this.arrivalSeatCount) {
+      this.flightOffer.itineraries[1].segments.forEach((s) => this.segmentIndexArray.push(s.id))
     }
+    if (passenger.firstName === '') return;
+    this.passengerForm.get('lastName').setValue(passenger.lastName);
+    this.passengerForm.get('firstName').setValue(passenger.firstName);
+    this.passengerForm.get('bornDate').setValue(passenger.born);
+    this.passengerForm.get('sex').setValue(passenger.sex);
+    this.passengerForm.get('baggageType').setValue(passenger.baggageType);
+    this.flightOffer.itineraries[0].segments.forEach((s) => {
+      this.passengerForm.setControl(s.id, new FormControl<string>(''));
+      this.passengerForm.get(s.id).setValue(passenger.seats.find((element) => element.segmentId === s.id).seatNumber);
+    })
+    if (!this.arrivalSeatCount) return;
+    this.flightOffer.itineraries[1].segments.forEach((s) => {
+      this.passengerForm.setControl(s.id, new FormControl<string>(''));
+      this.passengerForm.get(s.id).setValue(passenger.seats.find((element) => element.segmentId === s.id).seatNumber);
+    });
   }
   ngAfterViewInit(): void {
     this.seatSelectCreate();
@@ -96,6 +101,7 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
     }
     this.modalDialogParams.closeCallback([passenger, 'next']);
   }
+
   uploadSeats(): FlightInfo[] {
     let flightSeats: FlightInfo[] = [];
     this.flightOffer.itineraries.forEach((element) => {
@@ -139,10 +145,20 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
     })
   }
   async openSeatPicker(direction: string, segmentId: string) {
+    console.log("Meg lett nyomva a openSeatPicker");
     if (this.passengerForm.get('lastName').value !== '' && this.passengerForm.get('firstName').value !== '') {
       const lastName = this.passengerForm.get('lastName').value;
       const firstName = this.passengerForm.get('firstName').value;
-      const seatMap = this.seatMap.find((element) => element.segmentId === segmentId);
+      console.log("flightoffer tényleges segmentIdja 0. helyen: " + this.flightOffer.itineraries[0].segments[0].id);
+      console.log("segmentId amit keresünk a seatMap tömben: " + segmentId);
+      console.log("seatmap tényleges segment idai: " + this.seatMap[0].segmentId + " másik? " + (this.seatMap[1]?.segmentId ?? "null"));
+      console.log("segmentIndexArray hossza: " + this.segmentIndexArray.length);
+
+      const seatMap = this.seatMap[this.segmentIndexArray.indexOf(segmentId)];
+      if (!seatMap) {
+        console.log("a seatMap üres, ezért nem megy a select seat komponensre");
+        return;
+      }
       const option: ModalDialogOptions = {
         context: {
           lastName,
@@ -156,14 +172,18 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
 
       await this.modalDialogSerivce.showModal(SelectSeatComponent, option).then((result) => {
         if (result?.action === 'reserve') {
-          const element = this.seatMap.find((element) => element.segmentId === segmentId).decks[0].seats.find(s => s.number === result.seatNumber);
+          const findCurrentFlightIndexOfSegmentId = this.segmentIndexArray.indexOf(segmentId) + 1;
+          const element = this.seatMap[this.segmentIndexArray.indexOf(segmentId)].decks[0].seats.find(s => s.number === result.seatNumber);
           element.travelerPricing.forEach(tp => {
             tp.seatAvailabilityStatus = 'underReservation';
           });
 
           this.passengerForm.get(segmentId)?.setValue(result.seatNumber);
         }
-      });
+      })
+        .catch((err) => {
+          console.log("SelectSeatMap show modal erroral tért vissza: " + err);
+        });
     }
   }
 
@@ -189,7 +209,7 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
   private addSeatSelection(
     selectSeat: any,
     segmentCount: number,
-    segments: any[],
+    segments: Segment[],
     wayType: 'wayThere' | 'wayBack'
   ) {
     for (let i = 0; i < segmentCount; i++) {
