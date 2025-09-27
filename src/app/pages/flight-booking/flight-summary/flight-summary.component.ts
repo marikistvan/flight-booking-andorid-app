@@ -9,6 +9,8 @@ import { FlightSearchStateService } from "~/app/services/flight-search-state.ser
 import { CommonModule } from "@angular/common";
 import { PassengerDetailsComponent } from "./passenger-details/passenger-details.component";
 import { NativeScriptLocalizeModule } from "@nativescript/localize/angular";
+import { LocalNotifications } from '@nativescript/local-notifications';
+
 @Component({
   selector: "ns-flight-summary",
   standalone: true,
@@ -37,7 +39,7 @@ export class FlightSummaryComponent implements OnInit {
     private bookingService: BookingService,
     private route: ActivatedRoute,
     private routerExtensions: RouterExtensions,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.flightId = this.route.snapshot.paramMap.get('flightId')!;
@@ -57,8 +59,21 @@ export class FlightSummaryComponent implements OnInit {
       console.log(result.error);
     } else {
       console.log('siker');
+      this.onBookingSuccess();
       this.routerExtensions.navigate(['flightTicketList']);
     }
+  }
+
+  onBookingSuccess() {
+    LocalNotifications.schedule([{
+      id: 300,
+      title: 'Foglalás sikeres!',
+      body: 'Az Ön repülőjegy foglalása sikeresen megtörtént.',
+      at: new Date(new Date().getTime() + 1000),
+      sound: 'default',
+    }])
+      .then((scheduledIds) => console.log('Értesítés ütemezve, ID:', scheduledIds))
+      .catch((err) => console.log('Hiba az értesítésnél:', err));
   }
 
 }
