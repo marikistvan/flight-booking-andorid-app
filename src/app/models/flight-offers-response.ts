@@ -59,11 +59,11 @@ export interface LocationDetail {
 }
 
 export interface Price {
-  currency: string;
-  total: string;
-  base: string;
-  grandTotal?: string;
-  fees?: Fee[];
+    currency: string;
+    total: string;
+    base: string;
+    grandTotal?: string;
+    fees?: Fee[];
 }
 
 export interface Fee {
@@ -97,14 +97,14 @@ export interface FareDetailsBySegment {
     amenities?: Amenity[];
     additionalServices?: SeatNumber;
 }
-export interface SeatNumber{
-    chargeableSeatNumber:string;
+export interface SeatNumber {
+    chargeableSeatNumber: string;
 }
 
 export interface BagInfo {
-  quantity?: number;
-  weight?: number;
-  weightUnit?: string;
+    quantity?: number;
+    weight?: number;
+    weightUnit?: string;
 }
 
 export interface Amenity {

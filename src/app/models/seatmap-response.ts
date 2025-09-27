@@ -1,5 +1,3 @@
-import { Size } from "@nativescript/core";
-
 export interface SeatmapResponse {
   meta: {
     count: number;
@@ -66,6 +64,7 @@ export interface DeckConfiguration {
 export interface Facility {
   code: string;
   column: string;
+  row?: string;
   position: string;
   coordinates: Coordinates;
 }
