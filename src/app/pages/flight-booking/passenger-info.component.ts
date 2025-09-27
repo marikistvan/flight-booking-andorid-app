@@ -11,6 +11,9 @@ import { FlightSearchStateService } from "~/app/services/flight-search-state.ser
 import { ActivatedRoute } from "@angular/router";
 import { NativeScriptLocalizeModule } from "@nativescript/localize/angular";
 import { localize } from "@nativescript/localize";
+import { HttpClient } from "@angular/common/http";
+import { environment } from "~/environments/environment";
+
 @Component({
   selector: "ns-passenger-info",
   standalone: true,
@@ -43,11 +46,13 @@ export class PassengerInfoComponent implements OnInit {
     private amadeusService: AmadeusService,
     private searchStateService: FlightSearchStateService,
     private routerExtensions: RouterExtensions,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
     this.flightId = this.route.snapshot.paramMap.get('flightId')!;
+    console.log('passenger info flight id-ja amit kap a route-on: ' + this.flightId);
     this.dictionary = this.searchStateService.getDictionary();
     this.flightOffer = this.searchStateService.getFlightById(this.flightId);
     this.passengersNumber = this.flightOffer.travelerPricings.length;
@@ -98,13 +103,17 @@ export class PassengerInfoComponent implements OnInit {
       arrivalSeatCount = this.flightOffer.itineraries[1].segments.length;
     }
     this.isButtonPressed.set(true);
+    console.log("flightOffer id: " + this.flightOffer.id + " flightOffer totalPrice: " + this.flightOffer.price.total)
     try {
       const seatMapResponse = await firstValueFrom(
         this.amadeusService.getSeatMap(this.flightOffer)
       );
 
+      console.log("seatMap mentése");
       const seatMapDatas = seatMapResponse.data;
-
+      /*  await this.amadeusService.logSeatMaptoFile(seatMapDatas)
+          .then(() => { console.log("sikeres seatMap mentés") })
+          .catch((err) => { console.log("seatmap mentés hiba: " + err) });;*/
       const option: ModalDialogOptions = {
         context: {
           id,
@@ -186,4 +195,6 @@ export class PassengerInfoComponent implements OnInit {
       this.passengers.push(passenger);
     }
   }
+
+
 }
