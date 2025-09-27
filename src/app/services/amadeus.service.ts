@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
-import { Observable, switchMap } from 'rxjs';
+import { firstValueFrom, Observable, switchMap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { LocationResponse } from '../models/location-response';
 import { LocationResponseForOneLocation } from '../models/location-response-for-one-location';
@@ -10,6 +10,7 @@ import { FlightOffer } from '../models/flight-offers-response';
 import { SeatmapResponse } from '../models/seatmap-response';
 import data from '../../assets/flight-offer-sample.json';
 import { errorMessages } from '~/app/models/errors/apiError';
+import { knownFolders, path, File } from "@nativescript/core";
 
 @Injectable({
   providedIn: 'root'
@@ -98,9 +99,14 @@ export class AmadeusService {
 
   getSeatMap(flightOffer: FlightOffer): Observable<SeatmapResponse> {
     const url = `https://test.api.amadeus.com/v1/shopping/seatmaps`;
+    const flightArray: FlightOffer[] = [];
+
+    flightArray.push(flightOffer);
+    const body = { data: flightArray };
+    this.logToFile(body);
     return this.http.post<SeatmapResponse>(
       url,
-      { data: [flightOffer] },
+      body,
       {
         headers: new HttpHeaders({
           'Authorization': `Bearer ${this.accessToken}`,
@@ -109,6 +115,9 @@ export class AmadeusService {
       }
     );
   }
+
+
+
 
 
   private makeLocationsRequest(keywords: string): Observable<LocationResponse> {
@@ -142,7 +151,7 @@ export class AmadeusService {
       },
     });
   }
-  
+
   getMockFlightOffers(): FlightOffersResponse {
     return data;
   }
@@ -150,5 +159,31 @@ export class AmadeusService {
   handleApiError(err: any): string {
     const code = err?.error?.code || err?.status;
     return errorMessages[code] || "Ismeretlen hiba történt. Kérjük, próbálja újra később.";
+  }
+
+  async logToFile(content: any): Promise<void> {
+    try {
+      const body = { log: content };
+      const res = await firstValueFrom(this.http.post(environment.backendUrl + "log", body));
+      if (res) {
+        console.log('log elküldve');
+      }
+    } catch (error) {
+      console.error("Hiba történt a fájl írása során:", error);
+    }
+  }
+
+  async logSeatMaptoFile(content: object): Promise<void> {
+    try {
+      const body = { "log": content };
+      const res = await firstValueFrom(
+        this.http.post(environment.backendUrl + "log/seatMap", body)
+      );
+      if (res) {
+        console.log('log elküldve');
+      }
+    } catch (error) {
+      console.error("Hiba történt a fájl írása során:", error);
+    }
   }
 }
