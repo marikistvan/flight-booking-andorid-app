@@ -44,9 +44,8 @@ export class FlightSearchStateService {
     }
 
     async getFlightsWithSpecificCurrency() {
-        this.flightsWithSpecificCurrency = [...this.flightOffers];
+        this.flightsWithSpecificCurrency = JSON.parse(JSON.stringify(this.flightOffers));
         await this.changeCurrency(this.flightsWithSpecificCurrency);
-        console.log(this.flightsWithSpecificCurrency[0].price.total);
         return {
             flightOffers: this.flightsWithSpecificCurrency,
             dictionary: this.dictionary,
@@ -56,7 +55,7 @@ export class FlightSearchStateService {
 
     getFlightOffers() { return this.flightOffers; }
 
-    getFlightOffersWithSpecificCurrency(){return this.flightsWithSpecificCurrency};
+    getFlightOffersWithSpecificCurrency() { return this.flightsWithSpecificCurrency };
 
     getFlightById(id: string): FlightOffer {
         return this.flightOffers.find((flight) => flight.id === id);
