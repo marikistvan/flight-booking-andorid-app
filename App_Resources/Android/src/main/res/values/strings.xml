@@ -111,8 +111,10 @@
   <string name="_flightListRow_stepOver_Z3IM9W">"átszállás"</string>
   <string name="_flightList_noDataMessage_2444Tb">"Nincs a keresési feltételeknek megfelelő adat."</string>
   <string name="_destinationSelector_searchHint_1F6WEq">"Keresés..."</string>
+  <string name="_destinationSelector_defaultPlace_1ezdCW">"Alapértelmezett hely:"</string>
   <string name="_destinationSelector_toPlace_Z1IThRL">"Érkezési hely:"</string>
   <string name="_destinationSelector_fromPlace_27P16R">"Indulási hely:"</string>
+  <string name="_destinationSelector_defaultDestinationTitle_Z1xPP73">"Alapértelmezett hely kiválasztása"</string>
   <string name="_destinationSelector_toTitle_Z1IDk9f">"Érkezési hely kiválasztása"</string>
   <string name="_destinationSelector_fromTitle_285XPo">"Indulási hely kiválasztása"</string>
   <string name="_passengersSelector_moreThen9Error_1h7L4H">"Az ülő utasok (felnőttek és gyermekek) teljes száma nem haladhatja meg a 9-et."</string>

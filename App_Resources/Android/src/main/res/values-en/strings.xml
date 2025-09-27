@@ -111,8 +111,10 @@
   <string name="_flightListRow_stepOver_Z3IM9W">"transfer"</string>
   <string name="_flightList_noDataMessage_2444Tb">"No data matches your search criteria."</string>
   <string name="_destinationSelector_searchHint_1F6WEq">"Search..."</string>
+  <string name="_destinationSelector_defaultPlace_1ezdCW">"Default:"</string>
   <string name="_destinationSelector_toPlace_Z1IThRL">"Arrival:"</string>
   <string name="_destinationSelector_fromPlace_27P16R">"Departure:"</string>
+  <string name="_destinationSelector_defaultDestinationTitle_Z1xPP73">"Select Default Destiontion"</string>
   <string name="_destinationSelector_toTitle_Z1IDk9f">"Select Arrival"</string>
   <string name="_destinationSelector_fromTitle_285XPo">"Select Departure"</string>
   <string name="_passengersSelector_moreThen9Error_1h7L4H">"The total number of seated passengers (adults and children) cannot exceed 9."</string>
@@ -141,6 +143,7 @@
   <string name="_flightSearch_flightType_Z1BdnC0">"Trip Type"</string>
   <string name="_flightSearch_promoTitle_26NKD1">"Amazing deals - Fast -\nTravel anywhere you want"</string>
   <string name="_flightSearch_title_Z1DlxG6">"Flight Search"</string>
+  <string name="_settings_chooseCurrency_1Igjwv">"Choose a currency!"</string>
   <string name="_settings_close_1ySOF9">"Close"</string>
   <string name="_settings_changeLanguageMessage_Z1JmQXN">"The app needs to restart to apply the new language."</string>
   <string name="_settings_changeLanguageTitle_24fn85">"Change Language"</string>
@@ -165,5 +168,4 @@
   <string name="_app_name_1k3Sbz">"Flight booking"</string>
   <string name="app_name">"Flight booking"</string>
   <string name="title_activity_kimera">"Flight booking"</string>
-  <string name="_settings_chooseCurrency_1Igjwv">"Válaszd ki a valutát!"</string>
 </resources>
