@@ -23,6 +23,7 @@ export class AuthService {
   private _lastName = signal<string>("");
   private _bornDate = signal<string>("");
   private _sex = signal<string>("");
+  private _isAdmin = signal<boolean>(false);
 
   currentAuthStatus = this.authStatusSub.asObservable();
 
@@ -64,6 +65,10 @@ export class AuthService {
 
   get sex(): string {
     return this._sex();
+  }
+
+  get isAdmin(): boolean {
+    return this._isAdmin();
   }
 
   private createUser(email: string, password: string) {
@@ -169,6 +174,7 @@ export class AuthService {
         this._sex.set(this.sexTypeDict[data?.genre] ?? '');
         this._bornDate.set(data?.born ?? '');
         this._fullName.set(this._firstName() + ' ' + this._lastName());
+        this._isAdmin.set(data?.admin ?? false);
       });
   }
 

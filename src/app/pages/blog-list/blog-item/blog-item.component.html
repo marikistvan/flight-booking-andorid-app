@@ -1,7 +1,7 @@
 <GridLayout columns="*,auto" rows="138,auto,auto" class="blog-card">
   <Image col="0" colSpan="2" row="0" src="~/assets/test-photos/lefkada.JPG" class="blog-photo" (tap)="openBlog()">
   </Image>
-  @if(authService.currentUser && authService.currentUser.uid ===blog.authorId){
+  @if(authService.currentUser && (authService.currentUser.uid ===blog.authorId) || authService.isAdmin){
   <StackLayout row="0" col="0" colSpan="2" orientation="horizontal" horizontalAlignment="right" verticalAlignment="top"
     padding="8" class="overlay-icons-stack">
 
