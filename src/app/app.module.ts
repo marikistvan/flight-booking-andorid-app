@@ -21,6 +21,7 @@ import { FlightSearchPassengersSelectorComponent } from './pages/flightSearch/fl
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ProfileEditComponent } from './pages/profile/profile-edit/profile-edit.component';
 import { BlogItemComponent } from './pages/blog-list/blog-item/blog-item.component';
 import { BlogListComponent } from './pages/blog-list/blog-list.component';
 import { CreateBlogComponent } from './pages/blog-list/create-blog/create-blog.component';
@@ -80,7 +81,8 @@ registerLocaleData(localeHu);
     SeatDetailsModalComponent,
     FlightTicketComponent,
     FlightTicketListComponent,
-    FlightTicketRowComponent
+    FlightTicketRowComponent,
+    ProfileEditComponent
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })
