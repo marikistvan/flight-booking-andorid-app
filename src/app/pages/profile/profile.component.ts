@@ -1,12 +1,13 @@
-import { Component } from '@angular/core'
+import { Component, OnInit, signal, ViewContainerRef } from '@angular/core'
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
-import { Application, Dialogs } from '@nativescript/core'
-import { RouterExtensions } from "@nativescript/angular";
+import { Application, Dialogs, ImageSource, knownFolders, path } from '@nativescript/core'
+import { ModalDialogOptions, ModalDialogService, RouterExtensions } from "@nativescript/angular";
 import { AuthService } from '~/app/services/auth.service';
 import { UserService } from '~/app/services/user.service';
 import { DatePipe } from '@angular/common';
 import { GoogleSignin } from '@nativescript/google-signin';
 import { localize } from '@nativescript/localize';
+import { ProfileEditComponent } from './profile-edit/profile-edit.component';
 
 @Component({
   providers: [DatePipe],
@@ -14,14 +15,21 @@ import { localize } from '@nativescript/localize';
   templateUrl: './profile.component.html',
   styleUrls: ["./profile.component.scss"],
 })
-export class ProfileComponent {
-
+export class ProfileComponent implements OnInit {
+  imageSrc: any;
+  isActive = signal(true);
   constructor(
+    private viewContainerRef: ViewContainerRef,
+    private modalDialogService: ModalDialogService,
     private routerExtensions: RouterExtensions,
     public authService: AuthService,
     private userService: UserService,
-    public datePipe: DatePipe
+    public datePipe: DatePipe,
   ) { }
+
+  ngOnInit(): void {
+    this.imageSrc = this.userService.loadSavedImage();
+  }
 
   userDataModify(): boolean {
     return true;
@@ -89,7 +97,40 @@ export class ProfileComponent {
     const sideDrawer = <RadSideDrawer>Application.getRootView()
     sideDrawer.showDrawer()
   }
-  SetProfil(): void {
-    console.log("set");
+  async setProfil(id: number): Promise<void> {
+    let element = "";
+    this.isActive.set(false);
+    switch (id) {
+      case 0:
+        element = 'Photo';
+        break;
+      case 1:
+        element = 'full-name';
+        break;
+      case 2:
+        element = 'Email';
+        break;
+      case 3:
+        element = 'Születési dátum';
+        break;
+      case 4:
+        element = 'Neme';
+        break;
+      case 5:
+        element = 'password';
+        break;
+    }
+    const options: ModalDialogOptions = {
+      context: {
+        name: element,
+      },
+      fullscreen: false,
+      viewContainerRef: this.viewContainerRef
+    };
+    const result = await this.modalDialogService
+      .showModal(ProfileEditComponent, options).finally(() => {
+        this.isActive.set(true);
+        this.imageSrc = this.userService.loadSavedImage();
+      });
   }
 }
