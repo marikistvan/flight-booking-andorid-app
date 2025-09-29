@@ -1,0 +1,40 @@
+<StackLayout class="container-white" [formGroup]="profileForm">
+    @if(modalProperty=='full-name'){
+    <Label text="Vezetéknév" class="form-label"></Label>
+    <TextField col="0" colspan="3" row="3" class="input-field" editable="true" hint="Vezetéknév"
+        formControlName="firstName">
+    </TextField>
+    <Label text="Keresztnév" class="form-label"></Label>
+    <TextField col="0" colspan="3" row="3" class="input-field" editable="true" hint="Keresztnév"
+        formControlName="lastName">
+    </TextField>
+    }@else if(modalProperty=='Születési dátum'){
+    <Label [text]="modalProperty" class="form-label"></Label>
+    <DatePickerField class="input-field" col="0" row="5" formControlName="bornDate" [pickerDefaultDate]="minBornDate"
+        [maxDate]="minBornDate" [hint]="minBornDate"></DatePickerField>
+
+    }
+    @else if(modalProperty=='Neme'){
+    <Label [text]="modalProperty" class="form-label"></Label>
+    <TextField class="input-field" hint="{{'register.sexHint' | L}}" [text]="sex" editable="false" (tap)="selectSex()"
+        formControlName="sex">
+    </TextField>
+    }
+    @else if(modalProperty=="Photo"){
+    <GridLayout columns="auto, *" style="height: 400px;">
+        <Image row="1" colSpan="2" [src]="imageSrc" [width]="previewSize" [height]="previewSize" stretch="aspectFit">
+        </Image>
+    </GridLayout>
+    <Button text="Kép kiválasztása" (tap)="onSelectSingleTap()"></Button>
+    }
+    @else if(modalProperty==="password"){
+    <Label text="Jelszó" class="form-label"></Label>
+    <TextField col="0" colspan="3" row="3" class="input-field" editable="true" hint="Jelszó" formControlName="password">
+    </TextField>
+    <Label text="Jelszó mégegyszer" class="form-label"></Label>
+    <TextField col="0" colspan="3" row="3" class="input-field" editable="true" hint="Jelszó mégegyszer"
+        formControlName="passwordAgain">
+    </TextField>
+    }
+    <Button colspan="4" row="6" text="{{'general.submit' | L}}" class="btn-primary" (tap)="submit()"></Button>
+</StackLayout>
