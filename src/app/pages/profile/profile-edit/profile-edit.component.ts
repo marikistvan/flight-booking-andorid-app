@@ -85,6 +85,7 @@ export class ProfileEditComponent implements OnInit {
     else if (this.modalProperty == "Születési dátum") this.updateBornDate();
     else if (this.modalProperty == "Neme") this.updateSexType();
     else if (this.modalProperty == "password") this.updatePassword();
+    else if (this.modalProperty == "Photo") this.saveImageSource(this.imageSrc);
     this.modalDialogParams.closeCallback(true);
   }
 
@@ -164,13 +165,8 @@ export class ProfileEditComponent implements OnInit {
             const picked = selection[0];
             console.log("Picked:", picked);
 
-            // ebből lesz rendes ImageSource
             ImageSource.fromAsset(picked.asset).then((imageSource) => {
               if (imageSource) {
-                // 1) elmented
-                this.saveImageSource(imageSource);
-
-                // 2) megjelenítéshez
                 this.imageSrc = imageSource;
               } else {
                 console.log("Nem sikerült ImageSource-t létrehozni");
@@ -182,13 +178,16 @@ export class ProfileEditComponent implements OnInit {
       .catch((e) => console.log(e));
   }
 
-  private saveImageSource(imageSource: ImageSource) {
+  private async saveImageSource(imageSource: ImageSource) {
     const documents = knownFolders.documents();
     const savedPath = path.join(documents.path, "myImage.png");
-
+    const photoToBase64 = imageSource.toBase64String("jpeg", 80);
     if (imageSource.saveToFile(savedPath, "png")) {
       console.log("Image saved at:", savedPath);
-      this.imageSrc = savedPath; // <Image [src]> ezt is elfogadja
+      this.imageSrc = savedPath;
+      await this.userService.updatePhoto(photoToBase64)
+        .then(() => console.log("Sikeres mentés a felhőbe."))
+        .catch((err) => console.log("Hiba történt " + err));
     } else {
       console.log("Mentés sikertelen");
     }
