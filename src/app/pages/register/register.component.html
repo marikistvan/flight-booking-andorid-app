@@ -22,16 +22,16 @@
         </TextField>
 
         <Label col="0" row="2" text="{{'register.lastName' | L}}" class="form-label"></Label>
-        <TextField col="0" row="3" class="input-field" formControlName="firstName" editable="true" hint="{{'register.lastName' | L}}">
+        <TextField col="0" row="3" class="input-field" formControlName="firstName" editable="true"
+          hint="{{'register.lastName' | L}}">
         </TextField>
 
         <Label col="2" row="2" text="{{'register.firstName' | L}}" class="form-label"></Label>
-        <TextField col="2" row="3" class="input-field" formControlName="lastName" editable="true" hint="{{'register.firstName' | L}}">
+        <TextField col="2" row="3" class="input-field" formControlName="lastName" editable="true"
+          hint="{{'register.firstName' | L}}">
         </TextField>
 
         <Label col="0" row="4" text="{{'register.bornDate' | L}}" class="form-label"></Label>
-        <DatePickerField class="input-field" col="0" row="5" formControlName="bornDate" [text]="born"
-          [pickerDefaultDate]="minBornDate" [maxDate]="minBornDate" [hint]="minBornDate"></DatePickerField>
 
         <Label col="2" row="4" text="{{'register.sex' | L}}" class="form-label"></Label>
         <TextField class="input-field" hint="{{'register.sexHint' | L}}" [text]="sex" col="2" row="5" editable="false"

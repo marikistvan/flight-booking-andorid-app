@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "devStart":"nodemon server.js"
+    "devStart": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -11,10 +11,12 @@
   "type": "commonjs",
   "description": "",
   "dependencies": {
+    "@firebase/storage": "^0.14.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "firebase-admin": "^13.3.0",
+    "multer": "^2.0.2",
     "openai": "^4.97.0"
   },
   "devDependencies": {

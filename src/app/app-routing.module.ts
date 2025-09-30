@@ -134,12 +134,6 @@ const routes: Routes = [
     loadComponent: () =>
       import('./pages/blog-list/create-blog/create-blog.component')
         .then(m => m.CreateBlogComponent),
-  },
-  {
-    path: 'profile-edit',
-    loadComponent: () =>
-      import('./pages/profile_edit/profile-edit.module')
-        .then(m => m.ProfileEditModule),
   }
 ]
 

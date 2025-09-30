@@ -199,6 +199,24 @@ export class UserService {
     }
   }
 
+  async updatePhoto(photo: string) {
+    try {
+      const res = await firstValueFrom(
+        this.http.post(
+          environment.backendUrl + 'api/user/upload-profile-image',
+          {
+            uid: this.authService.currentUser.uid,
+            base64Image: photo,
+          }
+        )
+      );
+      console.log('Siker', res);
+    } catch (err) {
+      console.error('Hiba', err);
+      throw err;
+    }
+  }
+
   isValidPasswords(
     currentPassword: string,
     password: string,

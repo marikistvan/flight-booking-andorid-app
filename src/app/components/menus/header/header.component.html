@@ -1,9 +1,14 @@
- @if(authService.currentUser){
+@if(authService.currentUser){
 <StackLayout class="nt-drawer__header">
- 
+  @if(imageSrc){
+  <Image class="nt-drawer__header-image fas t-36" [src]="imageSrc"></Image>
+
+  }@else {
   <Image class="nt-drawer__header-image fas t-36" src="font://&#xf2bd;"></Image>
+
+  }
   <Label class="nt-drawer__header-brand" [text]="this.authService.userName"></Label>
   <Label class="nt-drawer__header-footnote" [text]="this.authService.currentUser.email"></Label>
-  
+
 </StackLayout>
 }
