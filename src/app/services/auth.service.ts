@@ -1,11 +1,15 @@
 import { Injectable, OnInit, signal } from '@angular/core';
-import { BehaviorSubject, last } from 'rxjs';
+import { async, BehaviorSubject, firstValueFrom, last } from 'rxjs';
 import { firebase } from '@nativescript/firebase-core';
 import '@nativescript/firebase-auth';
 import { RouterExtensions } from '@nativescript/angular';
 import { EmailAuthProvider, GoogleAuthProvider } from '@nativescript/firebase-auth';
 import { GoogleSignin } from '@nativescript/google-signin';
 import { localize } from '@nativescript/localize';
+import { environment } from '~/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { User, UserDetails } from '~/app/models/user';
+
 
 @Injectable({
   providedIn: 'root',
@@ -27,13 +31,24 @@ export class AuthService {
 
   currentAuthStatus = this.authStatusSub.asObservable();
 
-  constructor(private routerExtensions: RouterExtensions) {
+  constructor(
+    private routerExtensions: RouterExtensions,
+    private http: HttpClient
+
+  ) {
     firebase().auth().addAuthStateChangeListener((user) => {
       this.authStatusSub.next(user);
     });
     if (this.auth.currentUser) this.setUserProperties();
   }
 
+  async getUsers() {
+    return await firstValueFrom(this.http.get<User[]>(environment.backendUrl + 'api/users/all'));
+  }
+
+  async getUsersDetails() {
+    return await firstValueFrom(this.http.get<UserDetails[]>(environment.backendUrl + 'api/users'));
+  }
 
   get currentUser() {
     return this.auth.currentUser;

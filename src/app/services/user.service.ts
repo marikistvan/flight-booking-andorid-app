@@ -40,6 +40,7 @@ export class UserService {
     }
     return adult;
   }
+
   isValidEmail(email: string): string {
     let validEmail = '';
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

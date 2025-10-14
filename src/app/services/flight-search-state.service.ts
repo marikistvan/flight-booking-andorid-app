@@ -4,6 +4,7 @@ import { Passenger } from "../models/passenger";
 import { CurrencyService } from './currency.service';
 import { ExchangeApi } from "../models/exchangeApi";
 import { getString } from '@nativescript/core/application-settings';
+import { User, UserDetails } from "../models/user";
 
 @Injectable({ providedIn: "root" })
 export class FlightSearchStateService {
@@ -14,6 +15,8 @@ export class FlightSearchStateService {
     private passengers: Passenger[];
     private _currency: string;
     private _priceSymbol: string;
+    private _profileToSeeUser: User;
+    private _profileToSeeUserDetails: UserDetails;
 
     constructor(private currencyService: CurrencyService) {
         this.setCurrency((getString('appCurrency', 'EUR')));
@@ -118,5 +121,18 @@ export class FlightSearchStateService {
                 break;
         }
         return changedPrice;
+    }
+
+    setProfileToSee(user: User) {
+        this._profileToSeeUser = user;
+    }
+    getProfileToSee(): User {
+        return this._profileToSeeUser;
+    }
+    setProfileDetailsToSee(userDetails: UserDetails) {
+        return this._profileToSeeUserDetails = userDetails;
+    }
+    getProfileDetialsToSee(): UserDetails {
+        return this._profileToSeeUserDetails;
     }
 }
