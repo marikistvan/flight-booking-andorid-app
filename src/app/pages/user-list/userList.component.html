@@ -1,0 +1,18 @@
+<ActionBar class="action-bar">
+  <!--  <NavigationButton visibility="hidden"></NavigationButton>-->
+  <ns-section-header title="Felhasználók"></ns-section-header>
+</ActionBar>
+<StackLayout class="page">
+  <ns-search></ns-search>
+  <ScrollView class="scroll-height">
+    <StackLayout>
+      @if(loaded){
+      @for (user of users; track user.uid) {
+      <ns-user-list-row [user]=user [userDetails]=getCurrentUserDetail(user.uid)></ns-user-list-row>
+      }
+      }@else {
+      <ActivityIndicator busy="true" />
+      }
+    </StackLayout>
+  </ScrollView>
+</StackLayout>
