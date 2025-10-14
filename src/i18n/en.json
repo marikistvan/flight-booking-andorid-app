@@ -64,7 +64,7 @@
     "defaultDestinationTitle": "Select Default Destiontion",
     "fromPlace": "Departure:",
     "toPlace": "Arrival:",
-    "defaultPlace": "Default:", 
+    "defaultPlace": "Default:",
     "searchHint": "Search..."
   },
   "flightList": {
@@ -213,6 +213,13 @@
     "myTickets": "My Tickets",
     "settings": "Settings",
     "login": "Log In",
-    "blog": "Blog"
+    "blog": "Blog",
+    "users": "Users"
+  },
+  "userList": {
+    "title": "Users"
+  },
+  "userListRow": {
+    "created": "created"
   }
 }

@@ -24,7 +24,7 @@
     "changeLanguageTitle": "Nyelv megváltoztatás",
     "changeLanguageMessage": "Az alkalmazásnak újra kell indulnia, hogy megváltozzon a nyelv.",
     "close": "Bezárás!",
-    "chooseCurrency":"Válaszd ki a valutát!"
+    "chooseCurrency": "Válaszd ki a valutát!"
   },
   "flightSearch": {
     "title": "Járat Keresés",
@@ -64,7 +64,7 @@
     "defaultDestinationTitle": "Alapértelmezett hely kiválasztása",
     "fromPlace": "Indulási hely:",
     "toPlace": "Érkezési hely:",
-    "defaultPlace":"Alapértelmezett hely:",
+    "defaultPlace": "Alapértelmezett hely:",
     "searchHint": "Keresés..."
   },
   "flightList": {
@@ -213,6 +213,13 @@
     "myTickets": "Jegyeim",
     "settings": "Beállítások",
     "login": "Bejelentkezés",
-    "blog": "Blog"
+    "blog": "Blog",
+    "users": "Felhasználók"
+  },
+  "userList": {
+    "title": "Felhasználók"
+  },
+  "userListRow": {
+    "created": "létrehozva"
   }
 }
