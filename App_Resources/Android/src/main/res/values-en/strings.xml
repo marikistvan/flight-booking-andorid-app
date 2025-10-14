@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="_userListRow_created_ZcGShA">"created"</string>
+  <string name="_userList_title_4kd0m">"Users"</string>
+  <string name="_menus_users_hfqaS">"Users"</string>
   <string name="_menus_blog_uwAK4">"Blog"</string>
   <string name="_menus_login_gDhR2">"Log In"</string>
   <string name="_menus_settings_1I9iGP">"Settings"</string>
