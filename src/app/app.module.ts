@@ -37,6 +37,11 @@ import { FlightTicketComponent } from './pages/flight-ticket-list/flight-ticket/
 import { FlightTicketListComponent } from './pages/flight-ticket-list/flight-ticket-list.component';
 import { FlightTicketRowComponent } from './pages/flight-ticket-list/flight-ticket-row/flight-ticket-row.component';
 import { NativeScriptLocalizeModule } from '@nativescript/localize/angular';
+import { SearchComponent } from "./pages/search/search.component";
+import { SectionHeaderComponent } from './components/header/section-header.component';
+import { UserProfileComponent } from './pages/user-list/userList-row/user-profile/user-profile.component';
+import { ProfileCardComponent } from './components/profile-card/profile-card.component';
+import { MenuItemComponent } from './components/menus/menu-item/menu-item.component';
 
 registerLocaleData(localeHu);
 
@@ -57,7 +62,12 @@ registerLocaleData(localeHu);
     NativeScriptPickerModule,
     NativeScriptFormsModule,
     NativeScriptUIListViewModule,
-    NativeScriptLocalizeModule
+    NativeScriptLocalizeModule,
+    SearchComponent,
+    SectionHeaderComponent,
+    UserProfileComponent,
+    ProfileCardComponent,
+    MenuItemComponent
   ],
 
   declarations: [

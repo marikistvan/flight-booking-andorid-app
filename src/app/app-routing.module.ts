@@ -11,7 +11,7 @@ import { FlightTicketListComponent } from './pages/flight-ticket-list/flight-tic
 import { SettingsComponent } from './pages/settings/settings.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/profile', pathMatch: 'full' },
+  { path: '', redirectTo: '/blogList', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,
@@ -44,7 +44,12 @@ const routes: Routes = [
     path: 'settings',
     component: SettingsComponent,
   },
-
+  {
+    path: 'userProfile',
+    loadComponent: () =>
+      import('./pages/user-list/userList-row/user-profile/user-profile.component')
+        .then(m => m.UserProfileComponent),
+  },
   {
     path: 'passDetails',
     loadComponent: () =>
@@ -134,6 +139,12 @@ const routes: Routes = [
     loadComponent: () =>
       import('./pages/blog-list/create-blog/create-blog.component')
         .then(m => m.CreateBlogComponent),
+  },
+  {
+    path: 'userList',
+    loadComponent: () =>
+      import('./pages/user-list/userList.component')
+        .then(m => m.UserListComponent),
   }
 ]
 
