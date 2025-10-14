@@ -1,9 +1,6 @@
 <ActionBar class="action-bar">
   <NavigationButton visibility="hidden"></NavigationButton>
-  <GridLayout columns="50, *">
-    <Label class="action-bar-title" text="{{'blogItem.title' | L}}" colSpan="2"></Label>
-    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
-  </GridLayout>
+  <ns-section-header title="{{'blogItem.title' | L}}"></ns-section-header>
 </ActionBar>
 
 <GridLayout class="page" tkExampleTitle tkToggleNavButton>
@@ -21,14 +18,14 @@
         </StackLayout>
         <GridLayout columns="auto, auto" class="button-container">
           <Button text="{{'blogItem.buy' | L}}" col="0" (tap)="Buy(item.data_id)" class="action-button"></Button>
-          <Button text="{{'blogItem.delete' | L}}" col="1" (tap)="Delete(item.data_id)" class="action-button right"></Button>
+          <Button text="{{'blogItem.delete' | L}}" col="1" (tap)="Delete(item.data_id)"
+            class="action-button right"></Button>
         </GridLayout>
       </StackLayout>
     </ng-template>
   </RadListView>
-}
-<Label text="{{'blogItem.cartIsEmpty' | L}}" class="empty-cart-message" textWrap="true">
-  
-</Label>
-</GridLayout>
+  }
+  <Label text="{{'blogItem.cartIsEmpty' | L}}" class="empty-cart-message" textWrap="true">
 
+  </Label>
+</GridLayout>
