@@ -1,0 +1,6 @@
+<GridLayout row="0" rows="auto" columns="auto,*,auto" class="search-container">
+    <Image src="~/assets/icons/search-v3.png" row="0" col="0" class="btn-search-sm"></Image>
+    <TextField row="0" col="1" [text]="searchTerm()" hint="Keresés..." (textChange)="onSearchTextChanged($event.value)"
+        class="search-bar" autocorrect="false"></TextField>
+    <Image src="~/assets/icons/exit.png" row="0" col="2" class="btn-exit-sm" (tap)="onDelete()"></Image>
+</GridLayout>

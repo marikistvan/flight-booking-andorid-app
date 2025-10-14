@@ -1,19 +1,18 @@
-import { Component, ViewContainerRef } from '@angular/core'
-import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
-import { Application } from '@nativescript/core'
-import { ModalDialogOptions, ModalDialogService } from "@nativescript/angular"
-import { BlogService } from "../../services/blog.service"
-import { Blog } from '../../models/blog'
-import { CreateBlogComponent } from './create-blog/create-blog.component'
-import { AuthService } from '~/app/services/auth.service'
+import { Component, ViewContainerRef } from '@angular/core';
+import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
+import { Application } from '@nativescript/core';
+import { ModalDialogOptions, ModalDialogService } from "@nativescript/angular";
+import { BlogService } from "../../services/blog.service";
+import { Blog } from '../../models/blog';
+import { CreateBlogComponent } from './create-blog/create-blog.component';
+import { AuthService } from '~/app/services/auth.service';
 
 @Component({
   selector: 'ns-blog-list',
   templateUrl: './blog-list.component.html',
-  styleUrls: ['./blog-list.component.scss'],
+  styleUrls: ['./blog-list.component.scss']
 })
 export class BlogListComponent {
-  searchTerm: string;
   blogName: string;
   blogDescription: string;
   blogDate: string;
@@ -24,14 +23,6 @@ export class BlogListComponent {
     private viewContainerRef: ViewContainerRef,
     public authService: AuthService
   ) { }
-
-  onSearchTextChanged(event: any) {
-    const query = event.value.toLowerCase();
-  }
-
-  onDelete() {
-    this.searchTerm = "";
-  }
 
   async createBlog() {
     const options: ModalDialogOptions = {
