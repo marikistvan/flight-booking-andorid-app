@@ -37,11 +37,18 @@
     <Label col="1" text="{{'menus.cart' | L}}" class="p-r-10"></Label>
   </GridLayout>
 
-  <GridLayout columns="auto, *" class="nt-drawer__list-item" [class.-selected]="isComponentSelected('/flightTicketList')"
-    (tap)="onNavItemTap('/flightTicketList')">
+  <GridLayout columns="auto, *" class="nt-drawer__list-item"
+    [class.-selected]="isComponentSelected('/flightTicketList')" (tap)="onNavItemTap('/flightTicketList')">
     <Image col="0" src="res://ticket_flight" width="12" height="12" class="icon-distance"></Image>
     <Label col="1" text="{{'menus.myTickets' | L}}" class="p-r-10"></Label>
   </GridLayout>
+  @if(authService.isAdmin){
+  <GridLayout columns="auto, *" class="nt-drawer__list-item" [class.-selected]="isComponentSelected('/userList')"
+    (tap)="onNavItemTap('/userList')">
+    <Image col="0" src="res://ticket_flight" width="12" height="12" class="icon-distance"></Image>
+    <Label col="1" text="felhasználók" class="p-r-10"></Label>
+  </GridLayout>
+  }
   }
 
   <StackLayout class="hr"></StackLayout>
