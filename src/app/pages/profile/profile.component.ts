@@ -1,6 +1,5 @@
-import { Component, OnInit, signal, ViewContainerRef } from '@angular/core'
-import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
-import { Application, Dialogs, ImageSource, knownFolders, path } from '@nativescript/core'
+import { Component, OnInit, signal, ViewContainerRef } from '@angular/core';
+import { Dialogs } from '@nativescript/core';
 import { ModalDialogOptions, ModalDialogService, RouterExtensions } from "@nativescript/angular";
 import { AuthService } from '~/app/services/auth.service';
 import { UserService } from '~/app/services/user.service';
@@ -13,7 +12,6 @@ import { ProfileEditComponent } from './profile-edit/profile-edit.component';
   providers: [DatePipe],
   selector: 'ns-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ["./profile.component.scss"],
 })
 export class ProfileComponent implements OnInit {
   imageSrc: any;
@@ -21,7 +19,6 @@ export class ProfileComponent implements OnInit {
   constructor(
     private viewContainerRef: ViewContainerRef,
     private modalDialogService: ModalDialogService,
-    private routerExtensions: RouterExtensions,
     public authService: AuthService,
     private userService: UserService,
     public datePipe: DatePipe,
@@ -31,9 +28,30 @@ export class ProfileComponent implements OnInit {
     this.imageSrc = this.userService.loadSavedImage();
   }
 
+  get userName() {
+    return (this.authService.userName);
+  }
+
+  get email() {
+    return (this.authService.email);
+  }
+
+  get born() {
+    return (this.authService.born);
+  }
+
+  get sex() {
+    return (this.authService.sex);
+  }
+
+  get photo() {
+    return this.userService.loadSavedImage();
+  }
+
   userDataModify(): boolean {
     return true;
   }
+
   editPassword() { }
 
   async deleteProfile() {
@@ -93,10 +111,7 @@ export class ProfileComponent implements OnInit {
     });
     return result.result ? result.text : null;
   }
-  onDrawerButtonTap(): void {
-    const sideDrawer = <RadSideDrawer>Application.getRootView()
-    sideDrawer.showDrawer()
-  }
+
   async setProfil(id: number): Promise<void> {
     let element = "";
     this.isActive.set(false);
