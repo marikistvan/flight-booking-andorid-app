@@ -1,5 +1,4 @@
 import { Component, ViewChild, OnInit, ElementRef, OnDestroy, signal } from "@angular/core";
-import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { Application, TextView } from "@nativescript/core";
 import { firstValueFrom, Observable } from "rxjs";
 import { ChatService } from "~/app/services/chat.service";
@@ -37,10 +36,10 @@ export class AiChatComponent implements OnInit, OnDestroy {
   }
   setMessageHistory() {
 
-    const history : MessageHistory[] = this.messages.map(m => ({
-      role:m.isAi? 'assistant' :'user',
-      content:m.message,
-      timestamp:m.createdAt
+    const history: MessageHistory[] = this.messages.map(m => ({
+      role: m.isAi ? 'assistant' : 'user',
+      content: m.message,
+      timestamp: m.createdAt
     }));
 
     this.messageHistory.set(history);
@@ -80,10 +79,5 @@ export class AiChatComponent implements OnInit, OnDestroy {
       const newHeight = Math.min(lineCount, maxLines) * lineHeight + 16;
       textView.height = newHeight;
     });
-  }
-
-  onDrawerButtonTap(): void {
-    const sideDrawer = <RadSideDrawer>Application.getRootView();
-    sideDrawer.showDrawer();
   }
 }
