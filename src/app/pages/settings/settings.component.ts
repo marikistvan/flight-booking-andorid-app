@@ -1,5 +1,4 @@
 import { Component, OnInit, signal, ViewContainerRef } from '@angular/core'
-import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
 import { action, Application, Color, Dialogs, EventData, Switch, Utils } from '@nativescript/core'
 import { AuthService } from '~/app/services/auth.service';
 import { overrideLocale } from '@nativescript/localize';
@@ -59,11 +58,6 @@ export class SettingsComponent implements OnInit {
     this.requestPermission();
     const notification = getString('isNotificationEnabled', 'True');
     notification === 'True' ? this.isNotificationEnabled.set(true) : this.isNotificationEnabled.set(false);
-  }
-
-  onDrawerButtonTap(): void {
-    const sideDrawer = <RadSideDrawer>Application.getRootView()
-    sideDrawer.showDrawer()
   }
 
   signOut(): void {
@@ -127,7 +121,7 @@ export class SettingsComponent implements OnInit {
     if (result as LocationResponse) {
       const defaultDes = this.formatName(result.detailedName, result.iataCode);
       setString('defaultDestiontion', defaultDes);
-      setString('defaultDestiontionIATACode',result.iataCode);
+      setString('defaultDestiontionIATACode', result.iataCode);
       this.defaultDestionation.set(defaultDes);
     }
   }
@@ -149,29 +143,29 @@ export class SettingsComponent implements OnInit {
   }
 
   scheduleMonthlyPromo() {
-  const savedTime = Number(getString('promoNext', '0'));
-  let firstTrigger: Date;
+    const savedTime = Number(getString('promoNext', '0'));
+    let firstTrigger: Date;
 
-  if (savedTime) {
-    firstTrigger = new Date(savedTime);
-  } else {
-    firstTrigger = new Date();
-    firstTrigger.setDate(firstTrigger.getDate() + 30);
-    setString('promoNext', firstTrigger.getTime().toString());
+    if (savedTime) {
+      firstTrigger = new Date(savedTime);
+    } else {
+      firstTrigger = new Date();
+      firstTrigger.setDate(firstTrigger.getDate() + 30);
+      setString('promoNext', firstTrigger.getTime().toString());
+    }
+
+    LocalNotifications.schedule([{
+      id: 200,
+      title: 'Ne maradj le a repülőjáratokról!',
+      body: 'Nézd meg a mai ajánlatokat!',
+      at: firstTrigger,
+      interval: { month: 1 },
+      sound: 'default'
+    }]).then(
+      scheduledIds => console.log('Havi promóció ütemezve, ID:', scheduledIds),
+      error => console.log('Hiba az ütemezésnél:', error)
+    );
   }
-
-  LocalNotifications.schedule([{
-    id: 200,
-    title: 'Ne maradj le a repülőjáratokról!',
-    body: 'Nézd meg a mai ajánlatokat!',
-    at: firstTrigger,
-    interval: { month: 1 },
-    sound: 'default'
-  }]).then(
-    scheduledIds => console.log('Havi promóció ütemezve, ID:', scheduledIds),
-    error => console.log('Hiba az ütemezésnél:', error)
-  );
-}
 
   async onCheckedChange(event: EventData) {
     const mySwitch = event.object as Switch;

@@ -1,10 +1,6 @@
 <ActionBar class="action-bar">
   <NavigationButton visibility="hidden"></NavigationButton>
-  <GridLayout columns="50, *">
-    <Label class="action-bar-title" text="{{'settings.title' | L}}" colSpan="2"></Label>
-
-    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
-  </GridLayout>
+  <ns-section-header title="{{'settings.title' | L}}"></ns-section-header>
 </ActionBar>
 <StackLayout class="page testMiddle">
 
