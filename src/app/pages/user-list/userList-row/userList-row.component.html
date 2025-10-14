@@ -5,7 +5,7 @@
     <Label col="1" colSpan="2" row="0" [text]="userName"> </Label>
     <Label col="1" row="1" text="id:"> </Label>
     <Label col="2" row="1" [text]="userId"> </Label>
-    <Label col="1" row="2" text="created:"> </Label>
+    <Label col="1" row="2" text="{{'userListRow.created' | L}}"> </Label>
     <Label col="2" row="2" [text]="userCreate"> </Label>
 </GridLayout>
 }@else {
