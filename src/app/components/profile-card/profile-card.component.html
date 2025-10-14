@@ -1,0 +1,31 @@
+<GridLayout class="profile-form" columns="auto,5px,*,auto" rows="auto,auto,auto,auto,auto,auto,auto,*">
+    <Image row="0" col="0" colSpan="3" [src]="photo || '~/assets/icons/user.png'" class="user-icon"></Image>
+
+    <Image row="0" col="3" colSpan="4" src="~/assets/icons/upload-photo.png" class="edit-icon" (tap)="setProfil(0)">
+    </Image>
+
+    <Label row="1" col="0" text="{{'profile.fullName' | L}}" class="user-data-label"></Label>
+    <Label row="1" col="2" [text]="userName" class="user-data-label"></Label>
+    <Image row="1" col="3" colSpan="4" src="~/assets/icons/edit-pen.png" class="edit-icon" (tap)="setProfil(1)"></Image>
+
+    <Label row="2" col="0" text="{{'profile.emailAddress' | L}}" class="user-data-label"></Label>
+    <Label row="2" col="2" [text]="email" class="user-data-label"></Label>
+
+    <Label row="3" col="0" text="{{'profile.bornDate' | L}}" class="user-data-label"></Label>
+    <Label row="3" col="2" [text]="born" class="user-data-label"></Label>
+    <Image row="3" col="3" colSpan="4" src="~/assets/icons/edit-pen.png" class="edit-icon" (tap)="setProfil(3)"></Image>
+
+    <Label row="4" col="0" text="{{'profile.sex' | L}}" class="user-data-label"></Label>
+    <Label row="4" col="2" [text]="sex" class="user-data-label"></Label>
+    <Image row="4" col="3" colSpan="4" src="~/assets/icons/edit-pen.png" class="edit-icon" (tap)="setProfil(4)"></Image>
+
+    <StackLayout row="5" col="0" colSpan="4" orientation="horizontal" class="btn-transparent-edit-password"
+        (tap)="setProfil(5)">
+        <Label text="{{'profile.passwordModify' | L}}" class="btn-label"></Label>
+    </StackLayout>
+
+    <StackLayout row="6" col="0" colSpan="4" orientation="horizontal" class="btn-transparent-delete-profile"
+        (tap)="deleteProfile()">
+        <Label text="{{'profile.deleteProfile' | L}}" class="btn-label color-red"></Label>
+    </StackLayout>
+</GridLayout>

@@ -1,0 +1,66 @@
+.profile-form {
+    margin: 50 10 50 10;
+    border-radius: 70px;
+    padding: 10 20 10 20;
+    background-color: white;
+    box-shadow: 10px 5px rgba(0, 0, 0, 0.16);
+    align-items: center;
+}
+
+.profle-img-stack {
+    margin-left: 60;
+}
+
+.user-data-label {
+    font-size: 20;
+    margin-bottom: 10;
+}
+
+.user-icon {
+    width: 120;
+    height: 120;
+    margin-left: 15;
+    margin-bottom: 30;
+    border-radius: 100;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 100%;
+}
+
+.edit-icon {
+    width: 20;
+    height: 20;
+}
+
+.btn-transparent-edit-password {
+    height: 110px;
+    border-radius: 30;
+    border-width: 2px;
+    border-color: #5a9eff;
+    margin-top: 20;
+    margin-left: 40px;
+    margin-right: 40px;
+    background-color: transparent;
+}
+
+.btn-transparent-delete-profile {
+    height: 110px;
+    border-radius: 30;
+    border-width: 2px;
+    border-color: #ff0015;
+    margin-top: 20;
+    margin-left: 40px;
+    margin-right: 40px;
+    background-color: transparent;
+}
+
+.btn-label {
+    font-size: 23px;
+    margin-left: 0;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+}
+
+.color-red {
+    color: red;
+}
