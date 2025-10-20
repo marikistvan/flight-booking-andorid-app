@@ -1,7 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, NO_ERRORS_SCHEMA, Output } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    NO_ERRORS_SCHEMA,
+    Output,
+} from '@angular/core';
 import { NativeScriptCommonModule } from '@nativescript/angular';
-import { localize } from "@nativescript/localize";
+import { localize } from '@nativescript/localize';
 import { NativeScriptLocalizeModule } from '@nativescript/localize/angular';
 
 @Component({
@@ -12,9 +18,9 @@ import { NativeScriptLocalizeModule } from '@nativescript/localize/angular';
     imports: [
         CommonModule,
         NativeScriptCommonModule,
-        NativeScriptLocalizeModule
+        NativeScriptLocalizeModule,
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+    schemas: [NO_ERRORS_SCHEMA],
 })
 export class ProfileCardComponent {
     @Input() photo?: string;

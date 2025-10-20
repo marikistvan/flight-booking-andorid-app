@@ -1,6 +1,6 @@
-export interface Message{
-    id?:string,
-    message: string,
-    isAi: boolean,
-    createdAt: Date,
+export interface Message {
+    id?: string;
+    message: string;
+    isAi: boolean;
+    createdAt: Date;
 }

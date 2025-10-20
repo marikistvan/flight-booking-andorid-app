@@ -1,5 +1,5 @@
 export interface MessageHistory {
-    role: "user" | "assistant" | "system",
-    content: string,
-    timestamp: Date
+    role: 'user' | 'assistant' | 'system';
+    content: string;
+    timestamp: Date;
 }

@@ -1,10 +1,10 @@
-import { Component } from "@angular/core";
-import { ModalDialogParams } from "@nativescript/angular";
+import { Component } from '@angular/core';
+import { ModalDialogParams } from '@nativescript/angular';
 
 @Component({
-    selector: "seat-details-modal",
-    templateUrl: "./seat-details-modal.component.html",
-    styleUrls: ["./seat-details-modal.component.scss"],
+    selector: 'seat-details-modal',
+    templateUrl: './seat-details-modal.component.html',
+    styleUrls: ['./seat-details-modal.component.scss'],
 })
 export class SeatDetailsModalComponent {
     data: any;
@@ -14,7 +14,10 @@ export class SeatDetailsModalComponent {
     }
 
     reserve() {
-        this.params.closeCallback({ action: 'reserve', seat: this.data.seatNumber});
+        this.params.closeCallback({
+            action: 'reserve',
+            seat: this.data.seatNumber,
+        });
         console.log('foglalás');
     }
 

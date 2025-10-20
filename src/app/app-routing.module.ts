@@ -11,145 +11,162 @@ import { FlightTicketListComponent } from './pages/flight-ticket-list/flight-tic
 import { SettingsComponent } from './pages/settings/settings.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/blogList', pathMatch: 'full' },
-  {
-    path: 'home',
-    component: HomeComponent,
-  },
-  {
-    path: 'blogList',
-    component: BlogListComponent,
-  },
-  {
-    path: 'flightSearch',
-    component: FlightSearchComponent,
-  },
-  {
-    path: 'profile',
-    component: ProfileComponent,
-  },
-  {
-    path: 'aichat',
-    component: AiChatComponent,
-  },
-  {
-    path: 'basket',
-    component: BasketComponent,
-  },
-  {
-    path: 'flightTicketList',
-    component: FlightTicketListComponent,
-  },
-  {
-    path: 'settings',
-    component: SettingsComponent,
-  },
-  {
-    path: 'userProfile',
-    loadComponent: () =>
-      import('./pages/user-list/userList-row/user-profile/user-profile.component')
-        .then(m => m.UserProfileComponent),
-  },
-  {
-    path: 'passDetails',
-    loadComponent: () =>
-      import('./pages/flight-booking/flight-summary/passenger-details/passenger-details.component')
-        .then(m => m.PassengerDetailsComponent),
-  },
-  {
-    path: 'flightSummary/:flightId',
-    loadComponent: () =>
-      import('./pages/flight-booking/flight-summary/flight-summary.component')
-        .then(m => m.FlightSummaryComponent),
-  },
-  {
-    path: 'seatDetails',
-    loadComponent: () =>
-      import('./pages/flight-booking/select-seat/seat-details-modal/seat-details-modal.component')
-        .then(m => m.SeatDetailsModalComponent),
-  },
-  {
-    path: 'seat',
-    loadComponent: () =>
-      import('./pages/flight-booking/select-seat/select-seat.component')
-        .then(m => m.SelectSeatComponent),
-  },
-  {
-    path: 'setPassenger',
-    loadComponent: () =>
-      import('./pages/flight-booking/set-passenger/set-passenger.component')
-        .then(m => m.SetpassengerComponent),
-  },
-  {
-    path: 'login',
-    loadComponent: () =>
-      import('./pages/login/login.component')
-        .then(m => m.LoginComponent),
-  },
-  {
-    path: 'register',
-    loadComponent: () =>
-      import('./pages/register/register.component')
-        .then(m => m.RegisterComponent),
-  },
-  {
-    path: 'passengerInfo/:flightId',
-    loadComponent: () =>
-      import('./pages/flight-booking/passenger-info.component')
-        .then(m => m.PassengerInfoComponent),
-  },
-  {
-    path: 'flightSearchDestinationSelectorComponent',
-    loadComponent: () =>
-      import('./pages/flightSearch/flight-search-destination-selector/flightSearchDestinationSelector.component')
-        .then(m => m.FlightSearchDestinationSelectorComponent),
-  },
-  {
-    path: 'flightSearchPassengersSelectorComponent',
-    loadComponent: () =>
-      import('./pages/flightSearch/flight-search-passengers-selector/flightSearchPassengersSelector.component')
-        .then(m => m.FlightSearchPassengersSelectorComponent),
-  },
-  {
-    path: 'flightList',
-    loadComponent: () =>
-      import('./pages/flightSearch/fligthList/flightList.component')
-        .then(m => m.FlightListComponent),
-  },
-  {
-    path: 'flightListRow',
-    loadComponent: () =>
-      import('./pages/flightSearch/fligthList/flightList-row/flightList-row.component')
-        .then(m => m.FlightListRowComponent),
-  },
-  {
-    path: 'flightDetails/:flightId',
-    loadComponent: () =>
-      import('./pages/flightSearch/fligthList/flightList-row/flight-details/flight-details.component')
-        .then(m => m.FlightDetailsComponent),
-  },
-  {
-    path: 'flightDetails',
-    loadComponent: () =>
-      import('./pages/flightSearch/fligthList/flightList-row/flight-details/flight-details.component')
-        .then(m => m.FlightDetailsComponent),
-  },
-  {
-    path: 'blogCreate',
-    loadComponent: () =>
-      import('./pages/blog-list/create-blog/create-blog.component')
-        .then(m => m.CreateBlogComponent),
-  },
-  {
-    path: 'userList',
-    loadComponent: () =>
-      import('./pages/user-list/userList.component')
-        .then(m => m.UserListComponent),
-  }
-]
+    { path: '', redirectTo: '/flightSearch', pathMatch: 'full' },
+    {
+        path: 'home',
+        component: HomeComponent,
+    },
+    {
+        path: 'blogList',
+        component: BlogListComponent,
+    },
+    {
+        path: 'flightSearch',
+        component: FlightSearchComponent,
+    },
+    {
+        path: 'profile',
+        component: ProfileComponent,
+    },
+    {
+        path: 'aichat',
+        component: AiChatComponent,
+    },
+    {
+        path: 'basket',
+        component: BasketComponent,
+    },
+    {
+        path: 'flightTicketList',
+        component: FlightTicketListComponent,
+    },
+    {
+        path: 'settings',
+        component: SettingsComponent,
+    },
+    {
+        path: 'userProfile',
+        loadComponent: () =>
+            import(
+                './pages/user-list/userList-row/user-profile/user-profile.component'
+            ).then((m) => m.UserProfileComponent),
+    },
+    {
+        path: 'passDetails',
+        loadComponent: () =>
+            import(
+                './pages/flight-booking/flight-summary/passenger-details/passenger-details.component'
+            ).then((m) => m.PassengerDetailsComponent),
+    },
+    {
+        path: 'flightSummary/:flightId',
+        loadComponent: () =>
+            import(
+                './pages/flight-booking/flight-summary/flight-summary.component'
+            ).then((m) => m.FlightSummaryComponent),
+    },
+    {
+        path: 'seatDetails',
+        loadComponent: () =>
+            import(
+                './pages/flight-booking/select-seat/seat-details-modal/seat-details-modal.component'
+            ).then((m) => m.SeatDetailsModalComponent),
+    },
+    {
+        path: 'seat',
+        loadComponent: () =>
+            import(
+                './pages/flight-booking/select-seat/select-seat.component'
+            ).then((m) => m.SelectSeatComponent),
+    },
+    {
+        path: 'setPassenger',
+        loadComponent: () =>
+            import(
+                './pages/flight-booking/set-passenger/set-passenger.component'
+            ).then((m) => m.SetpassengerComponent),
+    },
+    {
+        path: 'login',
+        loadComponent: () =>
+            import('./pages/login/login.component').then(
+                (m) => m.LoginComponent
+            ),
+    },
+    {
+        path: 'register',
+        loadComponent: () =>
+            import('./pages/register/register.component').then(
+                (m) => m.RegisterComponent
+            ),
+    },
+    {
+        path: 'passengerInfo/:flightId',
+        loadComponent: () =>
+            import('./pages/flight-booking/passenger-info.component').then(
+                (m) => m.PassengerInfoComponent
+            ),
+    },
+    {
+        path: 'flightSearchDestinationSelectorComponent',
+        loadComponent: () =>
+            import(
+                './pages/flightSearch/flight-search-destination-selector/flightSearchDestinationSelector.component'
+            ).then((m) => m.FlightSearchDestinationSelectorComponent),
+    },
+    {
+        path: 'flightSearchPassengersSelectorComponent',
+        loadComponent: () =>
+            import(
+                './pages/flightSearch/flight-search-passengers-selector/flightSearchPassengersSelector.component'
+            ).then((m) => m.FlightSearchPassengersSelectorComponent),
+    },
+    {
+        path: 'flightList',
+        loadComponent: () =>
+            import('./pages/flightSearch/fligthList/flightList.component').then(
+                (m) => m.FlightListComponent
+            ),
+    },
+    {
+        path: 'flightListRow',
+        loadComponent: () =>
+            import(
+                './pages/flightSearch/fligthList/flightList-row/flightList-row.component'
+            ).then((m) => m.FlightListRowComponent),
+    },
+    {
+        path: 'flightDetails/:flightId',
+        loadComponent: () =>
+            import(
+                './pages/flightSearch/fligthList/flightList-row/flight-details/flight-details.component'
+            ).then((m) => m.FlightDetailsComponent),
+    },
+    {
+        path: 'flightDetails',
+        loadComponent: () =>
+            import(
+                './pages/flightSearch/fligthList/flightList-row/flight-details/flight-details.component'
+            ).then((m) => m.FlightDetailsComponent),
+    },
+    {
+        path: 'blogCreate',
+        loadComponent: () =>
+            import('./pages/blog-list/create-blog/create-blog.component').then(
+                (m) => m.CreateBlogComponent
+            ),
+    },
+    {
+        path: 'userList',
+        loadComponent: () =>
+            import('./pages/user-list/userList.component').then(
+                (m) => m.UserListComponent
+            ),
+    },
+];
 
 @NgModule({
-  imports: [NativeScriptRouterModule.forRoot(routes)],
-  exports: [NativeScriptRouterModule],
+    imports: [NativeScriptRouterModule.forRoot(routes)],
+    exports: [NativeScriptRouterModule],
 })
 export class AppRoutingModule { }

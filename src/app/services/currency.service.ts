@@ -11,26 +11,36 @@ export class CurrencyService {
     private baseUrl = 'https://api.exchangerate.host';
     private key = environment.exChangeRateApiAccessKey;
     currentCurreny: Observable<ExchangeApi>;
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
 
-    getRates(): Promise<ExchangeApi["quotes"]> {
+    getRates(): Promise<ExchangeApi['quotes']> {
         const lastExchangeApiUpdate = getString('lastExchangeApiUpdate');
 
         if (lastExchangeApiUpdate === new Date().toDateString()) {
-            return Promise.resolve(JSON.parse(getString('lastExchangeApiQuotes')));
+            return Promise.resolve(
+                JSON.parse(getString('lastExchangeApiQuotes'))
+            );
         }
 
         return new Promise((resolve, reject) => {
-            this.http.get<ExchangeApi>(`${this.baseUrl}/live?access_key=${this.key}&currencies=HUF,CHF,EUR`)
+            this.http
+                .get<ExchangeApi>(
+                    `${this.baseUrl}/live?access_key=${this.key}&currencies=HUF,CHF,EUR`
+                )
                 .subscribe({
                     next: (res) => {
-                        setString('lastExchangeApiQuotes', JSON.stringify(res.quotes));
-                        setString('lastExchangeApiUpdate', new Date().toDateString());
+                        setString(
+                            'lastExchangeApiQuotes',
+                            JSON.stringify(res.quotes)
+                        );
+                        setString(
+                            'lastExchangeApiUpdate',
+                            new Date().toDateString()
+                        );
                         resolve(res.quotes);
                     },
-                    error: (err) => reject(err)
+                    error: (err) => reject(err),
                 });
         });
     }
-
 }

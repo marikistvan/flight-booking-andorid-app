@@ -1,7 +1,7 @@
-const express = require('express')
-const router =express.Router()
-const { test } =require("../controllers/notificationController")
+const express = require('express');
+const router = express.Router();
+const { test } = require('../controllers/notificationController');
 
-router.post('/',test);
+router.post('/', test);
 
-module.exports =router;
+module.exports = router;

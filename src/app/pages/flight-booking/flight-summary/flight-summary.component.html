@@ -1,34 +1,83 @@
 <ActionBar flat="true" class="action-bar">
     <GridLayout columns="auto, *">
-        <Label text="{{'flightSummary.title' | L}}" colspan="2" class="action-bar-title"></Label>
-        <Image src="~/assets/icons/right-arrow.png" (tap)="onCancel()" class="fas btn-back-rotate-black"></Image>
+        <Label
+            text="{{ 'flightSummary.title' | L }}"
+            colspan="2"
+            class="action-bar-title"
+        ></Label>
+        <Image
+            src="~/assets/icons/right-arrow.png"
+            (tap)="onCancel()"
+            class="fas btn-back-rotate-black"
+        ></Image>
     </GridLayout>
 </ActionBar>
 <StackLayout class="page">
-    @if(!isShowFlightDetails){
-    <Button text="{{'flightSummary.showFlightInfo' | L}}" class="submit-btn bg-green" (tap)="testOC()"></Button>
+    @if (!isShowFlightDetails) {
+        <Button
+            text="{{ 'flightSummary.showFlightInfo' | L }}"
+            class="submit-btn bg-green"
+            (tap)="testOC()"
+        ></Button>
     }
-    @if(isShowFlightDetails){
-    <Button text="{{'flightSummary.hideFlightInfo' | L}}" class="submit-btn bg-red" (tap)="testOC()"></Button>
-    <StackLayout style="height: 50%; border-width: 1; border-color: black;">
-        <ns-flight-details [flightOffer]="flightOffer" [dictionary]="dictionary"
-            [isJustSummary]="true"></ns-flight-details>
-    </StackLayout>
+    @if (isShowFlightDetails) {
+        <Button
+            text="{{ 'flightSummary.hideFlightInfo' | L }}"
+            class="submit-btn bg-red"
+            (tap)="testOC()"
+        ></Button>
+        <StackLayout style="height: 50%; border-width: 1; border-color: black">
+            <ns-flight-details
+                [flightOffer]="flightOffer"
+                [dictionary]="dictionary"
+                [isJustSummary]="true"
+            ></ns-flight-details>
+        </StackLayout>
     }
-    <ScrollView style="height: 90%;">
+    <ScrollView style="height: 90%">
         <StackLayout>
-            @for(passenger of passengers;track $index){
-            <ns-passenger-details [passenger]="passenger"></ns-passenger-details>
+            @for (passenger of passengers; track $index) {
+                <ns-passenger-details
+                    [passenger]="passenger"
+                ></ns-passenger-details>
             }
-            <GridLayout columns="auto,auto,70,auto" rows="24, auto" class="price-grid">
-                <Image col="0" row="0" rowSpan="2" src="~/assets/icons/cost.png" class="icon-cost"
-                    verticalAlignment="center">
+            <GridLayout
+                columns="auto,auto,70,auto"
+                rows="24, auto"
+                class="price-grid"
+            >
+                <Image
+                    col="0"
+                    row="0"
+                    rowSpan="2"
+                    src="~/assets/icons/cost.png"
+                    class="icon-cost"
+                    verticalAlignment="center"
+                >
                 </Image>
-                <Label col="3" row="0" [text]="flightOffer.price.total +' '+flightOffer.price.currency"
-                    class="big-price-label" style="text-align: center;"></Label>
-                <Label col="3" row="1" text="{{'flightSummary.allInAll' | L}}" class="price-detail"></Label>
+                <Label
+                    col="3"
+                    row="0"
+                    [text]="
+                        flightOffer.price.total +
+                        ' ' +
+                        flightOffer.price.currency
+                    "
+                    class="big-price-label"
+                    style="text-align: center"
+                ></Label>
+                <Label
+                    col="3"
+                    row="1"
+                    text="{{ 'flightSummary.allInAll' | L }}"
+                    class="price-detail"
+                ></Label>
             </GridLayout>
-            <Button text="{{'flightSummary.title' | L}}" class="submit-btn bg-blue" (tap)="booking()"></Button>
+            <Button
+                text="{{ 'flightSummary.title' | L }}"
+                class="submit-btn bg-blue"
+                (tap)="booking()"
+            ></Button>
         </StackLayout>
     </ScrollView>
 </StackLayout>

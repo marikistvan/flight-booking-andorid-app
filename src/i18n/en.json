@@ -1,225 +1,226 @@
 {
-  "app.name": "Flight booking",
-  "general": {
-    "cancel": "Cancel",
-    "submit": "Apply",
-    "hour": "hour",
-    "minute": "minute",
-    "summary": "Total:",
-    "errorTitle": "Error!",
-    "errorOccured": "An error occurred, please try again later!",
-    "ok": "Ok",
-    "yes": "Yes",
-    "no": "No",
-    "save": "Save"
-  },
-  "settings": {
-    "title": "Settings",
-    "switchlanguage": "Language Selector",
-    "defaultDeparturePoint": "Default Departure Point",
-    "currencySelector": "Currency Selector",
-    "enablePushNotifications": "Enable Push Notifications",
-    "logout": "Log Out",
-    "chooseLanguage": "Choose a language!",
-    "changeLanguageTitle": "Change Language",
-    "changeLanguageMessage": "The app needs to restart to apply the new language.",
-    "close": "Close",
-    "chooseCurrency": "Choose a currency!"
-  },
-  "flightSearch": {
-    "title": "Flight Search",
-    "promoTitle": "Amazing deals - Fast -\nTravel anywhere you want",
-    "flightType": "Trip Type",
-    "oneWay": "One Way",
-    "roundTrip": "Round Trip",
-    "flightTypeHint": "One way, Round trip",
-    "fromPlace": "From",
-    "toPlace": "To",
-    "departure": "Departure",
-    "back": "Return",
-    "dateError": "Start date cannot be later than end date",
-    "passengers": "Passengers",
-    "search": "Search",
-    "tripPickerMessage": "Select trip type"
-  },
-  "passengerCategory": {
-    "adult": "Adult",
-    "child": "Child",
-    "infant": "Infant",
-    "adultDes": "Above 18 years",
-    "childDes": "Between 2–12 years",
-    "infantDes": "Between 0–2 years"
-  },
-  "passengersSelector": {
-    "title": "Select Passengers",
-    "promoTitle": "Tell us how many\nare traveling,\nwe’ll take care of the rest.",
-    "moreInfantsThenAdultsError": "Infants travel only on adults' laps, so at least as many adults as infants are required.",
-    "oneAdultIsRequredError": "Selecting 1 adult is mandatory",
-    "childrenAloneError": "Children cannot travel alone.",
-    "moreThen9Error": "The total number of seated passengers (adults and children) cannot exceed 9."
-  },
-  "destinationSelector": {
-    "fromTitle": "Select Departure",
-    "toTitle": "Select Arrival",
-    "defaultDestinationTitle": "Select Default Destiontion",
-    "fromPlace": "Departure:",
-    "toPlace": "Arrival:",
-    "defaultPlace": "Default:",
-    "searchHint": "Search..."
-  },
-  "flightList": {
-    "noDataMessage": "No data matches your search criteria."
-  },
-  "flightListRow": {
-    "stepOver": "transfer",
-    "choose": "Select"
-  },
-  "flightTicket": {
-    "seat": "SEAT",
-    "flight": "Flight",
-    "passengerName": "Passenger Name:"
-  },
-  "flightTicketList": {
-    "title": "Your Tickets"
-  },
-  "flightTicketRow": {
-    "seat": "Seat:"
-  },
-  "home": {
-    "promoTitle1": "Experience full comfort",
-    "promoTitle2": "Join today.",
-    "registerWithGoogle": "Register with Google",
-    "createAcc": "Create Account",
-    "isHaveAcc": "Already have an account?",
-    "login": "Log In",
-    "promoTitle3": "Browse smoothly.",
-    "tryTheApp": "Try the app",
-    "errorOccured": "An error occurred, please try again later!",
-    "errorTitle": "Error!",
-    "ok": "Ok"
-  },
-  "register": {
-    "woman": "Female",
-    "man": "Male",
-    "other": "Other",
-    "chooseYourSex": "Select your gender.",
-    "errorTitle": "Error!",
-    "errorOccured": "An error occurred, please try again later!",
-    "ok": "Ok",
-    "registerSuccess": "Registration successful!",
-    "emailSent": "We sent a confirmation email, please complete verification!",
-    "passwwordsNotEquals": "Passwords do not match!",
-    "title": "Register",
-    "email": "Email",
-    "emailAddress": "Email Address",
-    "lastName": "Last Name",
-    "firstName": "First Name",
-    "bornDate": "Date of Birth",
-    "sex": "Gender",
-    "sexHint": "Female, Male, Other...",
-    "password": "Password",
-    "passwordAgain": "Password again",
-    "passwordAgainHint": "Confirm password",
-    "registerWidthGoogle": "Register with Google",
-    "or": "Or"
-  },
-  "profile": {
-    "title": "Profile",
-    "fullName": "Full Name:",
-    "emailAddress": "Email Address: ",
-    "bornDate": "Date of Birth: ",
-    "sex": "Gender: ",
-    "passwordModify": "Change Password",
-    "deleteProfile": "Delete Account",
-    "passwordIsIncorrect": "Incorrect password",
-    "isSuredeleteProfile": "Are you sure you want to delete your account?",
-    "writeDownYourPasswordTitle": "Enter your password!",
-    "writeDownYourPassword": "Please enter your password to confirm!"
-  },
-  "login": {
-    "title": "Log In",
-    "wrongEmailOrPw": "Wrong email or password!",
-    "validateYourEmail": "Please verify your email!",
-    "loginWithGoogle": "Log In with Google",
-    "isForgotYourPassword": "Forgot your password?",
-    "dontHaveAccount": "Don’t have an account?"
-  },
-  "passengerInfo": {
-    "title": "Enter Passenger Data",
-    "passengerDatas": "passenger data",
-    "next": "Next",
-    "passenger": ". passenger",
-    "notFoundSeatMap": "Seat map for this flight not found.",
-    "serverError": "A server error occurred. Please try again later."
-  },
-  "setPassenger": {
-    "title": "Enter passenger details",
-    "selectLuggage": "Select Luggage",
-    "handBag": "Hand Luggage",
-    "selectYourHandBag": "Choose your luggage."
-  },
-  "selectSeat": {
-    "wayThereSeatSelect": "Outbound Seat Selection",
-    "wayBackSeatSelect": "Return Seat Selection",
-    "choose": "Select",
-    "yourSeat": " your seat"
-  },
-  "seatDetailsModal": {
-    "cabinType": "cabin type:",
-    "seatNumber": "seat number:",
-    "status": "status:",
-    "seatPrice": "seat price",
-    "book": "Book"
-  },
-  "flightSummary": {
-    "title": "Finalize Booking",
-    "showFlightInfo": "show flight info",
-    "hideFlightInfo": "hide flight info",
-    "allInAll": "total"
-  },
-  "passengerDetails": {
-    "luggage": "Luggage"
-  },
-  "createBlog": {
-    "title": "Create Blog",
-    "blogTitle": "Title",
-    "description": "Description",
-    "uploadPhoto": "Upload Photo"
-  },
-  "blogItem": {
-    "title": "Cart",
-    "deleteBlog": "Delete Blog!",
-    "isSuredeleteBlog": "Are you sure you want to delete the blog?",
-    "start": "Departure: ",
-    "arrive": "Arrival: ",
-    "startItataCode": "Departure IATA code: ",
-    "arriveIataCode": "Arrival IATA code: ",
-    "priceTotal": "Total Price: ",
-    "duration": "Duration: ",
-    "buy": "Buy",
-    "delete": "Delete",
-    "cartIsEmpty": "Your cart is currently empty."
-  },
-  "aiChat": {
-    "title": "Anna AI Chat",
-    "send": "Send",
-    "chatError": "Sorry, an error occurred while retrieving the response."
-  },
-  "menus": {
-    "searchFlight": "Search Flight",
-    "cart": "Cart",
-    "profile": "Account",
-    "aiChat": "AI Chat",
-    "myTickets": "My Tickets",
-    "settings": "Settings",
-    "login": "Log In",
-    "blog": "Blog",
-    "users": "Users"
-  },
-  "userList": {
-    "title": "Users"
-  },
-  "userListRow": {
-    "created": "created"
-  }
+    "app.name": "Flight booking",
+    "general": {
+        "cancel": "Cancel",
+        "submit": "Apply",
+        "hour": "hour",
+        "minute": "minute",
+        "summary": "Total:",
+        "errorTitle": "Error!",
+        "errorOccured": "An error occurred, please try again later!",
+        "ok": "Ok",
+        "yes": "Yes",
+        "no": "No",
+        "save": "Save"
+    },
+    "settings": {
+        "title": "Settings",
+        "switchlanguage": "Language Selector",
+        "defaultDeparturePoint": "Default Departure Point",
+        "currencySelector": "Currency Selector",
+        "enablePushNotifications": "Enable Push Notifications",
+        "logout": "Log Out",
+        "chooseLanguage": "Choose a language!",
+        "changeLanguageTitle": "Change Language",
+        "changeLanguageMessage": "The app needs to restart to apply the new language.",
+        "close": "Close",
+        "chooseCurrency": "Choose a currency!"
+    },
+    "flightSearch": {
+        "title": "Flight Search",
+        "promoTitle": "Amazing deals - Fast -\nTravel anywhere you want",
+        "flightType": "Trip Type",
+        "oneWay": "One Way",
+        "roundTrip": "Round Trip",
+        "flightTypeHint": "One way, Round trip",
+        "fromPlace": "From",
+        "toPlace": "To",
+        "departure": "Departure",
+        "back": "Return",
+        "dateError": "Start date cannot be later than end date",
+        "passengers": "Passengers",
+        "search": "Search",
+        "tripPickerMessage": "Select trip type"
+    },
+    "passengerCategory": {
+        "adult": "Adult",
+        "child": "Child",
+        "infant": "Infant",
+        "adultDes": "Above 18 years",
+        "childDes": "Between 2–12 years",
+        "infantDes": "Between 0–2 years"
+    },
+    "passengersSelector": {
+        "title": "Select Passengers",
+        "promoTitle": "Tell us how many\nare traveling,\nwe’ll take care of the rest.",
+        "moreInfantsThenAdultsError": "Infants travel only on adults' laps, so at least as many adults as infants are required.",
+        "oneAdultIsRequredError": "Selecting 1 adult is mandatory",
+        "childrenAloneError": "Children cannot travel alone.",
+        "moreThen9Error": "The total number of seated passengers (adults and children) cannot exceed 9."
+    },
+    "destinationSelector": {
+        "fromTitle": "Select Departure",
+        "toTitle": "Select Arrival",
+        "defaultDestinationTitle": "Select Default Destiontion",
+        "fromPlace": "Departure:",
+        "toPlace": "Arrival:",
+        "defaultPlace": "Default:",
+        "searchHint": "Search..."
+    },
+    "flightList": {
+        "noDataMessage": "No data matches your search criteria."
+    },
+    "flightListRow": {
+        "stepOver": "transfer",
+        "choose": "Select"
+    },
+    "flightTicket": {
+        "seat": "SEAT",
+        "flight": "Flight",
+        "passengerName": "Passenger Name:"
+    },
+    "flightTicketList": {
+        "title": "Your Tickets"
+    },
+    "flightTicketRow": {
+        "seat": "Seat:"
+    },
+    "home": {
+        "promoTitle1": "Experience full comfort",
+        "promoTitle2": "Join today.",
+        "registerWithGoogle": "Register with Google",
+        "createAcc": "Create Account",
+        "isHaveAcc": "Already have an account?",
+        "login": "Log In",
+        "promoTitle3": "Browse smoothly.",
+        "tryTheApp": "Try the app",
+        "errorOccured": "An error occurred, please try again later!",
+        "errorTitle": "Error!",
+        "ok": "Ok"
+    },
+    "register": {
+        "woman": "Female",
+        "man": "Male",
+        "other": "Other",
+        "chooseYourSex": "Select your gender.",
+        "errorTitle": "Error!",
+        "errorOccured": "An error occurred, please try again later!",
+        "ok": "Ok",
+        "registerSuccess": "Registration successful!",
+        "emailSent": "We sent a confirmation email, please complete verification!",
+        "passwwordsNotEquals": "Passwords do not match!",
+        "title": "Register",
+        "email": "Email",
+        "emailAddress": "Email Address",
+        "lastName": "Last Name",
+        "firstName": "First Name",
+        "bornDate": "Date of Birth",
+        "sex": "Gender",
+        "sexHint": "Female, Male, Other...",
+        "password": "Password",
+        "passwordAgain": "Password again",
+        "passwordAgainHint": "Confirm password",
+        "registerWidthGoogle": "Register with Google",
+        "or": "Or"
+    },
+    "profile": {
+        "title": "Profile",
+        "fullName": "Full Name:",
+        "emailAddress": "Email Address: ",
+        "bornDate": "Date of Birth: ",
+        "sex": "Gender: ",
+        "passwordModify": "Change Password",
+        "deleteProfile": "Delete Account",
+        "passwordIsIncorrect": "Incorrect password",
+        "isSuredeleteProfile": "Are you sure you want to delete your account?",
+        "writeDownYourPasswordTitle": "Enter your password!",
+        "writeDownYourPassword": "Please enter your password to confirm!"
+    },
+    "login": {
+        "title": "Log In",
+        "wrongEmailOrPw": "Wrong email or password!",
+        "validateYourEmail": "Please verify your email!",
+        "loginWithGoogle": "Log In with Google",
+        "isForgotYourPassword": "Forgot your password?",
+        "dontHaveAccount": "Don’t have an account?"
+    },
+    "passengerInfo": {
+        "title": "Enter Passenger Data",
+        "passengerDatas": "passenger data",
+        "next": "Next",
+        "passenger": ". passenger",
+        "notFoundSeatMap": "Seat map for this flight not found.",
+        "serverError": "A server error occurred. Please try again later."
+    },
+    "setPassenger": {
+        "title": "Enter passenger details",
+        "selectLuggage": "Select Luggage",
+        "handBag": "Hand Luggage",
+        "selectYourHandBag": "Choose your luggage."
+    },
+    "selectSeat": {
+        "wayThereSeatSelect": "Outbound Seat Selection",
+        "wayBackSeatSelect": "Return Seat Selection",
+        "choose": "Select",
+        "yourSeat": " your seat"
+    },
+    "seatDetailsModal": {
+        "cabinType": "cabin type:",
+        "seatNumber": "seat number:",
+        "status": "status:",
+        "seatPrice": "seat price",
+        "book": "Book"
+    },
+    "flightSummary": {
+        "title": "Finalize Booking",
+        "showFlightInfo": "show flight info",
+        "hideFlightInfo": "hide flight info",
+        "allInAll": "total"
+    },
+    "passengerDetails": {
+        "luggage": "Luggage"
+    },
+    "createBlog": {
+        "title": "Create Blog",
+        "blogTitle": "Title",
+        "description": "Description",
+        "uploadPhoto": "Upload Photo"
+    },
+    "blogItem": {
+        "title": "Cart",
+        "deleteBlog": "Delete Blog!",
+        "isSuredeleteBlog": "Are you sure you want to delete the blog?",
+        "start": "Departure: ",
+        "arrive": "Arrival: ",
+        "startItataCode": "Departure IATA code: ",
+        "arriveIataCode": "Arrival IATA code: ",
+        "priceTotal": "Total Price: ",
+        "duration": "Duration: ",
+        "buy": "Buy",
+        "delete": "Delete",
+        "cartIsEmpty": "Your cart is currently empty."
+    },
+    "aiChat": {
+        "title": "Anna AI Chat",
+        "send": "Send",
+        "chatError": "Sorry, an error occurred while retrieving the response."
+    },
+    "menus": {
+        "title": "Navigation Menu",
+        "searchFlight": "Search Flight",
+        "cart": "Cart",
+        "profile": "Account",
+        "aiChat": "AI Chat",
+        "myTickets": "My Tickets",
+        "settings": "Settings",
+        "login": "Log In",
+        "blog": "Blog",
+        "users": "Users"
+    },
+    "userList": {
+        "title": "Users"
+    },
+    "userListRow": {
+        "created": "created"
+    }
 }

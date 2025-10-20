@@ -1,5 +1,15 @@
-<GridLayout columns="auto, *" class="nt-drawer__list-item" [class.-selected]="isComponentSelected()"
-    (tap)="onNavItemTap()">
-    <Image col="0" [src]="icon" width="12" height="12" class="icon-distance"></Image>
+<GridLayout
+    columns="auto, *"
+    class="nt-drawer__list-item"
+    [class.-selected]="isComponentSelected()"
+    (tap)="onNavItemTap()"
+>
+    <Image
+        col="0"
+        [src]="icon"
+        width="12"
+        height="12"
+        class="icon-distance"
+    ></Image>
     <Label col="1" [text]="title" class="p-r-10"></Label>
 </GridLayout>

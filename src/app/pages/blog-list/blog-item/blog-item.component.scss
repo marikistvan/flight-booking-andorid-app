@@ -1,60 +1,60 @@
 .blog-card {
-  margin: 10 10 10 10;
-  border-radius: 25;
-  background-color: white;
-  box-shadow: 4 3 rgba(0, 0, 0, 0.16);
-  align-items: center;
+    margin: 10 10 10 10;
+    border-radius: 25;
+    background-color: white;
+    box-shadow: 4 3 rgba(0, 0, 0, 0.16);
+    align-items: center;
 }
 
 .blog-photo {
-  width: 100%;
-  stretch: fill;
-  background-color: black;
-  border-top-left-radius: 25;
-  border-top-right-radius: 25;
+    width: 100%;
+    stretch: fill;
+    background-color: transparent;
+    border-top-left-radius: 25;
+    border-top-right-radius: 25;
 }
 
 .blog-date {
-  padding-right: 10;
-  margin-top: 19;
-  font-size: 10;
+    padding-right: 10;
+    margin-top: 19;
+    font-size: 10;
 }
 
 .blog-title {
-  padding-left: 10;
-  font-size: 32;
+    padding-left: 10;
+    font-size: 32;
 }
 
 .blog-content {
-  padding: 0 20 10 20;
-  font-size: 10;
+    padding: 0 20 10 20;
+    font-size: 10;
 }
 
 .overlay-icons-stack {
-  border-top-right-radius: 25;
-  width: 130;
-  height: 55;
-  background-color: rgba(177, 178, 181, 0.7278);
+    border-top-right-radius: 25;
+    width: 130;
+    height: 55;
+    background-color: rgba(177, 178, 181, 0.7278);
 }
 
 .delete-icon {
-  width: 24;
-  height: 24;
+    width: 24;
+    height: 24;
 }
 
 .align-to-left {
-  margin-right: 10;
+    margin-right: 10;
 }
 
 .icon-tap-area {
-  background-color:transparent;
-  justify-content: center;
-  align-items: center;
-  width: 50;
-  height: 50;
+    background-color: transparent;
+    justify-content: center;
+    align-items: center;
+    width: 50;
+    height: 50;
 }
 
 .edit-icon {
-  width: 24;
-  height: 24;
+    width: 24;
+    height: 24;
 }

@@ -1,16 +1,19 @@
 import { LOCALE_ID, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-import { NativeScriptFormsModule, NativeScriptModule } from '@nativescript/angular';
+import {
+    NativeScriptFormsModule,
+    NativeScriptModule,
+} from '@nativescript/angular';
 import { NativeScriptUISideDrawerModule } from 'nativescript-ui-sidedrawer/angular';
 import { FormControl, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { firebase } from '@nativescript/firebase-core';
-import { DropDownModule } from "nativescript-drop-down/angular";
+import { DropDownModule } from 'nativescript-drop-down/angular';
 import { AppComponent } from './app.component';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NativeScriptDateTimePickerModule } from "@nativescript/datetimepicker/angular";
-import { NativeScriptPickerModule } from "@nativescript/picker/angular";
+import { NativeScriptDateTimePickerModule } from '@nativescript/datetimepicker/angular';
+import { NativeScriptPickerModule } from '@nativescript/picker/angular';
 import { MenusComponent } from './components/menus/menus.component';
 import { HeaderComponent } from './components/menus/header/header.component';
 import { FlightSearchComponent } from './pages/flightSearch/flightSearch.component';
@@ -37,7 +40,7 @@ import { FlightTicketComponent } from './pages/flight-ticket-list/flight-ticket/
 import { FlightTicketListComponent } from './pages/flight-ticket-list/flight-ticket-list.component';
 import { FlightTicketRowComponent } from './pages/flight-ticket-list/flight-ticket-row/flight-ticket-row.component';
 import { NativeScriptLocalizeModule } from '@nativescript/localize/angular';
-import { SearchComponent } from "./pages/search/search.component";
+import { SearchComponent } from './pages/search/search.component';
 import { SectionHeaderComponent } from './components/header/section-header.component';
 import { UserProfileComponent } from './pages/user-list/userList-row/user-profile/user-profile.component';
 import { ProfileCardComponent } from './components/profile-card/profile-card.component';
@@ -46,61 +49,63 @@ import { MenuItemComponent } from './components/menus/menu-item/menu-item.compon
 registerLocaleData(localeHu);
 
 @NgModule({
-  providers: [{ provide: LOCALE_ID, useValue: 'hu', }],
-  bootstrap: [AppComponent],
-  imports: [
-    AppRoutingModule,
-    ReactiveFormsModule,
-    CommonModule,
-    NativeScriptUISideDrawerModule,
-    DropDownModule,
-    FormsModule,
-    HttpClientModule,
-    NativeScriptUISideDrawerModule,
-    NativeScriptModule,
-    NativeScriptDateTimePickerModule,
-    NativeScriptPickerModule,
-    NativeScriptFormsModule,
-    NativeScriptUIListViewModule,
-    NativeScriptLocalizeModule,
-    SearchComponent,
-    SectionHeaderComponent,
-    UserProfileComponent,
-    ProfileCardComponent,
-    MenuItemComponent
-  ],
+    providers: [{ provide: LOCALE_ID, useValue: 'hu' }],
+    bootstrap: [AppComponent],
+    imports: [
+        AppRoutingModule,
+        ReactiveFormsModule,
+        CommonModule,
+        NativeScriptUISideDrawerModule,
+        DropDownModule,
+        FormsModule,
+        HttpClientModule,
+        NativeScriptUISideDrawerModule,
+        NativeScriptModule,
+        NativeScriptDateTimePickerModule,
+        NativeScriptPickerModule,
+        NativeScriptFormsModule,
+        NativeScriptUIListViewModule,
+        NativeScriptLocalizeModule,
+        SearchComponent,
+        SectionHeaderComponent,
+        UserProfileComponent,
+        ProfileCardComponent,
+        MenuItemComponent,
+    ],
 
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    FlightSearchComponent,
-    SettingsComponent,
-    MenusComponent,
-    FlightSearchDestinationSelectorComponent,
-    FlightSearchPassengersSelectorComponent,
-    HomeComponent,
-    ProfileComponent,
-    BlogListComponent,
-    CreateBlogComponent,
-    BasketComponent,
-    AiChatComponent,
-    BlogItemComponent,
-    ReadBlogComponent,
-    SetpassengerComponent,
-    SelectSeatComponent,
-    SeatDetailsModalComponent,
-    FlightTicketComponent,
-    FlightTicketListComponent,
-    FlightTicketRowComponent,
-    ProfileEditComponent
-  ],
-  schemas: [NO_ERRORS_SCHEMA],
+    declarations: [
+        AppComponent,
+        HeaderComponent,
+        FlightSearchComponent,
+        SettingsComponent,
+        MenusComponent,
+        FlightSearchDestinationSelectorComponent,
+        FlightSearchPassengersSelectorComponent,
+        HomeComponent,
+        ProfileComponent,
+        BlogListComponent,
+        CreateBlogComponent,
+        BasketComponent,
+        AiChatComponent,
+        BlogItemComponent,
+        ReadBlogComponent,
+        SetpassengerComponent,
+        SelectSeatComponent,
+        SeatDetailsModalComponent,
+        FlightTicketComponent,
+        FlightTicketListComponent,
+        FlightTicketRowComponent,
+        ProfileEditComponent,
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
 })
 export class AppModule {
-  constructor() {
-    firebase()
-      .initializeApp()
-      .then(() => console.log('Firebase initialized successfully'))
-      .catch((error) => console.error('Firebase initialization failed:', error));
-  }
+    constructor() {
+        firebase()
+            .initializeApp()
+            .then(() => console.log('Firebase initialized successfully'))
+            .catch((error) =>
+                console.error('Firebase initialization failed:', error)
+            );
+    }
 }

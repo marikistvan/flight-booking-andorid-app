@@ -8,17 +8,15 @@ import { NativeScriptCommonModule } from '@nativescript/angular';
     standalone: true,
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.scss'],
-    imports: [FormsModule, CommonModule,
-        NativeScriptCommonModule],
-    schemas: [NO_ERRORS_SCHEMA]
+    imports: [FormsModule, CommonModule, NativeScriptCommonModule],
+    schemas: [NO_ERRORS_SCHEMA],
 })
 export class SearchComponent {
     searchTerm = signal('');
-    searchIconSrc = "../../../assets/icons/search-v3.png";
-    exitIconSrc = "../../../assets/icons/exit.png";
+    searchIconSrc = '../../../assets/icons/search-v3.png';
+    exitIconSrc = '../../../assets/icons/exit.png';
 
-    constructor() {
-    }
+    constructor() {}
     onSearchTextChanged(value: string) {
         this.searchTerm.set(value);
     }

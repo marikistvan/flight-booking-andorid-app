@@ -1,35 +1,130 @@
 <ActionBar flat="true" class="action-bar">
-  <GridLayout columns="auto, *">
-    <Label text="{{'passengerInfo.title' | L}}" colspan="2" class="action-bar-title"></Label>
-    <Image src="~/assets/icons/right-arrow.png" (tap)="onCancel()" class="fas btn-back-rotate-black"></Image>
-  </GridLayout>
-</ActionBar>
-<Frame>
-  <Page class="page" actionBarHidden="true">
-    @if(isButtonPressed()){
-    <ActivityIndicator busy="true" />
-    } @else {
-    <GridLayout [formGroup]="passengerForm" columns="*" [rows]="rowsCount" class="passenger-info-form">
-      @for(passenger of flightOffer.travelerPricings; let i = $index; track i) {
-      <StackLayout col="0" [row]="i">
-        <Label [text]="passenger.travelerId + '. utas ('+passengersType[i]+')'" class="form-label"></Label>
-        @if(passengers[$index].firstName===''){
-        <TextField hint="{{'passengerInfo.title' | L}}" class="input-field" editable="false"
-          (tap)="setPassenger(passenger.travelerId)">
-        </TextField>
-        }@else {
-        <TextField hint="{{'passengerInfo.title' | L}}"
-          [text]="passengers[$index].firstName +' '+ passengers[$index].lastName" class="input-field" editable="false"
-          (tap)="setPassenger(passenger.travelerId)"></TextField>
-        }
-      </StackLayout>
-      }
-      <GridLayout col="0" [row]="flightOffer.travelerPricings.length" columns="auto, *" (tap)="submit()"
-        class="btn-submit-grid">
-        <Image col="0" src="~/assets/icons/right-arrow.png" class="right-arrow-icon"></Image>
-        <Label col="1" text="{{'passengerInfo.next' | L}}" class="btn-submit-label"></Label>
-      </GridLayout>
+    <GridLayout columns="auto, *">
+        <Label
+            text="{{ 'passengerInfo.title' | L }}"
+            colspan="2"
+            class="action-bar-title"
+        ></Label>
+        <Image
+            src="~/assets/icons/right-arrow.png"
+            (tap)="onCancel()"
+            class="fas btn-back-rotate-black"
+        ></Image>
     </GridLayout>
+</ActionBar>
+<FlexboxLayout
+    flexDirection="column"
+    actionBarHidden="true"
+    alignItems="center"
+    justifyContent="center"
+    alignContent="center"
+    class="page"
+>
+    @if (isButtonPressed()) {
+        <ActivityIndicator busy="true" />
+    } @else {
+        <GridLayout
+            [formGroup]="passengerForm"
+            columns="*"
+            [rows]="rowsCount"
+            class="passenger-info-form"
+        >
+            @for (
+                passenger of flightOffer.travelerPricings;
+                let i = $index;
+                track i
+            ) {
+                <StackLayout col="0" [row]="i">
+                    <Label
+                        [text]="
+                            passenger.travelerId +
+                            '. utas (' +
+                            passengersType[i] +
+                            ')'
+                        "
+                        class="form-label"
+                    ></Label>
+                    @if (passengers[$index].firstName === '') {
+                        <TextField
+                            hint="{{ 'passengerInfo.title' | L }}"
+                            class="input-field"
+                            editable="false"
+                            (tap)="setPassenger(passenger.travelerId)"
+                        >
+                        </TextField>
+                    } @else {
+                        <TextField
+                            hint="{{ 'passengerInfo.title' | L }}"
+                            [text]="
+                                passengers[$index].firstName +
+                                ' ' +
+                                passengers[$index].lastName
+                            "
+                            class="input-field"
+                            editable="false"
+                            (tap)="setPassenger(passenger.travelerId)"
+                        ></TextField>
+                    }
+                </StackLayout>
+            }
+            <!--            <GridLayout
+                col="0"
+                [row]="flightOffer.travelerPricings.length"
+                columns="auto, *"
+                (tap)="submit()"
+                class="btn-submit-grid"
+            >
+                <Image
+                    col="0"
+                    src="~/assets/icons/right-arrow.png"
+                    class="right-arrow-icon"
+                ></Image>
+                <Label
+                    col="1"
+                    text="{{ 'passengerInfo.next' | L }}"
+                    class="btn-submit-label"
+                ></Label>
+            </GridLayout>
+            <FlexboxLayout
+                alignItems="center"
+                alignContent="center"
+                flexDirection="row"
+                [row]="flightOffer.travelerPricings.length"
+                justifyContent="center"
+                col="0"
+                orientation="horizontal"
+                (tap)="submit()"
+            >
+                <Image
+                    src="~/assets/icons/right-arrow.png"
+                    class="right-arrow-icon"
+                />
+                <Label
+                    text="{{ 'passengerInfo.next' | L }}"
+                    class="btn-submit-label"
+                ></Label>
+            </FlexboxLayout>-->
+            <FlexboxLayout
+                alignItems="center"
+                alignContent="center"
+                flexDirection="row"
+                col="0"
+                [row]="flightOffer.travelerPricings.length"
+                (tap)="submit()"
+                class="btn-submit-grid"
+            >
+                <Image
+                    col="0"
+                    src="~/assets/icons/right-arrow.png"
+                    class="right-arrow-icon"
+                ></Image>
+                <Label
+                    col="1"
+                    flexGrow="1"
+                    text="{{ 'passengerInfo.next' | L }}"
+                    class="btn-submit-label"
+                ></Label>
+            </FlexboxLayout>
+        </GridLayout>
     }
-  </Page>
-</Frame>
+</FlexboxLayout>

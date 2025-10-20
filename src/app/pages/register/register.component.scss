@@ -1,5 +1,5 @@
 .register-form {
-    margin: 25 10 25 10;
+    margin: 0 10 0 10;
     border-radius: 30;
     padding: 16;
     background-color: white;
@@ -26,12 +26,12 @@
 .enter-icon {
     width: 30;
     height: 30;
-    margin-left: 10;
 }
 
 .btn-submit-label {
-    margin: 10 0 10 52;
-    font-size: 22;
+    text-align: center;
+    margin-left: -30;
+    font-size: 20px;
 }
 
 .or-separate-grid {

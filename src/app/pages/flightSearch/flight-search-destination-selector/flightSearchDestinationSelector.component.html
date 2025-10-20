@@ -1,45 +1,107 @@
 <StackLayout class="page">
-  <GridLayout columns="auto, *" class="action-bar">
-    @if(context==='from'){
-    <Label text="{{'destinationSelector.fromTitle' | L}}" colspan="2" class="action-bar-title"></Label>
-    }@else if(context==='to'){
-    <Label text="{{'destinationSelector.toTitle' | L}}" colspan="2" class="action-bar-title"></Label>
-    }@else if(context=='defaultDestination'){
-    <Label text="{{'destinationSelector.defaultDestinationTitle' | L}}" colspan="2" class="action-bar-title"></Label>
-    }
-    <Image src="~/assets/icons/right-arrow.png" (tap)="onCancel()" class="fas btn-back-rotate-black"></Image>
-  </GridLayout>
-  <GridLayout rows="auto" columns="70px,*,20px" class="search-container">
-    @if(context==='from'){
-    <Label textWrap="true" text="{{'destinationSelector.fromPlace' | L}}" row="0" col="0" class="label"></Label>
-    }@else if(context==='to'){
-    <Label textWrap="true" text="{{'destinationSelector.toPlace' | L}}" row="0" col="0" class="label"></Label>
-    }
-    @else if(context=='defaultDestination'){
-    <Label textWrap="true" text="{{'destinationSelector.defaultPlace' | L}}" row="0" col="0" class="label"></Label>
-    }
+    <GridLayout columns="auto, *" class="action-bar">
+        @if (context === 'from') {
+            <Label
+                text="{{ 'destinationSelector.fromTitle' | L }}"
+                colspan="2"
+                class="action-bar-title"
+            ></Label>
+        } @else if (context === 'to') {
+            <Label
+                text="{{ 'destinationSelector.toTitle' | L }}"
+                colspan="2"
+                class="action-bar-title"
+            ></Label>
+        } @else if (context == 'defaultDestination') {
+            <Label
+                text="{{ 'destinationSelector.defaultDestinationTitle' | L }}"
+                colspan="2"
+                class="action-bar-title"
+            ></Label>
+        }
+        <Image
+            src="~/assets/icons/right-arrow.png"
+            (tap)="onCancel()"
+            class="fas btn-back-rotate-black"
+        ></Image>
+    </GridLayout>
+    <GridLayout rows="auto" columns="70px,*,20px" class="search-container">
+        @if (context === 'from') {
+            <Label
+                textWrap="true"
+                text="{{ 'destinationSelector.fromPlace' | L }}"
+                row="0"
+                col="0"
+                class="label"
+            ></Label>
+        } @else if (context === 'to') {
+            <Label
+                textWrap="true"
+                text="{{ 'destinationSelector.toPlace' | L }}"
+                row="0"
+                col="0"
+                class="label"
+            ></Label>
+        } @else if (context == 'defaultDestination') {
+            <Label
+                textWrap="true"
+                text="{{ 'destinationSelector.defaultPlace' | L }}"
+                row="0"
+                col="0"
+                class="label"
+            ></Label>
+        }
 
-    <TextField row="0" col="1" [text]="searchTerm()" (textChange)="onSearchTextChanged($event)"
-      hint="{{'destinationSelector.searchHint' | L}}" class="search-bar" autocorrect="false">
-    </TextField>
-    <Image src="~/assets/icons/exit.png" row="0" col="2" class="btn-exit-sm" (tap)="onDelete()"></Image>
-  </GridLayout>
-  @if(isSearching()){
-  <ActivityIndicator busy="true" />
-  }
-  @else{
-  <ListView [items]="locationItems" class="list-view" (itemTap)="selectAirport($event)">
-    <ng-template let-location="item">
-      <GridLayout columns="auto, *">
-        <Image src="~/assets/icons/airplane-mode.png" col="0" class="list-item-img" />
-        <StackLayout col="1" class="list-item">
-
-          <Label [text]="formatName(location.detailedName, location.iataCode)" class="airport-name"></Label>
-          <Label [text]="location.address.countryName" class="airport-country"></Label>
-
-        </StackLayout>
-      </GridLayout>
-    </ng-template>
-  </ListView>
-  }
+        <TextField
+            row="0"
+            col="1"
+            [text]="searchTerm()"
+            (textChange)="onSearchTextChanged($event)"
+            hint="{{ 'destinationSelector.searchHint' | L }}"
+            class="search-bar"
+            autocorrect="false"
+        >
+        </TextField>
+        <Image
+            src="~/assets/icons/exit.png"
+            row="0"
+            col="2"
+            class="btn-exit-sm"
+            (tap)="onDelete()"
+        ></Image>
+    </GridLayout>
+    @if (isSearching()) {
+        <ActivityIndicator busy="true" />
+    } @else {
+        <ListView
+            [items]="locationItems"
+            class="list-view"
+            (itemTap)="selectAirport($event)"
+        >
+            <ng-template let-location="item">
+                <GridLayout columns="auto, *">
+                    <Image
+                        src="~/assets/icons/airplane-mode.png"
+                        col="0"
+                        class="list-item-img"
+                    />
+                    <StackLayout col="1" class="list-item">
+                        <Label
+                            [text]="
+                                formatName(
+                                    location.detailedName,
+                                    location.iataCode
+                                )
+                            "
+                            class="airport-name"
+                        ></Label>
+                        <Label
+                            [text]="location.address.countryName"
+                            class="airport-country"
+                        ></Label>
+                    </StackLayout>
+                </GridLayout>
+            </ng-template>
+        </ListView>
+    }
 </StackLayout>

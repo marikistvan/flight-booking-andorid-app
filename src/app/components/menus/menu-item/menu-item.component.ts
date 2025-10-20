@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, NO_ERRORS_SCHEMA } from '@angular/core';
-import { NativeScriptCommonModule, RouterExtensions } from '@nativescript/angular';
+import {
+    NativeScriptCommonModule,
+    RouterExtensions,
+} from '@nativescript/angular';
 import { Application } from '@nativescript/core';
 import { NativeScriptLocalizeModule } from '@nativescript/localize/angular';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
@@ -9,20 +12,19 @@ import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
     selector: 'ns-menu-item',
     standalone: true,
     templateUrl: 'menu-item.component.html',
-    styleUrls: ["menu-item.component.scss"],
+    styleUrls: ['menu-item.component.scss'],
     imports: [
         CommonModule,
         NativeScriptCommonModule,
-        NativeScriptLocalizeModule
+        NativeScriptLocalizeModule,
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+    schemas: [NO_ERRORS_SCHEMA],
 })
-
 export class MenuItemComponent {
     @Input({ required: true }) navlink!: string;
     @Input({ required: true }) title!: string;
     @Input({ required: true }) icon!: string;
-    constructor(private routerExtensions: RouterExtensions) { }
+    constructor(private routerExtensions: RouterExtensions) {}
 
     isComponentSelected(): boolean {
         return this.routerExtensions.router.url === this.navlink;
@@ -33,8 +35,8 @@ export class MenuItemComponent {
             transition: {
                 name: 'fade',
             },
-        })
-        const sideDrawer = <RadSideDrawer>Application.getRootView()
-        sideDrawer.closeDrawer()
+        });
+        const sideDrawer = <RadSideDrawer>Application.getRootView();
+        sideDrawer.closeDrawer();
     }
 }

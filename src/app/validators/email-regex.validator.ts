@@ -1,6 +1,8 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 
-export function emailRegexValidator(control: AbstractControl): ValidationErrors | null {
+export function emailRegexValidator(
+    control: AbstractControl
+): ValidationErrors | null {
     const email = control.value;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

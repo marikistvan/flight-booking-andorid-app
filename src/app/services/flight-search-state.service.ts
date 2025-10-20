@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { FlightOffer, Dictionaries } from '../models/flight-offers-response';
-import { Passenger } from "../models/passenger";
+import { Passenger } from '../models/passenger';
 import { CurrencyService } from './currency.service';
-import { ExchangeApi } from "../models/exchangeApi";
+import { ExchangeApi } from '../models/exchangeApi';
 import { getString } from '@nativescript/core/application-settings';
-import { User, UserDetails } from "../models/user";
+import { User, UserDetails } from '../models/user';
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class FlightSearchStateService {
     private flightOffers: FlightOffer[];
     private flightsWithSpecificCurrency: FlightOffer[];
@@ -19,11 +19,15 @@ export class FlightSearchStateService {
     private _profileToSeeUserDetails: UserDetails;
 
     constructor(private currencyService: CurrencyService) {
-        this.setCurrency((getString('appCurrency', 'EUR')));
-        this.setPriceSymbol((getString('appCurrencySymbol', '€')));
+        this.setCurrency(getString('appCurrency', 'EUR'));
+        this.setPriceSymbol(getString('appCurrencySymbol', '€'));
     }
 
-    async setFlights(flightOffers: FlightOffer[], dictionaries: Dictionaries, toPlace: string) {
+    async setFlights(
+        flightOffers: FlightOffer[],
+        dictionaries: Dictionaries,
+        toPlace: string
+    ) {
         this.flightOffers = flightOffers;
         this.dictionary = dictionaries;
         this.toPlace = toPlace;
@@ -42,30 +46,38 @@ export class FlightSearchStateService {
         return {
             flightOffers: this.flightOffers,
             dictionary: this.dictionary,
-            toPlace: this.toPlace
+            toPlace: this.toPlace,
         };
     }
 
     async getFlightsWithSpecificCurrency() {
-        this.flightsWithSpecificCurrency = JSON.parse(JSON.stringify(this.flightOffers));
+        this.flightsWithSpecificCurrency = JSON.parse(
+            JSON.stringify(this.flightOffers)
+        );
         await this.changeCurrency(this.flightsWithSpecificCurrency);
         return {
             flightOffers: this.flightsWithSpecificCurrency,
             dictionary: this.dictionary,
-            toPlace: this.toPlace
+            toPlace: this.toPlace,
         };
     }
 
-    getFlightOffers() { return this.flightOffers; }
+    getFlightOffers() {
+        return this.flightOffers;
+    }
 
-    getFlightOffersWithSpecificCurrency() { return this.flightsWithSpecificCurrency };
+    getFlightOffersWithSpecificCurrency() {
+        return this.flightsWithSpecificCurrency;
+    }
 
     getFlightById(id: string): FlightOffer {
         return this.flightOffers.find((flight) => flight.id === id);
     }
 
     getFlightByIdWithSpecificCurrency(id: string): FlightOffer {
-        return this.flightsWithSpecificCurrency.find((flight) => flight.id === id);
+        return this.flightsWithSpecificCurrency.find(
+            (flight) => flight.id === id
+        );
     }
 
     getDictionary() {
@@ -88,31 +100,43 @@ export class FlightSearchStateService {
         try {
             let rates = await this.currencyService.getRates();
             if (rates === undefined) {
-                console.log("rates undefined");
+                console.log('rates undefined');
                 return;
             }
             flightOffers.forEach((flight) => {
                 let totalPrice = Number(flight.price.total);
-                const switchCurrency = this.switchCurrency(this._currency, totalPrice, rates);
+                const switchCurrency = this.switchCurrency(
+                    this._currency,
+                    totalPrice,
+                    rates
+                );
                 flight.price.total = switchCurrency.toString();
                 flight.price.currency = this._priceSymbol;
-            })
+            });
         } catch (err: any) {
-            console.log("currency Service error: " + err);
+            console.log('currency Service error: ' + err);
         }
     }
 
-    private switchCurrency(currency: string, price: number, rates: ExchangeApi["quotes"]): number {
+    private switchCurrency(
+        currency: string,
+        price: number,
+        rates: ExchangeApi['quotes']
+    ): number {
         let changedPrice = -1;
         switch (currency) {
             case 'HUF':
-                changedPrice = Math.round(price * (rates.USDHUF / rates.USDEUR));
+                changedPrice = Math.round(
+                    price * (rates.USDHUF / rates.USDEUR)
+                );
                 break;
             case 'EUR':
                 changedPrice = price;
                 break;
             case 'CHF':
-                changedPrice = Math.round(price * (rates.USDCHF / rates.USDEUR));
+                changedPrice = Math.round(
+                    price * (rates.USDCHF / rates.USDEUR)
+                );
                 break;
             case 'USD':
                 changedPrice = Math.round(price * rates.USDEUR);
@@ -130,7 +154,7 @@ export class FlightSearchStateService {
         return this._profileToSeeUser;
     }
     setProfileDetailsToSee(userDetails: UserDetails) {
-        return this._profileToSeeUserDetails = userDetails;
+        return (this._profileToSeeUserDetails = userDetails);
     }
     getProfileDetialsToSee(): UserDetails {
         return this._profileToSeeUserDetails;

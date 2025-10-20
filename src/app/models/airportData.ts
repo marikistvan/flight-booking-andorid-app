@@ -1,7 +1,7 @@
 type AirportData = {
-  [iataCode: string]: {
-    city: string;
-    airport: string;
-    country: string;
-  };
+    [iataCode: string]: {
+        city: string;
+        airport: string;
+        country: string;
+    };
 };

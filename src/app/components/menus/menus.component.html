@@ -1,31 +1,70 @@
 <StackLayout>
-  @if(!authService.currentUser){
-  <GridLayout columns="auto, *" class="drawer-title">
-    <Label col="0" colSpan="2" text="Navigációs Menü" horizontalAlignment="center"></Label>
-  </GridLayout>
+    @if (!authService.currentUser) {
+        <GridLayout columns="auto, *" class="drawer-title">
+            <Label
+                col="0"
+                colSpan="2"
+                text="{{ 'menus.title' | L }}"
+                horizontalAlignment="center"
+            ></Label>
+        </GridLayout>
 
-  <ns-menu-item title="{{ 'menus.login' | L }}" navlink="/login" icon="res://enter"></ns-menu-item>
-  }
-  <ns-menu-item title="{{ 'menus.searchFlight' | L }}" navlink="/flightSearch" icon="res://loupe"></ns-menu-item>
+        <ns-menu-item
+            title="{{ 'menus.login' | L }}"
+            navlink="/login"
+            icon="res://enter"
+        ></ns-menu-item>
+    }
+    <ns-menu-item
+        title="{{ 'menus.searchFlight' | L }}"
+        navlink="/flightSearch"
+        icon="res://loupe"
+    ></ns-menu-item>
 
-  <ns-menu-item title="{{ 'menus.blog' | L }}" navlink="/blogList" icon="res://blog"></ns-menu-item>
+    <ns-menu-item
+        title="{{ 'menus.blog' | L }}"
+        navlink="/blogList"
+        icon="res://blog"
+    ></ns-menu-item>
 
-  @if(authService.currentUser){
+    @if (authService.currentUser) {
+        <ns-menu-item
+            title="{{ 'menus.profile' | L }}"
+            navlink="/profile"
+            icon="res://user"
+        ></ns-menu-item>
 
-  <ns-menu-item title="{{ 'menus.profile' | L }}" navlink="/profile" icon="res://user"></ns-menu-item>
+        <ns-menu-item
+            title="{{ 'menus.aichat' | L }}"
+            navlink="/aichat"
+            icon="res://chat"
+        ></ns-menu-item>
 
-  <ns-menu-item title="{{ 'menus.aichat' | L }}" navlink="/aichat" icon="res://chat"></ns-menu-item>
+        <ns-menu-item
+            title="{{ 'menus.cart' | L }}"
+            navlink="/basket"
+            icon="res://cart"
+        ></ns-menu-item>
 
-  <ns-menu-item title="{{ 'menus.cart' | L }}" navlink="/basket" icon="res://cart"></ns-menu-item>
+        <ns-menu-item
+            title="{{ 'menus.myTickets' | L }}"
+            navlink="/flightTicketList"
+            icon="res://ticket_flight"
+        ></ns-menu-item>
 
-  <ns-menu-item title="{{ 'menus.myTickets' | L }}" navlink="/flightTicketList"
-    icon="res://ticket_flight"></ns-menu-item>
+        @if (authService.isAdmin) {
+            <ns-menu-item
+                title="{{ 'menus.users' | L }}"
+                navlink="/userList"
+                icon="res://ticket_flight"
+            ></ns-menu-item>
+        }
+    }
+    <StackLayout class="hr"></StackLayout>
 
-  @if(authService.isAdmin){
-  <ns-menu-item title="{{ 'menus.users' | L }}" navlink="/userList" icon="res://ticket_flight"></ns-menu-item>
-  }
-  }
-  <StackLayout class="hr"></StackLayout>
-
-  <ns-menu-item title="{{ 'menus.settings' | L }}" navlink="/settings" icon="res://settings"></ns-menu-item>
+    <ns-menu-item
+        title="{{ 'menus.settings' | L }}"
+        navlink="/settings"
+        icon="res://settings"
+    ></ns-menu-item>
 </StackLayout>

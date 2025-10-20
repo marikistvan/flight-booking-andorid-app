@@ -39,25 +39,25 @@
 }
 
 .list-view {
- border-width: 5px 0 0 0;
- font-size: 20px;
- height: 100%; 
+    border-width: 5px 0 0 0;
+    font-size: 20px;
+    height: 100%;
 }
-.list-item{
+.list-item {
     margin: 0 0 0 40px;
     padding: 0;
 }
-.list-item-img{
-   width:30;
-   height:30;
-   margin-left: 30px;
+.list-item-img {
+    width: 30;
+    height: 30;
+    margin-left: 30px;
 }
-.airport-country{
+.airport-country {
     padding: 0;
     font-size: 15;
-    color:rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0.5);
 }
-.airport-name{
+.airport-name {
     font-size: 16;
     padding: 0;
 }

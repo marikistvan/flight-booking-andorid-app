@@ -1,78 +1,75 @@
-import { ChangeDetectorRef, Component, OnInit, signal } from "@angular/core";
-import { ItemEventData, TextField } from "@nativescript/core";
-import { ModalDialogParams } from "@nativescript/angular";
-import { AmadeusService } from "~/app/services/amadeus.service";
+import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
+import { ItemEventData, TextField } from '@nativescript/core';
+import { ModalDialogParams } from '@nativescript/angular';
+import { AmadeusService } from '~/app/services/amadeus.service';
 import { Location } from '../../../models/location-response';
 
 @Component({
-  selector: "ns-flightSearchDestinationSelectorComponent",
-  templateUrl: "flightSearchDestinationSelector.component.html",
-  styleUrls: ["./flightSearchDestinationSelector.component.scss"],
+    selector: 'ns-flightSearchDestinationSelectorComponent',
+    templateUrl: 'flightSearchDestinationSelector.component.html',
+    styleUrls: ['./flightSearchDestinationSelector.component.scss'],
 })
-
 export class FlightSearchDestinationSelectorComponent implements OnInit {
-  isSearching = signal<boolean>(false);
-  searchTerm = signal<string>('');
-  context: string = "";
-  locations = signal<Location[]>([]);
-  airports = [
-    {
-      name: 'New York, NY (JFK)',
-      country: 'Egyesült Államok',
-    },
-    {
-      name: 'New York Newark Liberty Intl (EWR)',
-      country: 'Egyesült Államok',
-    },
-  ];
-  filteredAirports = [...this.airports];
-  constructor
-    (
-      private modalDialogParams: ModalDialogParams,
-      private amadeusService: AmadeusService,
-      private readonly changeDetectorRef: ChangeDetectorRef
+    isSearching = signal<boolean>(false);
+    searchTerm = signal<string>('');
+    context: string = '';
+    locations = signal<Location[]>([]);
+    airports = [
+        {
+            name: 'New York, NY (JFK)',
+            country: 'Egyesült Államok',
+        },
+        {
+            name: 'New York Newark Liberty Intl (EWR)',
+            country: 'Egyesült Államok',
+        },
+    ];
+    filteredAirports = [...this.airports];
+    constructor(
+        private modalDialogParams: ModalDialogParams,
+        private amadeusService: AmadeusService,
+        private readonly changeDetectorRef: ChangeDetectorRef
     ) {
-    setTimeout(() => this.changeDetectorRef.detectChanges(), 0);
-    this.context = modalDialogParams.context.type;
-  }
-  
-  ngOnInit(): void {
-  }
-
-  get locationItems(): Location[] {
-    return this.locations();
-  }
-
-  onSearchTextChanged(event: any) {
-    this.searchTerm.set((event.object as TextField).text || '');
-    if (this.searchTerm().trim().length > 2) {
-      this.isSearching.set(true);
-      this.amadeusService.getLocations(this.searchTerm().trim()).subscribe((response) => {
-        this.isSearching.set(false);
-        this.locations.set(response.data);
-      });
-
+        setTimeout(() => this.changeDetectorRef.detectChanges(), 0);
+        this.context = modalDialogParams.context.type;
     }
 
-  }
+    ngOnInit(): void {}
 
-  formatName(detailedName: string, iataCode: string): string {
-    const parts = detailedName.split('/');
-    return parts.join(', ') + ` (${iataCode})`;
-  }
+    get locationItems(): Location[] {
+        return this.locations();
+    }
 
-  onDelete() {
-    this.searchTerm.set('');
-  }
+    onSearchTextChanged(event: any) {
+        this.searchTerm.set((event.object as TextField).text || '');
+        if (this.searchTerm().trim().length > 2) {
+            this.isSearching.set(true);
+            this.amadeusService
+                .getLocations(this.searchTerm().trim())
+                .subscribe((response) => {
+                    this.isSearching.set(false);
+                    this.locations.set(response.data);
+                });
+        }
+    }
 
-  onCancel() {
-    this.modalDialogParams.closeCallback("");
-  }
+    formatName(detailedName: string, iataCode: string): string {
+        const parts = detailedName.split('/');
+        return parts.join(', ') + ` (${iataCode})`;
+    }
 
-  selectAirport(event: ItemEventData) {
-    const index = event.index;
-    const selected = this.locationItems[index];
+    onDelete() {
+        this.searchTerm.set('');
+    }
 
-    this.modalDialogParams.closeCallback(selected);
-  }
+    onCancel() {
+        this.modalDialogParams.closeCallback('');
+    }
+
+    selectAirport(event: ItemEventData) {
+        const index = event.index;
+        const selected = this.locationItems[index];
+
+        this.modalDialogParams.closeCallback(selected);
+    }
 }

@@ -1,27 +1,69 @@
-<GridLayout columns="auto,3,auto" rows="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto" class="container">
-    <Label text="{{'profile.fullName' | L}}" col="0" row="0" class="f-16 m-b-2 text-type"></Label>
-    <Label [text]="passenger.lastName + ' '+passenger.firstName" col="2" row="0" class="f-16 m-b-2"></Label>
+<GridLayout
+    columns="auto,3,auto"
+    rows="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto"
+    class="container"
+>
+    <Label
+        text="{{ 'profile.fullName' | L }}"
+        col="0"
+        row="0"
+        class="f-16 m-b-2 text-type"
+    ></Label>
+    <Label
+        [text]="passenger.lastName + ' ' + passenger.firstName"
+        col="2"
+        row="0"
+        class="f-16 m-b-2"
+    ></Label>
 
-    <Label text="{{'profile.bornDate' | L}}" col="0" row="1" class="f-16 m-b-2 text-type"></Label>
+    <Label
+        text="{{ 'profile.bornDate' | L }}"
+        col="0"
+        row="1"
+        class="f-16 m-b-2 text-type"
+    ></Label>
     <Label [text]="passenger.born" col="2" row="1" class="f-16 m-b-2"></Label>
 
-    <Label text="{{'profile.sex' | L}}" col="0" row="2" class="f-16 m-b-2 text-type"></Label>
+    <Label
+        text="{{ 'profile.sex' | L }}"
+        col="0"
+        row="2"
+        class="f-16 m-b-2 text-type"
+    ></Label>
     <Label [text]="passenger.sex" col="2" row="2" class="f-16 m-b-2"></Label>
 
-    <Label text="{{'profile.luggage' | L}}" col="0" row="3" class="f-16 m-b-2 text-type"></Label>
-    <Label [text]="passenger.baggageType" col="2" row="3" class="f-16 m-b-2"></Label>
+    <Label
+        text="{{ 'profile.luggage' | L }}"
+        col="0"
+        row="3"
+        class="f-16 m-b-2 text-type"
+    ></Label>
+    <Label
+        [text]="passenger.baggageType"
+        col="2"
+        row="3"
+        class="f-16 m-b-2"
+    ></Label>
 
-    @for(seatInfo of passenger.seats;track $index){
-    <Label [text]="seatInfo.fromPlace +'-'+seatInfo.toPlace+':'" col="0" [row]="4+$index"
-        class="f-16 m-b-2 text-type"></Label>
-    <Label [text]="seatInfo.seatNumber" col="2" [row]="4+$index" class="f-16 m-b-2"></Label>
+    @for (seatInfo of passenger.seats; track $index) {
+        <Label
+            [text]="seatInfo.fromPlace + '-' + seatInfo.toPlace + ':'"
+            col="0"
+            [row]="4 + $index"
+            class="f-16 m-b-2 text-type"
+        ></Label>
+        <Label
+            [text]="seatInfo.seatNumber"
+            col="2"
+            [row]="4 + $index"
+            class="f-16 m-b-2"
+        ></Label>
     }
-<!--    @if(passenger.seatNumberWayBack){
+    <!--    @if(passenger.seatNumberWayBack){
     @for(seatInfo of passenger.seatNumberWayBack;track $index){
     <Label [text]="seatInfo.fromPlace +'-'+seatInfo.toPlace+':'" col="0" [row]="4+passenger.seatNumberWayThere.length+$index"
         class="f-16 m-b-2 text-type"></Label>
     <Label [text]="seatInfo.seatNumber" col="2" [row]="4+passenger.seatNumberWayThere.length+$index" class="f-16 m-b-2"></Label>
     }
     }-->
-
 </GridLayout>

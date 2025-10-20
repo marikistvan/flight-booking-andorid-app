@@ -1,3 +1,3 @@
 export enum Error500Code {
-  UNEXPECTED_ERROR = 500
+    UNEXPECTED_ERROR = 500,
 }

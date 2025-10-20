@@ -1,112 +1,112 @@
 [
-  {
-    "iata": "JFK",
-    "city": "New York",
-    "airport": "John F. Kennedy International Airport"
-  },
-  {
-    "iata": "LAX",
-    "city": "Los Angeles",
-    "airport": "Los Angeles International Airport"
-  },
-  {
-    "iata": "ORD",
-    "city": "Chicago",
-    "airport": "O'Hare International Airport"
-  },
-  {
-    "iata": "MIA",
-    "city": "Miami",
-    "airport": "Miami International Airport"
-  },
-  {
-    "iata": "ATL",
-    "city": "Atlanta",
-    "airport": "Hartsfield–Jackson Atlanta International Airport"
-  },
-  {
-    "iata": "DFW",
-    "city": "Dallas",
-    "airport": "Dallas/Fort Worth International Airport"
-  },
-  {
-    "iata": "DEN",
-    "city": "Denver",
-    "airport": "Denver International Airport"
-  },
-  {
-    "iata": "SFO",
-    "city": "San Francisco",
-    "airport": "San Francisco International Airport"
-  },
-  {
-    "iata": "YVR",
-    "city": "Vancouver",
-    "airport": "Vancouver International Airport"
-  },
-  {
-    "iata": "YYZ",
-    "city": "Toronto",
-    "airport": "Toronto Pearson International Airport"
-  },
-  {
-    "iata": "MEX",
-    "city": "Mexico City",
-    "airport": "Benito Juárez International Airport"
-  },
-  {
-    "iata": "GRU",
-    "city": "São Paulo",
-    "airport": "São Paulo/Guarulhos International Airport"
-  },
-  {
-    "iata": "EZE",
-    "city": "Buenos Aires",
-    "airport": "Ministro Pistarini International Airport"
-  },
-  {
-    "iata": "BOG",
-    "city": "Bogotá",
-    "airport": "El Dorado International Airport"
-  },
-  {
-    "iata": "SCL",
-    "city": "Santiago",
-    "airport": "Arturo Merino Benítez International Airport"
-  },
-  {
-    "iata": "PTY",
-    "city": "Panama City",
-    "airport": "Tocumen International Airport"
-  },
-  {
-    "iata": "LIM",
-    "city": "Lima",
-    "airport": "Jorge Chávez International Airport"
-  },
-  {
-    "iata": "HAV",
-    "city": "Havana",
-    "airport": "José Martí International Airport"
-  },
-  {
-    "iata": "SYD",
-    "city": "Sydney",
-    "airport": "Sydney Kingsford Smith Airport"
-  },
-  {
-    "iata": "DPS",
-    "city": "Denpasar",
-    "airport": "Ngurah Rai International Airport (Bali)"
-  },
-  {
-    "iata": "DMK",
-    "city": "Bangkok",
-    "airport": "Don Mueang International Airport"
-  },
-  {
-    "iata": "BKK",
-    "city": "Bangkok",
-    "airport": "Suvarnabhumi Airport"
-  }
+    {
+        "iata": "JFK",
+        "city": "New York",
+        "airport": "John F. Kennedy International Airport"
+    },
+    {
+        "iata": "LAX",
+        "city": "Los Angeles",
+        "airport": "Los Angeles International Airport"
+    },
+    {
+        "iata": "ORD",
+        "city": "Chicago",
+        "airport": "O'Hare International Airport"
+    },
+    {
+        "iata": "MIA",
+        "city": "Miami",
+        "airport": "Miami International Airport"
+    },
+    {
+        "iata": "ATL",
+        "city": "Atlanta",
+        "airport": "Hartsfield–Jackson Atlanta International Airport"
+    },
+    {
+        "iata": "DFW",
+        "city": "Dallas",
+        "airport": "Dallas/Fort Worth International Airport"
+    },
+    {
+        "iata": "DEN",
+        "city": "Denver",
+        "airport": "Denver International Airport"
+    },
+    {
+        "iata": "SFO",
+        "city": "San Francisco",
+        "airport": "San Francisco International Airport"
+    },
+    {
+        "iata": "YVR",
+        "city": "Vancouver",
+        "airport": "Vancouver International Airport"
+    },
+    {
+        "iata": "YYZ",
+        "city": "Toronto",
+        "airport": "Toronto Pearson International Airport"
+    },
+    {
+        "iata": "MEX",
+        "city": "Mexico City",
+        "airport": "Benito Juárez International Airport"
+    },
+    {
+        "iata": "GRU",
+        "city": "São Paulo",
+        "airport": "São Paulo/Guarulhos International Airport"
+    },
+    {
+        "iata": "EZE",
+        "city": "Buenos Aires",
+        "airport": "Ministro Pistarini International Airport"
+    },
+    {
+        "iata": "BOG",
+        "city": "Bogotá",
+        "airport": "El Dorado International Airport"
+    },
+    {
+        "iata": "SCL",
+        "city": "Santiago",
+        "airport": "Arturo Merino Benítez International Airport"
+    },
+    {
+        "iata": "PTY",
+        "city": "Panama City",
+        "airport": "Tocumen International Airport"
+    },
+    {
+        "iata": "LIM",
+        "city": "Lima",
+        "airport": "Jorge Chávez International Airport"
+    },
+    {
+        "iata": "HAV",
+        "city": "Havana",
+        "airport": "José Martí International Airport"
+    },
+    {
+        "iata": "SYD",
+        "city": "Sydney",
+        "airport": "Sydney Kingsford Smith Airport"
+    },
+    {
+        "iata": "DPS",
+        "city": "Denpasar",
+        "airport": "Ngurah Rai International Airport (Bali)"
+    },
+    {
+        "iata": "DMK",
+        "city": "Bangkok",
+        "airport": "Don Mueang International Airport"
+    },
+    {
+        "iata": "BKK",
+        "city": "Bangkok",
+        "airport": "Suvarnabhumi Airport"
+    }
 ]

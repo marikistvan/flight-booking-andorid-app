@@ -1,44 +1,51 @@
-import { CommonModule } from "@angular/common";
+import { CommonModule } from '@angular/common';
 import { Screen } from '@nativescript/core';
-import { Component, NO_ERRORS_SCHEMA, OnChanges, OnInit, SimpleChanges } from "@angular/core";
-import { NativeScriptCommonModule, RouterExtensions } from "@nativescript/angular";
-import { localize } from "@nativescript/localize";
+import {
+    Component,
+    NO_ERRORS_SCHEMA,
+    OnChanges,
+    OnInit,
+    SimpleChanges,
+} from '@angular/core';
+import {
+    NativeScriptCommonModule,
+    RouterExtensions,
+} from '@nativescript/angular';
+import { localize } from '@nativescript/localize';
 import { NativeScriptLocalizeModule } from '@nativescript/localize/angular';
-import { UserListRowComponent } from "./userList-row/userList-row.component";
-import { AuthService } from "~/app/services/auth.service";
-import { User, UserDetails } from "~/app/models/user";
-import { SearchComponent } from "~/app/pages/search/search.component";
-import { SectionHeaderComponent } from "~/app/components/header/section-header.component";
+import { UserListRowComponent } from './userList-row/userList-row.component';
+import { AuthService } from '~/app/services/auth.service';
+import { User, UserDetails } from '~/app/models/user';
+import { SearchComponent } from '~/app/pages/search/search.component';
+import { SectionHeaderComponent } from '~/app/components/header/section-header.component';
 
 @Component({
-  standalone: true,
-  selector: "ns-user-list",
-  templateUrl: "./userList.component.html",
-  styleUrls: ["./userList.component.scss",],
-  imports: [
-    CommonModule,
-    NativeScriptCommonModule,
-    UserListRowComponent,
-    NativeScriptLocalizeModule,
-    SearchComponent,
-    SectionHeaderComponent
-  ],
-  schemas: [NO_ERRORS_SCHEMA]
-
+    standalone: true,
+    selector: 'ns-user-list',
+    templateUrl: './userList.component.html',
+    styleUrls: ['./userList.component.scss'],
+    imports: [
+        CommonModule,
+        NativeScriptCommonModule,
+        UserListRowComponent,
+        NativeScriptLocalizeModule,
+        SearchComponent,
+        SectionHeaderComponent,
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
 })
 export class UserListComponent implements OnInit {
-  loaded: boolean = false;
-  users: User[] = [];
-  usersDetails: UserDetails[] = [];
-  constructor(private authService: AuthService
-  ) { }
+    loaded: boolean = false;
+    users: User[] = [];
+    usersDetails: UserDetails[] = [];
+    constructor(private authService: AuthService) {}
 
-  ngOnInit() {
-    this.loadUsersTEST();
-  }
+    ngOnInit() {
+        this.loadUsersTEST();
+    }
 
-  loadUsers() {
-    /*    this.users = [
+    loadUsers() {
+        /*    this.users = [
           {
             uid: "u1a2b3c4d5",
             email: "alice.smith@example.com",
@@ -98,38 +105,39 @@ export class UserListComponent implements OnInit {
           }
         ];
 */
-    this.authService.getUsers()
-      .then((res) => {
-        this.users = res;
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-    this.authService.getUsersDetails()
-      .then((res) => {
-        this.usersDetails = res;
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-  }
+        this.authService
+            .getUsers()
+            .then((res) => {
+                this.users = res;
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+        this.authService
+            .getUsersDetails()
+            .then((res) => {
+                this.usersDetails = res;
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    }
 
+    loadUsersTEST() {
+        Promise.all([
+            this.authService.getUsers(),
+            this.authService.getUsersDetails(),
+        ])
+            .then(([users, details]) => {
+                this.users = users;
+                this.usersDetails = details;
+                this.loaded = true;
+            })
+            .catch((err) => console.error(err));
+    }
 
-  loadUsersTEST() {
-    Promise.all([
-      this.authService.getUsers(),
-      this.authService.getUsersDetails()
-    ])
-      .then(([users, details]) => {
-        this.users = users;
-        this.usersDetails = details;
-        this.loaded = true;
-      })
-      .catch(err => console.error(err));
-  }
-
-  getCurrentUserDetail(uid: string): UserDetails {
-    const res = this.usersDetails.find((u) => u.uid === uid);
-    return res;
-  }
+    getCurrentUserDetail(uid: string): UserDetails {
+        const res = this.usersDetails.find((u) => u.uid === uid);
+        return res;
+    }
 }

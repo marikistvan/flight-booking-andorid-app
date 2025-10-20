@@ -1,10 +1,15 @@
 <Label [text]="" class="text-3xl font-bold underline"></Label>
 <GridLayout columns="15,auto,*,auto,50" rows="*,auto,*" class="ticket-row">
-  <Label [text]="ticket.name" col="1" row="0" rowSpan="3"></Label>
+    <Label [text]="ticket.name" col="1" row="0" rowSpan="3"></Label>
 
-  <Label [text]="datePipe.transform(ticket.date,'YYYY.MM.dd')" col="3" row="0" class="margin-r-10"></Label>
-  <Label [text]="seat+' '+ticket.seatNumber" col="3" row="2"></Label>
-  <StackLayout col="4" rowSpan="3" class="right-arrow-bg">
-    <Image src="~/assets/icons/right-arrow.png" class="right-arrow"></Image>
-  </StackLayout>
+    <Label
+        [text]="datePipe.transform(ticket.date, 'YYYY.MM.dd')"
+        col="3"
+        row="0"
+        class="margin-r-10"
+    ></Label>
+    <Label [text]="seat + ' ' + ticket.seatNumber" col="3" row="2"></Label>
+    <StackLayout col="4" rowSpan="3" class="right-arrow-bg">
+        <Image src="~/assets/icons/right-arrow.png" class="right-arrow"></Image>
+    </StackLayout>
 </GridLayout>

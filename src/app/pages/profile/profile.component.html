@@ -1,9 +1,16 @@
 <ActionBar class="action-bar">
-  <NavigationButton visibility="hidden"></NavigationButton>
-  <ns-section-header title="{{'profile.title' | L}}"></ns-section-header>
+    <NavigationButton visibility="hidden"></NavigationButton>
+    <ns-section-header title="{{ 'profile.title' | L }}"></ns-section-header>
 </ActionBar>
 
 <StackLayout class="main-container page">
-  <ns-profile-card [photo]="photo" [userName]="userName" [email]="email" [born]="born" [sex]="sex"
-    (edit)="setProfil($event)" (delete)="deleteProfile()"></ns-profile-card>
+    <ns-profile-card
+        [photo]="photo"
+        [userName]="userName"
+        [email]="email"
+        [born]="born"
+        [sex]="sex"
+        (edit)="setProfil($event)"
+        (delete)="deleteProfile()"
+    ></ns-profile-card>
 </StackLayout>

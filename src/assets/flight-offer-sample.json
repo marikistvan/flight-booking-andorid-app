@@ -241,6 +241,286 @@
                             ]
                         }
                     ]
+                },
+                {
+                    "travelerId": "1",
+                    "fareOption": "STANDARD",
+                    "travelerType": "ADULT",
+                    "price": {
+                        "currency": "EUR",
+                        "total": "45.50",
+                        "base": "16.00"
+                    },
+                    "fareDetailsBySegment": [
+                        {
+                            "segmentId": "1",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "ZWON5L",
+                            "brandedFare": "LITE",
+                            "brandedFareLabel": "LITE",
+                            "class": "Z",
+                            "includedCheckedBags": {
+                                "quantity": 0
+                            },
+                            "includedCabinBags": {
+                                "quantity": 1
+                            },
+                            "amenities": [
+                                {
+                                    "description": "FIRST PREPAID BAG",
+                                    "isChargeable": true,
+                                    "amenityType": "BAGGAGE",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "PREPAID BAG",
+                                    "isChargeable": true,
+                                    "amenityType": "BAGGAGE",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                                    "isChargeable": true,
+                                    "amenityType": "PRE_RESERVED_SEAT",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "PRIORITY BOARDING",
+                                    "isChargeable": true,
+                                    "amenityType": "TRAVEL_SERVICES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "CHANGEABLE TICKET",
+                                    "isChargeable": true,
+                                    "amenityType": "BRANDED_FARES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "WIFI",
+                                    "isChargeable": true,
+                                    "amenityType": "ENTERTAINMENT",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "segmentId": "2",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "ZWON5L",
+                            "brandedFare": "LITE",
+                            "brandedFareLabel": "LITE",
+                            "class": "Z",
+                            "includedCheckedBags": {
+                                "quantity": 0
+                            },
+                            "includedCabinBags": {
+                                "quantity": 1
+                            },
+                            "amenities": [
+                                {
+                                    "description": "FIRST PREPAID BAG",
+                                    "isChargeable": true,
+                                    "amenityType": "BAGGAGE",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "PREPAID BAG",
+                                    "isChargeable": true,
+                                    "amenityType": "BAGGAGE",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                                    "isChargeable": true,
+                                    "amenityType": "PRE_RESERVED_SEAT",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "PRIORITY BOARDING",
+                                    "isChargeable": true,
+                                    "amenityType": "TRAVEL_SERVICES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "CHANGEABLE TICKET",
+                                    "isChargeable": true,
+                                    "amenityType": "BRANDED_FARES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "WIFI",
+                                    "isChargeable": true,
+                                    "amenityType": "ENTERTAINMENT",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "travelerId": "1",
+                    "fareOption": "STANDARD",
+                    "travelerType": "ADULT",
+                    "price": {
+                        "currency": "EUR",
+                        "total": "45.50",
+                        "base": "16.00"
+                    },
+                    "fareDetailsBySegment": [
+                        {
+                            "segmentId": "1",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "ZWON5L",
+                            "brandedFare": "LITE",
+                            "brandedFareLabel": "LITE",
+                            "class": "Z",
+                            "includedCheckedBags": {
+                                "quantity": 0
+                            },
+                            "includedCabinBags": {
+                                "quantity": 1
+                            },
+                            "amenities": [
+                                {
+                                    "description": "FIRST PREPAID BAG",
+                                    "isChargeable": true,
+                                    "amenityType": "BAGGAGE",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "PREPAID BAG",
+                                    "isChargeable": true,
+                                    "amenityType": "BAGGAGE",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                                    "isChargeable": true,
+                                    "amenityType": "PRE_RESERVED_SEAT",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "PRIORITY BOARDING",
+                                    "isChargeable": true,
+                                    "amenityType": "TRAVEL_SERVICES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "CHANGEABLE TICKET",
+                                    "isChargeable": true,
+                                    "amenityType": "BRANDED_FARES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "WIFI",
+                                    "isChargeable": true,
+                                    "amenityType": "ENTERTAINMENT",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "segmentId": "2",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "ZWON5L",
+                            "brandedFare": "LITE",
+                            "brandedFareLabel": "LITE",
+                            "class": "Z",
+                            "includedCheckedBags": {
+                                "quantity": 0
+                            },
+                            "includedCabinBags": {
+                                "quantity": 1
+                            },
+                            "amenities": [
+                                {
+                                    "description": "FIRST PREPAID BAG",
+                                    "isChargeable": true,
+                                    "amenityType": "BAGGAGE",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "PREPAID BAG",
+                                    "isChargeable": true,
+                                    "amenityType": "BAGGAGE",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "PRE RESERVED SEAT ASSIGNMENT",
+                                    "isChargeable": true,
+                                    "amenityType": "PRE_RESERVED_SEAT",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "PRIORITY BOARDING",
+                                    "isChargeable": true,
+                                    "amenityType": "TRAVEL_SERVICES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "CHANGEABLE TICKET",
+                                    "isChargeable": true,
+                                    "amenityType": "BRANDED_FARES",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                },
+                                {
+                                    "description": "WIFI",
+                                    "isChargeable": true,
+                                    "amenityType": "ENTERTAINMENT",
+                                    "amenityProvider": {
+                                        "name": "BrandedFare"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         }

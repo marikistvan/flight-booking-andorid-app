@@ -1,225 +1,226 @@
 {
-  "app.name": "Repülőjegy foglaló",
-  "general": {
-    "cancel": "Mégse",
-    "submit": "Alkalmaz",
-    "hour": "óra",
-    "minute": "perc",
-    "summary": "Összesen:",
-    "errorTitle": "Hiba!",
-    "errorOccured": "Hiba történt, próbálja meg később!",
-    "ok": "Ok",
-    "yes": "Igen",
-    "no": "Nem",
-    "save": "Mentés"
-  },
-  "settings": {
-    "title": "Beállítások",
-    "switchlanguage": "Nyelvválasztó",
-    "defaultDeparturePoint": "Alapértelmezett indulási hely",
-    "currencySelector": "Pénznem választó",
-    "enablePushNotifications": "Push értesítések engedélyezése",
-    "logout": "Kijelentkezés",
-    "chooseLanguage": "Válaszd ki a nyelvet!",
-    "changeLanguageTitle": "Nyelv megváltoztatás",
-    "changeLanguageMessage": "Az alkalmazásnak újra kell indulnia, hogy megváltozzon a nyelv.",
-    "close": "Bezárás!",
-    "chooseCurrency": "Válaszd ki a valutát!"
-  },
-  "flightSearch": {
-    "title": "Járat Keresés",
-    "promoTitle": "Szuper árak - Gyors -\nUtazz ahova csak szeretnél",
-    "flightType": "Utazás típusa",
-    "oneWay": "Egyirányú",
-    "roundTrip": "Oda-Vissza",
-    "flightTypeHint": "Egyirányú, Oda-vissza",
-    "fromPlace": "Honnan",
-    "toPlace": "Hova",
-    "departure": "Indulás",
-    "back": "Vissza",
-    "dateError": "Kezdeti dátum nem lehet később, mint a végdátum",
-    "passengers": "Utasok",
-    "search": "Keresés",
-    "tripPickerMessage": "Válassz utazási típust"
-  },
-  "passengerCategory": {
-    "adult": "Felnőtt",
-    "child": "Gyerek",
-    "infant": "Csecsemő",
-    "adultDes": "18 év felett",
-    "childDes": "2–12 év között",
-    "infantDes": "0–2 év között"
-  },
-  "passengersSelector": {
-    "title": "Utasok kiválasztása",
-    "promoTitle": "Adja meg, hogy\nhányan szeretnének utazni,\ntöbbit intézzük mi.",
-    "moreInfantsThenAdultsError": "A csecsők csak a felnőttek ölében utazhatnak, így legalább annyi felnőtt szükséges, mint csecsemő.",
-    "oneAdultIsRequredError": "1 felnőtt kiválasztása kötelező",
-    "childrenAloneError": "A gyerekek nem utazhatnak egyedül.",
-    "moreThen9Error": "Az ülő utasok (felnőttek és gyermekek) teljes száma nem haladhatja meg a 9-et."
-  },
-  "destinationSelector": {
-    "fromTitle": "Indulási hely kiválasztása",
-    "toTitle": "Érkezési hely kiválasztása",
-    "defaultDestinationTitle": "Alapértelmezett hely kiválasztása",
-    "fromPlace": "Indulási hely:",
-    "toPlace": "Érkezési hely:",
-    "defaultPlace": "Alapértelmezett hely:",
-    "searchHint": "Keresés..."
-  },
-  "flightList": {
-    "noDataMessage": "Nincs a keresési feltételeknek megfelelő adat."
-  },
-  "flightListRow": {
-    "stepOver": "átszállás",
-    "choose": "Kiválasztás"
-  },
-  "flightTicket": {
-    "seat": "ÜLÉS",
-    "flight": "Járat",
-    "passengerName": "Utas neve:"
-  },
-  "flightTicketList": {
-    "title": "Jegyeid"
-  },
-  "flightTicketRow": {
-    "seat": "Ülés:"
-  },
-  "home": {
-    "promoTitle1": "Tapasztald meg a teljes kényelmet",
-    "promoTitle2": "Csatlakozz még ma.",
-    "registerWithGoogle": "Regisztráció a Googleval",
-    "createAcc": "Fiók létrehozása",
-    "isHaveAcc": "Már van felhasználói fiókod?",
-    "login": "Bejelentkezés",
-    "promoTitle3": "Böngéssz simán.",
-    "tryTheApp": "Kipróbálom az appot",
-    "errorOccured": "Hiba történt, próbálja meg később!",
-    "errorTitle": "Hiba!",
-    "ok": "Ok"
-  },
-  "register": {
-    "woman": "Nő",
-    "man": "Férfi",
-    "other": "Egyéb",
-    "chooseYourSex": "Válassza ki a nemét.",
-    "errorTitle": "Hiba!",
-    "errorOccured": "Hiba történt, próbálja meg később!",
-    "ok": "Ok",
-    "registerSuccess": "Sikeres regisztáricó!",
-    "emailSent": "Küldtünk egy megerősítő emailt, kérjük végezze el, a megerősítést!",
-    "passwwordsNotEquals": "A jelszavak nem egyeznek!",
-    "title": "Regisztráció",
-    "email": "E-mail",
-    "emailAddress": "E-mail cím",
-    "lastName": "Vezetéknév",
-    "firstName": "KeresztNév",
-    "bornDate": "Születési dátum",
-    "sex": "Neme",
-    "sexHint": "Nő,Férfi,Egyéb...",
-    "password": "Jelszó",
-    "passwordAgain": "Jelszó mégegyszer",
-    "passwordAgainHint": "Jelszó megerősítése",
-    "registerWidthGoogle": "Regisztráció Googleval",
-    "or": "Vagy"
-  },
-  "profile": {
-    "title": "Profil",
-    "fullName": "Teljes név:",
-    "emailAddress": "E-mail cím: ",
-    "bornDate": "Születési dátum: ",
-    "sex": "Neme: ",
-    "passwordModify": "Jelszó módosítás",
-    "deleteProfile": "Fiók törlése",
-    "passwordIsIncorrect": "A jelszó nem megfelelő",
-    "isSuredeleteProfile": "Biztosan törölni akarod a fiókod?",
-    "writeDownYourPasswordTitle": "Adja meg a jelszavát!",
-    "writeDownYourPassword": "A megerősítéshez kérem adja meg a jelszavát!"
-  },
-  "login": {
-    "title": "Bejelentkezés",
-    "wrongEmailOrPw": "Hibás email vagy jelszó!",
-    "validateYourEmail": "Validálja az email címét!",
-    "loginWithGoogle": "Bejelentkezés Googleval",
-    "isForgotYourPassword": "Elfelejtetted a jelszavad?",
-    "dontHaveAccount": "Nincs még fiókod?"
-  },
-  "passengerInfo": {
-    "title": "Utas(ok) adati megadása",
-    "passengerDatas": "utas adatai",
-    "next": "Következő",
-    "passenger": ". utas",
-    "notFoundSeatMap": "A járat ülésrendje nem található.",
-    "serverError": "Szerverhiba történt. Kérjük, próbálja újra később."
-  },
-  "setPassenger": {
-    "title": "Add meg az utas adatait",
-    "selectLuggage": "Poggyász kiválasztása",
-    "handBag": "Kézipoggyász",
-    "selectYourHandBag": "Válaszd ki a poggyászt."
-  },
-  "selectSeat": {
-    "wayThereSeatSelect": "Oda út Ülőhelykiválasztás",
-    "wayBackSeatSelect": "Vissza út Ülőhelykiválasztás",
-    "choose": "Válaszd ki",
-    "yourSeat": " ülőhelyét"
-  },
-  "seatDetailsModal": {
-    "cabinType": "kabin típus:",
-    "seatNumber": "ülés száma:",
-    "status": "állapot:",
-    "seatPrice": "ülés ára",
-    "book": "Foglalás"
-  },
-  "flightSummary": {
-    "title": "Foglalás véglegesítése",
-    "showFlightInfo": "járatinformációk mutatása",
-    "hideFlightInfo": "járatinformációk elrejtése",
-    "allInAll": "összesen"
-  },
-  "passengerDetails": {
-    "luggage": "Poggyász"
-  },
-  "createBlog": {
-    "title": "Blog létrehozás",
-    "blogTitle": "Cím",
-    "description": "Leírás",
-    "uploadPhoto": "Fotó feltöltése"
-  },
-  "blogItem": {
-    "title": "Kosár",
-    "deleteBlog": "Blog törlése!",
-    "isSuredeleteBlog": "Biztosan törölni akarod a blogot?",
-    "start": "Indulás: ",
-    "arrive": "Érkezés: ",
-    "startItataCode": "Indulási IATA kód: ",
-    "arriveIataCode": "Érkezési IATA kód: ",
-    "priceTotal": "Teljes ár: ",
-    "duration": "Időtartam: ",
-    "buy": "Vásárlás",
-    "delete": "Törlés",
-    "cartIsEmpty": "A kosár tartalma jelenleg üres."
-  },
-  "aiChat": {
-    "title": "Anna AI chat",
-    "send": "Küldés",
-    "chatError": "Sajnálom, hiba történt a válasz lekérésekor."
-  },
-  "menus": {
-    "searchFlight": "Járat keresés",
-    "cart": "Kosár",
-    "profile": "Fiók",
-    "aiChat": "Ai csevegés",
-    "myTickets": "Jegyeim",
-    "settings": "Beállítások",
-    "login": "Bejelentkezés",
-    "blog": "Blog",
-    "users": "Felhasználók"
-  },
-  "userList": {
-    "title": "Felhasználók"
-  },
-  "userListRow": {
-    "created": "létrehozva"
-  }
+    "app.name": "Repülőjegy foglaló",
+    "general": {
+        "cancel": "Mégse",
+        "submit": "Alkalmaz",
+        "hour": "óra",
+        "minute": "perc",
+        "summary": "Összesen:",
+        "errorTitle": "Hiba!",
+        "errorOccured": "Hiba történt, próbálja meg később!",
+        "ok": "Ok",
+        "yes": "Igen",
+        "no": "Nem",
+        "save": "Mentés"
+    },
+    "settings": {
+        "title": "Beállítások",
+        "switchlanguage": "Nyelvválasztó",
+        "defaultDeparturePoint": "Alapértelmezett indulási hely",
+        "currencySelector": "Pénznem választó",
+        "enablePushNotifications": "Push értesítések engedélyezése",
+        "logout": "Kijelentkezés",
+        "chooseLanguage": "Válaszd ki a nyelvet!",
+        "changeLanguageTitle": "Nyelv megváltoztatás",
+        "changeLanguageMessage": "Az alkalmazásnak újra kell indulnia, hogy megváltozzon a nyelv.",
+        "close": "Bezárás!",
+        "chooseCurrency": "Válaszd ki a valutát!"
+    },
+    "flightSearch": {
+        "title": "Járat Keresés",
+        "promoTitle": "Szuper árak - Gyors -\nUtazz ahova csak szeretnél",
+        "flightType": "Utazás típusa",
+        "oneWay": "Egyirányú",
+        "roundTrip": "Oda-Vissza",
+        "flightTypeHint": "Egyirányú, Oda-vissza",
+        "fromPlace": "Honnan",
+        "toPlace": "Hova",
+        "departure": "Indulás",
+        "back": "Vissza",
+        "dateError": "Kezdeti dátum nem lehet később, mint a végdátum",
+        "passengers": "Utasok",
+        "search": "Keresés",
+        "tripPickerMessage": "Válassz utazási típust"
+    },
+    "passengerCategory": {
+        "adult": "Felnőtt",
+        "child": "Gyerek",
+        "infant": "Csecsemő",
+        "adultDes": "18 év felett",
+        "childDes": "2–12 év között",
+        "infantDes": "0–2 év között"
+    },
+    "passengersSelector": {
+        "title": "Utasok kiválasztása",
+        "promoTitle": "Adja meg, hogy\nhányan szeretnének utazni,\ntöbbit intézzük mi.",
+        "moreInfantsThenAdultsError": "A csecsők csak a felnőttek ölében utazhatnak, így legalább annyi felnőtt szükséges, mint csecsemő.",
+        "oneAdultIsRequredError": "1 felnőtt kiválasztása kötelező",
+        "childrenAloneError": "A gyerekek nem utazhatnak egyedül.",
+        "moreThen9Error": "Az ülő utasok (felnőttek és gyermekek) teljes száma nem haladhatja meg a 9-et."
+    },
+    "destinationSelector": {
+        "fromTitle": "Indulási hely kiválasztása",
+        "toTitle": "Érkezési hely kiválasztása",
+        "defaultDestinationTitle": "Alapértelmezett hely kiválasztása",
+        "fromPlace": "Indulási hely:",
+        "toPlace": "Érkezési hely:",
+        "defaultPlace": "Alapértelmezett hely:",
+        "searchHint": "Keresés..."
+    },
+    "flightList": {
+        "noDataMessage": "Nincs a keresési feltételeknek megfelelő adat."
+    },
+    "flightListRow": {
+        "stepOver": "átszállás",
+        "choose": "Kiválasztás"
+    },
+    "flightTicket": {
+        "seat": "ÜLÉS",
+        "flight": "Járat",
+        "passengerName": "Utas neve:"
+    },
+    "flightTicketList": {
+        "title": "Jegyeid"
+    },
+    "flightTicketRow": {
+        "seat": "Ülés:"
+    },
+    "home": {
+        "promoTitle1": "Tapasztald meg a teljes kényelmet",
+        "promoTitle2": "Csatlakozz még ma.",
+        "registerWithGoogle": "Regisztráció a Googleval",
+        "createAcc": "Fiók létrehozása",
+        "isHaveAcc": "Már van felhasználói fiókod?",
+        "login": "Bejelentkezés",
+        "promoTitle3": "Böngéssz simán.",
+        "tryTheApp": "Kipróbálom az appot",
+        "errorOccured": "Hiba történt, próbálja meg később!",
+        "errorTitle": "Hiba!",
+        "ok": "Ok"
+    },
+    "register": {
+        "woman": "Nő",
+        "man": "Férfi",
+        "other": "Egyéb",
+        "chooseYourSex": "Válassza ki a nemét.",
+        "errorTitle": "Hiba!",
+        "errorOccured": "Hiba történt, próbálja meg később!",
+        "ok": "Ok",
+        "registerSuccess": "Sikeres regisztáricó!",
+        "emailSent": "Küldtünk egy megerősítő emailt, kérjük végezze el, a megerősítést!",
+        "passwwordsNotEquals": "A jelszavak nem egyeznek!",
+        "title": "Regisztráció",
+        "email": "E-mail",
+        "emailAddress": "E-mail cím",
+        "lastName": "Vezetéknév",
+        "firstName": "KeresztNév",
+        "bornDate": "Születési dátum",
+        "sex": "Neme",
+        "sexHint": "Nő,Férfi,Egyéb...",
+        "password": "Jelszó",
+        "passwordAgain": "Jelszó mégegyszer",
+        "passwordAgainHint": "Jelszó megerősítése",
+        "registerWidthGoogle": "Regisztráció Googleval",
+        "or": "Vagy"
+    },
+    "profile": {
+        "title": "Profil",
+        "fullName": "Teljes név:",
+        "emailAddress": "E-mail cím: ",
+        "bornDate": "Születési dátum: ",
+        "sex": "Neme: ",
+        "passwordModify": "Jelszó módosítás",
+        "deleteProfile": "Fiók törlése",
+        "passwordIsIncorrect": "A jelszó nem megfelelő",
+        "isSuredeleteProfile": "Biztosan törölni akarod a fiókod?",
+        "writeDownYourPasswordTitle": "Adja meg a jelszavát!",
+        "writeDownYourPassword": "A megerősítéshez kérem adja meg a jelszavát!"
+    },
+    "login": {
+        "title": "Bejelentkezés",
+        "wrongEmailOrPw": "Hibás email vagy jelszó!",
+        "validateYourEmail": "Validálja az email címét!",
+        "loginWithGoogle": "Bejelentkezés Googleval",
+        "isForgotYourPassword": "Elfelejtetted a jelszavad?",
+        "dontHaveAccount": "Nincs még fiókod?"
+    },
+    "passengerInfo": {
+        "title": "Utas(ok) adati megadása",
+        "passengerDatas": "utas adatai",
+        "next": "Következő",
+        "passenger": ". utas",
+        "notFoundSeatMap": "A járat ülésrendje nem található.",
+        "serverError": "Szerverhiba történt. Kérjük, próbálja újra később."
+    },
+    "setPassenger": {
+        "title": "Add meg az utas adatait",
+        "selectLuggage": "Poggyász kiválasztása",
+        "handBag": "Kézipoggyász",
+        "selectYourHandBag": "Válaszd ki a poggyászt."
+    },
+    "selectSeat": {
+        "wayThereSeatSelect": "Oda út Ülőhelykiválasztás",
+        "wayBackSeatSelect": "Vissza út Ülőhelykiválasztás",
+        "choose": "Válaszd ki",
+        "yourSeat": " ülőhelyét"
+    },
+    "seatDetailsModal": {
+        "cabinType": "kabin típus:",
+        "seatNumber": "ülés száma:",
+        "status": "állapot:",
+        "seatPrice": "ülés ára",
+        "book": "Foglalás"
+    },
+    "flightSummary": {
+        "title": "Foglalás véglegesítése",
+        "showFlightInfo": "járatinformációk mutatása",
+        "hideFlightInfo": "járatinformációk elrejtése",
+        "allInAll": "összesen"
+    },
+    "passengerDetails": {
+        "luggage": "Poggyász"
+    },
+    "createBlog": {
+        "title": "Blog létrehozás",
+        "blogTitle": "Cím",
+        "description": "Leírás",
+        "uploadPhoto": "Fotó feltöltése"
+    },
+    "blogItem": {
+        "title": "Kosár",
+        "deleteBlog": "Blog törlése!",
+        "isSuredeleteBlog": "Biztosan törölni akarod a blogot?",
+        "start": "Indulás: ",
+        "arrive": "Érkezés: ",
+        "startItataCode": "Indulási IATA kód: ",
+        "arriveIataCode": "Érkezési IATA kód: ",
+        "priceTotal": "Teljes ár: ",
+        "duration": "Időtartam: ",
+        "buy": "Vásárlás",
+        "delete": "Törlés",
+        "cartIsEmpty": "A kosár tartalma jelenleg üres."
+    },
+    "aiChat": {
+        "title": "Anna AI chat",
+        "send": "Küldés",
+        "chatError": "Sajnálom, hiba történt a válasz lekérésekor."
+    },
+    "menus": {
+        "title": "Navigációs Menü",
+        "searchFlight": "Járat keresés",
+        "cart": "Kosár",
+        "profile": "Fiók",
+        "aiChat": "Ai csevegés",
+        "myTickets": "Jegyeim",
+        "settings": "Beállítások",
+        "login": "Bejelentkezés",
+        "blog": "Blog",
+        "users": "Felhasználók"
+    },
+    "userList": {
+        "title": "Felhasználók"
+    },
+    "userListRow": {
+        "created": "létrehozva"
+    }
 }

@@ -1,63 +1,184 @@
 <ActionBar class="action-bar">
-  <NavigationButton visibility="hidden"></NavigationButton>
-  <GridLayout columns="50, *">
-    <Label class="action-bar-title" text="{{'login.title' | L}}" colSpan="2"></Label>
-    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
-  </GridLayout>
+    <NavigationButton visibility="hidden"></NavigationButton>
+    <GridLayout columns="50, *">
+        <Label
+            class="action-bar-title"
+            text="{{ 'login.title' | L }}"
+            colSpan="2"
+        ></Label>
+        <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+    </GridLayout>
 </ActionBar>
 
-<GridLayout>
-  <Frame>
-    <Page actionBarHidden="true" class="page">
-      @if(isLoginStarted()){
-      <ActivityIndicator busy="true" />
-      }@else{
-      <GridLayout [formGroup]="loginFormGroup" class="login-form" columns="*,5px,*"
-        rows="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto">
+<FlexboxLayout
+    flexDirection="column"
+    actionBarHidden="true"
+    class="page"
+    alignItems="center"
+    alignContent="center"
+    flexDirection="column"
+    justifyContent="center"
+>
+    @if (isLoginStarted()) {
+        <ActivityIndicator busy="true" />
+    } @else {
+        <GridLayout
+            [formGroup]="loginFormGroup"
+            class="login-form"
+            columns="*,5px,*"
+            rows="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto"
+        >
+            <Label
+                col="0"
+                colSpan="3"
+                row="0"
+                text="{{ 'register.email' | L }}"
+                class="form-first-label"
+            ></Label>
+            <TextField
+                col="0"
+                colspan="3"
+                row="1"
+                class="input-field"
+                formControlName="email"
+                editable="true"
+                hint="{{ 'register.emailAddress' | L }}"
+            >
+            </TextField>
 
-        <Label col="0" colSpan="3" row="0" text="{{'register.email' | L}}" class="form-first-label"></Label>
-        <TextField col="0" colspan="3" row="1" class="input-field" formControlName="email" editable="true"
-          hint="{{'register.emailAddress' | L}}">
-        </TextField>
+            <Label
+                col="0"
+                colSpan="3"
+                row="2"
+                text="{{ 'register.password' | L }}"
+                class="form-label"
+            ></Label>
+            <TextField
+                col="0"
+                secure="true"
+                colspan="3"
+                row="3"
+                class="input-field"
+                formControlName="password"
+                editable="true"
+                hint="{{ 'register.password' | L }}"
+            >
+            </TextField>
 
-        <Label col="0" colSpan="3" row="2" text="{{'register.password' | L}}" class="form-label"></Label>
-        <TextField col="0" secure="true" colspan="3" row="3" class="input-field" formControlName="password"
-          editable="true" hint="{{'register.password' | L}}">
-        </TextField>
+            @if (isBadEmailOrPassword()) {
+                <Label
+                    col="0"
+                    colSpan="3"
+                    row="4"
+                    text="{{ 'login.wrongEmailOrPw' | L }}"
+                    class="text-danger"
+                ></Label>
+            } @else if (isNeedEmailValidate()) {
+                <Label
+                    col="0"
+                    colSpan="3"
+                    row="4"
+                    text="{{ 'login.validateYourEmail' | L }}"
+                    class="text-danger"
+                ></Label>
+            } @else {
+                <Label
+                    col="0"
+                    colSpan="3"
+                    row="4"
+                    text=""
+                    class="text-danger"
+                ></Label>
+            }
 
-        @if(isBadEmailOrPassword()){
-        <Label col="0" colSpan="3" row="4" text="{{'login.wrongEmailOrPw' | L}}" class="text-danger"></Label>
-        }@else if(isNeedEmailValidate()){
-        <Label col="0" colSpan="3" row="4" text="{{'login.validateYourEmail' | L}}" class="text-danger"></Label>
-        }@else {
-        <Label col="0" colSpan="3" row="4" text="" class="text-danger"></Label>
-        }
+            <FlexboxLayout
+                alignItems="center"
+                alignContent="center"
+                flexDirection="row"
+                col="0"
+                colSpan="3"
+                row="5"
+                columns="auto, *"
+                (tap)="onLogin()"
+                class="btn-submit-grid"
+            >
+                <Image
+                    col="0"
+                    src="~/assets/icons/enter.png"
+                    class="enter-icon"
+                ></Image>
+                <Label
+                    col="1"
+                    flexGrow="1"
+                    text="{{ 'home.login' | L }}"
+                    class="btn-submit-label"
+                ></Label>
+            </FlexboxLayout>
 
-        <GridLayout col="0" colSpan="3" row="5" columns="auto, *" (tap)="onLogin()" class="btn-submit-grid">
-          <Image col="0" src="~/assets/icons/enter.png" class="enter-icon"></Image>
-          <Label col="1" text="{{'home.login' | L}}" class="btn-submit-label"></Label>
+            <GridLayout
+                col="0"
+                colSpan="3"
+                row="6"
+                columns="*,auto,*"
+                class="or-separate-grid"
+                rows="auto"
+            >
+                <StackLayout col="0" class="or-separte-line"></StackLayout>
+                <Label
+                    text="{{ 'register.or' | L }}"
+                    col="1"
+                    class="or-separte-text"
+                ></Label>
+                <StackLayout col="2" class="or-separte-line"></StackLayout>
+            </GridLayout>
+
+            <FlexboxLayout
+                alignItems="center"
+                alignContent="center"
+                flexDirection="row"
+                justifyContent="center"
+                col="0"
+                colSpan="3"
+                row="7"
+                orientation="horizontal"
+                (tap)="signInWithGoogle()"
+            >
+                <Image src="~/assets/icons/google.png" class="btn-google-img" />
+                <Label
+                    text="{{ 'login.loginWithGoogle' | L }}"
+                    class="btn-google-label"
+                ></Label>
+            </FlexboxLayout>
+
+            <Label
+                col="0"
+                colSpan="3"
+                row="8"
+                textWrap="true"
+                class="forgot-your-password"
+                text="{{ 'login.isForgotYourPassword' | L }}"
+            ></Label>
+
+            <FlexboxLayout
+                alignItems="center"
+                alignContent="center"
+                flexDirection="row"
+                justifyContent="center"
+                flexWrap="wrap"
+                col="0"
+                colSpan="3"
+                row="9"
+                (tap)="register()"
+            >
+                <Label
+                    class="no-account"
+                    text="{{ 'login.dontHaveAccount' | L }}"
+                ></Label>
+                <Label
+                    text="{{ 'register.title' | L }}"
+                    class="btn-register-label"
+                ></Label>
+            </FlexboxLayout>
         </GridLayout>
-
-        <GridLayout col="0" colSpan="3" row="6" columns="*,auto,*" class="or-separate-grid" rows="auto">
-          <StackLayout col="0" class="or-separte-line"></StackLayout>
-          <Label text="{{'register.or' | L}}" col="1" class="or-separte-text"></Label>
-          <StackLayout col="2" class="or-separte-line"></StackLayout>
-        </GridLayout>
-
-        <StackLayout col="0" colSpan="3" row="7" orientation="horizontal" (tap)="signInWithGoogle()">
-          <Image src="~/assets/icons/google.png" class="btn-google-img" />
-          <Label text="{{'login.loginWithGoogle' | L}}" class="btn-google-label"></Label>
-        </StackLayout>
-
-        <Label col="0" colSpan="3" row="8" textWrap="true" class="forgot-your-password"
-          text="{{'login.isForgotYourPassword' | L}}"></Label>
-
-        <StackLayout col="0" colSpan="3" row="9" orientation="horizontal" (tap)="register()">
-          <Label class="no-account" text="{{'login.dontHaveAccount' | L}}"></Label>
-          <Label text="{{register.title | L}}" class="btn-register-label"></Label>
-        </StackLayout>
-      </GridLayout>
-      }
-    </Page>
-  </Frame>
-</GridLayout>
+    }
+</FlexboxLayout>

@@ -1,21 +1,72 @@
 <StackLayout>
-    <GridLayout class="seat-details-card" columns="*,5,*" rows="auto,auto,auto,auto">
-        <Label row="0" col="0" text="{{'seatDetailsModal.cabinType' | L}}" class="details-name"></Label>
-        <Label row="0" col="2" [text]="data.cabinType" class="details-value"></Label>
+    <GridLayout
+        class="seat-details-card"
+        columns="*,5,*"
+        rows="auto,auto,auto,auto"
+    >
+        <Label
+            row="0"
+            col="0"
+            text="{{ 'seatDetailsModal.cabinType' | L }}"
+            class="details-name"
+        ></Label>
+        <Label
+            row="0"
+            col="2"
+            [text]="data.cabinType"
+            class="details-value"
+        ></Label>
 
-        <Label row="1" col="0" text="{{'seatDetailsModal.seatNumber' | L}}" class="details-name"></Label>
-        <Label row="1" col="2" [text]="data.seatNumber" class="details-value"></Label>
+        <Label
+            row="1"
+            col="0"
+            text="{{ 'seatDetailsModal.seatNumber' | L }}"
+            class="details-name"
+        ></Label>
+        <Label
+            row="1"
+            col="2"
+            [text]="data.seatNumber"
+            class="details-value"
+        ></Label>
 
-        <Label row="2" col="0" text="{{'seatDetailsModal.status' | L}}" class="details-name"></Label>
-        <Label row="2" col="2" [text]="data.status" class="details-value"></Label>
-        @if(data.price !== '-1'){
-        <Label row="3" col="0" text="{{'seatDetailsModal.status' | L}}" class="details-name"></Label>
-        <Label row="3" col="2" [text]="data.price +' EUR'" class="details-value"></Label>
+        <Label
+            row="2"
+            col="0"
+            text="{{ 'seatDetailsModal.status' | L }}"
+            class="details-name"
+        ></Label>
+        <Label
+            row="2"
+            col="2"
+            [text]="data.status"
+            class="details-value"
+        ></Label>
+        @if (data.price !== '-1') {
+            <Label
+                row="3"
+                col="0"
+                text="{{ 'seatDetailsModal.status' | L }}"
+                class="details-name"
+            ></Label>
+            <Label
+                row="3"
+                col="2"
+                [text]="data.price + ' EUR'"
+                class="details-value"
+            ></Label>
         }
-
     </GridLayout>
-    @if(data.status==='AVAILABLE'){
-    <Button text="{{'seatDetailsModal.book' | L}}" class="submit-btn" (tap)="reserve()"></Button>
+    @if (data.status === 'AVAILABLE') {
+        <Button
+            text="{{ 'seatDetailsModal.book' | L }}"
+            class="submit-btn"
+            (tap)="reserve()"
+        ></Button>
     }
-    <Button text="{{'settings.close' | L}}" class="close-btn" (tap)="close()"></Button>
+    <Button
+        text="{{ 'settings.close' | L }}"
+        class="close-btn"
+        (tap)="close()"
+    ></Button>
 </StackLayout>

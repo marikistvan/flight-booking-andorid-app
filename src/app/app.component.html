@@ -1,17 +1,18 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+    href="https://fonts.googleapis.com/css2?family=Abel&display=swap"
+    rel="stylesheet"
+/>
 <RadSideDrawer [drawerTransition]="sideDrawerTransition" class="app">
-  <GridLayout tkDrawerContent rows="auto,*" class="nt-drawer__content">
-    <ns-header row="0"></ns-header>
+    <GridLayout tkDrawerContent rows="auto,*" class="nt-drawer__content">
+        <ns-header row="0"></ns-header>
 
-    <ScrollView row="1" class="nt-drawer__body">
-      <ns-menus></ns-menus>
-    </ScrollView>
-  </GridLayout>
-  <GridLayout tkMainContent>
-
-    <page-router-outlet></page-router-outlet>
-  </GridLayout>
-
+        <ScrollView row="1" class="nt-drawer__body">
+            <ns-menus></ns-menus>
+        </ScrollView>
+    </GridLayout>
+    <GridLayout tkMainContent>
+        <page-router-outlet></page-router-outlet>
+    </GridLayout>
 </RadSideDrawer>

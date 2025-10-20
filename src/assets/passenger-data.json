@@ -1,37 +1,35 @@
 [
-  {
-    "id": "P001",
-    "firstName": "Anna",
-    "lastName": "Kovács",
-    "born": "1995-04-12",
-    "sex": "F",
-    "baggageType": "checked",
-    "seats": [
-      { "seatNumber": "12A", "segmentId": "SEG001" },
-      { "seatNumber": "14C", "segmentId": "SEG002" }
-    ]
-  },
-  {
-    "id": "P002",
-    "firstName": "Bence",
-    "lastName": "Nagy",
-    "born": "1988-11-23",
-    "sex": "M",
-    "baggageType": "cabin",
-    "seats": [
-      { "seatNumber": "7B", "segmentId": "SEG001" }
-    ]
-  },
-  {
-    "id": "P003",
-    "firstName": "Dóra",
-    "lastName": "Szabó",
-    "born": "2001-06-05",
-    "sex": "F",
-    "baggageType": "checked",
-    "seats": [
-      { "seatNumber": "21F", "segmentId": "SEG001" },
-      { "seatNumber": "22A", "segmentId": "SEG003" }
-    ]
-  }
+    {
+        "id": "P001",
+        "firstName": "Anna",
+        "lastName": "Kovács",
+        "born": "1995-04-12",
+        "sex": "F",
+        "baggageType": "checked",
+        "seats": [
+            { "seatNumber": "12A", "segmentId": "SEG001" },
+            { "seatNumber": "14C", "segmentId": "SEG002" }
+        ]
+    },
+    {
+        "id": "P002",
+        "firstName": "Bence",
+        "lastName": "Nagy",
+        "born": "1988-11-23",
+        "sex": "M",
+        "baggageType": "cabin",
+        "seats": [{ "seatNumber": "7B", "segmentId": "SEG001" }]
+    },
+    {
+        "id": "P003",
+        "firstName": "Dóra",
+        "lastName": "Szabó",
+        "born": "2001-06-05",
+        "sex": "F",
+        "baggageType": "checked",
+        "seats": [
+            { "seatNumber": "21F", "segmentId": "SEG001" },
+            { "seatNumber": "22A", "segmentId": "SEG003" }
+        ]
+    }
 ]

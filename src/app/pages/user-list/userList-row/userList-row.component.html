@@ -1,13 +1,24 @@
-@if(user && userDetails){
-<GridLayout class="bg-profile" columns="auto,50,auto" rows="*,auto,auto" (tap)="selectProfile()">
-    <Image col="0" rowSpan="3"
-        [src]="userDetails?.profileImageUrl ?? 'https://static.vecteezy.com/system/resources/previews/032/176/197/non_2x/business-avatar-profile-black-icon-man-of-user-symbol-in-trendy-flat-style-isolated-on-male-profile-people-diverse-face-for-social-network-or-web-vector.jpg'" />
-    <Label col="1" colSpan="2" row="0" [text]="userName"> </Label>
-    <Label col="1" row="1" text="id:"> </Label>
-    <Label col="2" row="1" [text]="userId"> </Label>
-    <Label col="1" row="2" text="{{'userListRow.created' | L}}"> </Label>
-    <Label col="2" row="2" [text]="userCreate"> </Label>
-</GridLayout>
-}@else {
-<Label text=" Nincs adat!"></Label>
+@if (user && userDetails) {
+    <GridLayout
+        class="bg-profile"
+        columns="auto,50,auto"
+        rows="*,auto,auto"
+        (tap)="selectProfile()"
+    >
+        <Image
+            col="0"
+            rowSpan="3"
+            [src]="
+                userDetails?.profileImageUrl ??
+                'https://static.vecteezy.com/system/resources/previews/032/176/197/non_2x/business-avatar-profile-black-icon-man-of-user-symbol-in-trendy-flat-style-isolated-on-male-profile-people-diverse-face-for-social-network-or-web-vector.jpg'
+            "
+        />
+        <Label col="1" colSpan="2" row="0" [text]="userName"> </Label>
+        <Label col="1" row="1" text="id:"> </Label>
+        <Label col="2" row="1" [text]="userId"> </Label>
+        <Label col="1" row="2" text="{{ 'userListRow.created' | L }}"> </Label>
+        <Label col="2" row="2" [text]="userCreate"> </Label>
+    </GridLayout>
+} @else {
+    <Label text=" Nincs adat!"></Label>
 }

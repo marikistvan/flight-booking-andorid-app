@@ -14,36 +14,35 @@
 }
 
 .passenger-info-form {
-  margin: 70 10 30 10;
-  border-radius: 70px;
-  padding: 16;
-  background-color: white;
-  box-shadow: 10px 5px rgba(0, 0, 0, 0.16);
-  align-items: center;
+    margin: 0 10 0 10;
+    border-radius: 70px;
+    padding: 16;
+    background-color: white;
+    box-shadow: 10px 5px rgba(0, 0, 0, 0.16);
+    align-items: center;
 }
 
 .btn-submit-grid {
-  margin-top: 30;
-  margin-bottom: 10;
-  background-color: #2374ee;
-  color: white;
-  border-radius: 20;
-  height: 45;
+    margin-top: 20;
+    background-color: #2374ee;
+    color: white;
+    border-radius: 20;
+    height: 45;
 }
 
 .right-arrow-icon {
-  width: 25;
-  height: 25;
-  margin-left: 10;
+    width: 25;
+    height: 25;
 }
 
 .btn-submit-label {
-  margin: 10 0 10 60;
-  font-size: 20;
+    text-align: center;
+    margin-left: -25;
+    font-size: 20px;
 }
 
 .input-error {
-  border-color: red;
-  border-width: 1;
-  border-radius: 4;
+    border-color: red;
+    border-width: 1;
+    border-radius: 4;
 }

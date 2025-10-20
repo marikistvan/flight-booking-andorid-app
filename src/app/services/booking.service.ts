@@ -12,12 +12,15 @@ import '@nativescript/firebase-auth';
 export class BookingService {
     private _db = firebase().firestore();
 
-    constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService) {}
 
     async createBooking(flightOffer: FlightOffer, passengers: Passenger[]) {
         if (!this.authService.currentUser) {
             console.log('ki van jelentkezve a fhsz');
-            return { success: false, error: "Nincs bejelnetkezve a felhasználó" };
+            return {
+                success: false,
+                error: 'Nincs bejelnetkezve a felhasználó',
+            };
         }
 
         const flights: Flight[] = this.setFlights(flightOffer);
@@ -25,45 +28,45 @@ export class BookingService {
         const bookingData: Booking = this.setBookingData(flights, passengers);
 
         try {
-            const userRef = this._db.collection("users")
+            const userRef = this._db
+                .collection('users')
                 .doc(bookingData.userId)
-                .collection("bookings")
+                .collection('bookings')
                 .doc();
 
             await userRef.set(bookingData);
-            console.log("Booking sikeresen létrehozva");
+            console.log('Booking sikeresen létrehozva');
             return { success: true, bookingId: bookingData.userId };
-
         } catch (error) {
-            console.error("Hiba történt a booking mentésekor:", error);
+            console.error('Hiba történt a booking mentésekor:', error);
             return { success: false, error };
         }
     }
 
     async userBookings(): Promise<Booking[]> {
         if (!this.authService.currentUser) {
-            console.log("Nincs bejelentkezve a felhasználó");
+            console.log('Nincs bejelentkezve a felhasználó');
             return [];
         }
 
         const snapshot = await this._db
-            .collection("users")
+            .collection('users')
             .doc(this.authService.currentUser.uid)
-            .collection("bookings")
+            .collection('bookings')
             .orderBy('createdAt', 'desc')
             .get();
 
         const bookings: Booking[] = [];
 
-        snapshot.forEach(doc => {
+        snapshot.forEach((doc) => {
             bookings.push(doc.data() as Booking);
         });
         return bookings;
     }
 
     private setFlights(flightOffer: FlightOffer): Flight[] {
-        return flightOffer.itineraries.flatMap(itinerary =>
-            itinerary.segments.map(segment => ({
+        return flightOffer.itineraries.flatMap((itinerary) =>
+            itinerary.segments.map((segment) => ({
                 flightNumber: segment.number,
                 departureDate: segment.departure.at,
                 arrivalDate: segment.arrival.at,
@@ -75,14 +78,15 @@ export class BookingService {
         );
     }
 
-    private setBookingData(flights: Flight[], passengers: Passenger[]): Booking {
+    private setBookingData(
+        flights: Flight[],
+        passengers: Passenger[]
+    ): Booking {
         return {
             userId: this.authService.currentUser.uid,
             createdAt: new Date().toISOString(),
             flights: flights,
-            passengers: passengers
-        }
+            passengers: passengers,
+        };
     }
-
-
 }

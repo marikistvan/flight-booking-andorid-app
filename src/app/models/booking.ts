@@ -1,19 +1,19 @@
-import { Passenger } from "./passenger";
+import { Passenger } from './passenger';
 
 export interface Booking {
-  userId: string;
-  bookingId?: string;
-  createdAt: string;
-  flights: Flight[];
-  passengers: Passenger[];
+    userId: string;
+    bookingId?: string;
+    createdAt: string;
+    flights: Flight[];
+    passengers: Passenger[];
 }
 
 export interface Flight {
-  flightNumber: string;
-  departureDate: string;
-  arrivalDate: string;
-  airline: string;
-  departureIATA: string;
-  arrivalIATA: string;
-  segmentId: string;
+    flightNumber: string;
+    departureDate: string;
+    arrivalDate: string;
+    airline: string;
+    departureIATA: string;
+    arrivalIATA: string;
+    segmentId: string;
 }

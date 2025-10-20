@@ -1,14 +1,26 @@
 <ActionBar class="action-bar">
-  <NavigationButton visibility="hidden"></NavigationButton>
-  <GridLayout columns="50, *">
-    <Label class="action-bar-title" text="{{'flightTicketList.title' | L}}" colSpan="2"></Label>
-    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
-  </GridLayout>
+    <NavigationButton visibility="hidden"></NavigationButton>
+    <GridLayout columns="50, *">
+        <Label
+            class="action-bar-title"
+            text="{{ 'flightTicketList.title' | L }}"
+            colSpan="2"
+        ></Label>
+        <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+    </GridLayout>
 </ActionBar>
 <StackLayout class="page">
-  @for(ticket of ticketInfo;track $index){
-  <StackLayout (tap)="openTicket(ticket.segmentId,ticket.passengerId,ticket.ticketId)">
-    <ns-flight-ticket-row [ticket]="ticket"></ns-flight-ticket-row>
-  </StackLayout>
-  }
+    @for (ticket of ticketInfo; track $index) {
+        <StackLayout
+            (tap)="
+                openTicket(
+                    ticket.segmentId,
+                    ticket.passengerId,
+                    ticket.ticketId
+                )
+            "
+        >
+            <ns-flight-ticket-row [ticket]="ticket"></ns-flight-ticket-row>
+        </StackLayout>
+    }
 </StackLayout>
