@@ -2,7 +2,7 @@
     <ActionBar flat="true" class="action-bar">
         <GridLayout columns="auto, *">
             <Label
-                text="Részletes megtekités"
+                text="{{ 'flightDetails.title' | L }}"
                 colspan="2"
                 class="action-bar-title"
             ></Label>
@@ -22,7 +22,10 @@
                 class="travel-date-layout"
                 horizontalAlignment="center"
             >
-                <Label text="Indulás" class="travel-info"></Label>
+                <Label
+                    text="{{ 'flightDetails.departure' | L }}"
+                    class="travel-info"
+                ></Label>
                 <Label
                     [text]="
                         flightOffer.itineraries[0].segments[0].departure.at
@@ -39,7 +42,10 @@
                     class="travel-date-layout"
                     horizontalAlignment="center"
                 >
-                    <Label text="Visszaút" class="travel-info"></Label>
+                    <Label
+                        text="{{ 'flightDetails.return' | L }}"
+                        class="travel-info"
+                    ></Label>
                     <Label
                         [text]="
                             flightOffer.itineraries[1].segments[0].departure.at
@@ -76,7 +82,7 @@
                         <Label
                             col="1"
                             row="1"
-                            text="1 út költsége"
+                            text="{{ 'flightDetails.costOfOnetrip' | L }}"
                             class="price-detail"
                         ></Label>
 
@@ -94,7 +100,7 @@
                         <Label
                             col="3"
                             row="1"
-                            text="összesen"
+                            text="{{ 'flightDetails.allInAll' | L }}"
                             class="price-detail"
                         ></Label>
                     } @else {
@@ -112,7 +118,7 @@
                         <Label
                             col="3"
                             row="1"
-                            text="összesen"
+                            text="{{ 'flightDetails.allInAll' | L }}"
                             class="price-detail"
                         ></Label>
                     }
@@ -127,13 +133,13 @@
                     <Label
                         col="0"
                         row="0"
-                        text="Kosárba"
+                        text="{{ 'flightDetails.cart' | L }}"
                         class="btn-transparent-label"
                     ></Label>
                     <Button
                         col="1"
                         row="0"
-                        text="Megvásárlás"
+                        text="{{ 'flightDetails.buy' | L }}"
                         class="btn-buy-blue"
                         (tap)="selectFlight()"
                     ></Button>

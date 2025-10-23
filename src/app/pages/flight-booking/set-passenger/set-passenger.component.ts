@@ -39,7 +39,7 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
         other: localize('register.other'),
     };
     baggageTypeDict: Record<string, string> = {
-        handbag: localize('setPassenger.handbag'),
+        handbag: localize('setPassenger.handBag'),
     };
     formTitle: string;
     wayThere: FlightInfo[];
@@ -59,7 +59,7 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
         sex: new FormControl('', Validators.required),
         baggageType: new FormControl('', Validators.required),
     });
-    ngOnInit(): void {}
+    ngOnInit(): void { }
     constructor(
         private modalDialogParams: ModalDialogParams,
         private modalDialogSerivce: ModalDialogService,
@@ -192,16 +192,16 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
             const firstName = this.passengerForm.get('firstName').value;
             console.log(
                 'flightoffer tényleges segmentIdja 0. helyen: ' +
-                    this.flightOffer.itineraries[0].segments[0].id
+                this.flightOffer.itineraries[0].segments[0].id
             );
             console.log(
                 'segmentId amit keresünk a seatMap tömben: ' + segmentId
             );
             console.log(
                 'seatmap tényleges segment idai: ' +
-                    this.seatMap[0].segmentId +
-                    ' másik? ' +
-                    (this.seatMap[1]?.segmentId ?? 'null')
+                this.seatMap[0].segmentId +
+                ' másik? ' +
+                (this.seatMap[1]?.segmentId ?? 'null')
             );
             console.log(
                 'segmentIndexArray hossza: ' + this.segmentIndexArray.length

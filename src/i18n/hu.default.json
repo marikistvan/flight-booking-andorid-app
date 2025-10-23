@@ -177,6 +177,15 @@
         "hideFlightInfo": "járatinformációk elrejtése",
         "allInAll": "összesen"
     },
+    "flightDetails": {
+        "title": "Részletes megtekintés",
+        "departure": "Indulás",
+        "return": "Visszaút",
+        "costOfOnetrip": "1 út költsége",
+        "allInAll": "Összesen",
+        "buy": "Megvásárlás",
+        "cart": "Kosárba"
+    },
     "passengerDetails": {
         "luggage": "Poggyász"
     },

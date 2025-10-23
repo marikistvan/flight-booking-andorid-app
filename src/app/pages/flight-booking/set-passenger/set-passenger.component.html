@@ -100,7 +100,7 @@
                     col="0"
                     colSpan="3"
                     row="5"
-                    text="Poggyász kiválasztása"
+                    text="{{ 'setPassenger.selectLuggage' | L }}"
                     class="form-label"
                 ></Label>
                 <GridLayout
@@ -123,7 +123,7 @@
                         class="triptype-textfield"
                         formControlName="baggageType"
                         editable="false"
-                        hint="{{ 'setPassenger.handbag' | L }}"
+                        hint="{{ 'setPassenger.handBag' | L }}"
                         (tap)="openBaggagePicker()"
                     ></TextField>
                 </GridLayout>

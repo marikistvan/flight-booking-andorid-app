@@ -32,6 +32,13 @@
   <string name="_createBlog_blogTitle_MRe7A">"Cím"</string>
   <string name="_createBlog_title_KcPno">"Blog létrehozás"</string>
   <string name="_passengerDetails_luggage_jtTva">"Poggyász"</string>
+  <string name="_flightDetails_cart_16adyE">"Kosárba"</string>
+  <string name="_flightDetails_buy_1Fe59I">"Megvásárlás"</string>
+  <string name="_flightDetails_allInAll_ZmYel8">"Összesen"</string>
+  <string name="_flightDetails_costOfOnetrip_1xiD40">"1 út költsége"</string>
+  <string name="_flightDetails_return_VUbNX">"Visszaút"</string>
+  <string name="_flightDetails_departure_Z25VTkF">"Indulás"</string>
+  <string name="_flightDetails_title_Z1r2Sko">"Részletes megtekintés"</string>
   <string name="_flightSummary_allInAll_Z1kiUkm">"összesen"</string>
   <string name="_flightSummary_hideFlightInfo_sxQOp">"járatinformációk elrejtése"</string>
   <string name="_flightSummary_showFlightInfo_Z1GPEhy">"járatinformációk mutatása"</string>

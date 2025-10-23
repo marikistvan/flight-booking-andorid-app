@@ -32,6 +32,13 @@
   <string name="_createBlog_blogTitle_MRe7A">"Title"</string>
   <string name="_createBlog_title_KcPno">"Create Blog"</string>
   <string name="_passengerDetails_luggage_jtTva">"Luggage"</string>
+  <string name="_flightDetails_cart_16adyE">"Cart"</string>
+  <string name="_flightDetails_buy_1Fe59I">"Buy"</string>
+  <string name="_flightDetails_allInAll_ZmYel8">"All in all"</string>
+  <string name="_flightDetails_costOfOnetrip_1xiD40">"Cost of 1 trip"</string>
+  <string name="_flightDetails_return_VUbNX">"Return"</string>
+  <string name="_flightDetails_departure_Z25VTkF">"Departure"</string>
+  <string name="_flightDetails_title_Z1r2Sko">"Detailed view"</string>
   <string name="_flightSummary_allInAll_Z1kiUkm">"total"</string>
   <string name="_flightSummary_hideFlightInfo_sxQOp">"hide flight info"</string>
   <string name="_flightSummary_showFlightInfo_Z1GPEhy">"show flight info"</string>

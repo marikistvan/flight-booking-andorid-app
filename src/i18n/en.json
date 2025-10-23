@@ -177,6 +177,15 @@
         "hideFlightInfo": "hide flight info",
         "allInAll": "total"
     },
+    "flightDetails": {
+        "title": "Detailed view",
+        "departure": "Departure",
+        "return": "Return",
+        "costOfOnetrip": "Cost of 1 trip",
+        "allInAll": "All in all",
+        "buy": "Buy",
+        "cart": "Cart"
+    },
     "passengerDetails": {
         "luggage": "Luggage"
     },
