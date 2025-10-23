@@ -64,9 +64,9 @@ export class BlogService {
                         id: doc.id,
                         title: data.title,
                         content: data.content,
-                        createdAt: data.created_at?.toDate(),
+                        createdAt: data.created_at.toDate(),
                         authorId: data.author_id,
-                        imageUrl: data?.imageUrl,
+                        imageUrl: data.imageUrl,
                     });
                 });
                 this.blogs.set(blogs);

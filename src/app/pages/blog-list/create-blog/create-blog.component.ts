@@ -45,7 +45,7 @@ export class CreateBlogComponent implements OnInit {
         }
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void { }
 
     submitCreate() {
         this.blogService
@@ -55,9 +55,12 @@ export class CreateBlogComponent implements OnInit {
                 if (blogId) {
                     this.imageSrc &&
                         this.saveImageSource(this.imageSrc, blogId);
-                    this.blogService.setBlogs();
+
                 }
-                this.modalDialogParams.closeCallback(null);
+                setTimeout(() => {
+                    this.blogService.setBlogs();
+                    this.modalDialogParams.closeCallback('done');
+                }, 2000);
             })
             .catch((err) => console.error('Valami hiba történt:', err));
     }
