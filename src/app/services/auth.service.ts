@@ -30,6 +30,7 @@ export class AuthService {
     private _bornDate = signal<string>('');
     private _sex = signal<string>('');
     private _isAdmin = signal<boolean>(false);
+    private _profilePhoto = signal<string>(null);
 
     currentAuthStatus = this.authStatusSub.asObservable();
 
@@ -82,6 +83,10 @@ export class AuthService {
 
     get born(): string {
         return this._bornDate();
+    }
+
+    get profilePhoto(): string {
+        return this._profilePhoto();
     }
 
     get sex(): string {
@@ -185,6 +190,7 @@ export class AuthService {
             this._bornDate.set('');
             this._fullName.set('');
             this._sex.set('');
+            this._profilePhoto.set(null);
             this.routerExtensions.navigate(['login']);
         });
     }
@@ -218,6 +224,7 @@ export class AuthService {
                 this._bornDate.set(data?.born ?? '');
                 this._fullName.set(this._firstName() + ' ' + this._lastName());
                 this._isAdmin.set(data?.admin ?? false);
+                this._profilePhoto.set(data?.profileImageUrl ?? null);
             });
     }
 

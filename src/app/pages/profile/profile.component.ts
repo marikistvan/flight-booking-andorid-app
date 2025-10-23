@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
         public authService: AuthService,
         private userService: UserService,
         public datePipe: DatePipe
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.imageSrc = this.userService.loadSavedImage();
@@ -49,14 +49,14 @@ export class ProfileComponent implements OnInit {
     }
 
     get photo() {
-        return this.userService.loadSavedImage();
+        return this.authService.profilePhoto;
     }
 
     userDataModify(): boolean {
         return true;
     }
 
-    editPassword() {}
+    editPassword() { }
 
     async deleteProfile() {
         if (!(await this.confirmDelete())) return;
