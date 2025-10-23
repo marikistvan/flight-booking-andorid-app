@@ -204,7 +204,9 @@ export class SelectSeatComponent implements OnInit, AfterViewInit {
         const planeContainer = this.planeContainerRef.nativeElement;
         planeContainer.addChild(this.planeGridLayout);
     }
-    onCancel() {}
+    onCancel() {
+        this.modalDialogParams.closeCallback();
+    }
     selectSeat(code: string) {
         console.log();
     }
@@ -290,5 +292,5 @@ export class SelectSeatComponent implements OnInit, AfterViewInit {
                 }
             });
     }
-    ngOnInit(): void {}
+    ngOnInit(): void { }
 }

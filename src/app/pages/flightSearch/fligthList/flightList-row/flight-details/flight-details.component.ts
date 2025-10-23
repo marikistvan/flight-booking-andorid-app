@@ -28,6 +28,8 @@ import data from '~/assets/iata_data.json';
 import { PassengerInfoComponent } from '~/app/pages/flight-booking/passenger-info.component';
 import { FlightSearchStateService } from '~/app/services/flight-search-state.service';
 import { ActivatedRoute } from '@angular/router';
+import { NativeScriptLocalizeModule } from '@nativescript/localize/angular';
+
 
 @Component({
     providers: [DatePipe],
@@ -35,7 +37,7 @@ import { ActivatedRoute } from '@angular/router';
     selector: 'ns-flight-details',
     templateUrl: './flight-details.component.html',
     styleUrls: ['./flight-details.component.scss'],
-    imports: [CommonModule, NativeScriptCommonModule],
+    imports: [CommonModule, NativeScriptCommonModule, NativeScriptLocalizeModule],
     schemas: [NO_ERRORS_SCHEMA],
 })
 export class FlightDetailsComponent implements OnInit, AfterViewInit {
@@ -69,7 +71,7 @@ export class FlightDetailsComponent implements OnInit, AfterViewInit {
         private routerExtensions: RouterExtensions,
         private searchStateService: FlightSearchStateService,
         private route: ActivatedRoute
-    ) {}
+    ) { }
     ngAfterViewInit() {
         this.initView();
         if (this.isJustSummary) {
@@ -197,8 +199,8 @@ export class FlightDetailsComponent implements OnInit, AfterViewInit {
         grid.addChild(
             this.label(
                 this.flightOffer.itineraries[iteratiesNumber].segments.length -
-                    1 +
-                    ' átszállás',
+                1 +
+                ' átszállás',
                 'flight-details-component-t-transfer',
                 2,
                 2
@@ -396,28 +398,28 @@ export class FlightDetailsComponent implements OnInit, AfterViewInit {
         if (flightInfo === 'departure') {
             this.segmentDepartureHeaders.forEach(
                 (header) =>
-                    (header.visibility = this.expandedStates[flightInfo]
-                        ? 'visible'
-                        : 'collapse')
+                (header.visibility = this.expandedStates[flightInfo]
+                    ? 'visible'
+                    : 'collapse')
             );
             this.segmentDepartureDetails.forEach(
                 (detail) =>
-                    (detail.visibility = this.expandedStates[flightInfo]
-                        ? 'visible'
-                        : 'collapse')
+                (detail.visibility = this.expandedStates[flightInfo]
+                    ? 'visible'
+                    : 'collapse')
             );
         } else {
             this.segmentArrivalHeaders.forEach(
                 (header) =>
-                    (header.visibility = this.expandedStates[flightInfo]
-                        ? 'visible'
-                        : 'collapse')
+                (header.visibility = this.expandedStates[flightInfo]
+                    ? 'visible'
+                    : 'collapse')
             );
             this.segmentArrivalDetails.forEach(
                 (detail) =>
-                    (detail.visibility = this.expandedStates[flightInfo]
-                        ? 'visible'
-                        : 'collapse')
+                (detail.visibility = this.expandedStates[flightInfo]
+                    ? 'visible'
+                    : 'collapse')
             );
         }
     }

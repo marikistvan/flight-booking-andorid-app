@@ -1,9 +1,9 @@
 @if (authService.currentUser) {
     <StackLayout class="nt-drawer__header">
-        @if (imageSrc) {
+        @if (this.authService.profilePhoto) {
             <Image
                 class="nt-drawer__header-image fas t-36"
-                [src]="imageSrc"
+                [src]="this.authService.profilePhoto"
             ></Image>
         } @else {
             <Image
