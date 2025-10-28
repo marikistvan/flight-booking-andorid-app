@@ -1,17 +1,25 @@
-import { Component, Input, ViewContainerRef } from '@angular/core';
-import { ModalDialogOptions, ModalDialogService } from '@nativescript/angular';
-import { Blog } from '~/app/models/blog';
-import { AuthService } from '~/app/services/auth.service';
+import { Component, Input, NO_ERRORS_SCHEMA, ViewContainerRef } from '@angular/core';
+import { ModalDialogOptions, ModalDialogService, NativeScriptCommonModule } from '@nativescript/angular';
+import { Blog } from '../../../models/blog';
+import { AuthService } from '../../../services/auth.service';
 import { ReadBlogComponent } from '../read-blog/read-blog.component';
-import { BlogService } from '~/app/services/blog.service';
-import { Dialogs } from '@nativescript/core';
+import { BlogService } from '../../../services/blog.service';
+import { DatePicker, Dialogs } from '@nativescript/core';
 import { CreateBlogComponent } from '../create-blog/create-blog.component';
 import { localize } from '@nativescript/localize';
+import { CommonModule, DatePipe } from '@angular/common';
+import { NativeScriptLocalizeModule } from '@nativescript/localize/angular';
 
 @Component({
+    providers: [DatePipe],
     selector: 'ns-blog-item',
+    standalone: true,
     templateUrl: './blog-item.component.html',
     styleUrls: ['./blog-item.component.scss'],
+    imports: [CommonModule,
+        NativeScriptCommonModule,
+        NativeScriptLocalizeModule],
+    schemas: [NO_ERRORS_SCHEMA]
 })
 export class BlogItemComponent {
     @Input({ required: true }) blog!: Blog;
@@ -20,8 +28,9 @@ export class BlogItemComponent {
         public authService: AuthService,
         private modalDialogService: ModalDialogService,
         private viewContainerRef: ViewContainerRef,
-        private blogService: BlogService
-    ) {}
+        private blogService: BlogService,
+        public datePipe: DatePipe
+    ) { }
 
     async editBlog() {
         const options: ModalDialogOptions = {

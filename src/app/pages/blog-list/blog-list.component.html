@@ -18,9 +18,13 @@
 </ActionBar>
 
 <GridLayout rows="auto, *" class="page">
-    <ns-search></ns-search>
-
-    <RadListView row="1" [items]="blogService.getBlogs()">
+    <ns-search
+        [items]="blogService.getBlogs()"
+        [filterKeys]="['title']"
+        (filteredItemsChange)="onFilteredBlogs($event)"
+    >
+    </ns-search>
+    <RadListView row="1" [items]="filteredBlogs()">
         <ng-template let-blog="item">
             <ns-blog-item [blog]="blog"></ns-blog-item>
         </ng-template>

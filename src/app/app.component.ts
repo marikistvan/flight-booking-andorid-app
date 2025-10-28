@@ -1,27 +1,11 @@
-import {
-    Component,
-    ElementRef,
-    OnInit,
-    ViewChild,
-    ViewContainerRef,
-} from '@angular/core';
-import { Router } from '@angular/router';
-import {
-    ModalDialogOptions,
-    ModalDialogService,
-    RouterExtensions,
-} from '@nativescript/angular';
-import {
-    DrawerTransitionBase,
-    RadSideDrawer,
-    SlideInOnTopTransition,
-} from 'nativescript-ui-sidedrawer';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { ModalDialogService, RouterExtensions } from '@nativescript/angular';
+import { DrawerTransitionBase, SlideInOnTopTransition } from 'nativescript-ui-sidedrawer';
 import { Application } from '@nativescript/core';
 import '@nativescript/firebase-auth';
 import '@nativescript/firebase-firestore';
 import { AuthService } from './services/auth.service';
 import { androidLaunchEventLocalizationHandler } from '@nativescript/localize';
-import { Screen } from '@nativescript/core';
 
 @Component({
     selector: 'ns-app',
@@ -32,15 +16,13 @@ export class AppComponent implements OnInit {
 
     constructor(
         private routerExtensions: RouterExtensions,
-        public authService: AuthService,
-        private viewContainerRef: ViewContainerRef,
-        private modalDialogService: ModalDialogService
+        public authService: AuthService
     ) { }
 
     ngOnInit(): void {
         this._sideDrawerTransition = new SlideInOnTopTransition();
         if (!this.authService.currentUser) {
-            this.routerExtensions.navigate(['flightSearch']);
+            this.routerExtensions.navigate(['home']);
         }
         if (Application.android) {
             androidLaunchEventLocalizationHandler();
