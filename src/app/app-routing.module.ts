@@ -9,12 +9,13 @@ import { AiChatComponent } from './pages/aichat/aichat.component';
 import { FlightSearchComponent } from './pages/flightSearch/flightSearch.component';
 import { FlightTicketListComponent } from './pages/flight-ticket-list/flight-ticket-list.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { CanActivate, IsAdmin } from './auth.guard';
 
 const routes: Routes = [
     { path: '', redirectTo: '/flightSearch', pathMatch: 'full' },
     {
         path: 'home',
-        component: HomeComponent,
+        component: HomeComponent
     },
     {
         path: 'blogList',
@@ -27,14 +28,17 @@ const routes: Routes = [
     {
         path: 'profile',
         component: ProfileComponent,
+        canActivate: [CanActivate]
     },
     {
         path: 'aichat',
         component: AiChatComponent,
+        canActivate: [CanActivate]
     },
     {
         path: 'basket',
         component: BasketComponent,
+        canActivate: [CanActivate]
     },
     {
         path: 'flightTicketList',
@@ -46,6 +50,7 @@ const routes: Routes = [
     },
     {
         path: 'userProfile',
+        canActivate: [CanActivate],
         loadComponent: () =>
             import(
                 './pages/user-list/userList-row/user-profile/user-profile.component'
@@ -53,6 +58,7 @@ const routes: Routes = [
     },
     {
         path: 'passDetails',
+        canActivate: [CanActivate],
         loadComponent: () =>
             import(
                 './pages/flight-booking/flight-summary/passenger-details/passenger-details.component'
@@ -151,6 +157,7 @@ const routes: Routes = [
     },
     {
         path: 'blogCreate',
+        canActivate: [CanActivate],
         loadComponent: () =>
             import('./pages/blog-list/create-blog/create-blog.component').then(
                 (m) => m.CreateBlogComponent
@@ -158,6 +165,7 @@ const routes: Routes = [
     },
     {
         path: 'userList',
+        canActivate: [IsAdmin],
         loadComponent: () =>
             import('./pages/user-list/userList.component').then(
                 (m) => m.UserListComponent
