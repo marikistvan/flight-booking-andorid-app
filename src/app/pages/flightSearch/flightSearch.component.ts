@@ -75,7 +75,7 @@ export class FlightSearchComponent implements OnInit {
         private datePipe: DatePipe,
         private searchStateService: FlightSearchStateService,
         private routerExtensions: RouterExtensions
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.todayDate = this.getTodayDate();
@@ -140,9 +140,9 @@ export class FlightSearchComponent implements OnInit {
                     this.maxSearchNumber,
                     this.searchFormGroup.get('returnDate').value !== undefined
                         ? this.datePipe.transform(
-                              this.searchFormGroup.get('returnDate').value,
-                              'yyyy-MM-dd'
-                          )
+                            this.searchFormGroup.get('returnDate').value,
+                            'yyyy-MM-dd'
+                        )
                         : undefined,
                     this.passengerCategories[1].count.toString(),
                     this.passengerCategories[2].count.toString()

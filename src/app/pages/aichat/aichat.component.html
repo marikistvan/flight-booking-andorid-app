@@ -21,7 +21,7 @@
                             col="0"
                             row="0"
                             textWrap="true"
-                            [text]="item.role + ': ' + item.content"
+                            [text]="item.content"
                         ></Label>
                         <Label
                             [text]="
@@ -49,7 +49,6 @@
             [(ngModel)]="newMessage"
             hint="Írj üzenetet..."
             class="input"
-            (textChange)="onTextChange($event)"
             #messageInput
         ></TextView>
         <Button

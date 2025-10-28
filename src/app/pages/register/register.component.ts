@@ -2,13 +2,9 @@ import {
     Component,
     LOCALE_ID,
     NO_ERRORS_SCHEMA,
-    OnChanges,
     OnInit,
     signal,
-    SimpleChanges,
 } from '@angular/core';
-import '@nativescript/firebase-auth';
-import '@nativescript/firebase-firestore';
 import localeHu from '@angular/common/locales/hu';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import { action, Application, DatePicker, Dialogs } from '@nativescript/core';
@@ -58,7 +54,7 @@ export class RegisterComponent implements OnInit {
         man: localize('register.man'),
         other: localize('register.other'),
     };
-    isRegisterStarted = signal(false);
+    progressBar = signal(false);
     registerFormGroup = new FormGroup(
         {
             email: new FormControl('', {
@@ -89,7 +85,7 @@ export class RegisterComponent implements OnInit {
         public datePipe: DatePipe,
         private authService: AuthService,
         private routerExtensions: RouterExtensions
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.minBornDate = this.getAdultThresholdDate();
@@ -157,29 +153,26 @@ export class RegisterComponent implements OnInit {
         });
     }
 
-    submitRegister() {
-        const errors = this.registerFormGroup.errors;
-        this.hasError(errors);
+    onSubmitRegister() {
         if (this.registerFormGroup.invalid) return;
-        else {
-            this.isRegisterStarted.set(true);
-            this.authService
-                .register(
-                    this.email,
-                    this.password,
-                    this.firstName,
-                    this.lastName,
-                    this.sex,
-                    this.born
-                )
-                .then(() => {
-                    this.isRegisterStarted.set(false);
-                    this.sendEmailDialogWithNavigate();
-                })
-                .catch((error) => {
-                    this.errorDialog(error);
-                });
-        }
+        this.progressBar.set(true);
+        this.authService
+            .register(
+                this.email,
+                this.password,
+                this.firstName,
+                this.lastName,
+                this.sex,
+                this.born
+            )
+            .then(() => {
+                this.progressBar.set(false);
+                this.sendEmailDialogWithNavigate();
+            })
+            .catch((error) => {
+                console.error('Hiba történt regisztráláskor: ', error);
+                this.errorDialog(error);
+            });
     }
 
     signInWithGoogle() {
@@ -210,7 +203,7 @@ export class RegisterComponent implements OnInit {
     }
 
     private errorDialog(error: any) {
-        this.isRegisterStarted.set(false);
+        this.progressBar.set(false);
         console.log('hiba történt regisztrálásnál: ' + error);
         Dialogs.alert({
             title: localize('register.errorTitle'),
@@ -224,18 +217,21 @@ export class RegisterComponent implements OnInit {
         const sideDrawer = <RadSideDrawer>Application.getRootView();
         sideDrawer.showDrawer();
     }
-
-    private hasError(errors: any) {
-        if (errors?.passwordMismatch) {
-            this.registerFormGroup.get('password').markAllAsTouched;
-            this.registerFormGroup.get('passwordAgain').markAllAsTouched;
-            console.log('A jelszavak nem egyeznek!');
-            this.ispasswordMatch = false;
-        } else {
-            this.ispasswordMatch = true;
-        }
-        if (errors?.emailRegex) {
-            console.log('nem megfelelő az email');
-        }
-    }
+    /*
+        private hasError(errors: any): boolean {
+            if (errors?.passwordMismatch) {
+                this.registerFormGroup.get('password').markAllAsTouched;
+                this.registerFormGroup.get('passwordAgain').markAllAsTouched;
+                console.log('A jelszavak nem egyeznek!');
+                this.ispasswordMatch = false;
+                return true;
+            } else {
+                this.ispasswordMatch = true;
+            }
+            if (errors?.emailRegex) {
+                console.log('nem megfelelő az email');
+                return true;
+            }
+            return false;
+        }*/
 }

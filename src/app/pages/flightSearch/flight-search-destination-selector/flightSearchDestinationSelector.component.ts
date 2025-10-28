@@ -14,17 +14,7 @@ export class FlightSearchDestinationSelectorComponent implements OnInit {
     searchTerm = signal<string>('');
     context: string = '';
     locations = signal<Location[]>([]);
-    airports = [
-        {
-            name: 'New York, NY (JFK)',
-            country: 'Egyesült Államok',
-        },
-        {
-            name: 'New York Newark Liberty Intl (EWR)',
-            country: 'Egyesült Államok',
-        },
-    ];
-    filteredAirports = [...this.airports];
+
     constructor(
         private modalDialogParams: ModalDialogParams,
         private amadeusService: AmadeusService,
@@ -34,7 +24,7 @@ export class FlightSearchDestinationSelectorComponent implements OnInit {
         this.context = modalDialogParams.context.type;
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void { }
 
     get locationItems(): Location[] {
         return this.locations();

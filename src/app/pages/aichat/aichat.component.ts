@@ -3,14 +3,10 @@ import {
     ViewChild,
     OnInit,
     ElementRef,
-    OnDestroy,
     signal,
 } from '@angular/core';
-import { Application, TextView } from '@nativescript/core';
-import { firstValueFrom, Observable } from 'rxjs';
+import { TextView } from '@nativescript/core';
 import { ChatService } from '~/app/services/chat.service';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '~/environments/environment';
 import { Chat } from '../../models/chat';
 import { MessageHistory } from '~/app/models/messageHistory';
 import { Message } from '~/app/models/message';
@@ -21,7 +17,7 @@ import { localize } from '@nativescript/localize';
     templateUrl: './aichat.component.html',
     styleUrls: ['./aichat.component.scss'],
 })
-export class AiChatComponent implements OnInit, OnDestroy {
+export class AiChatComponent implements OnInit {
     chatResponse: any;
     newMessage = signal('');
     messages: Message[] = [];
@@ -29,10 +25,7 @@ export class AiChatComponent implements OnInit, OnDestroy {
     @ViewChild('messageInput', { static: false })
     messageInputRef: ElementRef<TextView>;
 
-    constructor(
-        private chatService: ChatService,
-        private http: HttpClient
-    ) {}
+    constructor(private chatService: ChatService) { }
 
     async ngOnInit(): Promise<void> {
         try {
@@ -54,55 +47,35 @@ export class AiChatComponent implements OnInit, OnDestroy {
         this.messageHistory.set(history);
     }
 
-    ngOnDestroy(): void {}
-
     async sendMessage() {
         this.newMessage.set(this.newMessage().trim());
         if (this.newMessage() === '') return;
-        this.messageHistory.update((history) => [
-            ...history,
-            { role: 'user', content: this.newMessage(), timestamp: new Date() },
-        ]);
+        this.messageHistoryUpdate('user', this.newMessage());
         this.chatService.saveMessage(this.newMessage(), false);
         this.newMessage.set('');
         try {
-            this.chatResponse = await firstValueFrom(
-                this.http.post(environment.backendUrl + 'api/chat/ask', {
-                    prompt: this.messageHistory(),
-                })
+            this.chatResponse = await this.chatService.sendMessage(
+                this.messageHistory()
             );
-            this.messageHistory.update((history) => [
-                ...history,
-                {
-                    role: 'assistant',
-                    content: this.chatResponse,
-                    timestamp: new Date(),
-                },
-            ]);
+            this.messageHistoryUpdate('assistant', this.chatResponse);
             this.chatService.saveMessage(this.chatResponse, true);
         } catch (error) {
             console.error('Hiba a válasz lekérésekor:', error);
-            this.messageHistory.update((history) => [
-                ...history,
-                {
-                    role: 'assistant',
-                    content: localize('aiChat.chatError'),
-                    timestamp: new Date(),
-                },
-            ]);
+            this.messageHistoryUpdate(
+                'assistant',
+                localize('aiChat.chatError')
+            );
         }
     }
 
-    onTextChange(event) {
-        const textView = this.messageInputRef.nativeElement;
-        setTimeout(() => {
-            const lineHeight = 100;
-            const maxLines = 5;
-            const lineCount = textView.text
-                ? (textView.text.match(/\n/g)?.length || 0) + 1
-                : 1;
-            const newHeight = Math.min(lineCount, maxLines) * lineHeight + 16;
-            textView.height = newHeight;
-        });
+    messageHistoryUpdate(senderRole, content: string) {
+        this.messageHistory.update((history) => [
+            ...history,
+            {
+                role: senderRole,
+                content: content,
+                timestamp: new Date(),
+            },
+        ]);
     }
 }

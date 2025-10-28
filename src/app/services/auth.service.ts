@@ -97,10 +97,6 @@ export class AuthService {
         return this._isAdmin();
     }
 
-    private createUser(email: string, password: string) {
-        return this.auth.createUserWithEmailAndPassword(email, password);
-    }
-
     private createUserProfile(
         uid: string,
         firstName: string,
@@ -125,7 +121,8 @@ export class AuthService {
         genre: string,
         born: string
     ) {
-        return this.createUser(email, password)
+        return this.auth
+            .createUserWithEmailAndPassword(email, password)
             .then(async (credential) => {
                 if (!credential.user) return;
 

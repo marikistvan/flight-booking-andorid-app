@@ -19,7 +19,7 @@
     flexDirection="column"
     justifyContent="center"
 >
-    @if (isRegisterStarted()) {
+    @if (progressBar()) {
         <ActivityIndicator busy="true" />
     } @else {
         <GridLayout
@@ -157,7 +157,7 @@
                 colSpan="3"
                 row="10"
                 columns="auto, *"
-                (tap)="submitRegister()"
+                (tap)="onSubmitRegister()"
                 class="btn-submit-grid"
             >
                 <Image
