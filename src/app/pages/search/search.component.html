@@ -8,9 +8,9 @@
     <TextField
         row="0"
         col="1"
-        [text]="searchTerm()"
+        [(ngModel)]="searchTerm"
         hint="Keresés..."
-        (textChange)="onSearchTextChanged($event.value)"
+        (textChange)="onSearchChange()"
         class="search-bar"
         autocorrect="false"
     ></TextField>

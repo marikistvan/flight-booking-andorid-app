@@ -3,11 +3,15 @@
     <ns-section-header title="{{ 'userList.title' | L }}"></ns-section-header>
 </ActionBar>
 <StackLayout class="page">
-    <ns-search></ns-search>
+    <ns-search
+        [items]="users()"
+        [filterKeys]="['uid']"
+        (filteredItemsChange)="onFilteredUsers($event)"
+    ></ns-search>
     <ScrollView class="scroll-height">
         <StackLayout>
             @if (loaded) {
-                @for (user of users; track user.uid) {
+                @for (user of filteredUsers(); track user.uid) {
                     <ns-user-list-row
                         [user]="user"
                         [userDetails]="getCurrentUserDetail(user.uid)"
