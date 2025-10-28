@@ -36,33 +36,6 @@ exports.askChatGPT = async (req, res) => {
         res.status(500).json(error + ' Hiba történt a válasz lekérésekor.');
     }
 };
-exports.createChatIfNotExists = async (req, res) => {
-    const { userId1, userId2 } = req.body;
-    if (!userId1 || !userId2) {
-        return res.status(400).json({ error: 'Két userId szükséges' });
-    }
-
-    const chatId = [userId1, userId2].sort().join('_');
-    const chatRef = db.collection('chats').doc(chatId);
-
-    try {
-        const chatSnap = await chatRef.get();
-
-        if (!chatSnap.exists) {
-            await chatRef.set({
-                participants: [userId1, userId2],
-                createdAt: admin.firestore.FieldValue.serverTimestamp(),
-                lastMessage: null,
-                lastMessageTimestamp: null,
-            });
-        }
-
-        return res.status(200).json({ chatId });
-    } catch (err) {
-        console.error('Chat létrehozási hiba:', err);
-        return res.status(500).json({ error: 'Szerverhiba' });
-    }
-};
 
 exports.sendMessage = async (req, res) => {
     try {

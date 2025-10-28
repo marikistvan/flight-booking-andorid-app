@@ -7,6 +7,5 @@ const {
 } = require('../controllers/chatController');
 
 router.post('/ask', askChatGPT);
-router.post('/create', createChatIfNotExists);
 router.post('/:chatId/send', sendMessage);
 module.exports = router;
