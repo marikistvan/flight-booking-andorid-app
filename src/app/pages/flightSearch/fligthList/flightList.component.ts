@@ -1,14 +1,13 @@
-import { CommonModule } from '@angular/common';
-import { Component, NO_ERRORS_SCHEMA, OnInit } from '@angular/core';
+import { Component, NO_ERRORS_SCHEMA, OnChanges, OnInit, signal, Signal, SimpleChanges, WritableSignal } from '@angular/core';
 import {
     NativeScriptCommonModule,
     RouterExtensions,
 } from '@nativescript/angular';
 import { FlightSearchStateService } from '~/app/services/flight-search-state.service';
 import { FlightListRowComponent } from './flightList-row/flightList-row.component';
-import { localize } from '@nativescript/localize';
 import { NativeScriptLocalizeModule } from '@nativescript/localize/angular';
 import { Dictionaries, FlightOffer } from '~/app/models/flight-offers-response';
+import { UserService } from '~/app/services/user.service';
 
 @Component({
     standalone: true,
@@ -16,23 +15,27 @@ import { Dictionaries, FlightOffer } from '~/app/models/flight-offers-response';
     templateUrl: './flightList.component.html',
     styleUrls: ['./flightList.component.scss'],
     imports: [
-        CommonModule,
         NativeScriptCommonModule,
         FlightListRowComponent,
         NativeScriptLocalizeModule,
     ],
     schemas: [NO_ERRORS_SCHEMA],
 })
-export class FlightListComponent implements OnInit {
-    flightsData: FlightOffer[];
+export class FlightListComponent implements OnInit, OnChanges {
+    flightsData: WritableSignal<FlightOffer[]> = signal<FlightOffer[]>([]);
     constructor(
         private routerExtensions: RouterExtensions,
         public searchService: FlightSearchStateService
-    ) {}
+    ) { }
+
+    async ngOnChanges(): Promise<void> {
+        const flights = await this.searchService.getFlightOffersWithSpecificCurrency();
+        this.flightsData.set(flights);
+    }
 
     async ngOnInit(): Promise<void> {
-        this.flightsData =
-            await this.searchService.getFlightOffersWithSpecificCurrency();
+        const flights = await this.searchService.getFlightOffersWithSpecificCurrency();
+        this.flightsData.set(flights);
     }
 
     onCancel() {

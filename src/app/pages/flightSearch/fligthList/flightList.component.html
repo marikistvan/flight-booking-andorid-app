@@ -15,26 +15,19 @@
 <StackLayout class="page">
     <ScrollView class="scroll-height">
         <StackLayout>
-            @if (flightsData) {
-                @if (flightsData.length === 0) {
-                    <Label
-                        text="{{ 'flightList.noDataMessage' | L }}"
-                        class="empty-flight-message"
-                        textWrap="true"
-                    ></Label>
-                }
-                @for (flight of flightsData; track flight.id) {
-                    <ns-flight-list-row
-                        [flight]="flight"
-                        [dictionary]="searchService.dictionary"
-                    ></ns-flight-list-row>
-                }
-            } @else {
+            @if (flightsData().length === 0) {
                 <Label
                     text="{{ 'flightList.noDataMessage' | L }}"
                     class="empty-flight-message"
                     textWrap="true"
                 ></Label>
+            } @else {
+                @for (flight of flightsData(); track flight.id) {
+                    <ns-flight-list-row
+                        [flight]="flight"
+                        [dictionary]="searchService.getDictionary()"
+                    ></ns-flight-list-row>
+                }
             }
         </StackLayout>
     </ScrollView>
