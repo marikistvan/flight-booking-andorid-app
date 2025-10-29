@@ -174,7 +174,7 @@ export class FlightSearchComponent implements OnInit {
             if (result !== localize('general.cancel')) {
                 this.searchFormGroup.get('tripType').setValue(result);
                 if (result === localize('flightSearch.oneWay')) {
-                    this.searchFormGroup.get('returnDate')?.setValue(null);
+                    this.searchFormGroup.get('returnDate')?.setValue(undefined);
                 }
             }
         });

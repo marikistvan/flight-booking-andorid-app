@@ -21,7 +21,7 @@ export class AmadeusService {
     private clientSecret = environment.amadeusClientSecret;
     private accessToken: string | null = null;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     private getToken(): Observable<any> {
         const body = new URLSearchParams();
@@ -107,7 +107,7 @@ export class AmadeusService {
         infants: string
     ): Observable<FlightOffersResponse> {
         let url;
-        if (returnDate === null) {
+        if (returnDate === undefined) {
             url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destination}&departureDate=${departureDate}&adults=${adults}&children=${childrens}&infants=${infants}&max=${max}`;
         } else {
             url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destination}&departureDate=${departureDate}&returnDate=${returnDate}&adults=${adults}&children=${childrens}&infants=${infants}&max=${max}`;
