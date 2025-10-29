@@ -1,5 +1,7 @@
-import { Component, NO_ERRORS_SCHEMA, signal } from '@angular/core';
+import { Component, NO_ERRORS_SCHEMA, signal, ViewContainerRef } from '@angular/core';
 import {
+    ModalDialogOptions,
+    ModalDialogService,
     NativeScriptCommonModule,
     NativeScriptFormsModule,
     RouterExtensions,
@@ -21,6 +23,8 @@ import { registerElement } from '@nativescript/angular';
 import { GoogleSignin } from '@nativescript/google-signin';
 import { localize } from '@nativescript/localize';
 import { NativeScriptLocalizeModule } from '@nativescript/localize/angular';
+import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { emailRegexValidator } from '~/app/validators/email-regex.validator';
 registerElement(
     'GoogleSignInButton',
     () => require('@nativescript/google-signin').GoogleSignInButton
@@ -46,14 +50,16 @@ export class LoginComponent {
     isNeedEmailValidate = signal(false);
 
     loginFormGroup = new FormGroup({
-        email: new FormControl<string | null>('', Validators.required),
+        email: new FormControl<string | null>('', [Validators.required, emailRegexValidator]),
         password: new FormControl<string | null>('', Validators.required),
     });
 
     constructor(
         private routerExtensions: RouterExtensions,
-        private authService: AuthService
-    ) {}
+        private authService: AuthService,
+        private viewContainerRef: ViewContainerRef,
+        private modalDialogService: ModalDialogService
+    ) { }
 
     signInWithGoogle() {
         this.authService
@@ -101,6 +107,33 @@ export class LoginComponent {
             }
         } finally {
             this.isLoginStarted.set(false);
+        }
+    }
+
+    async onForgotPassword() {
+        const options: ModalDialogOptions = {
+            context: "email",
+            fullscreen: false,
+            viewContainerRef: this.viewContainerRef,
+        };
+        const result = await this.modalDialogService.showModal(
+            ForgetPasswordComponent,
+            options
+        );
+        if (result === 'success') {
+            Dialogs.alert({
+                title: 'Siker!',
+                message: 'Jelszó visszaállító elküldve az emailedre.',
+                okButtonText: 'OK',
+                cancelable: true,
+            })
+        } else {
+            Dialogs.alert({
+                title: 'Sikertelen próbálkozás!',
+                message: 'Jelszó visszaállító email nem lett elküldve.',
+                okButtonText: 'OK',
+                cancelable: true,
+            })
         }
     }
 

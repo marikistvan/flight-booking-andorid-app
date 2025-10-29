@@ -142,6 +142,11 @@ export class AuthService {
             });
     }
 
+    sendPasswordResetEmail(email) {
+        this.auth.sendPasswordResetEmail(email);
+    }
+
+
     isValidEmail(email: string): boolean {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
