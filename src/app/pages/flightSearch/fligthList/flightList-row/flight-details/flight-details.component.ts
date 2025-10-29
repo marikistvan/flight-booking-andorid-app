@@ -6,6 +6,7 @@ import {
     OnInit,
     AfterViewInit,
     NO_ERRORS_SCHEMA,
+    signal,
 } from '@angular/core';
 import {
     GridLayout,
@@ -45,14 +46,15 @@ export class FlightDetailsComponent implements OnInit, AfterViewInit {
     @Input() flightOffer!: FlightOffer;
     @Input() isJustSummary?: boolean;
     @Input() flightId?: string;
-
+    flightPrice = signal("");
+    flightSymbol = signal("");
+    halfPrice = signal(0);
     private segmentDepartureHeaders: GridLayout[] = [];
     private segmentArrivalHeaders: GridLayout[] = [];
     private segmentDepartureDetails: GridLayout[] = [];
     private segmentArrivalDetails: GridLayout[] = [];
     private expandedStates: { [key: string]: boolean } = {};
     locations: LocationResponseForOneLocation[] = [];
-    halfPrice!: number;
 
     DepartureMainGrid = new GridLayout();
     ArrivalMainGrid = new GridLayout();
@@ -94,13 +96,15 @@ export class FlightDetailsComponent implements OnInit, AfterViewInit {
                 this.flightId
             );
         }
+        this.flightPrice.set(this.searchStateService.getTotalPriceByIdWithSpecificCurrency(this.flightId));
+        this.flightSymbol.set(this.searchStateService.getPriceSymbol());
     }
 
     private initView() {
         if (this.viewInitialized) return;
         this.viewInitialized = true;
 
-        this.halfPrice = Number(this.flightOffer.price.total) / 2;
+        this.halfPrice.set(Number(this.flightPrice) / 2);
 
         this.setupMainGrid(this.DepartureMainGrid, 0);
         this.addMainFlightInfo(this.DepartureMainGrid, 0);

@@ -13,6 +13,8 @@ import {
 import { Dictionaries, FlightOffer } from '~/app/models/flight-offers-response';
 import { NativeScriptLocalizeModule } from '@nativescript/localize/angular';
 import { localize } from '@nativescript/localize';
+import { FlightSearchComponent } from '../../flightSearch.component';
+import { FlightSearchStateService } from '~/app/services/flight-search-state.service';
 
 @Component({
     providers: [DatePipe],
@@ -30,18 +32,23 @@ import { localize } from '@nativescript/localize';
 export class FlightListRowComponent implements OnInit {
     @Input({ required: true }) flight!: FlightOffer;
     @Input({ required: true }) dictionary!: Dictionaries;
-    halfPrice: number;
+    flightPrice = signal("");
+    flightSymbol = signal("");
+    halfPrice = signal(0);
     summary = signal('');
     stapOver = signal('');
     isSearchStarted = signal(false);
     constructor(
         public datePipe: DatePipe,
-        private routerExtensions: RouterExtensions
-    ) {}
+        private routerExtensions: RouterExtensions,
+        private flightSearchStateService: FlightSearchStateService
+    ) { }
     ngOnInit(): void {
-        this.halfPrice = Number(this.flight.price.total) / 2;
         this.summary.set(localize('general.summary'));
         this.stapOver.set(localize('flightListRow.stepOver'));
+        this.flightPrice.set(this.flightSearchStateService.getTotalPriceByIdWithSpecificCurrency(this.flight.id));
+        this.flightSymbol.set(this.flightSearchStateService.getPriceSymbol());
+        this.halfPrice.set(Number(this.flightPrice) / 2);
     }
 
     formatDuration(duration: string): string {

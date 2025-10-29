@@ -58,11 +58,7 @@
                 <Label
                     col="3"
                     row="0"
-                    [text]="
-                        flightOffer.price.total +
-                        ' ' +
-                        flightOffer.price.currency
-                    "
+                    [text]="flightPrice() + ' ' + flightSymbol()"
                     class="big-price-label"
                     style="text-align: center"
                 ></Label>

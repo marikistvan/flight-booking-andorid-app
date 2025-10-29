@@ -8,6 +8,7 @@ import { FlightListRowComponent } from './flightList-row/flightList-row.componen
 import { NativeScriptLocalizeModule } from '@nativescript/localize/angular';
 import { Dictionaries, FlightOffer } from '~/app/models/flight-offers-response';
 import { UserService } from '~/app/services/user.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
     standalone: true,
@@ -29,12 +30,12 @@ export class FlightListComponent implements OnInit, OnChanges {
     ) { }
 
     async ngOnChanges(): Promise<void> {
-        const flights = await this.searchService.getFlightOffersWithSpecificCurrency();
+        const flights = await this.searchService.getFlights().flightOffers;
         this.flightsData.set(flights);
     }
 
     async ngOnInit(): Promise<void> {
-        const flights = await this.searchService.getFlightOffersWithSpecificCurrency();
+        const flights = await this.searchService.getFlights().flightOffers;
         this.flightsData.set(flights);
     }
 

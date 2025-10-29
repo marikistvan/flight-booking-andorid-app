@@ -15,7 +15,7 @@
 <StackLayout class="page">
     <ScrollView class="scroll-height">
         <StackLayout>
-            @if (flightsData().length === 0) {
+            @if (flightsData() && flightsData().length === 0) {
                 <Label
                     text="{{ 'flightList.noDataMessage' | L }}"
                     class="empty-flight-message"

@@ -138,18 +138,13 @@
                 <Label
                     col="0"
                     row="0"
-                    [text]="halfPrice + ' ' + flight.price.currency"
+                    [text]="halfPrice() + ' ' + flightSymbol()"
                     class="flight-price"
                 ></Label>
                 <Label
                     col="0"
                     row="1"
-                    [text]="
-                        summary() +
-                        flight.price.total +
-                        ' ' +
-                        flight.price.currency
-                    "
+                    [text]="summary() + flightPrice() + ' ' + flightSymbol()"
                     class="full-price"
                 ></Label>
             } @else {
@@ -157,7 +152,7 @@
                     col="0"
                     row="0"
                     rowSpan="2"
-                    [text]="flight.price.total + ' ' + flight.price.currency"
+                    [text]="flightPrice() + ' ' + flightSymbol()"
                     class="flight-price"
                 ></Label>
             }

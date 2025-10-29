@@ -1,4 +1,4 @@
-import { Component, Input, NO_ERRORS_SCHEMA, OnInit } from '@angular/core';
+import { Component, Input, NO_ERRORS_SCHEMA, OnInit, signal } from '@angular/core';
 import {
     NativeScriptCommonModule,
     RouterExtensions,
@@ -34,22 +34,28 @@ export class FlightSummaryComponent implements OnInit {
     isShowFlightDetails: boolean = true;
     passengers: Passenger[] = [];
     @Input() flightId: string;
+    flightPrice = signal("");
+    flightSymbol = signal("");
+    halfPrice = signal(0);
 
     constructor(
         private searchStateService: FlightSearchStateService,
         private bookingService: BookingService,
         private route: ActivatedRoute,
         private routerExtensions: RouterExtensions
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.flightId = this.route.snapshot.paramMap.get('flightId')!;
         this.flightOffer =
-            this.searchStateService.getFlightByIdWithSpecificCurrency(
+            this.searchStateService.getFlightById(
                 this.flightId
             );
         this.passengers = this.searchStateService.getPassengers();
         this.dictionary = this.searchStateService.getDictionary();
+        this.flightPrice.set(this.searchStateService.getTotalPriceByIdWithSpecificCurrency(this.flightId));
+        this.flightSymbol.set(this.searchStateService.getPriceSymbol());
+        this.halfPrice.set(Number(this.flightPrice) / 2);
     }
     onCancel() {
         this.routerExtensions.back();

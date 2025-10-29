@@ -9,7 +9,7 @@ import { User, UserDetails } from '../models/user';
 @Injectable({ providedIn: 'root' })
 export class FlightSearchStateService {
     private flightOffers: FlightOffer[];
-    private flightsWithSpecificCurrency: FlightOffer[];
+    private flightsWithSpecificCurrency: FlightOffer[] = [];
     private dictionary: Dictionaries;
     private toPlace: string;
     private passengers: Passenger[];
@@ -28,10 +28,10 @@ export class FlightSearchStateService {
         dictionaries: Dictionaries,
         toPlace: string
     ) {
-        this.flightOffers = flightOffers;
+        this.flightOffers = [...flightOffers];
         this.dictionary = dictionaries;
         this.toPlace = toPlace;
-        await this.getFlightsWithSpecificCurrency();
+        await this.changeCurrency();
     }
 
     setCurrency(currency: string) {
@@ -42,21 +42,13 @@ export class FlightSearchStateService {
         this._priceSymbol = priceSymbol;
     }
 
+    getPriceSymbol() {
+        return this._priceSymbol;
+    }
+
     getFlights() {
         return {
             flightOffers: this.flightOffers,
-            dictionary: this.dictionary,
-            toPlace: this.toPlace,
-        };
-    }
-
-    async getFlightsWithSpecificCurrency() {
-        this.flightsWithSpecificCurrency = JSON.parse(
-            JSON.stringify(this.flightOffers)
-        );
-        await this.changeCurrency(this.flightsWithSpecificCurrency);
-        return {
-            flightOffers: this.flightsWithSpecificCurrency,
             dictionary: this.dictionary,
             toPlace: this.toPlace,
         };
@@ -80,6 +72,12 @@ export class FlightSearchStateService {
         );
     }
 
+    getTotalPriceByIdWithSpecificCurrency(id: string): string {
+        return this.flightsWithSpecificCurrency.find(
+            (flight) => flight.id === id
+        ).price.total;
+    }
+
     getDictionary() {
         return this.dictionary;
     }
@@ -96,14 +94,16 @@ export class FlightSearchStateService {
         return this.passengers;
     }
 
-    private async changeCurrency(flightOffers: FlightOffer[]) {
+    private async changeCurrency() {
+        this.flightsWithSpecificCurrency = JSON.parse(
+            JSON.stringify(this.flightOffers));
         try {
             let rates = await this.currencyService.getRates();
             if (rates === undefined) {
                 console.log('rates undefined');
                 return;
             }
-            flightOffers.forEach((flight) => {
+            this.flightsWithSpecificCurrency.forEach((flight) => {
                 let totalPrice = Number(flight.price.total);
                 const switchCurrency = this.switchCurrency(
                     this._currency,
