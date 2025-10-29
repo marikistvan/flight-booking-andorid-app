@@ -13,7 +13,8 @@ import data from '~/assets/iata_data.json';
     styleUrls: ['./flight-ticket.component.scss'],
 })
 export class FlightTicketComponent implements OnInit {
-    barcodeUrl = 'https://barcodeapi.org/api/auto/' + 'ideaszoveg';
+    randomNumber = Math.floor(Math.random() * 10000000000).toString();
+    barcodeUrl = 'https://barcodeapi.org/api/auto/' + this.randomNumber;
     departureCity: string;
     arrivalCity: string;
     flight: Flight;

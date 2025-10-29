@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import {
     action,
+    Dialogs,
     GridLayout,
     Image,
     ItemSpec,
@@ -43,7 +44,7 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
     };
     formTitle: string;
     wayThere: FlightInfo[];
-    seatMap: Seatmap[] = [];
+    seatMapArray: Seatmap[] = [];
     isOneWay: boolean;
     passengerId: string;
     flightOffer: FlightOffer;
@@ -76,7 +77,7 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
             this.arrivalSeatCount =
                 context.flightOffer.itineraries[1].segments.length;
         }
-        this.seatMap = context.seatMap;
+        this.seatMapArray = context.seatMap;
         const passenger: Passenger = context.passenger;
         this.flightOffer.itineraries[0].segments.forEach((s) =>
             this.segmentIndexArray.push(s.id)
@@ -183,7 +184,6 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
         });
     }
     async openSeatPicker(direction: string, segmentId: string) {
-        console.log('Meg lett nyomva a openSeatPicker');
         if (
             this.passengerForm.get('lastName').value !== '' &&
             this.passengerForm.get('firstName').value !== ''
@@ -197,22 +197,25 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
             console.log(
                 'segmentId amit keresünk a seatMap tömben: ' + segmentId
             );
-            console.log(
-                'seatmap tényleges segment idai: ' +
-                this.seatMap[0].segmentId +
-                ' másik? ' +
-                (this.seatMap[1]?.segmentId ?? 'null')
-            );
+            console.log("seatMap segment ID-ai");
+            this.seatMapArray.forEach((sMap) => {
+                console.log(sMap.segmentId)
+            })
             console.log(
                 'segmentIndexArray hossza: ' + this.segmentIndexArray.length
             );
 
             const seatMap =
-                this.seatMap[this.segmentIndexArray.indexOf(segmentId)];
-            if (!seatMap) {
+                this.seatMapArray.find((seatMap) => seatMap.segmentId === segmentId);
+            if (seatMap === undefined) {
                 console.log(
                     'a seatMap üres, ezért nem megy a select seat komponensre'
                 );
+                Dialogs.alert({
+                    title: "Hiba.",
+                    message: "A gépen sajnos nincs több szabad hely.",
+                    okButtonText: localize('general.ok'),
+                });
                 return;
             }
             const option: ModalDialogOptions = {
@@ -232,7 +235,7 @@ export class SetpassengerComponent implements OnInit, AfterViewInit {
                     if (result?.action === 'reserve') {
                         const findCurrentFlightIndexOfSegmentId =
                             this.segmentIndexArray.indexOf(segmentId) + 1;
-                        const element = this.seatMap[
+                        const element = this.seatMapArray[
                             this.segmentIndexArray.indexOf(segmentId)
                         ].decks[0].seats.find(
                             (s) => s.number === result.seatNumber

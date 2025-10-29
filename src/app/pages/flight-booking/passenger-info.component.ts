@@ -25,6 +25,7 @@ import { NativeScriptLocalizeModule } from '@nativescript/localize/angular';
 import { localize } from '@nativescript/localize';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '~/environments/environment';
+import { Dialogs } from '@nativescript/core';
 
 @Component({
     selector: 'ns-passenger-info',
@@ -63,9 +64,6 @@ export class PassengerInfoComponent implements OnInit {
 
     ngOnInit(): void {
         this.flightId = this.route.snapshot.paramMap.get('flightId')!;
-        console.log(
-            'passenger info flight id-ja amit kap a route-on: ' + this.flightId
-        );
         this.dictionary = this.searchStateService.getDictionary();
         this.flightOffer = this.searchStateService.getFlightById(this.flightId);
         this.passengersNumber = this.flightOffer.travelerPricings.length;
@@ -88,13 +86,22 @@ export class PassengerInfoComponent implements OnInit {
     }
     async submit() {
         if (this.isAllDataIsFilledIn()) {
-            this.isButtonPressed.set(true);
-            this.searchStateService.setPassengers(this.passengers);
-            this.routerExtensions.navigate([
-                'flightSummary',
-                this.flightOffer.id,
-            ]);
-            this.isButtonPressed.set(false);
+            try {
+                this.isButtonPressed.set(true);
+                this.searchStateService.setPassengers(this.passengers);
+                this.routerExtensions.navigate([
+                    'flightSummary',
+                    this.flightOffer.id,
+                ]);
+                this.isButtonPressed.set(false);
+            } catch (err) {
+                console.error(err);
+                Dialogs.alert({
+                    title: "Hiba.",
+                    message: "Kritikus hiba történt a foglalás során.",
+                    okButtonText: localize('general.ok'),
+                }).then(() => { this.routerExtensions.navigate(['flightSearch']); })
+            }
         }
     }
 
@@ -125,12 +132,6 @@ export class PassengerInfoComponent implements OnInit {
             arrivalSeatCount = this.flightOffer.itineraries[1].segments.length;
         }
         this.isButtonPressed.set(true);
-        console.log(
-            'flightOffer id: ' +
-            this.flightOffer.id +
-            ' flightOffer totalPrice: ' +
-            this.flightOffer.price.total
-        );
         try {
             const seatMapResponse = await firstValueFrom(
                 this.amadeusService.getSeatMap(this.flightOffer)

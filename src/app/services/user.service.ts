@@ -17,7 +17,7 @@ export class UserService {
         private http: HttpClient,
         private authService: AuthService,
         private routerExtension: RouterExtensions
-    ) {}
+    ) { }
 
     checkIfAdult(birthDate: Date): string {
         let adult = '';
@@ -108,7 +108,7 @@ export class UserService {
             .catch((error) => {
                 console.error(
                     'Valami hiba történt a user a users kollekcióból való törlés során: ' +
-                        error
+                    error
                 );
             });
         firebase()
@@ -124,7 +124,7 @@ export class UserService {
             .catch((error) => {
                 console.error(
                     'Valami hiba történt a user a conversations kollekcióból való törlés során: ' +
-                        error
+                    error
                 );
             });
         firebase()
@@ -140,7 +140,7 @@ export class UserService {
             .catch((error) => {
                 console.error(
                     'Valami hiba történt a user a userBasket kollekcióból való törlés során: ' +
-                        error
+                    error
                 );
             });
     }
