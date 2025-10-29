@@ -88,11 +88,11 @@
                 row="4"
                 [text]="
                     this.datePipe.transform(
-                        flight.itineraries[1].segments[
-                            flight.itineraries[1].segments.length - 1
-                        ].arrival.at,
+                        flight.itineraries[1]?.segments?.[
+                            flight.itineraries[1]?.segments?.length - 1
+                        ]?.arrival?.at,
                         'HH:mm'
-                    )
+                    ) || ''
                 "
                 class="t-date"
             ></Label>
@@ -118,8 +118,8 @@
                 row="6"
                 [text]="
                     flight.itineraries[1].segments[
-                        flight.itineraries[0].segments.length - 1
-                    ].arrival.iataCode
+                        flight.itineraries[1].segments.length - 1
+                    ]?.arrival.iataCode
                 "
                 class="t-iataCode"
             ></Label>
